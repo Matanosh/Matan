@@ -18,7 +18,10 @@ Impeccable's `NOTICE.md` credits ehmo's `platform-design-skills` (MIT) for
 The photographs bundled in `design-taste-frontend/assets/photos/` carry their own
 credits as documented in that skill's `references/photos.md`.
 
+Impeccable's design hook was turned on with the user's approval through
+`impeccable hooks on`, which wrote `../settings.local.json` and `../../.impeccable/config.json`.
+It runs Impeccable's engine binary (engine 0.1.24, checksum-verified on first download into
+`~/.impeccable/bin/`) after Edit/Write on UI files and at turn end.
+
 Not installed on purpose:
-- Impeccable's project hooks (`.claude/settings.json` in its repo) that run its engine
-  binary after every edit and at turn end.
 - Every other skill in the Emil Kowalski and Taste Skill repositories.
