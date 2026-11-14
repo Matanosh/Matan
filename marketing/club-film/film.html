@@ -42,6 +42,7 @@
   .pass__city.to { text-align: right; }
   .pass__code { font-family: "Frank Ruhl Libre", serif; font-size: 112px; line-height: 1; color: var(--ink); }
   .pass__name { font-size: 40px; color: var(--gold2); direction: rtl; }
+  html[dir="ltr"] .pass__name { direction: ltr; }
   .pass__plane { width: 120px; height: 120px; }
   .pass__foot { position: absolute; left: 44px; right: 44px; bottom: 40px; display: flex; justify-content: space-between; direction: ltr; font-size: 22px; letter-spacing: 0.24em; color: var(--ink2); border-top: 2px dashed rgba(233, 203, 140, 0.35); padding-top: 26px; }
   .pass__foot b { color: var(--gold2); font-weight: 500; }
@@ -95,7 +96,7 @@
 <div class="pass" id="pass">
   <div class="pass__band"><span>BOARDING PASS</span><span>VIP GLOBAL MEMBER</span></div>
   <div class="pass__body">
-    <div class="pass__city"><span class="pass__code">TLV</span><span class="pass__name">תל אביב</span></div>
+    <div class="pass__city"><span class="pass__code">TLV</span><span class="pass__name" id="tlv">תל אביב</span></div>
     <svg class="pass__plane" viewBox="-40 -40 80 80"><path d="M -26 0 L 26 0 M 6 -20 L 26 0 L 6 20" stroke="#e9cb8c" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <div class="pass__city to"><span class="pass__code" id="code">LCA</span><span class="pass__name" id="city">קפריסין</span></div>
   </div>
@@ -122,9 +123,9 @@
 <!-- scene 4: end card -->
 <div class="layer end" id="end">
   <div class="end__logo"><img src="../../assets/img/msgroup-logo.png" alt=""><span>GLOBAL</span></div>
-  <p class="end__t">הצטרפו למועדון<br><span class="g">ה־VIP שלנו</span></p>
-  <p class="end__s">פרויקטים בחו״ל לפני כולם, מחירי פריסייל והטבות לחברים.</p>
-  <p class="end__btn">חינם וללא התחייבות</p>
+  <p class="end__t" id="endt">הצטרפו למועדון<br><span class="g">ה־VIP שלנו</span></p>
+  <p class="end__s" id="ends">פרויקטים בחו״ל לפני כולם, מחירי פריסייל והטבות לחברים.</p>
+  <p class="end__btn" id="endb">חינם וללא התחייבות</p>
   <p class="end__ph">072-2133266 · office@msgp.co.il</p>
 </div>
 <p class="fine" id="fine">ההטבות משתנות מפרויקט לפרויקט וכפופות לתנאי היזם ולזמינות.</p>
@@ -143,7 +144,20 @@ let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 214748364
 const dust = Array.from({ length: 140 }, () => ({ x: rnd() * 1080, y: rnd() * 1920, r: 0.8 + rnd() * 2.6, s: 8 + rnd() * 30, p: rnd() * 6.28 }));
 const ctx = $('dust').getContext('2d');
 
-const DEST = [['LCA', 'קפריסין'], ['LIS', 'ליסבון'], ['OTP', 'בוקרשט'], ['BUS', 'באטומי'], ['DXB', 'דובאי'], ['ODS', 'אודסה'], ['MIA', 'מיאמי']];
+// language: film.html?lang=en or ?lang=fr renders the English or French version
+const LANG = new URLSearchParams(location.search).get('lang') || 'he';
+const TXT = {
+  en: { t1: '<span class="g">VIP</span> Club', t2: 'for investors abroad, by <bdi>MS Group Global</bdi>', s2t: 'Seven countries.<br><span class="g">One home.</span>', s3t: 'From budget<br><span class="g">to keys.</span>', s3s: 'Personal support, from the first conversation until the key is in your hands.', tlv: 'Tel Aviv', endt: 'Join our<br><span class="g">VIP Club</span>', ends: 'Projects abroad before anyone else, pre-sale prices and member benefits.', endb: 'Free, no obligation', fine: 'Benefits vary by project and are subject to developer terms and availability.', dest: ['Cyprus', 'Lisbon', 'Bucharest', 'Batumi', 'Dubai', 'Odesa', 'Miami'], ph: '+972 72-213-3266 · office@msgp.co.il' },
+  fr: { t1: 'Club <span class="g">VIP</span>', t2: 'pour investir à l’étranger, par <bdi>MS Group Global</bdi>', s2t: 'Sept pays.<br><span class="g">Une seule maison.</span>', s3t: 'Du budget<br><span class="g">jusqu’aux clés.</span>', s3s: 'Un accompagnement personnel, du premier échange jusqu’à la remise des clés.', tlv: 'Tel-Aviv', endt: 'Rejoignez notre<br><span class="g">Club VIP</span>', ends: 'Les projets à l’étranger avant tout le monde, prix de prévente et avantages membres.', endb: 'Gratuit et sans engagement', fine: 'Les avantages varient selon les projets et dépendent des conditions des promoteurs.', dest: ['Chypre', 'Lisbonne', 'Bucarest', 'Batoumi', 'Dubaï', 'Odessa', 'Miami'], ph: '+972 72 213 3266 · office@msgp.co.il' },
+}[LANG];
+const HE_DEST = ['קפריסין', 'ליסבון', 'בוקרשט', 'באטומי', 'דובאי', 'אודסה', 'מיאמי'];
+if (TXT) {
+  document.documentElement.lang = LANG; document.documentElement.dir = 'ltr';
+  for (const k of ['t1', 't2', 's2t', 's3t', 's3s', 'tlv', 'endt', 'ends', 'endb', 'fine']) $(k).innerHTML = TXT[k];
+  document.querySelector('.end__ph').textContent = TXT.ph;
+}
+const NAMES = TXT ? TXT.dest : HE_DEST;
+const DEST = ['LCA', 'LIS', 'OTP', 'BUS', 'DXB', 'ODS', 'MIA'].map((c, i) => [c, NAMES[i]]);
 const arc = $('arc'), arcLen = arc.getTotalLength();
 const bld = $('bld'), kring = $('kring'), kshaft = $('kshaft');
 

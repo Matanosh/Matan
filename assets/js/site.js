@@ -8,13 +8,13 @@
   const RTL = getComputedStyle(root).direction === 'rtl';
   const T = {
     he: { emph: ['בית:', 'אחד,', 'אחת', 'אחת,', 'המפתח'], name: 'שם', phone: 'טלפון', budget: 'תקציב', countries: 'מדינות', none: 'לא צוין', privacyOk: 'אישור מדיניות פרטיות: כן', marketing: 'הסכמה לדיוור שיווקי', yes: 'כן', no: 'לא', subject: 'פנייה מאתר MS Group Global',
-      mailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.', sending: 'שולחים...', thanks: 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.', failed: 'השליחה לא הצליחה. נסו שוב בעוד רגע.', play: 'הפעלת אנימציה', pause: 'עצירת אנימציה', email: 'דוא״ל', clubSubject: 'הצטרפות למועדון VIP של MS Group Global', clubConsent: 'אישור קבלת עדכונים: כן', clubMailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, כתבו ל־office@msgp.co.il ונצרף אתכם למועדון.',
+      mailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.', sending: 'שולחים...', thanks: 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.', failed: 'השליחה לא הצליחה. נסו שוב בעוד רגע.', play: 'הפעלת אנימציה', pause: 'עצירת אנימציה', email: 'דוא״ל', vPause: 'עצירת הסרטון', vPlay: 'הפעלת הסרטון', clubSubject: 'הצטרפות למועדון VIP של MS Group Global', clubConsent: 'אישור קבלת עדכונים: כן', clubMailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, כתבו ל־office@msgp.co.il ונצרף אתכם למועדון.',
       home: 'תל אביב', places: ['קפריסין', 'פורטוגל', 'רומניה', 'גאורגיה', 'דובאי'], font: 'Heebo' },
     en: { emph: ['home', 'one', 'company,', 'key.'], name: 'Name', phone: 'Phone', budget: 'Budget', countries: 'Countries', none: 'Not specified', privacyOk: 'Privacy policy accepted: yes', marketing: 'Marketing consent', yes: 'yes', no: 'no', subject: 'Enquiry from the MS Group Global website',
-      mailto: 'We tried to open a ready-made email with your details. If it did not open, call +972-72-2133266 or write to office@msgp.co.il.', sending: 'Sending…', thanks: 'Thank you! We have your details and will be in touch shortly.', failed: 'Sending failed. Please try again in a moment.', play: 'Play animation', pause: 'Pause animation', email: 'Email', clubSubject: 'Joining the MS Group Global VIP club', clubConsent: 'Consent to receive updates: yes', clubMailto: 'We tried to open a ready-made email with your details. If it did not open, write to office@msgp.co.il and we will add you to the club.',
+      mailto: 'We tried to open a ready-made email with your details. If it did not open, call +972-72-2133266 or write to office@msgp.co.il.', sending: 'Sending…', thanks: 'Thank you! We have your details and will be in touch shortly.', failed: 'Sending failed. Please try again in a moment.', play: 'Play animation', pause: 'Pause animation', email: 'Email', vPause: 'Pause the film', vPlay: 'Play the film', clubSubject: 'Joining the MS Group Global VIP club', clubConsent: 'Consent to receive updates: yes', clubMailto: 'We tried to open a ready-made email with your details. If it did not open, write to office@msgp.co.il and we will add you to the club.',
       home: 'Tel Aviv', places: ['Cyprus', 'Portugal', 'Romania', 'Georgia', 'Dubai'], font: 'Heebo' },
     fr: { emph: ['maison\u00a0:', 'seule', 'seul', 'clé.'], name: 'Nom', phone: 'Téléphone', budget: 'Budget', countries: 'Pays', none: 'Non précisé', privacyOk: 'Politique de confidentialité acceptée\u00a0: oui', marketing: 'Accord pour la prospection commerciale', yes: 'oui', no: 'non', subject: 'Demande depuis le site MS Group Global',
-      mailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, appelez le +972 72 213 3266 ou écrivez à office@msgp.co.il.', sending: 'Envoi en cours…', thanks: 'Merci\u202f! Nous avons bien reçu vos coordonnées et revenons vers vous très vite.', failed: 'L’envoi a échoué. Merci de réessayer dans un instant.', play: 'Relancer l’animation', pause: 'Mettre l’animation en pause', email: 'E-mail', clubSubject: 'Adhésion au club VIP MS Group Global', clubConsent: 'Accord pour recevoir des actualités\u00a0: oui', clubMailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, écrivez à office@msgp.co.il et nous vous ajouterons au club.',
+      mailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, appelez le +972 72 213 3266 ou écrivez à office@msgp.co.il.', sending: 'Envoi en cours…', thanks: 'Merci\u202f! Nous avons bien reçu vos coordonnées et revenons vers vous très vite.', failed: 'L’envoi a échoué. Merci de réessayer dans un instant.', play: 'Relancer l’animation', pause: 'Mettre l’animation en pause', email: 'E-mail', vPause: 'Mettre la vidéo en pause', vPlay: 'Lire la vidéo', clubSubject: 'Adhésion au club VIP MS Group Global', clubConsent: 'Accord pour recevoir des actualités\u00a0: oui', clubMailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, écrivez à office@msgp.co.il et nous vous ajouterons au club.',
       home: 'Tel-Aviv', places: ['Chypre', 'Portugal', 'Roumanie', 'Géorgie', 'Dubaï'], font: 'Heebo' },
   }[LANG] || null;
   const L = T || {};
@@ -311,6 +311,22 @@
     window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent(L.clubSubject)}&body=${encodeURIComponent(body)}`;
     club.querySelector('[data-club-status]').textContent = L.clubMailto;
   });
+
+  /* VIP club film: plays muted while on screen; respects reduced motion, the page pause button and its own toggle */
+  const film = document.querySelector('[data-club-video]');
+  if (film) {
+    const tog = document.querySelector('[data-club-video-toggle]'), lab = document.querySelector('[data-club-video-label]');
+    let stopped = reduced.matches, onScreen = false;
+    const sync = () => {
+      const play = onScreen && !stopped && !root.classList.contains('paused');
+      if (play) film.play().catch(() => {}); else film.pause();
+      tog.setAttribute('aria-pressed', String(stopped)); lab.textContent = stopped ? L.vPlay : L.vPause;
+    };
+    tog.addEventListener('click', () => { stopped = !stopped; sync(); });
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }, { threshold: 0.35 }).observe(film);
+    window.addEventListener('motionchange', () => { if (root.classList.contains('paused')) stopped = true; sync(); });
+    sync();
+  }
 
   /* VIP card: follows the pointer on desktop */
   const card = document.querySelector('[data-vip-card]');

@@ -3,10 +3,10 @@
 const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs'); const { execFileSync } = require('child_process');
 (async () => {
-  const out = process.argv[2]; const fps = +(process.argv[3] || 30); const only = process.argv[4];
+  const out = process.argv[2]; const fps = +(process.argv[3] || 30); const only = process.argv[4] && process.argv[4] !== '-' ? process.argv[4] : null; const lang = process.argv[5] || 'he';
   fs.mkdirSync(out, { recursive: true });
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-  await p.goto('file://' + path.join(__dirname, 'film.html'), { waitUntil: 'networkidle' });
+  await p.goto('file://' + path.join(__dirname, 'film.html') + '?lang=' + lang, { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   const total = await p.evaluate(() => window.TOTAL);
   const times = only ? only.split(',').map(Number) : Array.from({ length: Math.round(total * fps) }, (_, i) => i / fps);

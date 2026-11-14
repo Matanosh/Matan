@@ -1128,35 +1128,43 @@
           <li><span class="club__n" aria-hidden="true">09</span><h3>Accompagnement personnel</h3><p>Un conseiller personnel de notre équipe tout au long du parcours, du choix jusqu’à la remise des clés.</p></li>
           <li><span class="club__n" aria-hidden="true">10</span><h3>Analyses de marché et suivi de chantier</h3><p>Des analyses de marché régulières sur nos destinations, et des points réguliers sur l’avancement du chantier de votre projet.</p></li>
         </ol>
-        <form class="form club__form" data-club-form novalidate>
-          <div class="club__form-head">
-            <h3>Rejoindre le club</h3>
-            <p>Laissez vos coordonnées et recevez les prochaines opportunités directement par e-mail et sur votre téléphone.</p>
-          </div>
-          <div class="club__fields">
-            <div class="field">
-              <label for="c-name">Nom complet</label>
-              <input id="c-name" name="name" autocomplete="name" required>
-              <p class="field__error" id="ce-name" hidden>Merci d’indiquer votre nom.</p>
+        <div class="club__join">
+          <figure class="club__film">
+            <video data-club-video muted loop playsinline preload="metadata" poster="../assets/img/club-poster-fr.webp" width="1080" height="1920" aria-label="Vidéo du club VIP : la carte de membre, un vol vers chaque destination et la clé de l’appartement">
+              <source src="../assets/video/club-fr.mp4" type="video/mp4">
+            </video>
+            <button class="club__film-toggle" type="button" aria-pressed="false" data-club-video-toggle><span class="sr" data-club-video-label>Mettre la vidéo en pause</span><span class="club__film-icon" aria-hidden="true"></span></button>
+          </figure>
+          <form class="form club__form" data-club-form novalidate>
+            <div class="club__form-head">
+              <h3>Rejoindre le club</h3>
+              <p>Laissez vos coordonnées et recevez les prochaines opportunités directement par e-mail et sur votre téléphone.</p>
             </div>
-            <div class="field">
-              <label for="c-phone">Téléphone (avec indicatif)</label>
-              <input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required>
-              <p class="field__error" id="ce-phone" hidden>Merci d’indiquer un numéro de téléphone valide.</p>
+            <div class="club__fields">
+              <div class="field">
+                <label for="c-name">Nom complet</label>
+                <input id="c-name" name="name" autocomplete="name" required>
+                <p class="field__error" id="ce-name" hidden>Merci d’indiquer votre nom.</p>
+              </div>
+              <div class="field">
+                <label for="c-phone">Téléphone (avec indicatif)</label>
+                <input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required>
+                <p class="field__error" id="ce-phone" hidden>Merci d’indiquer un numéro de téléphone valide.</p>
+              </div>
+              <div class="field">
+                <label for="c-email">E-mail</label>
+                <input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required>
+                <p class="field__error" id="ce-email" hidden>Merci d’indiquer une adresse e-mail valide.</p>
+              </div>
             </div>
-            <div class="field">
-              <label for="c-email">E-mail</label>
-              <input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required>
-              <p class="field__error" id="ce-email" hidden>Merci d’indiquer une adresse e-mail valide.</p>
+            <div class="consent">
+              <label class="check"><input type="checkbox" id="c-consent" name="consent" required><span>J’accepte de recevoir de la part de <bdi>MS Group Global</bdi> des actualités et des offres sur les projets par e-mail, <bdi>SMS</bdi> et WhatsApp, et j’ai lu la <a href="privacy.html">politique de confidentialité</a>. Je peux me désinscrire à tout moment.</span></label>
+              <p class="field__error" id="ce-consent" hidden>Pour rejoindre le club, merci d’accepter de recevoir nos actualités.</p>
             </div>
-          </div>
-          <div class="consent">
-            <label class="check"><input type="checkbox" id="c-consent" name="consent" required><span>J’accepte de recevoir de la part de <bdi>MS Group Global</bdi> des actualités et des offres sur les projets par e-mail, <bdi>SMS</bdi> et WhatsApp, et j’ai lu la <a href="privacy.html">politique de confidentialité</a>. Je peux me désinscrire à tout moment.</span></label>
-            <p class="field__error" id="ce-consent" hidden>Pour rejoindre le club, merci d’accepter de recevoir nos actualités.</p>
-          </div>
-          <button class="btn btn--wide" type="submit">Rejoindre le club</button>
-          <p class="form__status" role="status" aria-live="polite" data-club-status></p>
-        </form>
+            <button class="btn btn--wide" type="submit">Rejoindre le club</button>
+            <p class="form__status" role="status" aria-live="polite" data-club-status></p>
+          </form>
+        </div>
         <p class="club__note">Les avantages varient d’un projet à l’autre et dépendent des conditions des promoteurs et des disponibilités. Le détail complet est communiqué aux membres.</p>
       </div>
     </section>

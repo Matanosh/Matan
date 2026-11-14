@@ -1128,35 +1128,43 @@
           <li><span class="club__n" aria-hidden="true">09</span><h3>ליווי אישי</h3><p>מלווה אישי מהצוות שלנו לאורך כל הדרך, מהבחירה ועד קבלת המפתח.</p></li>
           <li><span class="club__n" aria-hidden="true">10</span><h3>סקירות שוק ועדכוני בנייה</h3><p>סקירות שוק תקופתיות על היעדים שלנו, ועדכונים שוטפים על התקדמות הבנייה בפרויקט שלכם.</p></li>
         </ol>
-        <form class="form club__form" data-club-form novalidate>
-          <div class="club__form-head">
-            <h3>הצטרפות למועדון</h3>
-            <p>ממלאים פרטים ומקבלים את ההזדמנויות הבאות ישירות למייל ולנייד.</p>
-          </div>
-          <div class="club__fields">
-            <div class="field">
-              <label for="c-name">שם מלא</label>
-              <input id="c-name" name="name" autocomplete="name" required>
-              <p class="field__error" id="ce-name" hidden>נא למלא שם.</p>
+        <div class="club__join">
+          <figure class="club__film">
+            <video data-club-video muted loop playsinline preload="metadata" poster="assets/img/club-poster-he.webp" width="1080" height="1920" aria-label="סרטון מועדון ה־VIP: כרטיס החבר, טיסה לכל אחד מהיעדים, והמפתח לדירה">
+              <source src="assets/video/club-he.mp4" type="video/mp4">
+            </video>
+            <button class="club__film-toggle" type="button" aria-pressed="false" data-club-video-toggle><span class="sr" data-club-video-label>עצירת הסרטון</span><span class="club__film-icon" aria-hidden="true"></span></button>
+          </figure>
+          <form class="form club__form" data-club-form novalidate>
+            <div class="club__form-head">
+              <h3>הצטרפות למועדון</h3>
+              <p>ממלאים פרטים ומקבלים את ההזדמנויות הבאות ישירות למייל ולנייד.</p>
             </div>
-            <div class="field">
-              <label for="c-phone">טלפון</label>
-              <input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required>
-              <p class="field__error" id="ce-phone" hidden>נא למלא מספר טלפון תקין.</p>
+            <div class="club__fields">
+              <div class="field">
+                <label for="c-name">שם מלא</label>
+                <input id="c-name" name="name" autocomplete="name" required>
+                <p class="field__error" id="ce-name" hidden>נא למלא שם.</p>
+              </div>
+              <div class="field">
+                <label for="c-phone">טלפון</label>
+                <input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required>
+                <p class="field__error" id="ce-phone" hidden>נא למלא מספר טלפון תקין.</p>
+              </div>
+              <div class="field">
+                <label for="c-email">דוא״ל</label>
+                <input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required>
+                <p class="field__error" id="ce-email" hidden>נא למלא כתובת דוא״ל תקינה.</p>
+              </div>
             </div>
-            <div class="field">
-              <label for="c-email">דוא״ל</label>
-              <input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required>
-              <p class="field__error" id="ce-email" hidden>נא למלא כתובת דוא״ל תקינה.</p>
+            <div class="consent">
+              <label class="check"><input type="checkbox" id="c-consent" name="consent" required><span>אני מאשר/ת לקבל מ־<bdi>MS Group Global</bdi> עדכונים והצעות על פרויקטים בדוא״ל, ב־<bdi>SMS</bdi> ובוואטסאפ, וקראתי את <a href="privacy.html">מדיניות הפרטיות</a>. אפשר להסיר את עצמי בכל עת.</span></label>
+              <p class="field__error" id="ce-consent" hidden>כדי להצטרף למועדון צריך לאשר קבלת עדכונים.</p>
             </div>
-          </div>
-          <div class="consent">
-            <label class="check"><input type="checkbox" id="c-consent" name="consent" required><span>אני מאשר/ת לקבל מ־<bdi>MS Group Global</bdi> עדכונים והצעות על פרויקטים בדוא״ל, ב־<bdi>SMS</bdi> ובוואטסאפ, וקראתי את <a href="privacy.html">מדיניות הפרטיות</a>. אפשר להסיר את עצמי בכל עת.</span></label>
-            <p class="field__error" id="ce-consent" hidden>כדי להצטרף למועדון צריך לאשר קבלת עדכונים.</p>
-          </div>
-          <button class="btn btn--wide" type="submit">הצטרפו למועדון</button>
-          <p class="form__status" role="status" aria-live="polite" data-club-status></p>
-        </form>
+            <button class="btn btn--wide" type="submit">הצטרפו למועדון</button>
+            <p class="form__status" role="status" aria-live="polite" data-club-status></p>
+          </form>
+        </div>
         <p class="club__note">ההטבות משתנות מפרויקט לפרויקט וכפופות לתנאי היזם ולזמינות. הפרטים המלאים יימסרו לחברי המועדון.</p>
       </div>
     </section>
