@@ -254,23 +254,20 @@
                 <a class="link" href="#contact" data-pick="גאורגיה">מעניין אותי גאורגיה <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
               </div>
             </li>
-            <li class="country">
-              <svg class="skyline" viewBox="0 0 600 200" aria-hidden="true">
-                <path pathLength="1" d="M0 175 H600"/>
-                <path pathLength="1" d="M280 175 L286 120 L292 120 L296 70 L300 70 L302 20 L304 70 L308 70 L312 120 L318 120 L324 175"/>
-                <path pathLength="1" d="M150 175 V90 H180 V175 M200 175 V110 H226 V175 M360 175 V100 H390 V175 M410 175 V80 L425 70 L440 80 V175"/>
-                <path pathLength="1" d="M500 175 V60 Q 560 90 560 175 M500 60 L496 50"/>
-              </svg>
+            <li class="country country--photo">
+              <figure class="country__photo">
+                <img src="assets/img/projects/sora/sora-4-900.webp" srcset="assets/img/projects/sora/sora-4-900.webp 900w, assets/img/projects/sora/sora-4-1600.webp 1600w" sizes="(max-width: 900px) 84vw, 440px" alt="SORA Beach Residence בראס אל חיימה בשקיעה" loading="lazy" width="1600" height="1142">
+              </figure>
               <div class="country__body">
                 <!-- SLOT: photo of dubai; add <img> and remove hidden --><figure class="country__photo" data-slot="photo-dubai" hidden></figure>
-                <h3 class="country__name">דובאי</h3>
-                <p class="country__latin">DUBAI · UAE</p>
+                <h3 class="country__name">האמירויות</h3>
+                <p class="country__latin">DUBAI · RAS AL KHAIMAH</p>
                 <dl class="facts">
                   <div><dt>מטבע</dt><dd>דירהם</dd></div>
                   <div><dt>האיחוד האירופי</dt><dd>לא חברה</dd></div>
                   <div><dt>טיסה מתל אביב</dt><dd>כשלוש שעות</dd></div>
                 </dl>
-                <a class="link" href="#contact" data-pick="דובאי">מעניין אותי דובאי <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
+                <a class="link" href="#contact" data-pick="האמירויות">מעניין אותי האמירויות <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
               </div>
             </li>
             <li class="country country--more">
@@ -296,7 +293,7 @@
     <section class="project" id="project" aria-labelledby="project-title" data-projects>
       <div class="wrap">
         <div class="project__top">
-          <h2 id="project-title" class="h2">פרויקטים נבחרים<br><span class="gold">בארבע מדינות</span></h2>
+          <h2 id="project-title" class="h2">פרויקטים נבחרים<br><span class="gold">בחמש מדינות</span></h2>
           <div class="project__tabs" role="tablist" aria-label="בחירת פרויקט">
             <button role="tab" id="tab-bluesky" aria-controls="panel-bluesky" aria-selected="true">Blue Sky Tower</button>
             <button role="tab" id="tab-laquinta" aria-controls="panel-laquinta" aria-selected="false" tabindex="-1">La Quinta by Wyndham</button>
@@ -304,6 +301,8 @@
             <button role="tab" id="tab-gonio" aria-controls="panel-gonio" aria-selected="false" tabindex="-1">Wyndham Garden Gonio</button>
             <button role="tab" id="tab-best" aria-controls="panel-best" aria-selected="false" tabindex="-1">Best Residence</button>
             <button role="tab" id="tab-unity" aria-controls="panel-unity" aria-selected="false" tabindex="-1">Unity Tower</button>
+            <button role="tab" id="tab-bay" aria-controls="panel-bay" aria-selected="false" tabindex="-1">Bay Residence</button>
+            <button role="tab" id="tab-sora" aria-controls="panel-sora" aria-selected="false" tabindex="-1">SORA Beach Residence</button>
             <button role="tab" id="tab-almeda" aria-controls="panel-almeda" aria-selected="false" tabindex="-1">Almeda</button>
           </div>
         </div>
@@ -392,6 +391,36 @@
             <figure><img src="assets/img/projects/unity/unity-2-1600.webp" srcset="assets/img/projects/unity/unity-2-900.webp 900w, assets/img/projects/unity/unity-2-1600.webp 1280w" sizes="(max-width: 900px) 50vw, 38vw" alt="מבט על שני המגדלים וקו החוף של אודסה" loading="lazy" width="1280" height="1280"></figure>
             <figure><img src="assets/img/projects/unity/unity-3-1600.webp" srcset="assets/img/projects/unity/unity-3-900.webp 900w, assets/img/projects/unity/unity-3-1600.webp 1600w" sizes="(max-width: 900px) 50vw, 38vw" alt="המגדלים מהפארק שלמרגלותיהם" loading="lazy" width="1600" height="1600"></figure>
             <figure><img src="assets/img/projects/unity/unity-4-1600.webp" srcset="assets/img/projects/unity/unity-4-900.webp 900w, assets/img/projects/unity/unity-4-1600.webp 1280w" sizes="(max-width: 900px) 100vw, 38vw" alt="החזית והמסחר בקומת הרחוב בשעות הערב" loading="lazy" width="1280" height="960"></figure>
+          </div>
+        </div>
+        <div class="project__panel" id="panel-bay" role="tabpanel" aria-labelledby="tab-bay" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name">Bay Residence<br><span class="gold">ראס אל חיימה, איחוד האמירויות</span></h3>
+            <div class="project__copy">
+              <p>מגדלי מגורים מול החוף בראס אל חיימה, עם מרפסות רחבות, בריכות ומתחם מסחר בבסיס.</p>
+              <a class="btn" href="#contact" data-pick="האמירויות">לפרטים על Bay Residence</a>
+            </div>
+          </div>
+          <div class="project__gallery">
+            <figure class="project__main"><img src="assets/img/projects/bay/bay-1-1600.webp" srcset="assets/img/projects/bay/bay-1-900.webp 900w, assets/img/projects/bay/bay-1-1600.webp 904w" sizes="(max-width: 900px) 100vw, 58vw" alt="מרפסות Bay Residence מול החוף בראס אל חיימה" loading="lazy" width="904" height="1280"></figure>
+            <figure><img src="assets/img/projects/bay/bay-2-1600.webp" srcset="assets/img/projects/bay/bay-2-900.webp 900w, assets/img/projects/bay/bay-2-1600.webp 1080w" sizes="(max-width: 900px) 50vw, 38vw" alt="שני המגדלים ומתחם המסחר בשעת ערב" loading="lazy" width="1080" height="766"></figure>
+            <figure><img src="assets/img/projects/bay/bay-3-1600.webp" srcset="assets/img/projects/bay/bay-3-900.webp 900w, assets/img/projects/bay/bay-3-1600.webp 1080w" sizes="(max-width: 900px) 50vw, 38vw" alt="הבריכה והטיילת מול הים" loading="lazy" width="1080" height="762"></figure>
+            <figure><img src="assets/img/projects/bay/bay-4-1600.webp" srcset="assets/img/projects/bay/bay-4-900.webp 900w, assets/img/projects/bay/bay-4-1600.webp 1280w" sizes="(max-width: 900px) 100vw, 38vw" alt="מרפסת דירה עם נוף למפרץ" loading="lazy" width="1280" height="906"></figure>
+          </div>
+        </div>
+        <div class="project__panel" id="panel-sora" role="tabpanel" aria-labelledby="tab-sora" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name">SORA Beach Residence<br><span class="gold">ראס אל חיימה, איחוד האמירויות</span></h3>
+            <div class="project__copy">
+              <p>פרויקט של AArK Development על קו החוף בראס אל חיימה: חוף פרטי, בריכות אינסוף ומרפסות עם בריכה פרטית.</p>
+              <a class="btn" href="#contact" data-pick="האמירויות">לפרטים על SORA</a>
+            </div>
+          </div>
+          <div class="project__gallery">
+            <figure class="project__main"><img src="assets/img/projects/sora/sora-1-1600.webp" srcset="assets/img/projects/sora/sora-1-900.webp 900w, assets/img/projects/sora/sora-1-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 58vw" alt="SORA Beach Residence מהים, עם שונית האלמוגים מתחת למים" loading="lazy" width="1600" height="1280"></figure>
+            <figure><img src="assets/img/projects/sora/sora-2-1600.webp" srcset="assets/img/projects/sora/sora-2-900.webp 900w, assets/img/projects/sora/sora-2-1600.webp 1600w" sizes="(max-width: 900px) 50vw, 38vw" alt="מבט על המתחם, החוף והבריכות" loading="lazy" width="1600" height="900"></figure>
+            <figure><img src="assets/img/projects/sora/sora-3-1600.webp" srcset="assets/img/projects/sora/sora-3-900.webp 900w, assets/img/projects/sora/sora-3-1600.webp 1600w" sizes="(max-width: 900px) 50vw, 38vw" alt="הבריכות והקשת המרכזית מול החוף" loading="lazy" width="1600" height="900"></figure>
+            <figure><img src="assets/img/projects/sora/sora-4-1600.webp" srcset="assets/img/projects/sora/sora-4-900.webp 900w, assets/img/projects/sora/sora-4-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 38vw" alt="המתחם בשקיעה, משתקף במים" loading="lazy" width="1600" height="1142"></figure>
           </div>
         </div>
         <div class="project__panel" id="panel-almeda" role="tabpanel" aria-labelledby="tab-almeda" tabindex="0" hidden>
@@ -483,7 +512,7 @@
               <label class="chip"><input type="checkbox" name="country" value="פורטוגל"><span>פורטוגל</span></label>
               <label class="chip"><input type="checkbox" name="country" value="רומניה"><span>רומניה</span></label>
               <label class="chip"><input type="checkbox" name="country" value="גאורגיה"><span>גאורגיה</span></label>
-              <label class="chip"><input type="checkbox" name="country" value="דובאי"><span>דובאי</span></label>
+              <label class="chip"><input type="checkbox" name="country" value="האמירויות"><span>דובאי והאמירויות</span></label>
               <label class="chip"><input type="checkbox" name="country" value="אוקראינה"><span>אוקראינה</span></label>
               <label class="chip"><input type="checkbox" name="country" value="אחר"><span>עוד לא החלטתי</span></label>
             </div>
