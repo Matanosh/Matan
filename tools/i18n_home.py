@@ -196,9 +196,9 @@ T = [
 
 ('>ארה״ב <span class="project__count">', '>USA <span class="project__count">', '>États-Unis <span class="project__count">'),
 ('<br><span class="gold">מלון ודירות, מיאמי</span>', '<br><span class="gold">Hotel &amp; Residence, Miami</span>', '<br><span class="gold">Hôtel et résidences, Miami</span>'),
-('מגדל מלון ודירות במרכז העיר מיאמי, ליד מגדל החירות ומפרץ ביסקיין: דירות מרוהטות עם מרפסות ונוף לעיר ולמפרץ, חדר כושר עם נוף פתוח וחללי עבודה משותפים.',
- 'A hotel and residential tower in Downtown Miami, next to the Freedom Tower and Biscayne Bay: furnished apartments with balconies and city and bay views, a gym with open views, and shared workspaces.',
- 'Une tour d’hôtel et de résidences au centre-ville de Miami, près de la Freedom Tower et de la baie de Biscayne : appartements meublés avec balcons et vue sur la ville et la baie, salle de sport avec vue dégagée et espaces de travail partagés.'),
+('מגדל מלון ודירות של 51 קומות במרכז העיר מיאמי, ליד מגדל החירות ומפרץ ביסקיין: דירות מרוהטות עם מרפסות ונוף לעיר ולמפרץ, חדר כושר עם נוף פתוח וחללי עבודה משותפים.',
+ 'A 51-storey hotel and residential tower in Downtown Miami, next to the Freedom Tower and Biscayne Bay: furnished apartments with balconies and city and bay views, a gym with open views, and shared workspaces.',
+ 'Une tour d’hôtel et de résidences de 51 étages au centre-ville de Miami, près de la Freedom Tower et de la baie de Biscayne : appartements meublés avec balcons et vue sur la ville et la baie, salle de sport avec vue dégagée et espaces de travail partagés.'),
 ('data-pick="ארה״ב">לפרטים על', 'data-pick="USA">Details on', 'data-pick="États-Unis">En savoir plus sur'),
 ('data-yt-title="סרטון הפרויקט GALE Miami"', 'data-yt-title="GALE Miami project film"', 'data-yt-title="Vidéo du projet GALE Miami"'),
 
