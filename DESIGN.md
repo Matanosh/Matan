@@ -2,17 +2,17 @@
 name: MS Group Global
 description: One Israeli home for investing in property abroad, told as a single scroll from budget to key. Hebrew, right-to-left.
 colors:
-  night-navy: "#0b1220"
-  harbor-navy: "#0f1a2d"
-  dusk-navy: "#13213a"
-  ivory: "#f3eee4"
+  night-navy: "#0a1836"
+  harbor-navy: "#0c1d40"
+  dusk-navy: "#15284b"
+  ivory: "#fbf8f1"
   mist: "#c3c8d4"
   slate: "#8f98ab"
-  champagne-gold: "#c9a96a"
-  pale-champagne: "#e6d2a0"
-  antique-gold: "#9c7f45"
-  gold-hairline: "rgba(201, 169, 106, 0.26)"
-  ivory-hairline: "rgba(243, 238, 228, 0.1)"
+  champagne-gold: "#d2a249"
+  pale-champagne: "#e9cb8c"
+  antique-gold: "#a47b30"
+  gold-hairline: "rgba(210, 162, 73, 0.26)"
+  ivory-hairline: "rgba(251, 248, 241, 0.1)"
   coral-error: "#f0a29a"
 typography:
   display:
@@ -44,23 +44,23 @@ typography:
     fontWeight: 400
     lineHeight: 1.2
   lead:
-    fontFamily: "Assistant, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Heebo, Segoe UI, system-ui, sans-serif"
     fontSize: "clamp(1.05rem, 1.2vw, 1.25rem)"
     fontWeight: 400
     lineHeight: 1.65
   body:
-    fontFamily: "Assistant, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Heebo, Segoe UI, system-ui, sans-serif"
     fontSize: "clamp(17px, 1.05vw + 12px, 19px)"
     fontWeight: 400
     lineHeight: 1.65
   label:
-    fontFamily: "Assistant, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Heebo, Segoe UI, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 700
     lineHeight: 1
     letterSpacing: "0.01em"
   latin-caption:
-    fontFamily: "Assistant, Segoe UI, system-ui, sans-serif"
+    fontFamily: "Heebo, Segoe UI, system-ui, sans-serif"
     fontSize: "0.82rem"
     fontWeight: 400
     letterSpacing: "0.36em"
@@ -96,13 +96,13 @@ components:
     textColor: "{colors.pale-champagne}"
     height: "44px"
   input-field:
-    backgroundColor: "rgba(243, 238, 228, 0.04)"
+    backgroundColor: "rgba(251, 248, 241, 0.04)"
     textColor: "{colors.ivory}"
     rounded: "{rounded.hairline}"
     padding: "0 16px"
     height: "52px"
   input-field-focus:
-    backgroundColor: "rgba(243, 238, 228, 0.07)"
+    backgroundColor: "rgba(251, 248, 241, 0.07)"
     textColor: "{colors.ivory}"
   chip:
     textColor: "{colors.mist}"
@@ -110,7 +110,7 @@ components:
     padding: "0 18px"
     height: "44px"
   chip-selected:
-    backgroundColor: "rgba(201, 169, 106, 0.14)"
+    backgroundColor: "rgba(210, 162, 73, 0.14)"
     textColor: "{colors.pale-champagne}"
     rounded: "{rounded.pill}"
   step-number:
@@ -143,7 +143,7 @@ The layout is mirrored for right-to-left reading throughout: text holds the righ
 **Key Characteristics:**
 - Night-navy ground in three close tones; no light sections.
 - Gold as line, not fill: hairlines, SVG strokes, outlines, one gold phrase per headline.
-- Frank Ruhl Libre display at light weight over Assistant body, both Hebrew-native.
+- Frank Ruhl Libre display at light weight over Heebo body, both Hebrew-native.
 - Hairline-ruled lists instead of cards; one framed panel type only (the country panel and the form).
 - Near-square corners (2px) everywhere except chips (pill) and step numbers (circle).
 - Scroll-driven, once-only motion on two custom easings; full content under reduced motion.
@@ -179,7 +179,7 @@ A three-step night-navy ground, an ivory-to-slate ink ladder, and a three-step c
 ## Typography
 
 **Display Font:** Frank Ruhl Libre (with David Libre, Georgia, serif)
-**Body Font:** Assistant (with Segoe UI, system-ui, sans-serif)
+**Body Font:** Heebo (with Segoe UI, system-ui, sans-serif)
 
 **Character:** A Hebrew book serif set large and light carries the voice of a long-established house; a clear humanist Hebrew sans carries reading and every action. Both load from Google Fonts in weights 300 to 700.
 
@@ -190,11 +190,11 @@ A three-step night-navy ground, an ivory-to-slate ink ladder, and a three-step c
 - **Country name** (400, clamp(2.8rem, 5.2vw, 5rem), 1): the name on a destination panel.
 - **Title** (400, clamp(2rem, 3.4vw, 3.2rem), 1.1): the active journey step.
 - **Title, small** (400, clamp(1.4rem, 2vw, 1.8rem) to clamp(1.5rem, 2.2vw, 2rem)): ruled-list headings (due diligence, pillars). Pillar titles are Pale Champagne.
-- **Lead** (Assistant 400, clamp(1.05rem, 1.2vw, 1.25rem), Mist): the hero support line, max 34ch. Section intros use 1.12rem, max 36 to 46ch.
-- **Body** (Assistant 400, clamp(17px, 1.05vw + 12px, 19px), 1.65): all reading text. Measure 32 to 46ch; nothing runs wider.
-- **Label** (Assistant 700, 1rem, 0.01em): buttons. Links use 600. Nav links 400 at 0.98rem.
-- **Latin caption** (Assistant 400, 0.82rem, 0.36em tracking, Champagne Gold, LTR): the Latin transliteration set beneath a country name. It follows the name; it never precedes a heading.
-- **Fine print** (Assistant, 0.9 to 0.95rem, Slate): footer, parent-company line, fact labels.
+- **Lead** (Heebo 400, clamp(1.05rem, 1.2vw, 1.25rem), Mist): the hero support line, max 34ch. Section intros use 1.12rem, max 36 to 46ch.
+- **Body** (Heebo 400, clamp(17px, 1.05vw + 12px, 19px), 1.65): all reading text. Measure 32 to 46ch; nothing runs wider.
+- **Label** (Heebo 700, 1rem, 0.01em): buttons. Links use 600. Nav links 400 at 0.98rem.
+- **Latin caption** (Heebo 400, 0.82rem, 0.36em tracking, Champagne Gold, LTR): the Latin transliteration set beneath a country name. It follows the name; it never precedes a heading.
+- **Fine print** (Heebo, 0.9 to 0.95rem, Slate): footer, parent-company line, fact labels.
 
 Headlines use `text-wrap: balance`; paragraphs use `text-wrap: pretty`. Numerals in step markers use lining figures.
 
@@ -218,7 +218,7 @@ Two sections are tall scroll stages on desktop: the journey (520vh) and the dest
 Flat. Depth comes from navy tonal steps, soft radial glows and translucency, not shadows. There are no card shadows anywhere.
 
 ### Shadow Vocabulary
-- **Key glow** (`filter: drop-shadow(0 6px 18px rgba(201, 169, 106, 0.45))`): only on the lit key at the end of the journey. It is the single reward glow in the system.
+- **Key glow** (`filter: drop-shadow(0 6px 18px rgba(210, 162, 73, 0.45))`): only on the lit key at the end of the journey. It is the single reward glow in the system.
 - **Nav glass** (`background: rgba(11, 18, 32, 0.82); backdrop-filter: saturate(140%) blur(14px)`): the navigation once the page has scrolled past 24px, with an Ivory Hairline bottom border. Transparent at the top.
 - **Hero atmosphere**: two radial gradients behind the hero (a 10% gold glow on the copy side, a 35% blue-navy wash from the top) over Night Navy.
 
@@ -237,7 +237,7 @@ Line drawings (SVG) use round caps and joins, 1.6 to 2.5px strokes, no fills, no
 
 ### Buttons
 Solid, quiet and decisive: the only solid gold on the page.
-- **Shape:** near-square (2px), min-height 52px, padding 0 30px, Assistant 700 at 1rem.
+- **Shape:** near-square (2px), min-height 52px, padding 0 30px, Heebo 700 at 1rem.
 - **Primary:** Champagne Gold fill, Night Navy text.
 - **Hover (fine pointers only):** fill lifts to Pale Champagne and a soft white sheen (a 100deg linear gradient at 45% white) sweeps across once over 900ms on the ease-out curve.
 - **Active:** scale(0.97) over 160ms.
@@ -247,7 +247,7 @@ Solid, quiet and decisive: the only solid gold on the page.
 
 ### Links with the arrow
 The secondary action next to a button and the call to action on each country panel.
-- **Style:** Pale Champagne, Assistant 600, min-height 44px, no underline at rest.
+- **Style:** Pale Champagne, Heebo 600, min-height 44px, no underline at rest.
 - **Arrow:** an authored inline SVG, not a glyph: a 16 by 12 viewBox, path `M15 6H1.5M6.5 1 1.5 6l5 5`, no fill, stroke currentColor at 1.6, round caps and joins. It points left, which is forward in RTL.
 - **Hover (fine pointers only):** a 1px currentColor underline grows from the right edge to full width over 300ms; the arrow nudges 4px forward (left) over 200ms.
 - **In-body links** (parent company, footer): plain underline with 4px offset, underline in Gold Hairline.
@@ -289,7 +289,7 @@ A 52px circle with a 1px Champagne Gold border and a serif numeral in gold at 1.
 ### Hero Globe (signature)
 A canvas globe on the visual side of the hero, at most 680px square (88vw / 440px on touch), feathered by a radial mask (opaque to 86%).
 - 1,700 points on a Fibonacci sphere, drawn as gold dots whose opacity and size grow toward the viewer; a gold rim stroke at 55%; a navy radial glow behind; a dark linear shade across the lower left limb.
-- Real coordinates: Tel Aviv as home (ivory marker), Cyprus, Portugal, Romania, Georgia and Dubai (champagne markers), each with a Hebrew label in Assistant 600 at 13px and a slow pulsing ring.
+- Real coordinates: Tel Aviv as home (ivory marker), Cyprus, Portugal, Romania, Georgia and Dubai (champagne markers), each with a Hebrew label in Heebo 600 at 13px and a slow pulsing ring.
 - Great-circle arcs lift off the surface and draw from Tel Aviv to each destination, staggered 380ms, each drawn over 1.5s within a 7s cycle, with a bright leading point.
 - The globe sways slowly (4 degrees over a 9s sine) so every destination stays on the visible side, and tilts a few degrees toward a mouse pointer with eased follow. It renders at up to 2x device pixels, pauses when off screen or when the tab is hidden.
 - Under reduced motion it draws one still frame with every arc complete and no pulse.

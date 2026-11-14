@@ -49,16 +49,17 @@ Not a listings portal and not a single-project developer: an Israeli company, pa
 - The owner wants the site in the spirit of msgp.co.il, but more beautiful, more professional and as innovative as possible, with striking effects.
 - Voice: warm and confident; "we are your home abroad"; all-inclusive accompaniment.
 - Standing preference (chosen by the owner over a dealt direction): the classic luxury real-estate world, executed straight at full fidelity, no irony.
-- Craft bar the owner named: Apple (scroll-driven effects and finish) and msgp.co.il (the parent brand). The parent site has not been seen yet; its logo and colours override this build's palette once supplied.
+- Craft bar the owner named: Apple (scroll-driven effects and finish) and msgp.co.il (the parent brand). The parent site was read on 2026-11-14; its logo, palette and fonts are now applied.
 
 ## Evidence on Hand
 
-The owner confirmed these exist but they have not been received yet:
-- Company logo.
-- Real phone, email and WhatsApp.
-- Real project details (names, locations, prices, figures).
+From msgp.co.il (read 2026-11-14, the owner asked that it be used):
+- Logo: `assets/img/msgroup-logo.png` (the MS Group logo; no separate MS Group Global logo exists yet). Favicon: `assets/img/favicon.png`.
+- MS Group track record: 34 projects completed, 28 in marketing, 15 cities (Tel Aviv, Ramat Gan, Bat Yam, Herzliya and more). 15 years of experience (owner's statement).
+- Contacts: 072-2133266, office@msgp.co.il, מגדל ב.ס.ר 4, מצדה 7, בני ברק. These are MS Group's; confirm whether MS Group Global uses the same.
+- Brand: navy oklch(0.24 0.07 262), gold oklch(0.74 0.12 80), ivory oklch(0.98 0.01 85); Frank Ruhl Libre headings, Heebo body.
 
-Until they arrive, the site carries clearly marked slots. Never invent: project names, prices, returns, numbers of investors or years, testimonials, partner logos, or legal/licensing claims.
+Still missing: photographs of the destinations, projects abroad, a WhatsApp number, and a form backend (the form currently opens a prepared email to the office). Never invent projects, prices, returns or testimonials.
 
 ## Product Principles
 

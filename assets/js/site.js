@@ -172,7 +172,12 @@
     });
     if (first) { first.focus(); return; }
     if (!FORM_ENDPOINT) {
-      status.textContent = 'הטופס עדיין לא מחובר למערכת. הפרטים לא נשלחו; פרטי ההתקשרות שלנו יופיעו כאן בקרוב.';
+      // No form backend yet: hand the details to the visitor's email app, addressed to the office.
+      const d = new FormData(form);
+      const body = [`שם: ${d.get('name')}`, `טלפון: ${d.get('phone')}`, `תקציב: ${d.get('budget') || 'לא צוין'}`,
+        `מדינות: ${d.getAll('country').join(', ') || 'לא צוין'}`].join('\n');
+      window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent('פנייה מאתר MS Group Global')}&body=${encodeURIComponent(body)}`;
+      status.textContent = 'פתחנו לכם הודעת מייל מוכנה. שלחו אותה ונחזור אליכם, או התקשרו 072-2133266.';
       return;
     }
     const btn = form.querySelector('button[type="submit"]');
@@ -270,13 +275,13 @@
     ctx.clearRect(0, 0, W, H);
 
     const glow = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R * 1.25);
-    glow.addColorStop(0, 'rgba(36,60,108,0.42)');
+    glow.addColorStop(0, 'rgba(40,66,120,0.45)');
     glow.addColorStop(0.7, 'rgba(22,38,70,0.18)');
     glow.addColorStop(1, 'rgba(11,18,32,0)');
     ctx.fillStyle = glow;
     ctx.beginPath(); ctx.arc(cx, cy, R * 1.25, 0, Math.PI * 2); ctx.fill();
 
-    ctx.strokeStyle = 'rgba(201,169,106,0.55)';
+    ctx.strokeStyle = 'rgba(210,162,73,0.6)';
     ctx.lineWidth = 1.2 * dpr;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
 
@@ -290,7 +295,7 @@
     for (const d of dots) {
       const p = project(d.lat, d.lon);
       if (p.z <= 0) continue;
-      ctx.fillStyle = `rgba(214,184,120,${(0.18 + p.z * 0.62).toFixed(3)})`;
+      ctx.fillStyle = `rgba(210,162,73,${(0.18 + p.z * 0.62).toFixed(3)})`;
       ctx.beginPath(); ctx.arc(p.x, p.y, ds / 2 * (0.6 + p.z * 0.5), 0, Math.PI * 2); ctx.fill();
     }
 
@@ -299,7 +304,7 @@
       const local = reduced.matches ? 1 : clamp(((t - 600 - i * stagger) % cycle) / 1500);
       const lead = Math.max(1, Math.floor(local * (pts.length - 1)));
       ctx.lineWidth = 1.6 * dpr;
-      ctx.strokeStyle = 'rgba(201,169,106,0.85)';
+      ctx.strokeStyle = 'rgba(210,162,73,0.9)';
       ctx.beginPath();
       let started = false;
       for (let j = 0; j <= lead; j++) {
@@ -315,7 +320,7 @@
       }
     });
 
-    ctx.font = `600 ${13 * dpr}px Assistant, sans-serif`;
+    ctx.font = `500 ${13 * dpr}px Heebo, sans-serif`;
     ctx.textAlign = 'center';
     [home, ...places].forEach((pl, i) => {
       const p = project(pl.lat, pl.lon);

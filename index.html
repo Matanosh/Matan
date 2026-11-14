@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>MS Group Global | הבית שלך להשקעות נדל״ן בחו״ל</title>
   <meta name="description" content="MS Group Global, חברת בת של MS Group: ליווי מלא בהשקעות נדל״ן בקפריסין, פורטוגל, רומניה, גאורגיה ודובאי, מבחירת הדירה לפי התקציב ועד קבלת המפתח.">
-  <meta name="theme-color" content="#0b1220">
+  <meta name="theme-color" content="#0c1d40">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   <meta property="og:title" content="MS Group Global | הבית שלך להשקעות נדל״ן בחו״ל">
   <meta property="og:description" content="מבחירת הדירה לפי התקציב ועד קבלת המפתח. קפריסין, פורטוגל, רומניה, גאורגיה, דובאי ועוד.">
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
   <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -22,10 +22,10 @@
 
   <header class="nav" data-nav>
     <div class="nav__inner">
-      <!-- SLOT: replace the wordmark with the MS Group Global logo file when it arrives -->
+      <!-- MS Group logo from msgp.co.il; swap for a dedicated MS Group Global logo if one is made -->
       <a class="brand" href="#top" aria-label="MS Group Global, לראש הדף">
-        <span class="brand__mark" aria-hidden="true">MS</span>
-        <span class="brand__text">GROUP <b>GLOBAL</b></span>
+        <img class="brand__logo" src="assets/img/msgroup-logo.png" alt="" width="494" height="191">
+        <span class="brand__global">GLOBAL</span>
       </a>
       <nav class="nav__links" aria-label="ניווט ראשי">
         <a href="#journey">המסע</a>
@@ -301,12 +301,13 @@
       <div class="wrap">
         <h2 id="home-title" class="h2 home__title">בית אחד.<br><span class="gold">הכל כולל הכל.</span></h2>
         <div class="legacy">
-          <p class="legacy__line"><span class="gold">15 שנה</span> של שיווק ומסירת נדל״ן ב־MS Group.</p>
-          <div class="legacy__text">
-            <p>אנחנו לא חברה שקמה אתמול. MS Group Global נשענת על הידע, הקשרים והמקצועיות שנצברו ב־MS Group, ומביאה אותם להשקעות מעבר לים.</p>
-            <!-- SLOT: the real number of units MS Group marketed and delivered replaces this sentence -->
-            <p data-slot="units"><span class="slot">מספר יחידות הדיור ששווקו ונמסרו יתעדכן כאן.</span></p>
-          </div>
+          <p class="legacy__line"><span class="gold">15 שנה</span> של שיווק, ייזום ומסירת נדל״ן ב־MS Group.</p>
+          <dl class="record">
+            <div><dt>פרויקטים שבוצעו</dt><dd>34</dd></div>
+            <div><dt>פרויקטים בשיווק</dt><dd>28</dd></div>
+            <div><dt>ערים בישראל</dt><dd>15</dd></div>
+          </dl>
+          <p class="legacy__text">אנחנו לא חברה שקמה אתמול. MS Group היא מהחברות המובילות בשיווק ובייזום פרויקטים למגורים באזורי הביקוש בישראל, מתל אביב ורמת גן ועד הרצליה ובת ים. MS Group Global מביאה את אותו ידע, אותם קשרים ואותה מקצועיות להשקעות מעבר לים.</p>
         </div>
         <ul class="pillars">
           <li>
@@ -335,11 +336,10 @@
         <div class="contact__intro">
           <h2 id="contact-title" class="h2">נתחיל בשיחה</h2>
           <p>השאירו פרטים ונחזור אליכם לשיחת ייעוץ ראשונה, ללא התחייבות.</p>
-          <!-- SLOT: real phone, WhatsApp and email go here when supplied -->
-          <ul class="contact__ways" data-slot="contacts">
-            <li><span>טלפון</span><span class="slot">יתווסף בקרוב</span></li>
-            <li><span>וואטסאפ</span><span class="slot">יתווסף בקרוב</span></li>
-            <li><span>אימייל</span><span class="slot">יתווסף בקרוב</span></li>
+          <ul class="contact__ways">
+            <li><span>טלפון</span><a href="tel:+972722133266" dir="ltr">072-2133266</a></li>
+            <li><span>אימייל</span><a href="mailto:office@msgp.co.il" dir="ltr">office@msgp.co.il</a></li>
+            <li><span>משרדים</span><span>מגדל ב.ס.ר 4, מצדה 7, בני ברק</span></li>
           </ul>
         </div>
         <form class="form" data-form novalidate>
@@ -385,10 +385,11 @@
   <footer class="footer">
     <div class="wrap footer__inner">
       <a class="brand" href="#top" aria-label="MS Group Global, לראש הדף">
-        <span class="brand__mark" aria-hidden="true">MS</span>
-        <span class="brand__text">GROUP <b>GLOBAL</b></span>
+        <img class="brand__logo" src="assets/img/msgroup-logo.png" alt="" width="494" height="191">
+        <span class="brand__global">GLOBAL</span>
       </a>
       <p>חברת בת של <a href="https://msgp.co.il" rel="noopener">MS Group</a></p>
+      <p><a href="tel:+972722133266" dir="ltr">072-2133266</a> · <a href="mailto:office@msgp.co.il">office@msgp.co.il</a></p>
       <p class="footer__small">© <span data-year>2026</span> MS Group Global. כל הזכויות שמורות.</p>
     </div>
   </footer>
