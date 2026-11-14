@@ -490,6 +490,7 @@ T = [
 
 ('data-yt-title="סרטון הפרויקט SORA Beach Residence"', 'data-yt-title="SORA Beach Residence project film"', 'data-yt-title="Vidéo du projet SORA Beach Residence"'),
 
+('data-yt-title="סרטון הפרויקט Bay Residence"', 'data-yt-title="Bay Residence project film"', 'data-yt-title="Vidéo du projet Bay Residence"'),
 ('data-yt-title="סרטון הפרויקט One Central"', 'data-yt-title="One Central project film"', 'data-yt-title="Vidéo du projet One Central"'),
 
 ('data-yt-title="סרטון הפרויקט OMYA Residence"', 'data-yt-title="OMYA Residence project film"', 'data-yt-title="Vidéo du projet OMYA Residence"'),
