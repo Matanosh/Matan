@@ -30,6 +30,7 @@
       <nav class="nav__links" aria-label="ניווט ראשי">
         <a href="#journey">המסע</a>
         <a href="#destinations">היעדים</a>
+        <a href="#project">הפרויקטים</a>
         <a href="#home">למה אנחנו</a>
         <a href="#contact">צור קשר</a>
       </nav>
@@ -41,6 +42,7 @@
     <div class="mobile-menu" id="mobile-menu" hidden data-menu>
       <a href="#journey">המסע</a>
       <a href="#destinations">היעדים</a>
+      <a href="#project">הפרויקטים</a>
       <a href="#home">למה אנחנו</a>
       <a href="#contact">צור קשר</a>
       <a class="btn" href="#contact">לתיאום שיחת ייעוץ</a>
@@ -239,13 +241,10 @@
                 <a class="link" href="#contact" data-pick="רומניה">מעניין אותי רומניה <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
               </div>
             </li>
-            <li class="country">
-              <svg class="skyline" viewBox="0 0 600 200" aria-hidden="true">
-                <path pathLength="1" d="M0 120 L70 50 L110 90 L170 20 L230 100 L290 60 L350 120"/>
-                <path pathLength="1" d="M130 46 L150 60 L170 20 L190 52"/>
-                <path pathLength="1" d="M330 170 V130 H350 V120 H370 V130 H390 V120 H410 V130 H430 V170"/>
-                <path pathLength="1" d="M0 170 H600 M440 160 Q 520 120 600 160"/>
-              </svg>
+            <li class="country country--photo">
+              <figure class="country__photo">
+                <img src="assets/img/projects/blue-sky/blue-sky-2-900.webp" srcset="assets/img/projects/blue-sky/blue-sky-2-900.webp 900w, assets/img/projects/blue-sky/blue-sky-2-1600.webp 1600w" sizes="(max-width: 900px) 84vw, 440px" alt="הדמיית Blue Sky Tower בבאטומי, גאורגיה, עם הים והעיר ברקע" loading="lazy" width="1600" height="1032">
+              </figure>
               <div class="country__body">
                 <!-- SLOT: photo of georgia; add <img> and remove hidden --><figure class="country__photo" data-slot="photo-georgia" hidden></figure>
                 <h3 class="country__name">גאורגיה</h3>
@@ -293,6 +292,86 @@
           </ul>
         </div>
         <div class="dest__progress" aria-hidden="true"><span data-dest-bar></span></div>
+      </div>
+    </section>
+
+    <!-- SELECTED PROJECTS (names and renders supplied by the owner, 2026-11-14) -->
+    <section class="project" id="project" aria-labelledby="project-title" data-projects>
+      <div class="wrap">
+        <div class="project__top">
+          <h2 id="project-title" class="h2">פרויקטים נבחרים<br><span class="gold">בגאורגיה ובפורטוגל</span></h2>
+          <div class="project__tabs" role="tablist" aria-label="בחירת פרויקט">
+            <button role="tab" id="tab-bluesky" aria-controls="panel-bluesky" aria-selected="true">Blue Sky Tower</button>
+            <button role="tab" id="tab-laquinta" aria-controls="panel-laquinta" aria-selected="false" tabindex="-1">La Quinta by Wyndham</button>
+            <button role="tab" id="tab-salami" aria-controls="panel-salami" aria-selected="false" tabindex="-1">Salami Residence</button>
+            <button role="tab" id="tab-gonio" aria-controls="panel-gonio" aria-selected="false" tabindex="-1">Wyndham Garden Gonio</button>
+            <button role="tab" id="tab-almeda" aria-controls="panel-almeda" aria-selected="false" tabindex="-1">Almeda</button>
+          </div>
+        </div>
+        <div class="project__panel" id="panel-bluesky" role="tabpanel" aria-labelledby="tab-bluesky" tabindex="0">
+          <div class="project__head">
+            <h3 class="project__name">Blue Sky Tower<br><span class="gold">באטומי</span></h3>
+            <div class="project__copy">
+              <p>מגדל מגורים ומסחר בבאטומי, עיר החוף של גאורגיה, בין הים להרים.</p>
+              <a class="btn" href="#contact" data-pick="גאורגיה">לפרטים על Blue Sky Tower</a>
+            </div>
+          </div>
+          <div class="project__gallery">
+          <figure class="project__main">
+            <img src="assets/img/projects/blue-sky/blue-sky-1-1600.webp" srcset="assets/img/projects/blue-sky/blue-sky-1-900.webp 900w, assets/img/projects/blue-sky/blue-sky-1-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 58vw" alt="הדמיית Blue Sky Tower מהרחוב, עם מגדלי באטומי ברקע" loading="lazy" width="1600" height="1544">
+          </figure>
+          <figure>
+            <img src="assets/img/projects/blue-sky/blue-sky-2-900.webp" srcset="assets/img/projects/blue-sky/blue-sky-2-900.webp 900w, assets/img/projects/blue-sky/blue-sky-2-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 38vw" alt="מבט על המגדל, קו החוף והשקיעה מעל הים" loading="lazy" width="1600" height="1032">
+          </figure>
+          <figure>
+            <img src="assets/img/projects/blue-sky/blue-sky-3-900.webp" srcset="assets/img/projects/blue-sky/blue-sky-3-900.webp 900w, assets/img/projects/blue-sky/blue-sky-3-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 38vw" alt="חזית המגדל והפארק שלפניו בשעת ערב" loading="lazy" width="1600" height="1110">
+          </figure>
+          <figure>
+            <img src="assets/img/projects/blue-sky/blue-sky-4-900.webp" srcset="assets/img/projects/blue-sky/blue-sky-4-900.webp 900w, assets/img/projects/blue-sky/blue-sky-4-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 38vw" alt="המגדל מצד שני, עם ההרים והאצטדיון ברקע" loading="lazy" width="1600" height="1044">
+          </figure>
+        </div>
+        </div>
+        <div class="project__panel" id="panel-laquinta" role="tabpanel" aria-labelledby="tab-laquinta" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name">La Quinta by Wyndham<br><span class="gold">באטומי</span></h3>
+            <div class="project__copy">
+              <p>מתחם על קו החוף של באטומי, מול הטיילת והים.</p>
+              <a class="btn" href="#contact" data-pick="גאורגיה">לפרטים על La Quinta by Wyndham</a>
+            </div>
+          </div>
+          <!-- SLOT: renders of this project (send as files; same 4-image mosaic as Blue Sky) --><div class="project__gallery project__gallery--empty" data-slot="renders-laquinta" aria-hidden="true"><span class="project__monogram"></span></div>
+        </div>
+        <div class="project__panel" id="panel-salami" role="tabpanel" aria-labelledby="tab-salami" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name">Salami Residence<br><span class="gold">באטומי</span></h3>
+            <div class="project__copy">
+              <p>פרויקט מגורים בבאטומי עם בריכה על הגג ונוף להרים ולים.</p>
+              <a class="btn" href="#contact" data-pick="גאורגיה">לפרטים על Salami Residence</a>
+            </div>
+          </div>
+          <!-- SLOT: renders of this project (send as files; same 4-image mosaic as Blue Sky) --><div class="project__gallery project__gallery--empty" data-slot="renders-salami" aria-hidden="true"><span class="project__monogram"></span></div>
+        </div>
+        <div class="project__panel" id="panel-gonio" role="tabpanel" aria-labelledby="tab-gonio" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name">Wyndham Garden Gonio<br><span class="gold">גוניו, באטומי</span></h3>
+            <div class="project__copy">
+              <p>מגדל מול החוף בגוניו, דרומית לבאטומי, בין ההרים לים.</p>
+              <a class="btn" href="#contact" data-pick="גאורגיה">לפרטים על Wyndham Garden Gonio</a>
+            </div>
+          </div>
+          <!-- SLOT: renders of this project (send as files; same 4-image mosaic as Blue Sky) --><div class="project__gallery project__gallery--empty" data-slot="renders-gonio" aria-hidden="true"><span class="project__monogram"></span></div>
+        </div>
+        <div class="project__panel" id="panel-almeda" role="tabpanel" aria-labelledby="tab-almeda" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name">Almeda<br><span class="gold">ליסבון, פורטוגל</span></h3>
+            <div class="project__copy">
+              <p>בניין מגורים בוטיק ברחוב ליסבוני, עם מרפסות, גינה פרטית ומפרט עיצוב מוקפד.</p>
+              <a class="btn" href="#contact" data-pick="פורטוגל">לפרטים על Almeda</a>
+            </div>
+          </div>
+          <!-- SLOT: renders of this project (send as files; same 4-image mosaic as Blue Sky) --><div class="project__gallery project__gallery--empty" data-slot="renders-almeda" aria-hidden="true"><span class="project__monogram"></span></div>
+        </div>
+        <p class="project__note">הדמיות להמחשה בלבד. פרטי הפרויקטים המלאים יימסרו בשיחת הייעוץ.</p>
       </div>
     </section>
 

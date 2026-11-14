@@ -462,3 +462,63 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
   .js [data-enter], .js .hero__title .line > span { transform: none !important; }
   .js [data-enter] { transition: opacity 300ms ease !important; }
 }
+
+/* Photo in a country card (replaces the line drawing) */
+.country--photo .country__photo { grid-column: auto; aspect-ratio: auto; position: relative; margin: 0; align-self: stretch; overflow: hidden; border-radius: var(--radius); min-height: 260px; }
+.country--photo .country__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .country--photo:hover .country__photo img { transform: scale(1.03); } }
+@media (max-width: 900px), (max-height: 560px) { .country--photo .country__photo { aspect-ratio: 16 / 10; min-height: 0; } }
+
+/* Featured project */
+.project { padding-block: clamp(100px, 14vh, 160px); background: var(--bg-2); border-top: 1px solid var(--line-soft); }
+.project__head { display: grid; grid-template-columns: 1.1fr 1fr; gap: 6vw; align-items: end; }
+.project__copy { display: grid; gap: 18px; justify-items: start; color: var(--ink-2); font-size: 1.12rem; max-width: 42ch; }
+.project__copy .btn { margin-top: 10px; }
+.project__gallery {
+  margin-top: clamp(48px, 7vh, 80px);
+  display: grid; grid-template-columns: 1.5fr 1fr; grid-template-rows: repeat(3, minmax(0, 1fr)); gap: 14px;
+  height: min(86svh, 860px);
+}
+.project__gallery figure { margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--bg-3); }
+.project__gallery .project__main { grid-row: 1 / -1; }
+.project__gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 800ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .project__gallery figure:hover img { transform: scale(1.03); } }
+.project__note { margin-top: 14px; font-size: 0.9rem; color: var(--ink-3); }
+@media (max-width: 900px) {
+  .project__head { grid-template-columns: 1fr; gap: 24px; }
+  .project__gallery { grid-template-columns: 1fr 1fr; grid-template-rows: auto; height: auto; gap: 10px; }
+  .project__gallery .project__main { grid-row: auto; grid-column: 1 / -1; aspect-ratio: 4 / 3.6; }
+  .project__gallery figure:not(.project__main) { aspect-ratio: 4 / 3; }
+  .project__gallery figure:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+}
+
+/* Selected projects switcher */
+.project__top { display: grid; gap: clamp(28px, 4vh, 44px); }
+.project__tabs { justify-self: start; }
+.project__tabs { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 1px solid var(--line-soft); }
+.project__tabs button {
+  position: relative; min-height: 48px; padding: 0 18px; background: none; border: 0; cursor: pointer;
+  font: 500 0.98rem/1 var(--sans); color: var(--ink-2); direction: ltr;
+  transition: color 200ms ease;
+}
+.project__tabs button::after {
+  content: ""; position: absolute; inset: auto 0 -1px; height: 2px; background: var(--gold);
+  transform: scaleX(0); transition: transform 300ms var(--ease-out);
+}
+.project__tabs button[aria-selected="true"] { color: var(--ink); }
+.project__tabs button[aria-selected="true"]::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) { .project__tabs button:hover { color: var(--gold-2); } }
+.project__panel { margin-top: clamp(40px, 6vh, 64px); }
+.project__panel:focus-visible { outline-offset: 8px; }
+.project__panel.is-entering { animation: panel-in 450ms var(--ease-out); }
+@keyframes panel-in { from { opacity: 0; filter: blur(6px); transform: translateY(10px); } }
+.project__name { font-family: var(--serif); font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1.1; direction: ltr; text-align: right; }
+.project__name .gold { direction: rtl; display: inline-block; }
+.project__gallery--empty { display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; place-items: center; height: min(56svh, 520px); border: 1px solid var(--line-soft); background: radial-gradient(60% 70% at 50% 40%, rgba(40, 66, 120, 0.35), transparent 70%), var(--bg-3); }
+.project__monogram { width: 120px; height: 46px; background: url("../img/msgroup-logo.png") center / contain no-repeat; opacity: 0.35; }
+@media (max-width: 900px) {
+  .project__top { grid-template-columns: 1fr; }
+  .project__tabs { overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+  .project__tabs button { flex: none; }
+}
+@media (prefers-reduced-motion: reduce) { .project__panel.is-entering { animation: none; } }

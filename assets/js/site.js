@@ -146,6 +146,32 @@
     io.observe(checks);
   }
 
+  /* Selected projects: accessible tabs */
+  const tabs = [...document.querySelectorAll('.project__tabs [role="tab"]')];
+  const select = (t, focus) => {
+    tabs.forEach((x) => {
+      const on = x === t;
+      x.setAttribute('aria-selected', String(on));
+      x.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(x.getAttribute('aria-controls'));
+      if (panel) {
+        panel.hidden = !on;
+        if (on) { panel.classList.remove('is-entering'); void panel.offsetWidth; panel.classList.add('is-entering'); }
+      }
+    });
+    if (focus) t.focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', (e) => {
+      // RTL: ArrowLeft moves forward
+      const step = { ArrowLeft: 1, ArrowRight: -1 }[e.key];
+      if (step) { e.preventDefault(); select(tabs[(i + step + tabs.length) % tabs.length], true); }
+      if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
+      if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+    });
+  });
+
   /* Form */
   const form = document.querySelector('[data-form]');
   const status = document.querySelector('[data-form-status]');
