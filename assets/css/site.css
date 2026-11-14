@@ -940,3 +940,9 @@ bdi { white-space: nowrap; }
   .nav:not(:has(.mobile-menu)) .lang a { min-width: 28px; padding: 0 2px; }
 }
 .nowrap { white-space: nowrap; }
+/* Five-image gallery: main render full width, four below */
+.project__gallery--5 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) {
+  .project__gallery--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project__gallery--5 figure:last-child { grid-column: auto; aspect-ratio: 4 / 3; }
+}

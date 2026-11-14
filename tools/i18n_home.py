@@ -117,7 +117,7 @@ T = [
 ('<span class="where__name">האמירויות</span><span class="where__city">דובאי · ראס אל חיימה</span>', '<span class="where__name">UAE</span><span class="where__city">Dubai · Ras Al Khaimah</span>', '<span class="where__name">Émirats</span><span class="where__city">Dubaï · Ras al-Khaïmah</span>'),
 ('<span>6 פרויקטים</span><span>טיסה כשלוש שעות</span>', '<span>6 projects</span><span>About 3 hours’ flight</span>', '<span>6 projets</span><span>Environ 3 h de vol</span>'),
 ('<span class="where__name">גאורגיה</span><span class="where__city">באטומי · גוניו</span>', '<span class="where__name">Georgia</span><span class="where__city">Batumi · Gonio</span>', '<span class="where__name">Géorgie</span><span class="where__city">Batoumi · Gonio</span>'),
-('<span>4 פרויקטים</span><span>טיסה כשעתיים וחצי</span>', '<span>4 projects</span><span>About 2.5 hours’ flight</span>', '<span>4 projets</span><span>Environ 2 h 30 de vol</span>'),
+('<span>5 פרויקטים</span><span>טיסה כשעתיים וחצי</span>', '<span>5 projects</span><span>About 2.5 hours’ flight</span>', '<span>5 projets</span><span>Environ 2 h 30 de vol</span>'),
 ('<span class="where__name">קפריסין</span><span class="where__city">לימסול · לרנקה</span>', '<span class="where__name">Cyprus</span><span class="where__city">Limassol · Larnaca</span>', '<span class="where__name">Chypre</span><span class="where__city">Limassol · Larnaca</span>'),
 ('<span>פרויקטים בקרוב</span><span>טיסה כ־40 דקות</span>', '<span>Projects coming soon</span><span>About 40 minutes’ flight</span>', '<span>Projets à venir</span><span>Environ 40 min de vol</span>'),
 ('<span class="where__name">פורטוגל</span><span class="where__city">ליסבון</span>', '<span class="where__name">Portugal</span><span class="where__city">Lisbon</span>', '<span class="where__name">Portugal</span><span class="where__city">Lisbonne</span>'),
@@ -227,7 +227,7 @@ T = [
  'Les données proviennent de sources de marché publiques et sont à jour pour 2026. Les rendements sont bruts, avant charges et impôts. Ces informations sont générales et ne constituent pas un conseil en investissement ; lors du rendez-vous, nous étudierons avec vous les chiffres de votre projet et de votre situation.'),
 
 # --- projects ---
-('פרויקטים נבחרים<br><span class="gold">בחמש מדינות, 13 פרויקטים</span>', 'Selected projects<br><span class="gold">13 projects in five countries</span>', 'Projets sélectionnés<br><span class="gold">13 projets dans cinq pays</span>'),
+('פרויקטים נבחרים<br><span class="gold">בחמש מדינות, 14 פרויקטים</span>', 'Selected projects<br><span class="gold">14 projects in five countries</span>', 'Projets sélectionnés<br><span class="gold">14 projets dans cinq pays</span>'),
 ('aria-label="סינון לפי מדינה"', 'aria-label="Filter by country"', 'aria-label="Filtrer par pays"'),
 ('>האמירויות <span class="project__count">', '>UAE <span class="project__count">', '>Émirats <span class="project__count">'),
 ('>גאורגיה <span class="project__count">', '>Georgia <span class="project__count">', '>Géorgie <span class="project__count">'),
@@ -318,6 +318,16 @@ T = [
 ('alt="סלון ופינת אוכל בדירה"', 'alt="Living and dining area in an apartment"', 'alt="Salon et coin repas dans un appartement"'),
 ('alt="הבניין בשעת ערב"', 'alt="The building in the evening"', 'alt="L’immeuble en soirée"'),
 ('הדמיות להמחשה בלבד. פרטי הפרויקטים המלאים יימסרו בשיחת הייעוץ.', 'Renderings are for illustration only. Full project details are provided in your consultation.', 'Perspectives non contractuelles. Le détail complet des projets vous sera présenté lors du rendez-vous conseil.'),
+
+# --- PONTUS (Gonio) ---
+('מגדל מלון ודירות בגוניו, דרומית לבאטומי, בין הפארק לחוף הים ומול ההרים. בבסיס המגדל בריכה מעל קו החוף, לובי מלון מעוצב בשיש ובעץ, וגינות מוארות סביב.',
+ 'A hotel and residential tower in Gonio, south of Batumi, between the park and the beach, facing the mountains. A pool above the shoreline at the base of the tower, a hotel lobby designed in marble and wood, and landscaped gardens all around.',
+ 'Une tour d’hôtel et d’appartements à Gonio, au sud de Batoumi, entre le parc et la plage, face aux montagnes. Une piscine surplombant le rivage au pied de la tour, un lobby d’hôtel en marbre et bois, et des jardins paysagers tout autour.'),
+('alt="מגדל PONTUS בגוניו מול הים, עם ההרים וקו החוף ברקע"', 'alt="The PONTUS tower in Gonio facing the sea, with the mountains and coastline behind"', 'alt="La tour PONTUS à Gonio face à la mer, avec les montagnes et le littoral en arrière-plan"'),
+('alt="המגדל, החוף והים בשקיעה"', 'alt="The tower, the beach and the sea at sunset"', 'alt="La tour, la plage et la mer au coucher du soleil"'),
+('alt="כניסת המלון והמגדל המואר בשעת ערב"', 'alt="The hotel entrance and the tower lit up in the evening"', 'alt="L’entrée de l’hôtel et la tour illuminée en soirée"'),
+('alt="לובי המלון עם עץ זית תלוי ובריכת מים"', 'alt="The hotel lobby with a suspended olive tree and a water feature"', 'alt="Le lobby de l’hôtel avec un olivier suspendu et un bassin"'),
+('alt="פינת הישיבה בלובי, עם פסל ציפורים ונוף לגן"', 'alt="The lobby lounge, with a bird sculpture and a view of the garden"', 'alt="Le salon du lobby, avec une sculpture d’oiseaux et vue sur le jardin"'),
 
 # --- home / legacy ---
 ('בית אחד.<br><span class="gold">הכל כולל הכל.</span>', 'One home.<br><span class="gold">Everything included.</span>', 'Une seule maison.<br><span class="gold">Tout compris.</span>'),
