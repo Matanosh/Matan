@@ -692,10 +692,14 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
 .legal__updated { color: var(--ink-3); font-size: 0.95rem; }
 .legal__back { display: inline-flex; margin-top: 40px; }
 
-/* Mobile: reveal runs too, on a shorter scroll */
-@media (max-width: 900px) {
-  .reveal { height: 200vh; }
-  .reveal__text { font-size: clamp(2rem, 9vw, 2.6rem); }
+/* Phones and narrow windows: the image is full size from the start, no scroll-driven resizing */
+@media (max-width: 1100px), (max-height: 560px) {
+  .reveal { height: auto; }
+  .reveal__sticky { position: relative; height: min(100svh, 760px); min-height: 480px; }
+  .reveal__frame { clip-path: none !important; }
+  .reveal__frame img { transform: none !important; }
+  .reveal__frame::after { opacity: 1 !important; }
+  .reveal__text { opacity: 1 !important; transform: none !important; font-size: clamp(2rem, 7vw, 3.4rem); }
 }
 /* Mobile journey: a gold line fills as you scroll, each step lights when reached */
 @media (max-width: 900px), (max-height: 560px) {

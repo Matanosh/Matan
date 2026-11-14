@@ -122,7 +122,8 @@
     }
 
     if (reveal) {
-      if (!root.classList.contains('reduced')) {
+      // the frame-to-full-screen opening runs only on wide screens; phones and narrow windows get the full image at once
+      if (window.matchMedia('(min-width: 1101px) and (min-height: 561px)').matches && !root.classList.contains('reduced')) {
         const rp = progressOf(reveal);
         const e = 1 - Math.pow(1 - clamp(rp / 0.7), 3); // ease-out over the first 70% of the scroll
         reveal.style.setProperty('--rp', rp.toFixed(4));
