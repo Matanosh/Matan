@@ -816,3 +816,7 @@ bdi { white-space: nowrap; }
   .finance__card { padding: 28px 4px; }
   .finance__card + .finance__card { border-inline-start: 0; border-top: 1px solid var(--line-soft); }
 }
+
+/* Pillar heading with the MS Group logo in place of the name */
+.pillars .pillar-logo { display: flex; align-items: center; gap: 0.35em; flex-wrap: wrap; }
+.pillars .pillar-logo img { height: 1.9em; width: auto; display: block; }
