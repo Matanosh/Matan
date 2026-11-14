@@ -820,3 +820,9 @@ bdi { white-space: nowrap; }
 /* Pillar heading with the MS Group logo in place of the name */
 .pillars .pillar-logo { display: flex; align-items: center; gap: 0.35em; flex-wrap: wrap; }
 .pillars .pillar-logo img { height: 1.9em; width: auto; display: block; }
+
+/* Mobile menu: scrolls on short screens so no item is cut off */
+@media (max-width: 900px) {
+  .mobile-menu:not([hidden]) { overflow-y: auto; overscroll-behavior: contain; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)); }
+  .mobile-menu a:not(.btn) { font-size: clamp(1.5rem, 6.5vw, 2rem); padding: 10px 0; }
+}
