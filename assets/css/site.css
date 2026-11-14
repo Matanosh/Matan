@@ -136,8 +136,8 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
 .nav__toggle { display: none; }
 .mobile-menu { display: none; }
 
-@media (max-width: 900px) {
-  .nav__links, .nav .btn--small { display: none; }
+@media (max-width: 1099px) {
+  .nav__links, .nav:has(.mobile-menu) .btn--small { display: none; }
   .nav__toggle {
     display: grid; place-items: center; margin-inline-start: auto;
     width: 48px; height: 48px; background: none; border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer;
@@ -822,7 +822,7 @@ bdi { white-space: nowrap; }
 .pillars .pillar-logo img { height: 1.9em; width: auto; display: block; }
 
 /* Mobile menu: scrolls on short screens so no item is cut off */
-@media (max-width: 900px) {
+@media (max-width: 1099px) {
   .mobile-menu:not([hidden]) { overflow-y: auto; overscroll-behavior: contain; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)); }
   .mobile-menu a:not(.btn) { font-size: clamp(1.5rem, 6.5vw, 2rem); padding: 10px 0; }
 }
@@ -878,3 +878,65 @@ bdi { white-space: nowrap; }
   .press-card__title { margin: 6px 14px 0; font-size: 1.05rem; }
   .press-card__cta { margin: auto 14px 14px; padding-top: 12px; font-size: .92rem; }
 }
+
+/* ===== Left-to-right languages (English, French) ===== */
+[dir="ltr"] .skip { right: auto; left: 12px; }
+[dir="ltr"] .btn::after { transform: translateX(-110%); background: linear-gradient(260deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%); }
+@media (hover: hover) and (pointer: fine) {
+  [dir="ltr"] .btn:hover::after { transform: translateX(110%); }
+  [dir="ltr"] .link:hover .arr { transform: scaleX(-1) translateX(-4px); }
+}
+[dir="ltr"] .link { background-position: left bottom; }
+[dir="ltr"] .arr { transform: scaleX(-1); }
+[dir="ltr"] .country__latin, [dir="ltr"] .why__latin, [dir="ltr"] .why__sources ul, [dir="ltr"] .field input[dir="ltr"] { text-align: left; }
+[dir="ltr"] .dest__progress span { transform-origin: left; }
+/* Latin type: a touch tighter on large serif settings, balanced headings, hyphenation for long French words */
+:lang(en) .h2, :lang(fr) .h2, :lang(en) .hero__title, :lang(fr) .hero__title, :lang(en) .country__name, :lang(fr) .country__name { letter-spacing: -0.012em; }
+:lang(en) h1, :lang(en) h2, :lang(en) h3, :lang(fr) h1, :lang(fr) h2, :lang(fr) h3 { text-wrap: balance; }
+@media (max-width: 400px) { :lang(fr) .legal__body p, :lang(fr) .why__facts li { hyphens: auto; -webkit-hyphens: auto; } }
+.nav__links a { white-space: nowrap; }
+:lang(en) p, :lang(fr) p { text-wrap: pretty; }
+
+/* Language switcher */
+.lang { display: inline-flex; align-items: center; gap: 2px; font-size: 0.82rem; letter-spacing: 0.08em; }
+.lang a { display: inline-grid; place-items: center; min-width: 34px; min-height: 34px; padding: 0 6px; color: var(--ink-3); text-decoration: none; border-radius: 3px; transition: color .2s, background-color .2s; }
+.lang a[aria-current="true"] { color: var(--gold-2); box-shadow: inset 0 -1px 0 var(--gold); }
+@media (hover: hover) and (pointer: fine) { .lang a:hover { color: var(--ink); background: rgba(251, 248, 241, 0.06); } }
+.lang a:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+.mobile-menu .lang { margin-top: 18px; font-size: 1rem; gap: 8px; }
+.mobile-menu .lang a { min-width: 48px; min-height: 44px; border: 1px solid var(--line-soft); font-size: 1rem; padding: 0 12px; }
+@media (max-width: 1099px) { .nav:has(.mobile-menu) .nav__inner > .lang { display: none; } }
+@media (max-width: 560px) { .legal ~ * .lang, .nav:not(:has(.mobile-menu)) .nav__inner { gap: 10px; } .nav:not(:has(.mobile-menu)) .lang a { min-width: 30px; padding: 0 3px; } .nav:not(:has(.mobile-menu)) .btn--small { padding: 0 12px; } }
+.legal__note { padding: 14px 18px; border-inline-start: 2px solid var(--gold); background: rgba(210, 162, 73, 0.08); color: var(--ink-2); font-size: 0.95rem; }
+.legal__note a { color: var(--gold-2); }
+
+/* Track record: three columns that always fit, even with long French labels */
+@media (max-width: 560px) {
+  .record { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .record div { padding-inline-end: 12px; margin-inline-end: 12px; }
+  .record dt { font-size: 0.86rem; overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+}
+
+/* Header between tablet and wide desktop: everything on one line, in every language */
+.nav__inner > .btn--small, .nav__inner > .lang, .brand { flex: none; }
+@media (min-width: 1100px) and (max-width: 1399px) {
+  .nav__inner { gap: 22px; }
+  .nav__links { gap: 20px; }
+  .nav__links a { font-size: 0.92rem; }
+  .nav__inner > .lang a { min-width: 30px; padding: 0 4px; }
+}
+@media (min-width: 1100px) and (max-width: 1239px) {
+  .nav__inner { gap: 16px; }
+  .nav__links { gap: 14px; }
+  .nav__links a { font-size: 0.86rem; }
+  .nav__inner > .btn--small { padding: 0 14px; }
+}
+/* Legal pages on small phones: logo and language switcher only (the home page link sits in the footer and the back link) */
+@media (max-width: 480px) { .nav:not(:has(.mobile-menu)) .btn--small { display: none; } }
+@media (max-width: 360px) {
+  .nav:not(:has(.mobile-menu)) .nav__inner { gap: 6px; }
+  .nav:not(:has(.mobile-menu)) .brand { gap: 8px; }
+  .nav:not(:has(.mobile-menu)) .brand__global { letter-spacing: 0.22em; }
+  .nav:not(:has(.mobile-menu)) .lang a { min-width: 28px; padding: 0 2px; }
+}
+.nowrap { white-space: nowrap; }

@@ -4,6 +4,20 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (reduced.matches) root.classList.add('reduced');
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const LANG = (root.lang || 'he').slice(0, 2);
+  const RTL = getComputedStyle(root).direction === 'rtl';
+  const T = {
+    he: { emph: ['בית:', 'אחד,', 'אחת', 'אחת,', 'המפתח'], name: 'שם', phone: 'טלפון', budget: 'תקציב', countries: 'מדינות', none: 'לא צוין', privacyOk: 'אישור מדיניות פרטיות: כן', marketing: 'הסכמה לדיוור שיווקי', yes: 'כן', no: 'לא', subject: 'פנייה מאתר MS Group Global',
+      mailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.', sending: 'שולחים...', thanks: 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.', failed: 'השליחה לא הצליחה. נסו שוב בעוד רגע.', play: 'הפעלת אנימציה', pause: 'עצירת אנימציה',
+      home: 'תל אביב', places: ['קפריסין', 'פורטוגל', 'רומניה', 'גאורגיה', 'דובאי'], font: 'Heebo' },
+    en: { emph: ['home', 'one', 'company,', 'key.'], name: 'Name', phone: 'Phone', budget: 'Budget', countries: 'Countries', none: 'Not specified', privacyOk: 'Privacy policy accepted: yes', marketing: 'Marketing consent', yes: 'yes', no: 'no', subject: 'Enquiry from the MS Group Global website',
+      mailto: 'We tried to open a ready-made email with your details. If it did not open, call +972-72-2133266 or write to office@msgp.co.il.', sending: 'Sending…', thanks: 'Thank you! We have your details and will be in touch shortly.', failed: 'Sending failed. Please try again in a moment.', play: 'Play animation', pause: 'Pause animation',
+      home: 'Tel Aviv', places: ['Cyprus', 'Portugal', 'Romania', 'Georgia', 'Dubai'], font: 'Heebo' },
+    fr: { emph: ['maison\u00a0:', 'seule', 'seul', 'clé.'], name: 'Nom', phone: 'Téléphone', budget: 'Budget', countries: 'Pays', none: 'Non précisé', privacyOk: 'Politique de confidentialité acceptée\u00a0: oui', marketing: 'Accord pour la prospection commerciale', yes: 'oui', no: 'non', subject: 'Demande depuis le site MS Group Global',
+      mailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, appelez le +972 72 213 3266 ou écrivez à office@msgp.co.il.', sending: 'Envoi en cours…', thanks: 'Merci\u202f! Nous avons bien reçu vos coordonnées et revenons vers vous très vite.', failed: 'L’envoi a échoué. Merci de réessayer dans un instant.', play: 'Relancer l’animation', pause: 'Mettre l’animation en pause',
+      home: 'Tel-Aviv', places: ['Chypre', 'Portugal', 'Roumanie', 'Géorgie', 'Dubaï'], font: 'Heebo' },
+  }[LANG] || null;
+  const L = T || {};
 
   /* Entrance, once on load */
   document.querySelectorAll('.hero__copy [data-enter]').forEach((el, i) => el.style.setProperty('--d', `${280 + i * 110}ms`));
@@ -35,8 +49,8 @@
   const statement = document.querySelector('[data-words]');
   let words = [];
   if (statement) {
-    const emph = new Set(['בית:', 'אחד,', 'אחת', 'אחת,', 'המפתח']);
-    const parts = statement.textContent.trim().split(/\s+/);
+    const emph = new Set(statement.dataset.em ? statement.dataset.em.split('|') : L.emph);
+    const parts = statement.textContent.trim().split(/[ \t\n\r]+/);
     statement.textContent = '';
     parts.forEach((w, i) => {
       const s = document.createElement('span');
@@ -141,8 +155,9 @@
         const items = track.children;
         const a = items[0].getBoundingClientRect(), z = items[items.length - 1].getBoundingClientRect();
         const pad = parseFloat(getComputedStyle(track).paddingInlineStart) || 0;
-        const max = Math.max(0, (a.right - z.left) - (track.parentElement.clientWidth - 2 * pad));
-        track.style.transform = `translate3d(${(p * max).toFixed(1)}px,0,0)`;
+        const span = RTL ? a.right - z.left : z.right - a.left;
+        const max = Math.max(0, span - (track.parentElement.clientWidth - 2 * pad));
+        track.style.transform = `translate3d(${((RTL ? 1 : -1) * p * max).toFixed(1)}px,0,0)`;
         bar?.parentElement.style.setProperty('--p', p.toFixed(4));
         bar && (bar.style.transform = `scaleX(${p})`);
       } else {
@@ -196,8 +211,8 @@
     t.addEventListener('click', () => select(t));
     t.addEventListener('keydown', (e) => {
       const vis = visibleTabs(); const i = vis.indexOf(t);
-      // RTL: ArrowLeft moves forward
-      const step = { ArrowLeft: 1, ArrowRight: -1 }[e.key];
+      // reading direction decides which arrow moves forward
+      const step = (RTL ? { ArrowLeft: 1, ArrowRight: -1 } : { ArrowLeft: -1, ArrowRight: 1 })[e.key];
       if (step) { e.preventDefault(); select(vis[(i + step + vis.length) % vis.length], true); }
       if (e.key === 'Home') { e.preventDefault(); select(vis[0], true); }
       if (e.key === 'End') { e.preventDefault(); select(vis[vis.length - 1], true); }
@@ -234,23 +249,24 @@
     if (!FORM_ENDPOINT) {
       // No form backend yet: hand the details to the visitor's email app, addressed to the office.
       const d = new FormData(form);
-      const body = [`שם: ${d.get('name')}`, `טלפון: ${d.get('phone')}`, `תקציב: ${d.get('budget') || 'לא צוין'}`,
-        `מדינות: ${d.getAll('country').join(', ') || 'לא צוין'}`,
-        `אישור מדיניות פרטיות: כן`, `הסכמה לדיוור שיווקי: ${d.get('marketing') ? 'כן' : 'לא'}`].join('\n');
-      window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent('פנייה מאתר MS Group Global')}&body=${encodeURIComponent(body)}`;
-      status.textContent = 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.';
+      const sep = LANG === 'fr' ? '\u00a0: ' : ': ';
+      const body = [`${L.name}${sep}${d.get('name')}`, `${L.phone}${sep}${d.get('phone')}`, `${L.budget}${sep}${d.get('budget') || L.none}`,
+        `${L.countries}${sep}${d.getAll('country').join(', ') || L.none}`,
+        L.privacyOk, `${L.marketing}${sep}${d.get('marketing') ? L.yes : L.no}`, `Language: ${LANG}`].join('\n');
+      window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent(L.subject)}&body=${encodeURIComponent(body)}`;
+      status.textContent = L.mailto;
       return;
     }
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
-    status.textContent = 'שולחים...';
+    status.textContent = L.sending;
     try {
       const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form) });
       if (!res.ok) throw new Error(res.status);
       form.reset();
-      status.textContent = 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.';
+      status.textContent = L.thanks;
     } catch {
-      status.textContent = 'השליחה לא הצליחה. נסו שוב בעוד רגע.';
+      status.textContent = L.failed;
     } finally {
       btn.disabled = false;
     }
@@ -264,7 +280,7 @@
     userPaused = !userPaused;
     root.classList.toggle('paused', userPaused);
     mt.setAttribute('aria-pressed', String(userPaused));
-    mLabel.textContent = userPaused ? 'הפעלת אנימציה' : 'עצירת אנימציה';
+    mLabel.textContent = userPaused ? L.play : L.pause;
     window.dispatchEvent(new Event('motionchange'));
   });
 
@@ -273,13 +289,13 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const RAD = Math.PI / 180;
-  const home = { name: 'תל אביב', lat: 32.08, lon: 34.78, dx: 0, dy: 26, align: 'center' };
+  const home = { name: L.home, lat: 32.08, lon: 34.78, dx: 0, dy: 26, align: 'center' };
   const places = [
-    { name: 'קפריסין', lat: 34.68, lon: 33.04, dx: -12, dy: 18, align: 'right' },
-    { name: 'פורטוגל', lat: 38.72, lon: -9.14 },
-    { name: 'רומניה', lat: 44.43, lon: 26.1 },
-    { name: 'גאורגיה', lat: 41.72, lon: 44.79 },
-    { name: 'דובאי', lat: 25.2, lon: 55.27 },
+    { name: L.places[0], lat: 34.68, lon: 33.04, dx: -12, dy: 18, align: 'right' },
+    { name: L.places[1], lat: 38.72, lon: -9.14 },
+    { name: L.places[2], lat: 44.43, lon: 26.1 },
+    { name: L.places[3], lat: 41.72, lon: 44.79 },
+    { name: L.places[4], lat: 25.2, lon: 55.27 },
   ];
   const N = 1700;
   const dots = [];

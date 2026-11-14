@@ -16,7 +16,7 @@ Israeli private investors who want to buy property abroad, in two equal groups:
 - First-time investors abroad, who need the whole process explained and want someone to hold their hand from budget to keys.
 - Experienced property investors, who are looking for new markets and want to see markets, numbers and a professional operator.
 
-Both read Hebrew; the site is Hebrew, right-to-left.
+Both read Hebrew; the site is Hebrew, right-to-left. Since 2026-11-14 it also has full English (/en/) and French (/fr/) versions, left-to-right, generated from the Hebrew page by tools/build_i18n.py and tools/build_legal.py (run both after any Hebrew text change; they stop if a string no longer matches).
 
 ## Product Purpose
 
