@@ -536,3 +536,13 @@
   let pausedAt = 0;
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(run);
 })();
+
+/* Images fade in once decoded, instead of popping in line by line */
+(() => {
+  const show = (img) => img.classList.add('is-in');
+  document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+    if (img.complete && img.naturalWidth) return show(img);
+    img.addEventListener('load', () => (img.decode ? img.decode().catch(() => {}) : Promise.resolve()).then(() => show(img)), { once: true });
+    img.addEventListener('error', () => show(img), { once: true });
+  });
+})();

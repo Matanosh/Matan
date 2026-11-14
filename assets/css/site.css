@@ -1102,3 +1102,54 @@ video::cue { font-family: Heebo, sans-serif; font-size: 1.05rem; background: rgb
 /* extra row of two wide photos under a tower gallery */
 .project__gallery .project__pair { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: inherit; }
 .project__gallery .project__pair figure { aspect-ratio: 16 / 10; }
+
+/* ===== Apple-style finish ===== */
+
+/* Instant, native-feeling taps: no grey tap flash, no double-tap delay */
+a, button, label, summary, [role="tab"] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+/* Press feedback on every tappable surface (fires on press, not release) */
+.project__tabs button, .link, .lang a, .nav__links a, .press-card, .press-video, a.yt, .project__country, .country .link {
+  transition-property: color, background-color, border-color, transform, opacity;
+}
+.project__tabs button:active, .lang a:active, .nav__links a:active { transform: scale(0.96); transition-duration: 100ms; }
+.link:active { transform: scale(0.98); transition-duration: 100ms; }
+.press-card:active, .press-video:active { transform: scale(0.985); transition-duration: 120ms; }
+a.yt:active { transform: scale(0.99); transition: transform 120ms var(--ease-out); }
+
+/* Glass header: a real material, with a soft edge instead of a hard rule */
+.nav.is-solid {
+  background: rgba(10, 24, 54, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-color: rgba(251, 248, 241, 0.06);
+  box-shadow: 0 1px 0 rgba(251, 248, 241, 0.04) inset, 0 10px 30px -18px rgba(0, 0, 0, 0.55);
+}
+
+/* Prices and figures: even, lining numerals */
+.project__price strong, .project__count, .where__meta, .country__big, .facts dd { font-variant-numeric: lining-nums tabular-nums; }
+
+/* Images materialize instead of popping in */
+.js img[loading="lazy"]:not(.hero__media img) { opacity: 0; transition: opacity 600ms ease; }
+.js .project__gallery img[loading="lazy"] { transition: transform 800ms var(--ease-out), opacity 600ms ease; }
+.js .country--photo .country__photo img[loading="lazy"] { transition: transform 700ms var(--ease-out), opacity 600ms ease; }
+.js .press-video__media img[loading="lazy"], .js .press-card img[loading="lazy"] { transition: transform 900ms var(--ease-out), opacity 600ms ease; }
+.js img[loading="lazy"]:not(.hero__media img).is-in { opacity: 1; }
+.project__gallery figure, .country__photo, .press-video__media { background: var(--bg-3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js img[loading="lazy"] { transition: none; }
+  .project__tabs button:active, .lang a:active, .nav__links a:active, .link:active, .press-card:active, .press-video:active, a.yt:active { transform: none; }
+}
+
+/* Respect "reduce transparency": solid surfaces, no blur */
+@media (prefers-reduced-transparency: reduce) {
+  .nav.is-solid { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .press-video__play { background: var(--bg); backdrop-filter: none; }
+}
+
+/* Respect "increase contrast": solid chrome with a defined edge */
+@media (prefers-contrast: more) {
+  .nav.is-solid { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-color: var(--gold); box-shadow: none; }
+  .project__status { border-color: var(--gold); }
+}
