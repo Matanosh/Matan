@@ -607,3 +607,27 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
   .reveal__frame::after { opacity: 1; }
   .reveal__text { opacity: 1; transform: none; }
 }
+
+/* Why each destination: market research rows */
+.why { padding-block: clamp(100px, 14vh, 160px); border-top: 1px solid var(--line-soft); }
+.why__head { display: grid; grid-template-columns: 1.1fr 1fr; gap: 6vw; align-items: end; margin-bottom: clamp(48px, 7vh, 80px); }
+.why__head p { color: var(--ink-2); max-width: 40ch; font-size: 1.12rem; }
+.why__row { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr) minmax(0, 0.9fr); gap: 4vw; padding-block: 40px; border-top: 1px solid var(--line); }
+.why__row:last-of-type { border-bottom: 1px solid var(--line); }
+.why__place h3 { font-family: var(--serif); font-size: clamp(2rem, 3.2vw, 2.8rem); line-height: 1.05; }
+.why__latin { margin-top: 8px; font-size: 0.78rem; letter-spacing: 0.32em; color: var(--gold); direction: ltr; text-align: right; }
+.why__thesis { margin-top: 16px; color: var(--ink); font-size: 1.08rem; max-width: 30ch; }
+.why__facts { display: grid; gap: 14px; }
+.why__facts li { position: relative; padding-inline-start: 22px; color: var(--ink-2); }
+.why__facts li::before { content: ""; position: absolute; inset-inline-start: 0; top: 0.72em; width: 8px; height: 8px; border: 1px solid var(--gold); transform: rotate(45deg); }
+.why__note { align-self: start; padding: 18px 20px; border: 1px solid var(--line-soft); color: var(--ink-2); font-size: 0.98rem; }
+.why__note span { display: block; margin-bottom: 6px; color: var(--gold-2); font-weight: 600; font-size: 0.92rem; }
+.why__sources { margin-top: 36px; color: var(--ink-2); }
+.why__sources summary { cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; color: var(--gold-2); font-weight: 600; }
+.why__sources ul { margin-top: 10px; display: grid; gap: 6px; font-size: 0.92rem; direction: ltr; text-align: right; }
+.why__sources a { color: var(--ink-2); text-underline-offset: 4px; }
+.why__disclaimer { margin-top: 18px; max-width: 80ch; color: var(--ink-3); font-size: 0.92rem; }
+@media (max-width: 900px) {
+  .why__head { grid-template-columns: 1fr; gap: 20px; }
+  .why__row { grid-template-columns: 1fr; gap: 20px; padding-block: 32px; }
+}
