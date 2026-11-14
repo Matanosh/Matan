@@ -99,15 +99,16 @@
 
     if (journey && pinned()) {
       const p = progressOf(journey);
-      const drawP = clamp(p / 0.92);
+      // the path reaches the key exactly as step 6 begins; the rest of the scroll holds the arrival
+      const drawP = clamp(p / 0.75);
       jDraw.style.setProperty('--p', drawP.toFixed(4));
       jNodes.forEach((c, i) => c.classList.toggle('on', drawP >= nodeAt[i] - 0.005));
-      const idx = Math.min(jSteps.length - 1, Math.floor(drawP * jSteps.length * 0.999));
+      const idx = Math.min(jSteps.length - 1, Math.floor(clamp(p / 0.9) * jSteps.length * 0.999));
       jSteps.forEach((li, i) => {
         li.classList.toggle('is-active', i === idx);
         li.setAttribute('aria-hidden', String(i !== idx));
       });
-      jKey?.classList.toggle('on', drawP > 0.97);
+      jKey?.classList.toggle('on', idx === jSteps.length - 1);
     } else if (journey) {
       jSteps.forEach((li) => li.removeAttribute('aria-hidden'));
     }
@@ -192,9 +193,9 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const RAD = Math.PI / 180;
-  const home = { name: 'תל אביב', lat: 32.08, lon: 34.78, side: 'right' };
+  const home = { name: 'תל אביב', lat: 32.08, lon: 34.78, dx: 0, dy: 26, align: 'center' };
   const places = [
-    { name: 'קפריסין', lat: 34.68, lon: 33.04, side: 'left' },
+    { name: 'קפריסין', lat: 34.68, lon: 33.04, dx: -14, dy: -10, align: 'right' },
     { name: 'פורטוגל', lat: 38.72, lon: -9.14 },
     { name: 'רומניה', lat: 44.43, lon: 26.1 },
     { name: 'גאורגיה', lat: 41.72, lon: 44.79 },
@@ -236,7 +237,7 @@
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = canvas.width = Math.round(r.width * dpr);
     H = canvas.height = Math.round(r.height * dpr);
-    R = Math.min(W, H) * 0.84; cx = W * 0.5; cy = H * 0.84;
+    R = Math.min(W, H) * 0.6; cx = W * 0.5; cy = H * 0.66;
   };
   size();
   new ResizeObserver(size).observe(canvas);
@@ -273,16 +274,22 @@
     ctx.fillStyle = glow;
     ctx.beginPath(); ctx.arc(cx, cy, R * 1.25, 0, Math.PI * 2); ctx.fill();
 
-    ctx.strokeStyle = 'rgba(201,169,106,0.22)';
-    ctx.lineWidth = 1 * dpr;
+    ctx.strokeStyle = 'rgba(201,169,106,0.55)';
+    ctx.lineWidth = 1.2 * dpr;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
 
-    const ds = 1.15 * dpr;
+    const shade = ctx.createLinearGradient(cx - R, cy + R * 0.4, cx + R * 0.6, cy - R * 0.6);
+    shade.addColorStop(0, 'rgba(6,10,20,0.55)');
+    shade.addColorStop(0.55, 'rgba(6,10,20,0)');
+    ctx.fillStyle = shade;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+
+    const ds = 1.9 * dpr;
     for (const d of dots) {
       const p = project(d.lat, d.lon);
       if (p.z <= 0) continue;
-      ctx.fillStyle = `rgba(230,210,160,${(0.08 + p.z * 0.5).toFixed(3)})`;
-      ctx.fillRect(p.x - ds / 2, p.y - ds / 2, ds, ds);
+      ctx.fillStyle = `rgba(214,184,120,${(0.18 + p.z * 0.62).toFixed(3)})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, ds / 2 * (0.6 + p.z * 0.5), 0, Math.PI * 2); ctx.fill();
     }
 
     const cycle = 7000, stagger = 380;
@@ -318,13 +325,9 @@
       ctx.lineWidth = 1 * dpr;
       ctx.beginPath(); ctx.arc(p.x, p.y, (6 + pulse * 7) * dpr, 0, Math.PI * 2); ctx.stroke();
       ctx.fillStyle = i === 0 ? 'rgba(243,238,228,0.95)' : 'rgba(230,210,160,0.95)';
-      if (pl.side) {
-        ctx.textAlign = pl.side === 'left' ? 'right' : 'left';
-        ctx.fillText(pl.name, p.x + (pl.side === 'left' ? -12 : 12) * dpr, p.y + 5 * dpr);
-        ctx.textAlign = 'center';
-      } else {
-        ctx.fillText(pl.name, p.x, p.y - 14 * dpr);
-      }
+      ctx.textAlign = pl.align || 'center';
+      ctx.fillText(pl.name, p.x + (pl.dx ?? 0) * dpr, p.y + (pl.dy ?? -14) * dpr);
+      ctx.textAlign = 'center';
     });
 
     if (visible && !reduced.matches) raf = requestAnimationFrame(draw);

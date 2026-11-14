@@ -18,7 +18,7 @@ THESIS: One Israeli home for investing abroad: the page is the journey from budg
 
 OWN-WORLD: Classic luxury real estate, straight. Deep night-navy ground, warm champagne-gold line work and type accents, ivory text. A Hebrew serif display (Frank Ruhl Libre) over a clean Hebrew sans (Assistant). Hairline gold rules, generous space, no cards-in-cards.
 
-STORY: The visitor sees the destinations connected to Tel Aviv, understands that one company handles everything, walks the seven steps to the key, compares the countries, and leaves a consultation request.
+STORY: The visitor sees the destinations connected to Tel Aviv, understands that one company handles everything, walks the six steps to the key, compares the countries, and leaves a consultation request.
 
 FIRST VIEWPORT: Full-screen night ground. A dotted gold globe on the left half (RTL: the visual sits opposite the text), real coordinates of Tel Aviv and five destinations, arcs drawing from Tel Aviv. Right half: the headline at display scale, one line of support, the primary button "לתיאום שיחת ייעוץ" and a secondary link to the journey. Fixed slim navigation above.
 
