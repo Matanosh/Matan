@@ -526,3 +526,25 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
 @media (max-width: 900px) { .project__gallery--3 figure:last-child { grid-column: auto; aspect-ratio: 4 / 3; } }
 .project__video { margin: clamp(48px, 7vh, 80px) 0 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-soft); background: var(--bg-3); }
 .project__video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+
+/* Country filter above the project tabs */
+.project__countries { display: flex; flex-wrap: wrap; gap: 10px; }
+.project__country {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px;
+  background: none; border: 1px solid var(--line-soft); border-radius: 999px; cursor: pointer;
+  font: 500 1.02rem/1 var(--sans); color: var(--ink-2);
+  transition: border-color 200ms ease, background-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out);
+}
+.project__country:active { transform: scale(0.97); }
+.project__count {
+  display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px;
+  background: rgba(251, 248, 241, 0.08); font-size: 0.82rem; font-variant-numeric: tabular-nums;
+}
+.project__country[aria-pressed="true"] { border-color: var(--gold); background: rgba(210, 162, 73, 0.14); color: var(--gold-2); }
+.project__country[aria-pressed="true"] .project__count { background: var(--gold); color: var(--bg); }
+@media (hover: hover) and (pointer: fine) { .project__country:hover { border-color: var(--line); color: var(--ink); } }
+.project__tabs button[hidden] { display: none; }
+@media (max-width: 900px) {
+  .project__countries { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+  .project__country { flex: none; }
+}

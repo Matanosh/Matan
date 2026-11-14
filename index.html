@@ -293,23 +293,30 @@
     <section class="project" id="project" aria-labelledby="project-title" data-projects>
       <div class="wrap">
         <div class="project__top">
-          <h2 id="project-title" class="h2">פרויקטים נבחרים<br><span class="gold">בחמש מדינות</span></h2>
+          <h2 id="project-title" class="h2">פרויקטים נבחרים<br><span class="gold">בחמש מדינות, 12 פרויקטים</span></h2>
+          <div class="project__countries" role="group" aria-label="סינון לפי מדינה">
+            <button type="button" class="project__country" data-country="uae" aria-pressed="true">האמירויות <span class="project__count">5</span></button>
+            <button type="button" class="project__country" data-country="georgia" aria-pressed="false">גאורגיה <span class="project__count">4</span></button>
+            <button type="button" class="project__country" data-country="romania" aria-pressed="false">רומניה <span class="project__count">1</span></button>
+            <button type="button" class="project__country" data-country="portugal" aria-pressed="false">פורטוגל <span class="project__count">1</span></button>
+            <button type="button" class="project__country" data-country="ukraine" aria-pressed="false">אוקראינה <span class="project__count">1</span></button>
+          </div>
           <div class="project__tabs" role="tablist" aria-label="בחירת פרויקט">
-            <button role="tab" id="tab-bluesky" aria-controls="panel-bluesky" aria-selected="true">Blue Sky Tower</button>
-            <button role="tab" id="tab-laquinta" aria-controls="panel-laquinta" aria-selected="false" tabindex="-1">La Quinta by Wyndham</button>
-            <button role="tab" id="tab-salami" aria-controls="panel-salami" aria-selected="false" tabindex="-1">Salami Residence</button>
-            <button role="tab" id="tab-gonio" aria-controls="panel-gonio" aria-selected="false" tabindex="-1">Wyndham Garden Gonio</button>
-            <button role="tab" id="tab-best" aria-controls="panel-best" aria-selected="false" tabindex="-1">Best Residence</button>
-            <button role="tab" id="tab-unity" aria-controls="panel-unity" aria-selected="false" tabindex="-1">Unity Tower</button>
-            <button role="tab" id="tab-bay" aria-controls="panel-bay" aria-selected="false" tabindex="-1">Bay Residence</button>
-            <button role="tab" id="tab-sora" aria-controls="panel-sora" aria-selected="false" tabindex="-1">SORA Beach Residence</button>
-            <button role="tab" id="tab-omya" aria-controls="panel-omya" aria-selected="false" tabindex="-1">OMYA Residence</button>
-            <button role="tab" id="tab-voxa" aria-controls="panel-voxa" aria-selected="false" tabindex="-1">VOXA Residence</button>
-            <button role="tab" id="tab-onecentral" aria-controls="panel-onecentral" aria-selected="false" tabindex="-1">One Central</button>
-            <button role="tab" id="tab-almeda" aria-controls="panel-almeda" aria-selected="false" tabindex="-1">Almeda</button>
+            <button role="tab" id="tab-sora" aria-controls="panel-sora" aria-selected="true" data-country="uae">SORA Beach Residence</button>
+            <button role="tab" id="tab-bay" aria-controls="panel-bay" aria-selected="false" tabindex="-1" data-country="uae">Bay Residence</button>
+            <button role="tab" id="tab-onecentral" aria-controls="panel-onecentral" aria-selected="false" tabindex="-1" data-country="uae">One Central</button>
+            <button role="tab" id="tab-omya" aria-controls="panel-omya" aria-selected="false" tabindex="-1" data-country="uae">OMYA Residence</button>
+            <button role="tab" id="tab-voxa" aria-controls="panel-voxa" aria-selected="false" tabindex="-1" data-country="uae">VOXA Residence</button>
+            <button hidden role="tab" id="tab-bluesky" aria-controls="panel-bluesky" aria-selected="false" tabindex="-1" data-country="georgia">Blue Sky Tower</button>
+            <button hidden role="tab" id="tab-laquinta" aria-controls="panel-laquinta" aria-selected="false" tabindex="-1" data-country="georgia">La Quinta by Wyndham</button>
+            <button hidden role="tab" id="tab-salami" aria-controls="panel-salami" aria-selected="false" tabindex="-1" data-country="georgia">Salami Residence</button>
+            <button hidden role="tab" id="tab-gonio" aria-controls="panel-gonio" aria-selected="false" tabindex="-1" data-country="georgia">Wyndham Garden Gonio</button>
+            <button hidden role="tab" id="tab-best" aria-controls="panel-best" aria-selected="false" tabindex="-1" data-country="romania">Best Residence</button>
+            <button hidden role="tab" id="tab-almeda" aria-controls="panel-almeda" aria-selected="false" tabindex="-1" data-country="portugal">Almeda</button>
+            <button hidden role="tab" id="tab-unity" aria-controls="panel-unity" aria-selected="false" tabindex="-1" data-country="ukraine">Unity Tower</button>
           </div>
         </div>
-        <div class="project__panel" id="panel-bluesky" role="tabpanel" aria-labelledby="tab-bluesky" tabindex="0">
+        <div class="project__panel" id="panel-bluesky" role="tabpanel" aria-labelledby="tab-bluesky" tabindex="0" hidden>
           <div class="project__head">
             <h3 class="project__name">Blue Sky Tower<br><span class="gold">באטומי</span></h3>
             <div class="project__copy">
@@ -411,7 +418,7 @@
             <figure><img src="assets/img/projects/bay/bay-4-1600.webp" srcset="assets/img/projects/bay/bay-4-900.webp 900w, assets/img/projects/bay/bay-4-1600.webp 1280w" sizes="(max-width: 900px) 100vw, 38vw" alt="מרפסת דירה עם נוף למפרץ" loading="lazy" width="1280" height="906"></figure>
           </div>
         </div>
-        <div class="project__panel" id="panel-sora" role="tabpanel" aria-labelledby="tab-sora" tabindex="0" hidden>
+        <div class="project__panel" id="panel-sora" role="tabpanel" aria-labelledby="tab-sora" tabindex="0">
           <div class="project__head">
             <h3 class="project__name">SORA Beach Residence<br><span class="gold">ראס אל חיימה, איחוד האמירויות</span></h3>
             <div class="project__copy">

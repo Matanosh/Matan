@@ -146,8 +146,10 @@
     io.observe(checks);
   }
 
-  /* Selected projects: accessible tabs */
+  /* Selected projects: country filter + accessible tabs */
   const tabs = [...document.querySelectorAll('.project__tabs [role="tab"]')];
+  const chips = [...document.querySelectorAll('.project__country')];
+  const visibleTabs = () => tabs.filter((t) => !t.hidden);
   const select = (t, focus) => {
     tabs.forEach((x) => {
       const on = x === t;
@@ -161,14 +163,22 @@
     });
     if (focus) t.focus();
   };
-  tabs.forEach((t, i) => {
+  const showCountry = (c) => {
+    chips.forEach((ch) => ch.setAttribute('aria-pressed', String(ch.dataset.country === c)));
+    tabs.forEach((t) => { t.hidden = t.dataset.country !== c; });
+    const first = visibleTabs()[0];
+    if (first) select(first);
+  };
+  chips.forEach((ch) => ch.addEventListener('click', () => showCountry(ch.dataset.country)));
+  tabs.forEach((t) => {
     t.addEventListener('click', () => select(t));
     t.addEventListener('keydown', (e) => {
+      const vis = visibleTabs(); const i = vis.indexOf(t);
       // RTL: ArrowLeft moves forward
       const step = { ArrowLeft: 1, ArrowRight: -1 }[e.key];
-      if (step) { e.preventDefault(); select(tabs[(i + step + tabs.length) % tabs.length], true); }
-      if (e.key === 'Home') { e.preventDefault(); select(tabs[0], true); }
-      if (e.key === 'End') { e.preventDefault(); select(tabs[tabs.length - 1], true); }
+      if (step) { e.preventDefault(); select(vis[(i + step + vis.length) % vis.length], true); }
+      if (e.key === 'Home') { e.preventDefault(); select(vis[0], true); }
+      if (e.key === 'End') { e.preventDefault(); select(vis[vis.length - 1], true); }
     });
   });
 
