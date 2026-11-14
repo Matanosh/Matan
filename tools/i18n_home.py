@@ -306,6 +306,8 @@ T = [
 
 ('<p class="project__price">החל מ־<strong>249,000 אירו</strong></p>', '<p class="project__price">From <strong>€249,000</strong></p>', '<p class="project__price">À partir de <strong>249\u202f000\u00a0€</strong></p>'),
 
+('<p class="project__price">החל מ־<strong>69,000 דולר</strong></p>', '<p class="project__price">From <strong>$69,000</strong></p>', '<p class="project__price">À partir de <strong>69\u202f000\u00a0$</strong></p>'),
+
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
 ('כל שוק נבחר מסיבה. הנה המספרים שמאחורי כל יעד, ומה חשוב לדעת לפני שנכנסים אליו.', 'Every market was chosen for a reason. Here are the numbers behind each destination, and what is worth knowing before you go in.', 'Chaque marché a été choisi pour une raison. Voici les chiffres derrière chaque destination, et ce qu’il faut savoir avant de s’y engager.'),
