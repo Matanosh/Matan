@@ -332,6 +332,8 @@ T = [
 ('data-yt-title="סרטון הפרויקט PONTUS Gonio"', 'data-yt-title="PONTUS Gonio project film"', 'data-yt-title="Vidéo du projet PONTUS Gonio"'),
 ('<span class="yt__label">צפו בסרטון הפרויקט</span>', '<span class="yt__label">Watch the project film</span>', '<span class="yt__label">Regarder la vidéo du projet</span>'),
 
+('data-yt-title="סרטון הפרויקט La Quinta by Wyndham"', 'data-yt-title="La Quinta by Wyndham project film"', 'data-yt-title="Vidéo du projet La Quinta by Wyndham"'),
+
 # --- home / legacy ---
 ('בית אחד.<br><span class="gold">הכל כולל הכל.</span>', 'One home.<br><span class="gold">Everything included.</span>', 'Une seule maison.<br><span class="gold">Tout compris.</span>'),
 ('<span class="gold">15 שנה</span> של שיווק, ייזום ומסירת נדל״ן ב־<bdi>MS Group</bdi>.', '<span class="gold">15 years</span> of marketing, initiating and delivering real estate at <bdi>MS Group</bdi>.', '<span class="gold">15 ans</span> de commercialisation, de développement et de livraison immobilière chez <bdi>MS Group</bdi>.'),
