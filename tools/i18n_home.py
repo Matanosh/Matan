@@ -323,7 +323,7 @@ T = [
 ('מגדל מלון ודירות בגוניו, דרומית לבאטומי, בין הפארק לחוף הים ומול ההרים. בבסיס המגדל בריכה מעל קו החוף, לובי מלון מעוצב בשיש ובעץ, וגינות מוארות סביב.',
  'A hotel and residential tower in Gonio, south of Batumi, between the park and the beach, facing the mountains. A pool above the shoreline at the base of the tower, a hotel lobby designed in marble and wood, and landscaped gardens all around.',
  'Une tour d’hôtel et d’appartements à Gonio, au sud de Batoumi, entre le parc et la plage, face aux montagnes. Une piscine surplombant le rivage au pied de la tour, un lobby d’hôtel en marbre et bois, et des jardins paysagers tout autour.'),
-('alt="מגדל PONTUS בגוניו מול הים, עם ההרים וקו החוף ברקע"', 'alt="The PONTUS tower in Gonio facing the sea, with the mountains and coastline behind"', 'alt="La tour PONTUS à Gonio face à la mer, avec les montagnes et le littoral en arrière-plan"'),
+('alt="מגדל PONTUS Gonio מול הים, עם ההרים וקו החוף ברקע"', 'alt="The PONTUS Gonio tower facing the sea, with the mountains and coastline behind"', 'alt="La tour PONTUS Gonio face à la mer, avec les montagnes et le littoral en arrière-plan"'),
 ('alt="המגדל, החוף והים בשקיעה"', 'alt="The tower, the beach and the sea at sunset"', 'alt="La tour, la plage et la mer au coucher du soleil"'),
 ('alt="כניסת המלון והמגדל המואר בשעת ערב"', 'alt="The hotel entrance and the tower lit up in the evening"', 'alt="L’entrée de l’hôtel et la tour illuminée en soirée"'),
 ('alt="לובי המלון עם עץ זית תלוי ובריכת מים"', 'alt="The hotel lobby with a suspended olive tree and a water feature"', 'alt="Le lobby de l’hôtel avec un olivier suspendu et un bassin"'),
