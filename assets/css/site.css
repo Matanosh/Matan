@@ -263,6 +263,7 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
 .journey__path .key.on .key__ring { animation: key-ring 1400ms var(--ease-out) 1; }
 @keyframes key-ring { 0% { opacity: 0.9; transform: scale(1); } 100% { opacity: 0; transform: scale(3.2); } }
 .journey__steps { position: relative; min-height: 300px; }
+.journey__endkey { display: none; }
 .journey__steps li {
   position: absolute; inset: 0 0 auto; opacity: 0; filter: blur(6px); transform: translateY(16px);
   transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out), filter 500ms var(--ease-out);
@@ -289,7 +290,13 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
     width: 11px; height: 11px; border-radius: 50%; background: var(--gold);
   }
   .step__n { width: 44px; height: 44px; margin-bottom: 16px; font-size: 1.1rem; }
+  .journey__endkey { display: block; margin-top: 8px; margin-inline-start: -14px; width: 132px; }
+  .journey__endkey svg { width: 100%; overflow: visible; fill: none; stroke: var(--line); stroke-width: 2.5; stroke-linecap: round; transition: stroke 500ms ease, filter 600ms ease; }
+  .journey__endkey.on svg { stroke: var(--gold-2); filter: drop-shadow(0 6px 18px rgba(201, 169, 106, 0.45)); }
+  .journey__endkey .key__ring { stroke: var(--gold); opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .journey__endkey.on .key__ring { animation: key-ring 1400ms var(--ease-out) 1; }
 }
+
 
 /* Destinations */
 .dest { position: relative; height: 560vh; }

@@ -138,6 +138,8 @@
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.35 });
   document.querySelectorAll('.country').forEach((el) => io.observe(el));
+  const endKey = document.querySelector('[data-endkey]');
+  if (endKey) new IntersectionObserver(([e]) => { if (e.isIntersecting) endKey.classList.add('on'); }, { threshold: 0.9 }).observe(endKey);
   const checks = document.querySelector('[data-checks]');
   if (checks) {
     checks.querySelectorAll('.checks__list li').forEach((li, i) => li.style.setProperty('--i', i));
@@ -195,7 +197,7 @@
   const RAD = Math.PI / 180;
   const home = { name: 'תל אביב', lat: 32.08, lon: 34.78, dx: 0, dy: 26, align: 'center' };
   const places = [
-    { name: 'קפריסין', lat: 34.68, lon: 33.04, dx: -14, dy: -10, align: 'right' },
+    { name: 'קפריסין', lat: 34.68, lon: 33.04, dx: -12, dy: 18, align: 'right' },
     { name: 'פורטוגל', lat: 38.72, lon: -9.14 },
     { name: 'רומניה', lat: 44.43, lon: 26.1 },
     { name: 'גאורגיה', lat: 41.72, lon: 44.79 },
