@@ -844,13 +844,14 @@ bdi { white-space: nowrap; }
 .press__videos, .press__articles { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-.press-video { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; min-height: 220px; padding: 28px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); text-decoration: none; overflow: hidden;
-  background: radial-gradient(120% 90% at 100% 0%, color-mix(in oklab, var(--gold) 16%, transparent), transparent 60%), var(--bg-3);
-  transition: transform .5s var(--ease-out), border-color .3s; }
-.press-video__play { position: absolute; top: 24px; inset-inline-start: 24px; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--gold); transition: background .3s, transform .5s var(--ease-out); }
-.press-video__play svg { width: 20px; height: 20px; fill: var(--gold); transform: translateX(1px); }
-.press-video__kind { font-size: .85rem; letter-spacing: .12em; color: var(--gold-2); }
-.press-video__title { font: 500 1.35rem/1.25 var(--serif); }
+.press-video { display: flex; flex-direction: column; gap: 8px; height: 100%; padding-bottom: 24px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); text-decoration: none; overflow: hidden; background: var(--bg-3); transition: transform .5s var(--ease-out), border-color .3s; }
+.press-video__media { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; margin-bottom: 14px; background: #000; }
+.press-video__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease-out); }
+.press-video__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10, 24, 54, .55), rgba(10, 24, 54, .1) 60%); }
+.press-video__play { position: absolute; z-index: 1; top: 50%; left: 50%; translate: -50% -50%; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; border: 1px solid var(--gold-2); background: rgba(10, 24, 54, .55); backdrop-filter: blur(6px); transition: background .3s, scale .5s var(--ease-out); }
+.press-video__play svg { width: 22px; height: 22px; fill: var(--gold-2); transform: translateX(2px); }
+.press-video__kind { margin-inline: 22px; font-size: .85rem; letter-spacing: .12em; color: var(--gold-2); }
+.press-video__title { margin-inline: 22px; font: 500 1.3rem/1.25 var(--serif); }
 
 .press-card { display: flex; flex-direction: column; height: 100%; color: var(--ink); text-decoration: none; border: 1px solid var(--line-soft); border-radius: 4px; overflow: hidden; background: var(--bg-2); transition: transform .5s var(--ease-out), border-color .3s; }
 .press-card__img { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink); }
@@ -861,17 +862,17 @@ bdi { white-space: nowrap; }
 
 @media (hover: hover) and (pointer: fine) {
   .press-video:hover, .press-card:hover { transform: translateY(-4px); border-color: var(--gold); }
-  .press-video:hover .press-video__play { background: color-mix(in oklab, var(--gold) 18%, transparent); transform: scale(1.06); }
+  .press-video:hover .press-video__play { background: var(--gold); scale: 1.08; }
+  .press-video:hover .press-video__play svg { fill: var(--bg); }
+  .press-video:hover .press-video__media img { transform: scale(1.04); }
   .press-card:hover .press-card__img img { transform: scale(1.04); }
 }
 .press-video:focus-visible, .press-card:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 4px; }
-@media (prefers-reduced-motion: reduce) { .press-video, .press-card, .press-card__img img, .press-video__play { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .press-video, .press-card, .press-card__img img, .press-video__play, .press-video__media img { transition: none; } }
 
 @media (max-width: 1100px) { .press__videos, .press__articles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) {
   .press__videos { grid-template-columns: minmax(0, 1fr); }
-  .press-video { min-height: 0; padding: 22px 96px 22px 22px; justify-content: center; }
-  .press-video__play { top: 50%; inset-inline-start: 22px; translate: 0 -50%; width: 52px; height: 52px; }
   .press__articles { gap: 14px; }
   .press-card__src { margin: 14px 14px 0; font-size: .78rem; }
   .press-card__title { margin: 6px 14px 0; font-size: 1.05rem; }
