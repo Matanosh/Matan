@@ -71,7 +71,7 @@ BODY = {
         <h2>6. Who receives the information</h2>
         <p>The information is intended for the MS Group Global and M.S GROUP team in order to handle your enquiry. If details need to be passed to the developer of a specific project abroad to answer your request, we will do so only after telling you who the recipient is and for what purpose, and subject to the law. Information may also be disclosed in response to a valid legal requirement.</p>
         <h2>7. External services and technical data</h2>
-        <p>The website loads fonts from Google Fonts, which may pass your IP address and browser details to that provider. The website’s hosting service may process technical data such as IP addresses and access times in order to operate and secure the site. The website does not currently use tracking tools or advertising pixels. This policy will be updated before any such tools are used.</p>
+        <p>The website loads fonts from Google Fonts, which may pass your IP address and browser details to that provider. The website’s hosting service may process technical data such as IP addresses and access times in order to operate and secure the site. A project film embedded from YouTube loads only after you press play, in YouTube’s privacy-enhanced mode (youtube-nocookie.com); once it plays, Google’s privacy policy applies to it. The website does not currently use tracking tools or advertising pixels. This policy will be updated before any such tools are used.</p>
         <h2>8. Retention and security</h2>
         <p>Information is kept only as long as it is needed to handle your enquiry and stay in touch with you, or as required by law. We take reasonable measures to secure it, including limiting access to the people who need it.</p>
         <h2>9. Your rights</h2>
@@ -100,7 +100,7 @@ BODY = {
         <h2>6. Destinataires des informations</h2>
         <p>Les informations sont destinées à l’équipe de MS Group Global et de M.S GROUP pour le traitement de votre demande. S’il faut transmettre vos coordonnées au promoteur d’un projet à l’étranger pour répondre à votre demande, nous ne le ferons qu’après vous avoir indiqué le destinataire et la finalité, et dans le respect de la loi. Des informations peuvent aussi être communiquées sur réquisition légale valable.</p>
         <h2>7. Services tiers et données techniques</h2>
-        <p>Le site charge des polices depuis Google Fonts, ce qui peut transmettre à ce prestataire votre adresse IP et des informations sur votre navigateur. L’hébergeur du site peut traiter des données techniques, comme l’adresse IP et les heures de connexion, pour faire fonctionner et sécuriser le site. Le site n’utilise actuellement aucun outil de suivi ni pixel publicitaire. La présente politique sera mise à jour avant toute utilisation de tels outils.</p>
+        <p>Le site charge des polices depuis Google Fonts, ce qui peut transmettre à ce prestataire votre adresse IP et des informations sur votre navigateur. L’hébergeur du site peut traiter des données techniques, comme l’adresse IP et les heures de connexion, pour faire fonctionner et sécuriser le site. Une vidéo de projet intégrée depuis YouTube ne se charge qu’après un clic sur le bouton de lecture, en mode de confidentialité renforcée (youtube-nocookie.com) ; dès sa lecture, la politique de confidentialité de Google s’applique. Le site n’utilise actuellement aucun outil de suivi ni pixel publicitaire. La présente politique sera mise à jour avant toute utilisation de tels outils.</p>
         <h2>8. Conservation et sécurité</h2>
         <p>Les informations ne sont conservées que le temps nécessaire au traitement de votre demande et à nos échanges, ou selon les exigences légales. Nous prenons des mesures raisonnables pour les sécuriser, notamment en limitant leur accès aux personnes qui en ont besoin.</p>
         <h2>9. Vos droits</h2>
@@ -124,7 +124,7 @@ BODY = {
           <li>The website is available in Hebrew, English and French, with the correct language and reading direction declared on every page.</li>
         </ul>
         <h2>Known limitations</h2>
-        <p>Some parts of the website are not yet fully accessible. The project films (Wyndham Garden Gonio and Azure by Lapis) do not currently have captions or a full text description. The press coverage is in Hebrew. Project renderings are images, and their full details are provided in the consultation. We are working to improve accessibility, and you can contact us to receive information in an accessible format.</p>
+        <p>Some parts of the website are not yet fully accessible. The project films (Wyndham Garden Gonio, Azure by Lapis and PONTUS Gonio) do not currently have captions or a full text description. The press coverage is in Hebrew. Project renderings are images, and their full details are provided in the consultation. We are working to improve accessibility, and you can contact us to receive information in an accessible format.</p>
         <h2>Accessibility enquiries</h2>
         <!-- SLOT: name of the accessibility coordinator, if the company appoints one -->
         <p>Have you come across an accessibility problem, or do you need information in an accessible format? We are happy to help. Contact us {contact('en')}. We will do our best to reply to every enquiry promptly.</p>
@@ -148,7 +148,7 @@ BODY = {
           <li>Le site est disponible en hébreu, en anglais et en français, avec la langue et le sens de lecture déclarés sur chaque page.</li>
         </ul>
         <h2>Limites connues</h2>
-        <p>Certaines parties du site ne sont pas encore entièrement accessibles. Les vidéos des projets (Wyndham Garden Gonio et Azure by Lapis) ne disposent pas encore de sous-titres ni d’une description textuelle complète. Les reportages de presse sont en hébreu. Les perspectives des projets sont des images, et leurs détails complets sont présentés lors du rendez-vous. Nous travaillons à améliorer l’accessibilité, et vous pouvez nous contacter pour obtenir les informations dans un format accessible.</p>
+        <p>Certaines parties du site ne sont pas encore entièrement accessibles. Les vidéos des projets (Wyndham Garden Gonio, Azure by Lapis et PONTUS Gonio) ne disposent pas encore de sous-titres ni d’une description textuelle complète. Les reportages de presse sont en hébreu. Les perspectives des projets sont des images, et leurs détails complets sont présentés lors du rendez-vous. Nous travaillons à améliorer l’accessibilité, et vous pouvez nous contacter pour obtenir les informations dans un format accessible.</p>
         <h2>Contact accessibilité</h2>
         <!-- SLOT: name of the accessibility coordinator, if the company appoints one -->
         <p>Vous avez rencontré un problème d’accessibilité ou avez besoin d’informations dans un format accessible ? Nous serons heureux de vous aider. Contactez-nous {contact('fr')}. Nous nous efforçons de répondre rapidement à chaque demande.</p>

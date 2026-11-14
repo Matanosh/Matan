@@ -946,3 +946,19 @@ bdi { white-space: nowrap; }
   .project__gallery--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project__gallery--5 figure:last-child { grid-column: auto; aspect-ratio: 4 / 3; }
 }
+
+/* YouTube film: poster with a play button, swapped for the player on demand */
+.yt { position: relative; display: block; aspect-ratio: 16 / 9; color: var(--ink); text-decoration: none; overflow: hidden; }
+.yt img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease-out); }
+.yt::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10, 24, 54, .6), rgba(10, 24, 54, .05) 55%); }
+.yt__play { position: absolute; z-index: 1; top: 50%; left: 50%; translate: -50% -50%; display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; border: 1px solid var(--gold-2); background: rgba(10, 24, 54, .55); backdrop-filter: blur(6px); transition: background .3s, scale .5s var(--ease-out); }
+.yt__play svg { width: 30px; height: 30px; fill: var(--gold-2); transform: translateX(3px); }
+.yt__label { position: absolute; z-index: 1; inset-block-end: 22px; inset-inline-start: 24px; font-weight: 600; letter-spacing: .02em; }
+.yt:focus-visible { outline: 2px solid var(--gold-2); outline-offset: -4px; }
+@media (hover: hover) and (pointer: fine) {
+  .yt:hover img { transform: scale(1.03); }
+  .yt:hover .yt__play { background: var(--gold); scale: 1.06; }
+  .yt:hover .yt__play svg { fill: var(--bg); }
+}
+@media (max-width: 560px) { .yt__play { width: 64px; height: 64px; } .yt__play svg { width: 24px; height: 24px; } .yt__label { inset-block-end: 14px; inset-inline-start: 16px; font-size: .95rem; } }
+.yt__frame { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }

@@ -272,6 +272,20 @@
     }
   });
 
+  /* YouTube films: a still and a play button until the visitor asks for the video, then the privacy-enhanced player */
+  document.querySelectorAll('a[data-yt]').forEach((a) => a.addEventListener('click', (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button > 0) return;
+    e.preventDefault();
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${a.dataset.yt}?autoplay=1&rel=0&playsinline=1&hl=${LANG}`;
+    f.title = a.dataset.ytTitle || a.textContent.trim();
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    f.className = 'yt__frame';
+    a.replaceWith(f);
+    f.focus();
+  }));
+
   /* Pause control for moving content (WCAG 2.2.2) */
   let userPaused = false;
   const mt = document.querySelector('[data-motion-toggle]');
