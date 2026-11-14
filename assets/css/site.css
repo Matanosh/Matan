@@ -1153,3 +1153,14 @@ a.yt:active { transform: scale(0.99); transition: transform 120ms var(--ease-out
   .nav.is-solid { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-color: var(--gold); box-shadow: none; }
   .project__status { border-color: var(--gold); }
 }
+
+/* Text description under each project film (accessibility) */
+.video-desc { padding: 14px clamp(16px, 2.4vw, 24px) 16px; border-top: 1px solid var(--line-soft); background: var(--bg-2); }
+.video-desc summary { display: inline-flex; align-items: center; gap: 10px; min-height: 32px; cursor: pointer; color: var(--gold-2); font-weight: 600; font-size: .98rem; list-style: none; }
+.video-desc summary::-webkit-details-marker { display: none; }
+.video-desc summary::before { content: ""; inline-size: 8px; block-size: 8px; border-inline-end: 1.6px solid currentColor; border-block-end: 1.6px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform 200ms var(--ease-out); }
+.video-desc details[open] summary::before { transform: rotate(-135deg) translate(-2px, -2px); }
+.video-desc p { margin-top: 10px; max-width: 78ch; color: var(--ink-2); font-size: .98rem; line-height: 1.75; }
+.video-desc__note { display: block; margin-bottom: 4px; color: var(--ink-3); font-size: .9rem; }
+@media (prefers-reduced-motion: reduce) { .video-desc summary::before { transition: none; } }
+.video-desc bdi { white-space: normal; }
