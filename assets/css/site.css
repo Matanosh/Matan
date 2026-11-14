@@ -1098,3 +1098,7 @@ video::cue { font-family: Heebo, sans-serif; font-size: 1.05rem; background: rgb
   .project__gallery.project__gallery--seven { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project__gallery.project__gallery--seven figure:not(.project__main) { grid-column: auto; aspect-ratio: 4 / 3; }
 }
+
+/* extra row of two wide photos under a tower gallery */
+.project__gallery .project__pair { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: inherit; }
+.project__gallery .project__pair figure { aspect-ratio: 16 / 10; }

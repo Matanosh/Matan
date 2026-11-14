@@ -321,6 +321,9 @@ T = [
 
 ('<p class="project__price">החל מ־<strong>390,000 דולר</strong></p>', '<p class="project__price">From <strong>$390,000</strong></p>', '<p class="project__price">À partir de <strong>390\u202f000\u00a0$</strong></p>'),
 
+('alt="מגדל GALE Miami ובריכת הגג מעל בסיס הלבנים האדומות, במרכז מיאמי"', 'alt="GALE Miami tower and its rooftop pool above the red-brick podium, in Downtown Miami"', 'alt="La tour GALE Miami et sa piscine sur le toit, au-dessus du socle en brique rouge, au centre de Miami"'),
+('alt="מבט מלמעלה על מגדל GALE Miami ובריכת הגג שלו, בין מגדלי מרכז העיר"', 'alt="Aerial view of GALE Miami tower and its rooftop pool among the Downtown towers"', 'alt="Vue aérienne de la tour GALE Miami et de sa piscine sur le toit, parmi les tours du centre-ville"'),
+
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
 ('כל שוק נבחר מסיבה. הנה המספרים שמאחורי כל יעד, ומה חשוב לדעת לפני שנכנסים אליו.', 'Every market was chosen for a reason. Here are the numbers behind each destination, and what is worth knowing before you go in.', 'Chaque marché a été choisi pour une raison. Voici les chiffres derrière chaque destination, et ce qu’il faut savoir avant de s’y engager.'),
