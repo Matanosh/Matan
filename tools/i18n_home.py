@@ -341,6 +341,8 @@ T = [
 
 ('data-yt-title="סרטון הפרויקט One Central"', 'data-yt-title="One Central project film"', 'data-yt-title="Vidéo du projet One Central"'),
 
+('data-yt-title="סרטון הפרויקט OMYA Residence"', 'data-yt-title="OMYA Residence project film"', 'data-yt-title="Vidéo du projet OMYA Residence"'),
+
 # --- home / legacy ---
 ('בית אחד.<br><span class="gold">הכל כולל הכל.</span>', 'One home.<br><span class="gold">Everything included.</span>', 'Une seule maison.<br><span class="gold">Tout compris.</span>'),
 ('<span class="gold">15 שנה</span> של שיווק, ייזום ומסירת נדל״ן ב־<bdi>MS Group</bdi>.', '<span class="gold">15 years</span> of marketing, initiating and delivering real estate at <bdi>MS Group</bdi>.', '<span class="gold">15 ans</span> de commercialisation, de développement et de livraison immobilière chez <bdi>MS Group</bdi>.'),
