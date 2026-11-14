@@ -120,7 +120,7 @@ T = [
 ('<span class="where__name">גאורגיה</span><span class="where__city">באטומי · גוניו</span>', '<span class="where__name">Georgia</span><span class="where__city">Batumi · Gonio</span>', '<span class="where__name">Géorgie</span><span class="where__city">Batoumi · Gonio</span>'),
 ('<span>5 פרויקטים</span><span>טיסה כשעתיים וחצי</span>', '<span>5 projects</span><span>About 2.5 hours’ flight</span>', '<span>5 projets</span><span>Environ 2 h 30 de vol</span>'),
 ('<span class="where__name">קפריסין</span><span class="where__city">לימסול · לרנקה</span>', '<span class="where__name">Cyprus</span><span class="where__city">Limassol · Larnaca</span>', '<span class="where__name">Chypre</span><span class="where__city">Limassol · Larnaca</span>'),
-('<span>פרויקטים בקרוב</span><span>טיסה כ־40 דקות</span>', '<span>Projects coming soon</span><span>About 40 minutes’ flight</span>', '<span>Projets à venir</span><span>Environ 40 min de vol</span>'),
+('<span>פרויקט אחד</span><span>טיסה כ־40 דקות</span>', '<span>1 project</span><span>About 40 minutes’ flight</span>', '<span>1 projet</span><span>Environ 40 min de vol</span>'),
 ('<span class="where__name">פורטוגל</span><span class="where__city">ליסבון</span>', '<span class="where__name">Portugal</span><span class="where__city">Lisbon</span>', '<span class="where__name">Portugal</span><span class="where__city">Lisbonne</span>'),
 ('<span>פרויקט אחד</span><span>טיסה כחמש שעות</span>', '<span>1 project</span><span>About 5 hours’ flight</span>', '<span>1 projet</span><span>Environ 5 h de vol</span>'),
 ('<span class="where__name">רומניה</span><span class="where__city">בוקרשט</span>', '<span class="where__name">Romania</span><span class="where__city">Bucharest</span>', '<span class="where__name">Roumanie</span><span class="where__city">Bucarest</span>'),
@@ -219,6 +219,19 @@ T = [
 ('alt="חדר הכושר עם חלונות לכל אורך הקיר ונוף לעיר"', 'alt="The gym with floor-to-ceiling windows and city views"', 'alt="La salle de sport avec baies vitrées et vue sur la ville"'),
 ('alt="חדר ישיבות מול מגדל החירות והמפרץ"', 'alt="A meeting room facing the Freedom Tower and the bay"', 'alt="Une salle de réunion face à la Freedom Tower et à la baie"'),
 
+('>קפריסין <span class="project__count">', '>Cyprus <span class="project__count">', '>Chypre <span class="project__count">'),
+('<br><span class="gold">לימסול, קפריסין</span>', '<br><span class="gold">Limassol, Cyprus</span>', '<br><span class="gold">Limassol, Chypre</span>'),
+('בניין מגורים בוטיק בלימסול של <bdi>HUBOX</bdi>, עם בריכה וגינה, חניה מקורה, מרפסות רחבות עם נוף לעיר ולים, ומרפסות גג פרטיות עם ג׳קוזי ופרגולה.',
+ 'A boutique residential building in Limassol by <bdi>HUBOX</bdi>, with a pool and garden, covered parking, wide balconies overlooking the city and the sea, and private roof terraces with a jacuzzi and pergola.',
+ 'Un immeuble résidentiel de standing à Limassol, signé <bdi>HUBOX</bdi>, avec piscine et jardin, parking couvert, larges balcons face à la ville et à la mer, et toits-terrasses privatifs avec jacuzzi et pergola.'),
+('data-pick="קפריסין">לפרטים על', 'data-pick="Cyprus">Details on', 'data-pick="Chypre">En savoir plus sur'),
+('alt="Azura Residences בלימסול בשקיעה, מבט מלמעלה על הבניין, הבריכה והגג"', 'alt="Azura Residences in Limassol at sunset, aerial view of the building, pool and roof"', 'alt="Azura Residences à Limassol au coucher du soleil, vue aérienne de l’immeuble, de la piscine et du toit"'),
+('alt="חזית הבניין מהרחוב והכניסה ל־Azura Residences"', 'alt="The building façade from the street and the Azura Residences entrance"', 'alt="La façade sur rue et l’entrée d’Azura Residences"'),
+('alt="הבריכה וכסאות השיזוף מול הבניין בשקיעה"', 'alt="The pool and sun loungers facing the building at sunset"', 'alt="La piscine et les transats face à l’immeuble au coucher du soleil"'),
+('alt="מטבח עם אי שיש וסלון עם נוף לעיר ולים"', 'alt="A kitchen with a marble island and a living room overlooking the city and the sea"', 'alt="Une cuisine avec îlot en marbre et un salon avec vue sur la ville et la mer"'),
+('alt="מרפסת גג פרטית עם ג׳קוזי, פרגולה ומטבח חוץ"', 'alt="A private roof terrace with a jacuzzi, pergola and outdoor kitchen"', 'alt="Un toit-terrasse privatif avec jacuzzi, pergola et cuisine d’extérieur"'),
+('alt="מרפסת רחבה עם פינת ישיבה ונוף ללימסול ולים"', 'alt="A wide balcony with a seating area overlooking Limassol and the sea"', 'alt="Un large balcon avec salon face à Limassol et à la mer"'),
+
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
 ('כל שוק נבחר מסיבה. הנה המספרים שמאחורי כל יעד, ומה חשוב לדעת לפני שנכנסים אליו.', 'Every market was chosen for a reason. Here are the numbers behind each destination, and what is worth knowing before you go in.', 'Chaque marché a été choisi pour une raison. Voici les chiffres derrière chaque destination, et ce qu’il faut savoir avant de s’y engager.'),
@@ -274,7 +287,7 @@ T = [
  'Les données proviennent de sources de marché publiques et sont à jour pour 2026. Les rendements sont bruts, avant charges et impôts. Ces informations sont générales et ne constituent pas un conseil en investissement ; lors du rendez-vous, nous étudierons avec vous les chiffres de votre projet et de votre situation.'),
 
 # --- projects ---
-('פרויקטים נבחרים<br><span class="gold">בשש מדינות, 17 פרויקטים</span>', 'Selected projects<br><span class="gold">17 projects in six countries</span>', 'Projets sélectionnés<br><span class="gold">17 projets dans six pays</span>'),
+('פרויקטים נבחרים<br><span class="gold">בשבע מדינות, 18 פרויקטים</span>', 'Selected projects<br><span class="gold">18 projects in seven countries</span>', 'Projets sélectionnés<br><span class="gold">18 projets dans sept pays</span>'),
 ('aria-label="סינון לפי מדינה"', 'aria-label="Filter by country"', 'aria-label="Filtrer par pays"'),
 ('>האמירויות <span class="project__count">', '>UAE <span class="project__count">', '>Émirats <span class="project__count">'),
 ('>גאורגיה <span class="project__count">', '>Georgia <span class="project__count">', '>Géorgie <span class="project__count">'),
@@ -488,7 +501,7 @@ T = [
 ('מועדון VIP<br><span class="gold">למשקיעים בחו״ל</span>', 'VIP Club<br><span class="gold">for investors abroad</span>', 'Club VIP<br><span class="gold">pour les investisseurs à l’étranger</span>'),
 ('הצטרפו למועדון הלקוחות של <bdi>MS Group Global</bdi> וקבלו לפני כולם פרויקטים חדשים בחו״ל, מחירי פריסייל והטבות שמורות לחברי המועדון.', 'Join the <bdi>MS Group Global</bdi> client club and be the first to hear about new projects abroad, pre-sale prices and benefits reserved for members.', 'Rejoignez le club clients de <bdi>MS Group Global</bdi> et découvrez avant tout le monde les nouveaux projets à l’étranger, les prix de prévente et des avantages réservés aux membres.'),
 ('<li><strong>7</strong><span>מדינות</span></li>', '<li><strong>7</strong><span>countries</span></li>', '<li><strong>7</strong><span>pays</span></li>'),
-('<li><strong>17</strong><span>פרויקטים</span></li>', '<li><strong>17</strong><span>projects</span></li>', '<li><strong>17</strong><span>projets</span></li>'),
+('<li><strong>18</strong><span>פרויקטים</span></li>', '<li><strong>18</strong><span>projects</span></li>', '<li><strong>18</strong><span>projets</span></li>'),
 ('<li><strong>15</strong><span>שנות ניסיון</span></li>', '<li><strong>15</strong><span>years of experience</span></li>', '<li><strong>15</strong><span>ans d’expérience</span></li>'),
 ('חינם וללא כל התחייבות', 'Free, with no obligation', 'Gratuit et sans engagement'),
 ('<h3 class="club__sub">ההטבות שלכם</h3>', '<h3 class="club__sub">Your benefits</h3>', '<h3 class="club__sub">Vos avantages</h3>'),

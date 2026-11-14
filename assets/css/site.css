@@ -1072,3 +1072,17 @@ video::cue { font-family: Heebo, sans-serif; font-size: 1.05rem; background: rgb
 .club__cc { position: absolute; left: 50%; bottom: 7%; translate: -50% 0; max-width: 88%; width: max-content; margin: 0; padding: 8px 16px; border-radius: 6px; background: rgba(10, 24, 54, 0.78); color: #fbf8f1; font: 500 clamp(0.95rem, 1.6vw, 1.3rem)/1.4 var(--sans); text-align: center; pointer-events: none; text-wrap: balance; }
 .club__story figcaption { position: static; }
 @media (max-width: 560px) { .club__cc { bottom: 5%; font-size: 0.7rem; line-height: 1.35; padding: 4px 10px; max-width: 94%; border-radius: 4px; } }
+/* Six renders: main full width, then two large and three smaller */
+.project__gallery--six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.project__gallery--six figure:not(.project__main) { grid-column: span 2; aspect-ratio: 4 / 3; }
+.project__gallery--six figure:nth-child(2), .project__gallery--six figure:nth-child(3) { grid-column: span 3; aspect-ratio: 16 / 10; }
+@media (max-width: 900px) {
+  .project__gallery.project__gallery--six { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project__gallery.project__gallery--six figure:not(.project__main) { grid-column: auto; aspect-ratio: 4 / 3; }
+  .project__gallery.project__gallery--six figure:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+}
+/* Phones: all country filters visible at once (wrap instead of a hidden side-scroll) */
+@media (max-width: 900px) {
+  .project__countries { flex-wrap: wrap; overflow-x: visible; margin-inline: 0; padding-inline: 0; gap: 8px; }
+  .project__countries .project__country { min-height: 40px; padding: 6px 14px; font-size: 0.92rem; gap: 8px; }
+}
