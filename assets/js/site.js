@@ -328,6 +328,37 @@
     sync();
   }
 
+  /* Presenter film: captions drawn in our own layer, pinned to the bottom of the frame */
+  document.querySelectorAll('[data-cc-video]').forEach((fig) => {
+    const v = fig.querySelector('video'), out = fig.querySelector('[data-cc]');
+    const pick = () => [...v.textTracks].find((t) => t.language === LANG) || v.textTracks[0];
+    const show = () => {
+      [...v.textTracks].forEach((t) => { if (t.mode === 'showing') t.mode = 'hidden'; });
+      const t = [...v.textTracks].find((x) => x.mode === 'hidden' && x.__on) || pick();
+      const cue = t && t.activeCues && t.activeCues[0];
+      // Latin names inside Hebrew stay whole and in order
+      const esc = (s) => s.replace(/[&<>]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[ch]));
+      out.innerHTML = cue ? esc(cue.text).replace(/MS Group Global|VIP/g, (m) => `<bdi class="nowrap">${m}</bdi>`) : '';
+      out.dir = t && t.language === 'he' ? 'rtl' : 'ltr';
+      out.hidden = !cue;
+    };
+    const arm = () => {
+      [...v.textTracks].forEach((t) => {
+        t.__on = t === pick(); t.mode = 'hidden';
+        t.oncuechange = show;
+      });
+    };
+    arm(); out.hidden = true;
+    v.textTracks.addEventListener?.('change', () => {
+      // the viewer chose a language (or "off") in the player menu
+      const chosen = [...v.textTracks].find((t) => t.mode === 'showing');
+      [...v.textTracks].forEach((t) => { t.__on = t === chosen; if (t.mode === 'showing') t.mode = 'hidden'; });
+      if (!chosen && ![...v.textTracks].some((t) => t.__on)) { out.hidden = true; }
+      show();
+    });
+    v.addEventListener('timeupdate', show);
+  });
+
   /* VIP card: follows the pointer on desktop */
   const card = document.querySelector('[data-vip-card]');
   if (card && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {

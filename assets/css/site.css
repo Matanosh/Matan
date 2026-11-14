@@ -1066,3 +1066,9 @@ bdi { white-space: nowrap; }
 .club__story video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 18px; background: #000; box-shadow: 0 0 0 1px var(--line) inset, 0 40px 80px -40px rgba(0, 0, 0, 0.7); }
 .club__story figcaption { margin-top: 12px; font-size: 0.9rem; color: var(--ink-3); }
 video::cue { font-family: Heebo, sans-serif; font-size: 1.05rem; background: rgba(10, 24, 54, 0.78); color: #fbf8f1; }
+/* Presenter film captions: our own layer at the bottom of the picture */
+.club__frame { position: relative; }
+.club__story video::cue { color: transparent; background: transparent; }
+.club__cc { position: absolute; left: 50%; bottom: 7%; translate: -50% 0; max-width: 88%; width: max-content; margin: 0; padding: 8px 16px; border-radius: 6px; background: rgba(10, 24, 54, 0.78); color: #fbf8f1; font: 500 clamp(0.95rem, 1.6vw, 1.3rem)/1.4 var(--sans); text-align: center; pointer-events: none; text-wrap: balance; }
+.club__story figcaption { position: static; }
+@media (max-width: 560px) { .club__cc { bottom: 5%; font-size: 0.7rem; line-height: 1.35; padding: 4px 10px; max-width: 94%; border-radius: 4px; } }
