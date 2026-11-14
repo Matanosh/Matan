@@ -730,3 +730,13 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
   .hero__title { font-size: clamp(2.6rem, 11.5vw, 3.4rem); }
   .motion-toggle { top: calc(var(--nav-h) + 12px); bottom: auto; inset-inline-end: 0; }
 }
+
+/* Landscape main render: full width at its own proportions, the other three in a row below */
+.project__gallery--wide { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto; height: auto; }
+.project__gallery--wide .project__main { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 16 / 9; }
+.project__gallery--wide figure:not(.project__main) { aspect-ratio: 4 / 3; }
+@media (max-width: 900px) {
+  .project__gallery--wide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project__gallery--wide .project__main { aspect-ratio: 16 / 10; }
+  .project__gallery--wide figure:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+}
