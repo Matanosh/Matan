@@ -120,7 +120,7 @@ T = [
 ('<span class="where__name">גאורגיה</span><span class="where__city">באטומי · גוניו</span>', '<span class="where__name">Georgia</span><span class="where__city">Batumi · Gonio</span>', '<span class="where__name">Géorgie</span><span class="where__city">Batoumi · Gonio</span>'),
 ('<span>5 פרויקטים</span><span>טיסה כשעתיים וחצי</span>', '<span>5 projects</span><span>About 2.5 hours’ flight</span>', '<span>5 projets</span><span>Environ 2 h 30 de vol</span>'),
 ('<span class="where__name">קפריסין</span><span class="where__city">לימסול · לרנקה</span>', '<span class="where__name">Cyprus</span><span class="where__city">Limassol · Larnaca</span>', '<span class="where__name">Chypre</span><span class="where__city">Limassol · Larnaca</span>'),
-('<span>6 פרויקטים</span><span>טיסה כ־40 דקות</span>', '<span>6 projects</span><span>About 40 minutes’ flight</span>', '<span>6 projets</span><span>Environ 40 min de vol</span>'),
+('<span>7 פרויקטים</span><span>טיסה כ־40 דקות</span>', '<span>7 projects</span><span>About 40 minutes’ flight</span>', '<span>7 projets</span><span>Environ 40 min de vol</span>'),
 ('<span class="where__name">פורטוגל</span><span class="where__city">ליסבון</span>', '<span class="where__name">Portugal</span><span class="where__city">Lisbon</span>', '<span class="where__name">Portugal</span><span class="where__city">Lisbonne</span>'),
 ('<span>פרויקט אחד</span><span>טיסה כחמש שעות</span>', '<span>1 project</span><span>About 5 hours’ flight</span>', '<span>1 projet</span><span>Environ 5 h de vol</span>'),
 ('<span class="where__name">רומניה</span><span class="where__city">בוקרשט</span>', '<span class="where__name">Romania</span><span class="where__city">Bucharest</span>', '<span class="where__name">Roumanie</span><span class="where__city">Bucarest</span>'),
@@ -282,6 +282,18 @@ T = [
 ('alt="חדר רחצה באבן ועץ עם מקלחון"', 'alt="A stone and wood bathroom with a walk-in shower"', 'alt="Une salle de bains en pierre et bois avec douche à l’italienne"'),
 ('alt="חדר הכושר עם קיר הזכוכית מול הבריכה"', 'alt="The gym with its glass wall facing the pool"', 'alt="La salle de sport et sa baie vitrée face à la piscine"'),
 
+('<p class="project__price">החל מ־<strong>215,000 אירו</strong></p>', '<p class="project__price">From <strong>€215,000</strong></p>', '<p class="project__price">À partir de <strong>215\u202f000\u00a0€</strong></p>'),
+('מתחם מגורים בלימסול בעיצוב עכשווי של בטון ועץ: בריכת אינפיניטי, בריכות פרטיות על הגג, חדר כושר וספא, ודירות בעיצוב חם ומוקפד.',
+ 'A residential community in Limassol with contemporary concrete-and-wood architecture: an infinity pool, private rooftop pools, a gym and a spa, and warmly designed, carefully finished homes.',
+ 'Un ensemble résidentiel à Limassol à l’architecture contemporaine de béton et de bois : une piscine à débordement, des piscines privées sur le toit, une salle de sport et un spa, et des appartements chaleureux aux finitions soignées.'),
+('alt="מבט מלמעלה על Metropolitan Royal Club: בריכות על הגג ובריכת אינפיניטי לאורך הבניין"', 'alt="Aerial view of Metropolitan Royal Club: rooftop pools and an infinity pool along the building"', 'alt="Vue aérienne de Metropolitan Royal Club : piscines sur le toit et piscine à débordement le long de l’immeuble"'),
+('alt="חזית הבניין מצד הבריכה"', 'alt="The façade on the pool side"', 'alt="La façade côté piscine"'),
+('alt="שער הכניסה ושני בנייני המתחם"', 'alt="The entrance gate and the two buildings"', 'alt="Le portail d’entrée et les deux immeubles"'),
+('alt="פינת אוכל וסלון בדירה"', 'alt="The dining area and living room of an apartment"', 'alt="Le coin repas et le salon d’un appartement"'),
+('alt="חדר שינה"', 'alt="A bedroom"', 'alt="Une chambre"'),
+('alt="חדר הכושר"', 'alt="The gym"', 'alt="La salle de sport"'),
+('alt="חדר המנוחה בספא"', 'alt="The spa relaxation room"', 'alt="La salle de repos du spa"'),
+
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
 ('כל שוק נבחר מסיבה. הנה המספרים שמאחורי כל יעד, ומה חשוב לדעת לפני שנכנסים אליו.', 'Every market was chosen for a reason. Here are the numbers behind each destination, and what is worth knowing before you go in.', 'Chaque marché a été choisi pour une raison. Voici les chiffres derrière chaque destination, et ce qu’il faut savoir avant de s’y engager.'),
@@ -337,7 +349,7 @@ T = [
  'Les données proviennent de sources de marché publiques et sont à jour pour 2026. Les rendements sont bruts, avant charges et impôts. Ces informations sont générales et ne constituent pas un conseil en investissement ; lors du rendez-vous, nous étudierons avec vous les chiffres de votre projet et de votre situation.'),
 
 # --- projects ---
-('פרויקטים נבחרים<br><span class="gold">בשבע מדינות, 23 פרויקטים</span>', 'Selected projects<br><span class="gold">23 projects in seven countries</span>', 'Projets sélectionnés<br><span class="gold">23 projets dans sept pays</span>'),
+('פרויקטים נבחרים<br><span class="gold">בשבע מדינות, 24 פרויקטים</span>', 'Selected projects<br><span class="gold">24 projects in seven countries</span>', 'Projets sélectionnés<br><span class="gold">24 projets dans sept pays</span>'),
 ('aria-label="סינון לפי מדינה"', 'aria-label="Filter by country"', 'aria-label="Filtrer par pays"'),
 ('>האמירויות <span class="project__count">', '>UAE <span class="project__count">', '>Émirats <span class="project__count">'),
 ('>גאורגיה <span class="project__count">', '>Georgia <span class="project__count">', '>Géorgie <span class="project__count">'),
@@ -551,7 +563,7 @@ T = [
 ('מועדון VIP<br><span class="gold">למשקיעים בחו״ל</span>', 'VIP Club<br><span class="gold">for investors abroad</span>', 'Club VIP<br><span class="gold">pour les investisseurs à l’étranger</span>'),
 ('הצטרפו למועדון הלקוחות של <bdi>MS Group Global</bdi> וקבלו לפני כולם פרויקטים חדשים בחו״ל, מחירי פריסייל והטבות שמורות לחברי המועדון.', 'Join the <bdi>MS Group Global</bdi> client club and be the first to hear about new projects abroad, pre-sale prices and benefits reserved for members.', 'Rejoignez le club clients de <bdi>MS Group Global</bdi> et découvrez avant tout le monde les nouveaux projets à l’étranger, les prix de prévente et des avantages réservés aux membres.'),
 ('<li><strong>7</strong><span>מדינות</span></li>', '<li><strong>7</strong><span>countries</span></li>', '<li><strong>7</strong><span>pays</span></li>'),
-('<li><strong>23</strong><span>פרויקטים</span></li>', '<li><strong>23</strong><span>projects</span></li>', '<li><strong>23</strong><span>projets</span></li>'),
+('<li><strong>24</strong><span>פרויקטים</span></li>', '<li><strong>24</strong><span>projects</span></li>', '<li><strong>24</strong><span>projets</span></li>'),
 ('<li><strong>15</strong><span>שנות ניסיון</span></li>', '<li><strong>15</strong><span>years of experience</span></li>', '<li><strong>15</strong><span>ans d’expérience</span></li>'),
 ('חינם וללא כל התחייבות', 'Free, with no obligation', 'Gratuit et sans engagement'),
 ('<h3 class="club__sub">ההטבות שלכם</h3>', '<h3 class="club__sub">Your benefits</h3>', '<h3 class="club__sub">Vos avantages</h3>'),
