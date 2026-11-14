@@ -78,6 +78,10 @@
         </div>
         <p class="hero__parent" data-enter>חברת בת של <a class="inline-logo" href="https://msgp.co.il" rel="noopener"><img src="assets/img/msgroup-logo.png" alt="MS Group" width="494" height="191"></a> עם 15 שנות ניסיון בשיווק ומסירת נדל״ן</p>
       </div>
+      <button class="motion-toggle" type="button" aria-pressed="false" data-motion-toggle>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-pause" d="M5 3v10M11 3v10"/><path class="i-play" d="M5 3l8 5-8 5z"/></svg>
+        <span data-motion-label>עצירת אנימציה</span>
+      </button>
       <a class="scroll-cue" href="#statement" aria-label="גלילה להמשך"><span></span></a>
     </section>
 
@@ -755,6 +759,12 @@
               <label class="chip"><input type="checkbox" name="country" value="אחר"><span>עוד לא החלטתי</span></label>
             </div>
           </fieldset>
+          <div class="consent">
+            <label class="check"><input type="checkbox" id="f-privacy" name="privacy" required aria-describedby="e-privacy"><span>קראתי את <a href="privacy.html">מדיניות הפרטיות</a> ואני מסכים/ה שתיצרו איתי קשר בנוגע לפנייה.</span></label>
+            <p class="field__error" id="e-privacy" hidden>כדי לשלוח את הפנייה צריך לאשר את מדיניות הפרטיות.</p>
+            <label class="check"><input type="checkbox" id="f-marketing" name="marketing"><span>אשמח לקבל עדכונים על פרויקטים חדשים בדוא״ל, ב־SMS או בוואטסאפ (לא חובה, אפשר להסיר בכל עת).</span></label>
+          </div>
+          <p class="form__notice">מסירת הפרטים אינה חובה לפי חוק. הפרטים ישמשו לטיפול בפנייה וליצירת קשר איתכם, וישמרו אצל MS Group Global. אפשר לעיין בהם, לתקן או לבקש למחוק אותם. פרטים נוספים ב<a href="privacy.html">מדיניות הפרטיות</a>.</p>
           <button class="btn btn--wide" type="submit">שלחו ונחזור אליכם</button>
           <p class="form__status" role="status" aria-live="polite" data-form-status></p>
         </form>
@@ -770,7 +780,12 @@
       </a>
       <p>חברת בת של <a class="inline-logo" href="https://msgp.co.il" rel="noopener"><img src="assets/img/msgroup-logo.png" alt="MS Group" width="494" height="191"></a></p>
       <p><a href="tel:+972722133266" dir="ltr">072-2133266</a> · <a href="mailto:office@msgp.co.il">office@msgp.co.il</a></p>
-      <p class="footer__small">© <span data-year>2026</span> MS Group Global. כל הזכויות שמורות.</p>
+      <nav class="footer__legal" aria-label="מידע משפטי">
+        <a href="privacy.html">מדיניות פרטיות</a>
+        <a href="accessibility.html">הצהרת נגישות</a>
+        <a href="terms.html">תנאי שימוש</a>
+      </nav>
+      <p class="footer__small">© <span data-year>2026</span> כל הזכויות שמורות ל־MS Group Global, חברת בת של M.S GROUP.</p>
     </div>
   </footer>
 

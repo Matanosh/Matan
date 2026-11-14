@@ -221,12 +221,15 @@
       if (good) el.removeAttribute('aria-describedby'); else el.setAttribute('aria-describedby', err.id);
       if (!good && !first) first = el;
     });
+    const privacy = form.querySelector('#f-privacy'), pErr = form.querySelector('#e-privacy');
+    if (privacy) { pErr.hidden = privacy.checked; privacy.setAttribute('aria-invalid', String(!privacy.checked)); if (!privacy.checked && !first) first = privacy; }
     if (first) { first.focus(); return; }
     if (!FORM_ENDPOINT) {
       // No form backend yet: hand the details to the visitor's email app, addressed to the office.
       const d = new FormData(form);
       const body = [`שם: ${d.get('name')}`, `טלפון: ${d.get('phone')}`, `תקציב: ${d.get('budget') || 'לא צוין'}`,
-        `מדינות: ${d.getAll('country').join(', ') || 'לא צוין'}`].join('\n');
+        `מדינות: ${d.getAll('country').join(', ') || 'לא צוין'}`,
+        `אישור מדיניות פרטיות: כן`, `הסכמה לדיוור שיווקי: ${d.get('marketing') ? 'כן' : 'לא'}`].join('\n');
       window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent('פנייה מאתר MS Group Global')}&body=${encodeURIComponent(body)}`;
       status.textContent = 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.';
       return;
@@ -244,6 +247,18 @@
     } finally {
       btn.disabled = false;
     }
+  });
+
+  /* Pause control for moving content (WCAG 2.2.2) */
+  let userPaused = false;
+  const mt = document.querySelector('[data-motion-toggle]');
+  const mLabel = document.querySelector('[data-motion-label]');
+  mt?.addEventListener('click', () => {
+    userPaused = !userPaused;
+    root.classList.toggle('paused', userPaused);
+    mt.setAttribute('aria-pressed', String(userPaused));
+    mLabel.textContent = userPaused ? 'הפעלת אנימציה' : 'עצירת אנימציה';
+    window.dispatchEvent(new Event('motionchange'));
   });
 
   /* Globe */
@@ -388,11 +403,13 @@
       ctx.textAlign = 'center';
     });
 
-    if (visible && !reduced.matches) raf = requestAnimationFrame(draw);
+    if (visible && !reduced.matches && !userPaused) raf = requestAnimationFrame(draw);
   };
   const run = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); };
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) run(); }).observe(canvas);
   document.addEventListener('visibilitychange', () => { visible = !document.hidden; if (visible) run(); });
   reduced.addEventListener?.('change', (e) => { root.classList.toggle('reduced', e.matches); run(); });
+  window.addEventListener('motionchange', () => { if (!userPaused) { start = performance.now() - pausedAt; run(); } else { pausedAt = performance.now() - start; } });
+  let pausedAt = 0;
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(run);
 })();
