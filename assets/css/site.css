@@ -453,4 +453,6 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
   .journey__steps li { filter: none; transform: none; transition: opacity 200ms ease; }
+  .js [data-enter], .js .hero__title .line > span { transform: none !important; }
+  .js [data-enter] { transition: opacity 300ms ease !important; }
 }
