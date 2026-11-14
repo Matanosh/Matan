@@ -715,3 +715,18 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
   .footer__legal a, .footer__inner a:not(.brand), .contact__ways a { display: inline-flex; align-items: center; min-height: 44px; }
   .footer__legal { gap: 0 20px; }
 }
+
+/* Mobile hero: the renders show as a clear full-width image above the copy */
+@media (max-width: 900px) {
+  .hero { padding-top: var(--nav-h); align-content: start; gap: 0; min-height: auto; padding-bottom: 56px; }
+  .hero__globe { display: none; }
+  .hero__media {
+    position: relative; inset: auto; z-index: 0; order: -1;
+    width: 100vw; margin-inline: calc(50% - 50vw); height: min(58svh, 520px);
+  }
+  .hero__media img { object-position: center 55%; }
+  .hero__media::after { background: linear-gradient(to top, var(--bg) 0%, rgba(10, 24, 54, 0) 38%); }
+  .hero__copy { margin-top: -48px; }
+  .hero__title { font-size: clamp(2.6rem, 11.5vw, 3.4rem); }
+  .motion-toggle { top: calc(var(--nav-h) + 12px); bottom: auto; inset-inline-end: 0; }
+}
