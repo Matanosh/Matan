@@ -1206,3 +1206,13 @@ a.yt:active { transform: scale(0.99); transition: transform 120ms var(--ease-out
 @media (max-width: 700px) { .lb__prev, .lb__next { top: auto; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); translate: none; } .lb__count { padding-bottom: calc(30px + env(safe-area-inset-bottom, 0px)); } .lb__img { max-height: calc(100dvh - 210px - env(safe-area-inset-bottom, 0px)); } }
 @media (prefers-reduced-motion: reduce) { .lb[open], .lb.is-closing { animation: none; } .lb__img, .lb__stage { transition: none; transform: none; } }
 @media (prefers-reduced-transparency: reduce) { .lb::backdrop { background: var(--bg); backdrop-filter: none; } .lb__btn { background: var(--bg-2); backdrop-filter: none; } }
+
+/* Statement as regular site text (same face and size as the other lead paragraphs) */
+.statement { padding-block: clamp(56px, 10vh, 104px); }
+.statement__text {
+  font-family: var(--sans); font-weight: 400; letter-spacing: 0;
+  font-size: clamp(1.05rem, 1.2vw, 1.25rem); line-height: 1.75;
+  max-width: 52ch; text-align: center; color: var(--ink-2);
+}
+.statement__text .w, .statement__text .w.on { color: inherit; transition: none; }
+.statement__text .w.on.em, .statement__text .w.em { color: inherit; }
