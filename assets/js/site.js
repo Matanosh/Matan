@@ -9,13 +9,13 @@
   const T = {
     he: { emph: ['בית:', 'אחד,', 'אחת', 'אחת,', 'המפתח'], name: 'שם', phone: 'טלפון', budget: 'תקציב', countries: 'מדינות', none: 'לא צוין', privacyOk: 'אישור מדיניות פרטיות: כן', marketing: 'הסכמה לדיוור שיווקי', yes: 'כן', no: 'לא', subject: 'פנייה מאתר MS Group Global',
       mailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.', sending: 'שולחים...', thanks: 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.', failed: 'השליחה לא הצליחה. נסו שוב בעוד רגע.', play: 'הפעלת אנימציה', pause: 'עצירת אנימציה', email: 'דוא״ל', vPause: 'עצירת הסרטון', vPlay: 'הפעלת הסרטון', clubSubject: 'הצטרפות למועדון VIP של MS Group Global', clubConsent: 'אישור קבלת עדכונים: כן', clubMailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, כתבו ל־office@msgp.co.il ונצרף אתכם למועדון.',
-      home: 'תל אביב', places: ['קפריסין', 'פורטוגל', 'רומניה', 'גאורגיה', 'דובאי'], font: 'Heebo' },
+      home: 'תל אביב', places: ['קפריסין', 'פורטוגל', 'רומניה', 'גאורגיה', 'דובאי', 'אוקראינה', '← מיאמי, ארה״ב'], font: 'Heebo' },
     en: { emph: ['home', 'one', 'company,', 'key.'], name: 'Name', phone: 'Phone', budget: 'Budget', countries: 'Countries', none: 'Not specified', privacyOk: 'Privacy policy accepted: yes', marketing: 'Marketing consent', yes: 'yes', no: 'no', subject: 'Enquiry from the MS Group Global website',
       mailto: 'We tried to open a ready-made email with your details. If it did not open, call +972-72-2133266 or write to office@msgp.co.il.', sending: 'Sending…', thanks: 'Thank you! We have your details and will be in touch shortly.', failed: 'Sending failed. Please try again in a moment.', play: 'Play animation', pause: 'Pause animation', email: 'Email', vPause: 'Pause the film', vPlay: 'Play the film', clubSubject: 'Joining the MS Group Global VIP club', clubConsent: 'Consent to receive updates: yes', clubMailto: 'We tried to open a ready-made email with your details. If it did not open, write to office@msgp.co.il and we will add you to the club.',
-      home: 'Tel Aviv', places: ['Cyprus', 'Portugal', 'Romania', 'Georgia', 'Dubai'], font: 'Heebo' },
+      home: 'Tel Aviv', places: ['Cyprus', 'Portugal', 'Romania', 'Georgia', 'Dubai', 'Ukraine', '← Miami, USA'], font: 'Heebo' },
     fr: { emph: ['maison\u00a0:', 'seule', 'seul', 'clé.'], name: 'Nom', phone: 'Téléphone', budget: 'Budget', countries: 'Pays', none: 'Non précisé', privacyOk: 'Politique de confidentialité acceptée\u00a0: oui', marketing: 'Accord pour la prospection commerciale', yes: 'oui', no: 'non', subject: 'Demande depuis le site MS Group Global',
       mailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, appelez le +972 72 213 3266 ou écrivez à office@msgp.co.il.', sending: 'Envoi en cours…', thanks: 'Merci\u202f! Nous avons bien reçu vos coordonnées et revenons vers vous très vite.', failed: 'L’envoi a échoué. Merci de réessayer dans un instant.', play: 'Relancer l’animation', pause: 'Mettre l’animation en pause', email: 'E-mail', vPause: 'Mettre la vidéo en pause', vPlay: 'Lire la vidéo', clubSubject: 'Adhésion au club VIP MS Group Global', clubConsent: 'Accord pour recevoir des actualités\u00a0: oui', clubMailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, écrivez à office@msgp.co.il et nous vous ajouterons au club.',
-      home: 'Tel-Aviv', places: ['Chypre', 'Portugal', 'Roumanie', 'Géorgie', 'Dubaï'], font: 'Heebo' },
+      home: 'Tel-Aviv', places: ['Chypre', 'Portugal', 'Roumanie', 'Géorgie', 'Dubaï', 'Ukraine', '← Miami, États-Unis'], font: 'Heebo' },
   }[LANG] || null;
   const L = T || {};
 
@@ -417,6 +417,9 @@
     { name: L.places[2], lat: 44.43, lon: 26.1 },
     { name: L.places[3], lat: 41.72, lon: 44.79 },
     { name: L.places[4], lat: 25.2, lon: 55.27 },
+    { name: L.places[5], lat: 46.48, lon: 30.73, dy: -30 },
+    // Miami is on the far side of the globe: the route ends at the western edge, with an arrow pointing on west
+    { name: L.places[6], lat: 32, lon: -23, far: true, dx: -6, dy: 22, align: 'left' },
   ];
   const N = 1700;
   const dots = [];
@@ -443,7 +446,7 @@
     for (let i = 0; i <= 64; i++) {
       const t = i / 64;
       const [lat, lon] = toLL(slerp(a, b, t));
-      pts.push({ lat, lon, h: Math.sin(Math.PI * t) * (0.06 + ang * 0.28) });
+      pts.push({ lat, lon, h: Math.sin(Math.PI * t) * (0.06 + Math.min(ang, p.far ? 0.55 : 9) * 0.28) });
     }
     return pts;
   });
