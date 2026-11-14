@@ -8,9 +8,9 @@
   const graticule = d3.geoGraticule10();
   const LANG = (document.documentElement.lang || 'he').slice(0, 2);
   const I = {
-    he: { home: 'תל אביב', uae: ['האמירויות', 'לפרויקטים באמירויות'], georgia: ['גאורגיה', 'לפרויקטים בגאורגיה'], cyprus: ['קפריסין', 'לפרויקט בקפריסין'], portugal: ['פורטוגל', 'לפרויקט בפורטוגל'], romania: ['רומניה', 'לפרויקט ברומניה'], ukraine: ['אוקראינה', 'לפרויקט באוקראינה'], usa: ['ארה״ב', 'לפרויקטים במיאמי'] },
-    en: { home: 'Tel Aviv', uae: ['UAE', 'See the UAE projects'], georgia: ['Georgia', 'See the Georgia projects'], cyprus: ['Cyprus', 'See the Cyprus project'], portugal: ['Portugal', 'See the Portugal project'], romania: ['Romania', 'See the Romania project'], ukraine: ['Ukraine', 'See the Ukraine project'], usa: ['USA', 'See the Miami projects'] },
-    fr: { home: 'Tel-Aviv', uae: ['Émirats', 'Voir les projets aux Émirats'], georgia: ['Géorgie', 'Voir les projets en Géorgie'], cyprus: ['Chypre', 'Voir le projet à Chypre'], portugal: ['Portugal', 'Voir le projet au Portugal'], romania: ['Roumanie', 'Voir le projet en Roumanie'], ukraine: ['Ukraine', 'Voir le projet en Ukraine'], usa: ['États-Unis', 'Voir les projets à Miami'] },
+    he: { home: 'תל אביב', uae: ['האמירויות', 'לפרויקטים באמירויות'], georgia: ['גאורגיה', 'לפרויקטים בגאורגיה'], cyprus: ['קפריסין', 'לפרויקטים בקפריסין'], portugal: ['פורטוגל', 'לפרויקט בפורטוגל'], romania: ['רומניה', 'לפרויקט ברומניה'], ukraine: ['אוקראינה', 'לפרויקט באוקראינה'], usa: ['ארה״ב', 'לפרויקטים במיאמי'] },
+    en: { home: 'Tel Aviv', uae: ['UAE', 'See the UAE projects'], georgia: ['Georgia', 'See the Georgia projects'], cyprus: ['Cyprus', 'See the Cyprus projects'], portugal: ['Portugal', 'See the Portugal project'], romania: ['Romania', 'See the Romania project'], ukraine: ['Ukraine', 'See the Ukraine project'], usa: ['USA', 'See the Miami projects'] },
+    fr: { home: 'Tel-Aviv', uae: ['Émirats', 'Voir les projets aux Émirats'], georgia: ['Géorgie', 'Voir les projets en Géorgie'], cyprus: ['Chypre', 'Voir les projets à Chypre'], portugal: ['Portugal', 'Voir le projet au Portugal'], romania: ['Roumanie', 'Voir le projet en Roumanie'], ukraine: ['Ukraine', 'Voir le projet en Ukraine'], usa: ['États-Unis', 'Voir les projets à Miami'] },
   }[LANG] || null;
   const HOME = { name: I.home, at: [34.78, 32.08] };
   const P = (k, at, href) => ({ name: I[k][0], cta: I[k][1], at, href });
