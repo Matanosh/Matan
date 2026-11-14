@@ -648,11 +648,11 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
 .member h3 { margin-top: 16px; font: 400 1.35rem/1.2 var(--serif); }
 .member__role { margin-top: 4px; color: var(--gold-2); font-size: 0.95rem; font-weight: 500; }
 .member p:not(.member__role) { margin-top: 10px; color: var(--ink-2); font-size: 0.98rem; }
-@media (hover: hover) and (pointer: fine) { @media (max-width: 1100px) { .team { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1100px) { .team { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 900px) {
   .about__story { grid-template-columns: 1fr; gap: 28px; }
   .team { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px; }
-    .values li { flex-basis: 50%; }
+  .values li { flex-basis: 50%; }
   .values li + li { border-inline-start: 0; }
 }
 
