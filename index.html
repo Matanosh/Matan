@@ -28,6 +28,7 @@
         <span class="brand__global">GLOBAL</span>
       </a>
       <nav class="nav__links" aria-label="ניווט ראשי">
+        <a href="#where">המפה</a>
         <a href="#journey">המסע</a>
         <a href="#destinations">היעדים</a>
         <a href="#why">למה להשקיע</a>
@@ -191,6 +192,51 @@
           </ol>
           <div class="journey__endkey" aria-hidden="true" data-endkey>
             <svg viewBox="-90 -30 120 60"><circle class="key__ring" r="22"/><circle r="22"/><circle r="8"/><path d="M-22 0 H-78 M-50 0 V14 M-64 0 V10"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHERE WE WORK: interactive globe (land outline only, no political borders; pins at project cities) -->
+    <section class="where" id="where" aria-labelledby="where-title" data-where-section>
+      <div class="wrap">
+        <div class="where__head">
+          <h2 id="where-title" class="h2">איפה אנחנו<br><span class="gold">עובדים בעולם</span></h2>
+          <p>שש מדינות, טיסה קצרה מהבית. גררו את הגלובוס או בחרו מדינה.</p>
+        </div>
+        <div class="where__grid">
+          <div class="where__globe">
+            <canvas data-where-globe role="img" aria-label="גלובוס עם המדינות שבהן MS Group Global פועלת: האמירויות, גאורגיה, קפריסין, פורטוגל, רומניה ואוקראינה, וקווי טיסה מתל אביב"></canvas>
+            <p class="where__hint" aria-hidden="true">גררו לסיבוב</p>
+          </div>
+          <div class="where__side">
+            <ul class="where__list">
+            <li><button type="button" class="where__item" data-where="uae" aria-pressed="true">
+              <span class="where__name">האמירויות</span><span class="where__city">דובאי · ראס אל חיימה</span>
+              <span class="where__meta"><span>6 פרויקטים</span><span>טיסה כשלוש שעות</span></span>
+            </button></li>
+            <li><button type="button" class="where__item" data-where="georgia" aria-pressed="false">
+              <span class="where__name">גאורגיה</span><span class="where__city">באטומי · גוניו</span>
+              <span class="where__meta"><span>4 פרויקטים</span><span>טיסה כשעתיים וחצי</span></span>
+            </button></li>
+            <li><button type="button" class="where__item" data-where="cyprus" aria-pressed="false">
+              <span class="where__name">קפריסין</span><span class="where__city">לימסול · לרנקה</span>
+              <span class="where__meta"><span>פרויקטים בקרוב</span><span>טיסה כ־40 דקות</span></span>
+            </button></li>
+            <li><button type="button" class="where__item" data-where="portugal" aria-pressed="false">
+              <span class="where__name">פורטוגל</span><span class="where__city">ליסבון</span>
+              <span class="where__meta"><span>פרויקט אחד</span><span>טיסה כחמש שעות</span></span>
+            </button></li>
+            <li><button type="button" class="where__item" data-where="romania" aria-pressed="false">
+              <span class="where__name">רומניה</span><span class="where__city">בוקרשט</span>
+              <span class="where__meta"><span>פרויקט אחד</span><span>טיסה כשעתיים וחצי</span></span>
+            </button></li>
+            <li><button type="button" class="where__item" data-where="ukraine" aria-pressed="false">
+              <span class="where__name">אוקראינה</span><span class="where__city">אודסה</span>
+              <span class="where__meta"><span>פרויקט אחד</span><span>טיסה כשעתיים וחצי, דרך קישינב</span></span>
+            </button></li>
+            </ul>
+            <a class="btn" href="#project" data-where-cta>לפרויקטים באמירויות</a>
           </div>
         </div>
       </div>
@@ -809,6 +855,11 @@
     </div>
   </footer>
 
+  <script src="assets/vendor/d3-array.min.js" defer></script>
+  <script src="assets/vendor/d3-geo.min.js" defer></script>
+  <script src="assets/vendor/topojson-client.min.js" defer></script>
+  <script src="assets/vendor/land-110m.js" defer></script>
+  <script src="assets/js/where.js" defer></script>
   <script src="assets/js/site.js" defer></script>
 </body>
 </html>

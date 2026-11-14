@@ -756,3 +756,32 @@ bdi { white-space: nowrap; }
 @media (max-width: 900px), (max-height: 560px) {
   .country__stat { min-height: 0; aspect-ratio: 16 / 10; }
 }
+
+/* Where we work: interactive globe */
+.where { padding-block: clamp(100px, 14vh, 160px); background: radial-gradient(60% 60% at 30% 55%, rgba(40, 66, 120, 0.35), transparent 70%), var(--bg); border-top: 1px solid var(--line-soft); }
+.where__head { display: grid; grid-template-columns: 1.1fr 1fr; gap: 6vw; align-items: end; }
+.where__head p { color: var(--ink-2); font-size: 1.12rem; max-width: 40ch; }
+.where__grid { margin-top: clamp(40px, 6vh, 64px); display: grid; grid-template-columns: 1.25fr 1fr; gap: 5vw; align-items: center; }
+.where__globe { position: relative; aspect-ratio: 1; width: 100%; max-width: 640px; justify-self: center; touch-action: pan-y; }
+.where__globe canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+.where__globe canvas:active { cursor: grabbing; }
+.where__hint { position: absolute; bottom: 4%; inset-inline: 0; text-align: center; color: var(--ink-3); font-size: 0.85rem; letter-spacing: 0.08em; }
+.where__list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.where__item {
+  width: 100%; display: grid; grid-template-columns: auto 1fr; grid-template-areas: "name city" "meta meta"; gap: 4px 14px; align-items: baseline;
+  padding: 16px 14px; background: none; border: 0; border-bottom: 1px solid var(--line-soft); color: var(--ink-2); text-align: start; cursor: pointer;
+  font: inherit; transition: background-color 250ms ease, color 250ms ease;
+}
+.where__name { grid-area: name; font: 400 1.5rem/1.1 var(--serif); color: var(--ink); }
+.where__city { grid-area: city; font-size: 0.92rem; color: var(--ink-3); }
+.where__meta { grid-area: meta; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.92rem; }
+.where__meta span:first-child { color: var(--gold-2); font-weight: 500; }
+.where__item[aria-pressed="true"] { background: linear-gradient(to left, rgba(210, 162, 73, 0.14), transparent); }
+.where__item[aria-pressed="true"] .where__name { color: var(--gold-2); }
+@media (hover: hover) and (pointer: fine) { .where__item:hover { background: rgba(251, 248, 241, 0.04); } }
+.where__side .btn { margin-top: 28px; }
+@media (max-width: 900px) {
+  .where__head, .where__grid { grid-template-columns: 1fr; gap: 24px; }
+  .where__globe { max-width: 420px; }
+  .where__name { font-size: 1.3rem; }
+}
