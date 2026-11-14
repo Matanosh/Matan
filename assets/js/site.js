@@ -570,3 +570,109 @@
     img.addEventListener('error', () => show(img), { once: true });
   });
 })();
+
+/* Project galleries: tap an image to view it full screen; swipe or use the arrows to browse, swipe down or Esc to close */
+(() => {
+  const lang = document.documentElement.lang || 'he';
+  const rtl = document.documentElement.dir === 'rtl';
+  const TX = {
+    he: { open: 'הגדלת התמונה', close: 'סגירה', prev: 'התמונה הקודמת', next: 'התמונה הבאה', of: 'מתוך', label: 'תמונות הפרויקט' },
+    en: { open: 'Enlarge image', close: 'Close', prev: 'Previous image', next: 'Next image', of: 'of', label: 'Project images' },
+    fr: { open: 'Agrandir l’image', close: 'Fermer', prev: 'Image précédente', next: 'Image suivante', of: 'sur', label: 'Images du projet' },
+  }[lang.slice(0, 2)] || {};
+  const galleries = document.querySelectorAll('.project__gallery');
+  if (!galleries.length || typeof HTMLDialogElement === 'undefined') return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const best = (img) => {
+    const set = (img.getAttribute('srcset') || '').split(',').map((s) => s.trim().split(/\s+/)).filter((p) => p[0]);
+    set.sort((a, b) => parseInt(b[1] || 0, 10) - parseInt(a[1] || 0, 10));
+    return set[0]?.[0] || img.currentSrc || img.src;
+  };
+
+  const dlg = document.createElement('dialog');
+  dlg.className = 'lb';
+  dlg.setAttribute('aria-label', TX.label);
+  dlg.innerHTML = `
+    <div class="lb__stage"><img class="lb__img" alt=""></div>
+    <p class="lb__cap"></p>
+    <p class="lb__count" aria-live="polite"></p>
+    <button type="button" class="lb__btn lb__close" aria-label="${TX.close}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button type="button" class="lb__btn lb__prev" aria-label="${TX.prev}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button type="button" class="lb__btn lb__next" aria-label="${TX.next}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>`;
+  document.body.append(dlg);
+  const stage = dlg.querySelector('.lb__stage'), big = dlg.querySelector('.lb__img'), cap = dlg.querySelector('.lb__cap'), count = dlg.querySelector('.lb__count');
+  let list = [], idx = 0, opener = null;
+
+  const show = (i, dir = 0) => {
+    idx = (i + list.length) % list.length;
+    const img = list[idx];
+    big.classList.remove('is-in');
+    big.style.setProperty('--from', `${dir * (rtl ? -1 : 1) * 40}px`);
+    big.onload = () => requestAnimationFrame(() => big.classList.add('is-in'));
+    big.src = best(img);
+    big.alt = img.alt;
+    cap.textContent = img.alt;
+    count.textContent = list.length > 1 ? `${idx + 1} ${TX.of} ${list.length}` : '';
+    if (big.complete && big.naturalWidth) big.onload();
+    // warm the neighbours so browsing feels instant
+    [idx + 1, idx - 1].forEach((n) => { const nb = list[(n + list.length) % list.length]; if (nb) new Image().src = best(nb); });
+  };
+  const open = (img) => {
+    list = [...img.closest('.project__gallery').querySelectorAll('img')];
+    opener = img;
+    dlg.classList.toggle('lb--single', list.length < 2);
+    dlg.showModal();
+    document.documentElement.classList.add('lb-open');
+    show(list.indexOf(img));
+  };
+  const close = () => {
+    dlg.classList.add('is-closing');
+    const done = () => { dlg.classList.remove('is-closing'); dlg.close(); };
+    reduce.matches ? done() : setTimeout(done, 180);
+  };
+  dlg.addEventListener('close', () => { document.documentElement.classList.remove('lb-open'); stage.style.transform = ''; dlg.style.removeProperty('--fade'); opener?.focus({ preventScroll: true }); });
+  dlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
+  dlg.querySelector('.lb__close').addEventListener('click', close);
+  dlg.querySelector('.lb__next').addEventListener('click', () => show(idx + 1, 1));
+  dlg.querySelector('.lb__prev').addEventListener('click', () => show(idx - 1, -1));
+  // a tap on the dark area closes; a swipe never counts as a tap
+  dlg.addEventListener('click', (e) => { if (dragged) { dragged = false; return; } if (e.target === dlg || e.target === stage) close(); });
+  dlg.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') show(idx + (rtl ? 1 : -1), rtl ? 1 : -1);
+    if (e.key === 'ArrowRight') show(idx + (rtl ? -1 : 1), rtl ? -1 : 1);
+  });
+
+  // Drag: the image follows the finger 1:1; flick sideways to browse, pull down to close
+  let sx = 0, sy = 0, st = 0, axis = '', dragging = false, dragged = false;
+  stage.addEventListener('pointerdown', (e) => {
+    if (e.button > 0) return;
+    dragging = true; dragged = false; axis = ''; sx = e.clientX; sy = e.clientY; st = performance.now();
+    stage.setPointerCapture(e.pointerId); stage.classList.add('is-drag');
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (!axis && Math.hypot(dx, dy) > 10) { axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; dragged = true; }
+    if (axis === 'x' && list.length > 1) stage.style.transform = `translate3d(${dx}px,0,0)`;
+    if (axis === 'y' && dy > 0) { stage.style.transform = `translate3d(0,${dy}px,0) scale(${1 - Math.min(dy / 1600, 0.12)})`; dlg.style.setProperty('--fade', String(1 - Math.min(dy / 500, 0.6))); }
+  });
+  const end = (e) => {
+    if (!dragging) return;
+    dragging = false; stage.classList.remove('is-drag');
+    const dx = e.clientX - sx, dy = e.clientY - sy, v = Math.abs(axis === 'x' ? dx : dy) / Math.max(performance.now() - st, 1);
+    stage.style.transform = ''; dlg.style.removeProperty('--fade');
+    if (axis === 'x' && list.length > 1 && (Math.abs(dx) > 80 || v > 0.5)) { const fwd = rtl ? dx > 0 : dx < 0; show(idx + (fwd ? 1 : -1), fwd ? 1 : -1); }
+    else if (axis === 'y' && dy > 0 && (dy > 120 || v > 0.6)) close();
+  };
+  stage.addEventListener('pointerup', end);
+  stage.addEventListener('pointercancel', end);
+
+  galleries.forEach((g) => g.querySelectorAll('img').forEach((img) => {
+    img.classList.add('is-zoomable');
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', `${TX.open}: ${img.alt}`);
+    img.addEventListener('click', () => open(img));
+    img.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); } });
+  }));
+})();
