@@ -243,7 +243,6 @@ T = [
 ('alt="חדר הכושר עם חלונות לנוף העיר והים"', 'alt="The gym with windows overlooking the city and the sea"', 'alt="La salle de sport avec vue sur la ville et la mer"'),
 ('alt="חדר שינה עם יציאה למרפסת ונוף לים"', 'alt="A bedroom opening onto a balcony with a sea view"', 'alt="Une chambre ouvrant sur un balcon avec vue sur la mer"'),
 
-('<br><span class="gold">קפריסין</span></h3>', '<br><span class="gold">Cyprus</span></h3>', '<br><span class="gold">Chypre</span></h3>'),
 ('בניין מגורים בוטיק בן ארבע קומות, עם מרפסות מעוגלות ומוארות, גינון סביב, מרפסות גג עם פרגולה ודירות בעיצוב חם של עץ ואבן.',
  'A four-storey boutique residential building with rounded, lit balconies, landscaped surroundings, roof terraces with pergolas and apartments designed in warm wood and stone.',
  'Un immeuble résidentiel de standing de quatre étages, avec des balcons arrondis et éclairés, des abords paysagers, des toits-terrasses avec pergola et des appartements aux tons chaleureux de bois et de pierre.'),
