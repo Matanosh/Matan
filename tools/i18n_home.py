@@ -174,7 +174,7 @@ T = [
 
 # --- USA / Miami ---
 ('<span class="where__name">ארה״ב</span><span class="where__city">מיאמי · פלורידה</span>', '<span class="where__name">USA</span><span class="where__city">Miami · Florida</span>', '<span class="where__name">États-Unis</span><span class="where__city">Miami · Floride</span>'),
-('<span>פרויקט אחד</span><span>טיסה ישירה של כ־13 שעות</span>', '<span>1 project</span><span>About 13 hours’ direct flight</span>', '<span>1 projet</span><span>Environ 13 h de vol direct</span>'),
+('<span>2 פרויקטים</span><span>טיסה ישירה של כ־13 שעות</span>', '<span>2 projects</span><span>About 13 hours’ direct flight</span>', '<span>2 projets</span><span>Environ 13 h de vol direct</span>'),
 ('<span class="country__unit">מס הכנסה מדינתי<br>בפלורידה</span>', '<span class="country__unit">state income tax<br>in Florida</span>', '<span class="country__unit">d’impôt sur le revenu<br>de l’État en Floride</span>'),
 ('<h3 class="country__name">ארה״ב</h3>', '<h3 class="country__name">USA</h3>', '<h3 class="country__name">États-Unis</h3>'),
 ('<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDE</p>'),
@@ -201,6 +201,17 @@ T = [
  'Une tour d’hôtel et de résidences au centre-ville de Miami, près de la Freedom Tower et de la baie de Biscayne : appartements meublés avec balcons et vue sur la ville et la baie, salle de sport avec vue dégagée et espaces de travail partagés.'),
 ('data-pick="ארה״ב">לפרטים על', 'data-pick="USA">Details on', 'data-pick="États-Unis">En savoir plus sur'),
 ('data-yt-title="סרטון הפרויקט GALE Miami"', 'data-yt-title="GALE Miami project film"', 'data-yt-title="Vidéo du projet GALE Miami"'),
+
+('<br><span class="gold">מיאמי, ארה״ב</span>', '<br><span class="gold">Miami, USA</span>', '<br><span class="gold">Miami, États-Unis</span>'),
+('מגדל מגורים של המותג <bdi>E11EVEN</bdi> במרכז מיאמי, עם דירות בקומות גבוהות ונוף למפרץ ביסקיין ולקו הרקיע של העיר, מרפסת גג עם בריכה ובר ספורט.',
+ 'A residential tower by the <bdi>E11EVEN</bdi> brand in central Miami, with high-floor apartments overlooking Biscayne Bay and the city skyline, a rooftop terrace with a pool, and a sports bar.',
+ 'Une tour résidentielle de la marque <bdi>E11EVEN</bdi> au cœur de Miami, avec des appartements en étages élevés face à la baie de Biscayne et à la skyline, une terrasse sur le toit avec piscine et un bar sportif.'),
+('alt="מרפסת הגג עם הבריכה ופינות הישיבה, מול קו הרקיע של מיאמי בערב"', 'alt="The rooftop terrace with the pool and lounges, facing the Miami skyline in the evening"', 'alt="La terrasse sur le toit avec piscine et salons, face à la skyline de Miami en soirée"'),
+('alt="חדר שינה עם חלונות מהרצפה לתקרה ונוף לעיר ולמפרץ בלילה"', 'alt="A bedroom with floor-to-ceiling windows and night views of the city and the bay"', 'alt="Une chambre avec baies vitrées du sol au plafond et vue nocturne sur la ville et la baie"'),
+('alt="סלון בקומה גבוהה עם נוף לגלגל הענק ולמפרץ"', 'alt="A high-floor living room overlooking the Ferris wheel and the bay"', 'alt="Un salon en étage élevé avec vue sur la grande roue et la baie"'),
+('alt="בר הספורט עם מסכי ענק ופינות ישיבה"', 'alt="The sports bar with giant screens and lounge seating"', 'alt="Le bar sportif avec écrans géants et salons"'),
+('alt="מבט מהבניין על מרכז מיאמי ומפרץ ביסקיין"', 'alt="View from the building over downtown Miami and Biscayne Bay"', 'alt="Vue depuis l’immeuble sur le centre de Miami et la baie de Biscayne"'),
+('data-yt-title="סרטון הפרויקט E11EVEN Residences Beyond"', 'data-yt-title="E11EVEN Residences Beyond project film"', 'data-yt-title="Vidéo du projet E11EVEN Residences Beyond"'),
 
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
@@ -257,7 +268,7 @@ T = [
  'Les données proviennent de sources de marché publiques et sont à jour pour 2026. Les rendements sont bruts, avant charges et impôts. Ces informations sont générales et ne constituent pas un conseil en investissement ; lors du rendez-vous, nous étudierons avec vous les chiffres de votre projet et de votre situation.'),
 
 # --- projects ---
-('פרויקטים נבחרים<br><span class="gold">בשש מדינות, 16 פרויקטים</span>', 'Selected projects<br><span class="gold">16 projects in six countries</span>', 'Projets sélectionnés<br><span class="gold">16 projets dans six pays</span>'),
+('פרויקטים נבחרים<br><span class="gold">בשש מדינות, 17 פרויקטים</span>', 'Selected projects<br><span class="gold">17 projects in six countries</span>', 'Projets sélectionnés<br><span class="gold">17 projets dans six pays</span>'),
 ('aria-label="סינון לפי מדינה"', 'aria-label="Filter by country"', 'aria-label="Filtrer par pays"'),
 ('>האמירויות <span class="project__count">', '>UAE <span class="project__count">', '>Émirats <span class="project__count">'),
 ('>גאורגיה <span class="project__count">', '>Georgia <span class="project__count">', '>Géorgie <span class="project__count">'),

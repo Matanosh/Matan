@@ -275,7 +275,7 @@
             </button></li>
             <li><button type="button" class="where__item" data-where="usa" aria-pressed="false">
               <span class="where__name">États-Unis</span><span class="where__city">Miami · Floride</span>
-              <span class="where__meta"><span>1 projet</span><span>Environ 13 h de vol direct</span></span>
+              <span class="where__meta"><span>2 projets</span><span>Environ 13 h de vol direct</span></span>
             </button></li>
             </ul>
             <a class="btn" href="#project" data-where-cta>Voir les projets aux Émirats</a>
@@ -505,14 +505,14 @@
     <section class="project" id="project" aria-labelledby="project-title" data-projects>
       <div class="wrap">
         <div class="project__top">
-          <h2 id="project-title" class="h2">Projets sélectionnés<br><span class="gold">16 projets dans six pays</span></h2>
+          <h2 id="project-title" class="h2">Projets sélectionnés<br><span class="gold">17 projets dans six pays</span></h2>
           <div class="project__countries" role="group" aria-label="Filtrer par pays">
             <button type="button" class="project__country" data-country="uae" aria-pressed="true">Émirats <span class="project__count">7</span></button>
             <button type="button" class="project__country" data-country="georgia" aria-pressed="false">Géorgie <span class="project__count">5</span></button>
             <button type="button" class="project__country" data-country="romania" aria-pressed="false">Roumanie <span class="project__count">1</span></button>
             <button type="button" class="project__country" data-country="portugal" aria-pressed="false">Portugal <span class="project__count">1</span></button>
             <button type="button" class="project__country" data-country="ukraine" aria-pressed="false">Ukraine <span class="project__count">1</span></button>
-            <button type="button" class="project__country" data-country="usa" aria-pressed="false">États-Unis <span class="project__count">1</span></button>
+            <button type="button" class="project__country" data-country="usa" aria-pressed="false">États-Unis <span class="project__count">2</span></button>
           </div>
           <div class="project__tabs" role="tablist" aria-label="Choisir un projet">
             <button role="tab" id="tab-sora" aria-controls="panel-sora" aria-selected="true" data-country="uae">SORA Beach Residence</button>
@@ -531,6 +531,7 @@
             <button hidden role="tab" id="tab-almeda" aria-controls="panel-almeda" aria-selected="false" tabindex="-1" data-country="portugal">Almeda</button>
             <button hidden role="tab" id="tab-unity" aria-controls="panel-unity" aria-selected="false" tabindex="-1" data-country="ukraine">Unity Tower</button>
             <button hidden role="tab" id="tab-gale" aria-controls="panel-gale" aria-selected="false" tabindex="-1" data-country="usa">GALE Miami</button>
+            <button hidden role="tab" id="tab-e11even" aria-controls="panel-e11even" aria-selected="false" tabindex="-1" data-country="usa">E11EVEN Residences Beyond</button>
           </div>
         </div>
         <div class="project__panel" id="panel-bluesky" role="tabpanel" aria-labelledby="tab-bluesky" tabindex="0" hidden>
@@ -704,6 +705,30 @@
           <figure class="project__video">
             <a class="yt" href="https://www.youtube.com/watch?v=bcUZp69_nAs" target="_blank" rel="noopener" data-yt="bcUZp69_nAs" data-yt-title="Vidéo du projet GALE Miami">
               <img src="../assets/img/projects/gale/gale-film.webp" alt="" loading="lazy" width="1280" height="720">
+              <span class="yt__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+              <span class="yt__label">Regarder la vidéo du projet</span>
+            </a>
+          </figure>
+        </div>
+        <div class="project__panel" id="panel-e11even" role="tabpanel" aria-labelledby="tab-e11even" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name"><bdi>E11EVEN Residences Beyond</bdi><br><span class="gold">Miami, États-Unis</span></h3>
+            <div class="project__copy">
+              <p>Une tour résidentielle de la marque <bdi>E11EVEN</bdi> au cœur de Miami, avec des appartements en étages élevés face à la baie de Biscayne et à la skyline, une terrasse sur le toit avec piscine et un bar sportif.</p>
+              <a class="btn" href="#contact" data-pick="États-Unis">En savoir plus sur <bdi>E11EVEN Residences Beyond</bdi></a>
+            </div>
+          </div>
+          <div class="project__gallery project__gallery--side4">
+            <figure class="project__main"><img src="../assets/img/projects/e11even/e11even-1.webp" sizes="(max-width: 900px) 100vw, 58vw" alt="La terrasse sur le toit avec piscine et salons, face à la skyline de Miami en soirée" loading="lazy" width="800" height="480"></figure>
+            <figure><img src="../assets/img/projects/e11even/e11even-2.webp" sizes="(max-width: 900px) 50vw, 38vw" alt="Une chambre avec baies vitrées du sol au plafond et vue nocturne sur la ville et la baie" loading="lazy" width="800" height="480"></figure>
+            <figure><img src="../assets/img/projects/e11even/e11even-3.webp" sizes="(max-width: 900px) 50vw, 38vw" alt="Un salon en étage élevé avec vue sur la grande roue et la baie" loading="lazy" width="800" height="480"></figure>
+            <figure><img src="../assets/img/projects/e11even/e11even-4.webp" sizes="(max-width: 900px) 50vw, 38vw" alt="Le bar sportif avec écrans géants et salons" loading="lazy" width="800" height="480"></figure>
+            <figure><img src="../assets/img/projects/e11even/e11even-5.webp" sizes="(max-width: 900px) 50vw, 38vw" alt="Vue depuis l’immeuble sur le centre de Miami et la baie de Biscayne" loading="lazy" width="800" height="480"></figure>
+          </div>
+          <!-- Project film on YouTube: the player loads only when the visitor presses play -->
+          <figure class="project__video">
+            <a class="yt" href="https://www.youtube.com/watch?v=gmsAQ0ccuaU" target="_blank" rel="noopener" data-yt="gmsAQ0ccuaU" data-yt-title="Vidéo du projet E11EVEN Residences Beyond">
+              <img src="../assets/img/projects/e11even/e11even-film.webp" alt="" loading="lazy" width="1280" height="720">
               <span class="yt__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
               <span class="yt__label">Regarder la vidéo du projet</span>
             </a>

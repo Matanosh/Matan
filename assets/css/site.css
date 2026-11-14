@@ -962,3 +962,6 @@ bdi { white-space: nowrap; }
 }
 @media (max-width: 560px) { .yt__play { width: 64px; height: 64px; } .yt__play svg { width: 24px; height: 24px; } .yt__label { inset-block-end: 14px; inset-inline-start: 16px; font-size: .95rem; } }
 .yt__frame { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+/* Main render beside four smaller ones (for smaller source images) */
+.project__gallery--side4 { grid-template-rows: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) { .project__gallery--side4 figure:last-child { grid-column: auto; aspect-ratio: 4 / 3; } }
