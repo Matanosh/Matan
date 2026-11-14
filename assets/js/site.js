@@ -227,8 +227,21 @@
     const box = form?.querySelector(`input[name="country"][value="${v}"]`);
     if (box) box.checked = true;
   }));
-  // Where the form sends is not decided yet. Set this to a real endpoint (form service or CRM) to go live.
-  const FORM_ENDPOINT = '';
+  // Form delivery: FormSubmit sends each submission straight to the office inbox (no account; the inbox confirms once).
+  // If the service is unreachable or not yet confirmed, the visitor's email app opens with the details instead, so no lead is lost.
+  const FORM_ENDPOINT = 'https://formsubmit.co/ajax/office@msgp.co.il';
+  const sendForm = async (fields, subject) => {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ ...fields, _subject: subject, _template: 'table', _captcha: 'false' }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || res.status);
+  };
+  const kv = (line) => { const [k, ...v] = line.split(/\s*:\s*/); return { [k]: v.join(':') || '✓' }; };
+  const viaMail = (subject, lines) => {
+    window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+  };
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const fields = [
@@ -246,27 +259,23 @@
     const privacy = form.querySelector('#f-privacy'), pErr = form.querySelector('#e-privacy');
     if (privacy) { pErr.hidden = privacy.checked; privacy.setAttribute('aria-invalid', String(!privacy.checked)); if (!privacy.checked && !first) first = privacy; }
     if (first) { first.focus(); return; }
-    if (!FORM_ENDPOINT) {
-      // No form backend yet: hand the details to the visitor's email app, addressed to the office.
-      const d = new FormData(form);
-      const sep = LANG === 'fr' ? '\u00a0: ' : ': ';
-      const body = [`${L.name}${sep}${d.get('name')}`, `${L.phone}${sep}${d.get('phone')}`, `${L.budget}${sep}${d.get('budget') || L.none}`,
-        `${L.countries}${sep}${d.getAll('country').join(', ') || L.none}`,
-        L.privacyOk, `${L.marketing}${sep}${d.get('marketing') ? L.yes : L.no}`, `Language: ${LANG}`].join('\n');
-      window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent(L.subject)}&body=${encodeURIComponent(body)}`;
-      status.textContent = L.mailto;
-      return;
-    }
+    const d = new FormData(form);
+    if (d.get('_honey')) return; // bots fill the hidden field
+    const sep = LANG === 'fr' ? '\u00a0: ' : ': ';
+    const rows = {
+      [L.name]: d.get('name'), [L.phone]: d.get('phone'), [L.budget]: d.get('budget') || L.none,
+      [L.countries]: d.getAll('country').join(', ') || L.none, [L.marketing]: d.get('marketing') ? L.yes : L.no, Language: LANG,
+    };
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
     status.textContent = L.sending;
     try {
-      const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form) });
-      if (!res.ok) throw new Error(res.status);
+      await sendForm({ ...rows, ...kv(L.privacyOk) }, L.subject);
       form.reset();
       status.textContent = L.thanks;
     } catch {
-      status.textContent = L.failed;
+      viaMail(L.subject, [...Object.entries(rows).map(([k, v]) => `${k}${sep}${v}`), L.privacyOk]);
+      status.textContent = L.mailto;
     } finally {
       btn.disabled = false;
     }
@@ -286,9 +295,9 @@
     f.focus();
   }));
 
-  /* VIP club: sign-up (opens a ready-made email until a form backend exists) */
+  /* VIP club: sign-up, delivered by the same form service (email-app fallback) */
   const club = document.querySelector('[data-club-form]');
-  club?.addEventListener('submit', (e) => {
+  club?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const checks = [
       ['#c-name', '#ce-name', (v) => v.trim().length > 1],
@@ -307,9 +316,21 @@
     if (!consent.checked && !first) first = consent;
     if (first) { first.focus(); return; }
     const d = new FormData(club), sep = LANG === 'fr' ? '\u00a0: ' : ': ';
-    const body = [`${L.name}${sep}${d.get('name')}`, `${L.phone}${sep}${d.get('phone')}`, `${L.email}${sep}${d.get('email')}`, L.clubConsent, `Language: ${LANG}`].join('\n');
-    window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent(L.clubSubject)}&body=${encodeURIComponent(body)}`;
-    club.querySelector('[data-club-status]').textContent = L.clubMailto;
+    if (d.get('_honey')) return;
+    const rows = { [L.name]: d.get('name'), [L.phone]: d.get('phone'), [L.email]: d.get('email'), Language: LANG };
+    const st = club.querySelector('[data-club-status]'), btn = club.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    st.textContent = L.sending;
+    try {
+      await sendForm({ ...rows, ...kv(L.clubConsent), _replyto: d.get('email') }, L.clubSubject);
+      club.reset();
+      st.textContent = L.thanks;
+    } catch {
+      viaMail(L.clubSubject, [...Object.entries(rows).map(([k, v]) => `${k}${sep}${v}`), L.clubConsent]);
+      st.textContent = L.clubMailto;
+    } finally {
+      if (btn) btn.disabled = false;
+    }
   });
 
   /* VIP club film: plays muted while on screen; respects reduced motion, the page pause button and its own toggle */

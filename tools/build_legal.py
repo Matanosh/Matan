@@ -66,7 +66,7 @@ BODY = {
           <li>You never need to provide an ID number, credit card details, medical information or information about family members on the website.</li>
         </ul>
         <h2>4. How your enquiry is sent</h2>
-        <p>At present, clicking send opens a ready-made email in your email program, addressed to office@msgp.co.il. The message is only sent if you send it yourself, and it is kept in the company’s mailbox. If the website is later connected to an enquiry management system, this policy will be updated.</p>
+        <p>The details you enter in the contact form and the club sign-up form are sent to the company’s mailbox, office@msgp.co.il, through the form delivery service FormSubmit, which only forwards them to that mailbox. If the service is unavailable, clicking send instead opens a ready-made email in your email program, which is only sent if you send it yourself. Enquiries are kept in the company’s mailbox.</p>
         <h2>5. Marketing messages</h2>
         <p>Contacting us through the website is not consent to receive advertising. Marketing updates by email, SMS or WhatsApp are sent only to people who explicitly ticked the separate box in the form, in accordance with section 30A of Israel’s Communications (Telecommunications and Broadcasting) Law. Every message lets you unsubscribe, and you can ask to be removed at any time by contacting us.</p>
         <h2>6. Who receives the information</h2>
@@ -96,7 +96,7 @@ BODY = {
           <li>Il ne vous est jamais demandé sur le site de numéro d’identité, de coordonnées bancaires, d’informations médicales ou d’informations sur vos proches.</li>
         </ul>
         <h2>4. Envoi de votre demande</h2>
-        <p>Actuellement, un clic sur « Envoyer » ouvre un e-mail prérempli dans votre messagerie, adressé à office@msgp.co.il. Le message n’est envoyé que si vous l’envoyez vous-même, et il est conservé dans la boîte de réception de la société. Si le site est relié ultérieurement à un outil de gestion des demandes, la présente politique sera mise à jour.</p>
+        <p>Les informations saisies dans le formulaire de contact et dans le formulaire d’adhésion au club sont transmises à la boîte de réception de la société, office@msgp.co.il, par le service d’envoi de formulaires FormSubmit, qui se contente de les y acheminer. Si ce service est indisponible, un clic sur « Envoyer » ouvre à la place un e-mail prérempli dans votre messagerie, qui n’est envoyé que si vous l’envoyez vous-même. Les demandes sont conservées dans la boîte de réception de la société.</p>
         <h2>5. Prospection commerciale</h2>
         <p>Nous contacter via le site ne vaut pas consentement à recevoir de la publicité. Les actualités commerciales par e-mail, SMS ou WhatsApp ne sont envoyées qu’aux personnes ayant coché expressément la case prévue à cet effet dans le formulaire, conformément à l’article 30A de la loi israélienne sur les communications (télécommunications et radiodiffusion). Chaque message permet de se désinscrire, et vous pouvez demander à tout moment à ne plus en recevoir.</p>
         <h2>6. Destinataires des informations</h2>
