@@ -962,6 +962,12 @@ bdi { white-space: nowrap; }
 }
 @media (max-width: 560px) { .yt__play { width: 64px; height: 64px; } .yt__play svg { width: 24px; height: 24px; } .yt__label { inset-block-end: 14px; inset-inline-start: 16px; font-size: .95rem; } }
 .yt__frame { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
-/* Main render beside four smaller ones (for smaller source images) */
-.project__gallery--side4 { grid-template-rows: repeat(4, minmax(0, 1fr)); }
-@media (max-width: 900px) { .project__gallery--side4 figure:last-child { grid-column: auto; aspect-ratio: 4 / 3; } }
+/* Four renders of equal weight in a 2 x 2 grid (for smaller source images: nothing is enlarged past its size) */
+.project__gallery--grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; height: auto; max-width: 1240px; }
+.project__gallery--grid .project__main { grid-row: auto; grid-column: auto; }
+.project__gallery--grid figure { aspect-ratio: 5 / 3; }
+@media (max-width: 900px) { .project__gallery.project__gallery--grid figure, .project__gallery.project__gallery--grid .project__main { grid-column: auto; aspect-ratio: 5 / 3; } }
+/* Long project names (e.g. E11EVEN Residences Beyond) may wrap between words on narrow screens */
+.project__name bdi, .project__copy .btn bdi { white-space: normal; }
+.project__copy .btn { display: inline-block; height: auto; min-height: 52px; padding-block: 15px; line-height: 1.4; text-align: center; text-wrap: balance; }
+@media (max-width: 560px) { .project__gallery.project__gallery--grid { grid-template-columns: minmax(0, 1fr); } }

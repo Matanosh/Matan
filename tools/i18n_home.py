@@ -210,7 +210,6 @@ T = [
 ('alt="חדר שינה עם חלונות מהרצפה לתקרה ונוף לעיר ולמפרץ בלילה"', 'alt="A bedroom with floor-to-ceiling windows and night views of the city and the bay"', 'alt="Une chambre avec baies vitrées du sol au plafond et vue nocturne sur la ville et la baie"'),
 ('alt="סלון בקומה גבוהה עם נוף לגלגל הענק ולמפרץ"', 'alt="A high-floor living room overlooking the Ferris wheel and the bay"', 'alt="Un salon en étage élevé avec vue sur la grande roue et la baie"'),
 ('alt="בר הספורט עם מסכי ענק ופינות ישיבה"', 'alt="The sports bar with giant screens and lounge seating"', 'alt="Le bar sportif avec écrans géants et salons"'),
-('alt="מבט מהבניין על מרכז מיאמי ומפרץ ביסקיין"', 'alt="View from the building over downtown Miami and Biscayne Bay"', 'alt="Vue depuis l’immeuble sur le centre de Miami et la baie de Biscayne"'),
 ('data-yt-title="סרטון הפרויקט E11EVEN Residences Beyond"', 'data-yt-title="E11EVEN Residences Beyond project film"', 'data-yt-title="Vidéo du projet E11EVEN Residences Beyond"'),
 
 # --- why ---
