@@ -1,0 +1,24 @@
+# Third-party skills in this project
+
+These skill folders were copied unmodified from their upstream repositories.
+Each folder keeps its upstream license file next to its `SKILL.md`.
+
+| Skill folder | Upstream | Path in upstream | Commit | License | Copyright |
+|---|---|---|---|---|---|
+| `emil-design-eng/` | https://github.com/emilkowalski/skills | `skills/emil-design-eng/` | `0f2e23b` | MIT (`emil-design-eng/LICENSE`) | © 2026 Emil Kowalski |
+| `impeccable/` (v4.9.1) | https://github.com/pbakaus/impeccable | `.claude/skills/impeccable/` | `fb46cc6` | Apache-2.0 (`impeccable/LICENSE`, `impeccable/NOTICE.md`) | Paul Bakaus and contributors |
+| `design-taste-frontend/` (tasteskill 2.5.1) | https://github.com/Leonxlnx/taste-skill | `skills/taste-skill/` | `f6b7657` | MIT (`design-taste-frontend/LICENSE`) | © 2026 Leonxlnx |
+
+Also copied from Impeccable (same commit and license), because the `impeccable` skill delegates to them:
+`../agents/impeccable-asset-producer.md`, `../agents/impeccable-documenter.md`,
+`../agents/impeccable-finish-reviewer.md`, `../agents/impeccable-manual-edit-applier.md`.
+
+Impeccable's `NOTICE.md` credits ehmo's `platform-design-skills` (MIT) for
+`impeccable/reference/ios.md` and `impeccable/reference/android.md`.
+The photographs bundled in `design-taste-frontend/assets/photos/` carry their own
+credits as documented in that skill's `references/photos.md`.
+
+Not installed on purpose:
+- Impeccable's project hooks (`.claude/settings.json` in its repo) that run its engine
+  binary after every edit and at turn end.
+- Every other skill in the Emil Kowalski and Taste Skill repositories.
