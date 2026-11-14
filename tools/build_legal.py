@@ -61,6 +61,7 @@ BODY = {
         <h2>3. What information is collected and why</h2>
         <ul>
           <li>In the enquiry form: full name and phone number (required), budget range and countries of interest (optional).</li>
+          <li>When joining the VIP club: full name, phone number and email, used to send updates and offers about projects, only after you have explicitly agreed to this. You can cancel your membership and unsubscribe at any time.</li>
           <li>Purpose: handling your enquiry, contacting you, and tailoring our answer to the budget and destinations you chose.</li>
           <li>You never need to provide an ID number, credit card details, medical information or information about family members on the website.</li>
         </ul>
@@ -90,6 +91,7 @@ BODY = {
         <h2>3. Informations collectées et finalités</h2>
         <ul>
           <li>Dans le formulaire de contact : nom complet et téléphone (obligatoires), fourchette de budget et pays qui vous intéressent (facultatifs).</li>
+          <li>Lors de l’adhésion au club VIP : nom complet, téléphone et e-mail, utilisés pour vous envoyer des actualités et des offres sur les projets, uniquement après votre accord exprès. Vous pouvez mettre fin à votre adhésion et vous désinscrire à tout moment.</li>
           <li>Finalité : traiter votre demande, vous recontacter et adapter notre réponse au budget et aux destinations choisis.</li>
           <li>Il ne vous est jamais demandé sur le site de numéro d’identité, de coordonnées bancaires, d’informations médicales ou d’informations sur vos proches.</li>
         </ul>

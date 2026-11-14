@@ -39,6 +39,7 @@
         <a href="#project">Projets</a>
         <a href="#about">À propos</a>
       <a href="#press">Presse</a>
+        <a href="#club">Club VIP</a>
         <a href="#contact">Contact</a>
       </nav>
       <nav class="lang" aria-label="Langue"><a href="../index.html" hreflang="he" lang="he"><span aria-hidden="true">עב</span><span class="sr">עברית</span></a><a href="../en/index.html" hreflang="en" lang="en"><span aria-hidden="true">EN</span><span class="sr">English</span></a><a href="index.html" hreflang="fr" lang="fr" aria-current="true"><span aria-hidden="true">FR</span><span class="sr">Français</span></a></nav>
@@ -55,6 +56,7 @@
       <a href="#project">Projets</a>
       <a href="#about">À propos</a>
       <a href="#press">Presse</a>
+        <a href="#club">Club VIP</a>
       <a href="#contact">Contact</a>
       <a class="btn" href="#contact">Prendre rendez-vous</a>
       <div class="lang" role="group" aria-label="Langue"><a href="../index.html" hreflang="he" lang="he">עברית</a><a href="../en/index.html" hreflang="en" lang="en">English</a><a href="index.html" hreflang="fr" lang="fr" aria-current="true">Français</a></div>
@@ -1081,6 +1083,80 @@
             <span class="visually-hidden">(s’ouvre dans une nouvelle fenêtre)</span>
           </a></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- VIP CLUB (modelled on the M.S GROUP V.I.P club at msgp.co.il, adapted to investing abroad) -->
+    <section class="club" id="club" aria-labelledby="club-title">
+      <div class="wrap">
+        <div class="club__top">
+          <div class="club__intro">
+            <p class="club__kicker">VIP GLOBAL CLUB</p>
+            <h2 id="club-title" class="h2">Club VIP<br><span class="gold">pour les investisseurs à l’étranger</span></h2>
+            <p class="club__lede">Rejoignez le club clients de <bdi>MS Group Global</bdi> et découvrez avant tout le monde les nouveaux projets à l’étranger, les prix de prévente et des avantages réservés aux membres.</p>
+            <ul class="club__facts">
+              <li><strong>7</strong><span>pays</span></li>
+              <li><strong>17</strong><span>projets</span></li>
+              <li><strong>15</strong><span>ans d’expérience</span></li>
+            </ul>
+            <p class="club__free">Gratuit et sans engagement</p>
+          </div>
+          <div class="club__card-wrap" aria-hidden="true">
+            <div class="vip-card" data-vip-card>
+              <div class="vip-card__shine"></div>
+              <div class="vip-card__top">
+                <img src="../assets/img/msgroup-logo.png" alt="" width="494" height="191">
+                <span>GLOBAL</span>
+              </div>
+              <div class="vip-card__chip"></div>
+              <p class="vip-card__title">VIP GLOBAL MEMBER</p>
+              <p class="vip-card__number">•••• •••• •••• 2026</p>
+              <div class="vip-card__foot"><span>WORLDWIDE INVESTOR</span><span>PRIVILEGE</span></div>
+            </div>
+          </div>
+        </div>
+        <h3 class="club__sub">Vos avantages</h3>
+        <ol class="club__benefits">
+          <li><span class="club__n" aria-hidden="true">01</span><h3>Accès en avant-première et prix de prévente</h3><p>Les nouveaux projets à l’étranger vous parviennent en premier, aux prix de prévente et avant leur annonce au public.</p></li>
+          <li><span class="club__n" aria-hidden="true">02</span><h3>Remises réservées aux membres</h3><p>Des remises sur le prix catalogue que nous négocions auprès des promoteurs grâce au volume d’achat du groupe.</p></li>
+          <li><span class="club__n" aria-hidden="true">03</span><h3>Prestations améliorées</h3><p>Des prestations améliorées dans des projets sélectionnés, en avantage supplémentaire pour les membres.</p></li>
+          <li><span class="club__n" aria-hidden="true">04</span><h3>Conditions de paiement et de financement</h3><p>Des échéanciers de paiement et des conditions de financement attractives dans des projets sélectionnés.</p></li>
+          <li><span class="club__n" aria-hidden="true">05</span><h3>Prêt immobilier et conseil financier</h3><p>Un accompagnement auprès des banques en Israël et dans le pays de destination, et un montage financier qui vous fait économiser sur la durée.</p></li>
+          <li><span class="club__n" aria-hidden="true">06</span><h3>Conseil juridique</h3><p>Les conseils de Me Yoram Shitrit, avocat de la société, avant la signature et tout au long de l’acquisition.</p></li>
+          <li><span class="club__n" aria-hidden="true">07</span><h3>Mobilier et décoration</h3><p>Des avantages et remises sur l’ameublement et la décoration, pour un appartement prêt à habiter ou à louer.</p></li>
+          <li><span class="club__n" aria-hidden="true">08</span><h3>Architecte d’intérieur</h3><p>Les conseils d’une architecte d’intérieur pour choisir et aménager l’appartement.</p></li>
+          <li><span class="club__n" aria-hidden="true">09</span><h3>Accompagnement personnel</h3><p>Un conseiller personnel de notre équipe tout au long du parcours, du choix jusqu’à la remise des clés.</p></li>
+        </ol>
+        <form class="form club__form" data-club-form novalidate>
+          <div class="club__form-head">
+            <h3>Rejoindre le club</h3>
+            <p>Laissez vos coordonnées et recevez les prochaines opportunités directement par e-mail et sur votre téléphone.</p>
+          </div>
+          <div class="club__fields">
+            <div class="field">
+              <label for="c-name">Nom complet</label>
+              <input id="c-name" name="name" autocomplete="name" required>
+              <p class="field__error" id="ce-name" hidden>Merci d’indiquer votre nom.</p>
+            </div>
+            <div class="field">
+              <label for="c-phone">Téléphone (avec indicatif)</label>
+              <input id="c-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required>
+              <p class="field__error" id="ce-phone" hidden>Merci d’indiquer un numéro de téléphone valide.</p>
+            </div>
+            <div class="field">
+              <label for="c-email">E-mail</label>
+              <input id="c-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required>
+              <p class="field__error" id="ce-email" hidden>Merci d’indiquer une adresse e-mail valide.</p>
+            </div>
+          </div>
+          <div class="consent">
+            <label class="check"><input type="checkbox" id="c-consent" name="consent" required><span>J’accepte de recevoir de la part de <bdi>MS Group Global</bdi> des actualités et des offres sur les projets par e-mail, <bdi>SMS</bdi> et WhatsApp, et j’ai lu la <a href="privacy.html">politique de confidentialité</a>. Je peux me désinscrire à tout moment.</span></label>
+            <p class="field__error" id="ce-consent" hidden>Pour rejoindre le club, merci d’accepter de recevoir nos actualités.</p>
+          </div>
+          <button class="btn btn--wide" type="submit">Rejoindre le club</button>
+          <p class="form__status" role="status" aria-live="polite" data-club-status></p>
+        </form>
+        <p class="club__note">Les avantages varient d’un projet à l’autre et dépendent des conditions des promoteurs et des disponibilités. Le détail complet est communiqué aux membres.</p>
       </div>
     </section>
 

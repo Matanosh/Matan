@@ -8,13 +8,13 @@
   const RTL = getComputedStyle(root).direction === 'rtl';
   const T = {
     he: { emph: ['בית:', 'אחד,', 'אחת', 'אחת,', 'המפתח'], name: 'שם', phone: 'טלפון', budget: 'תקציב', countries: 'מדינות', none: 'לא צוין', privacyOk: 'אישור מדיניות פרטיות: כן', marketing: 'הסכמה לדיוור שיווקי', yes: 'כן', no: 'לא', subject: 'פנייה מאתר MS Group Global',
-      mailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.', sending: 'שולחים...', thanks: 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.', failed: 'השליחה לא הצליחה. נסו שוב בעוד רגע.', play: 'הפעלת אנימציה', pause: 'עצירת אנימציה',
+      mailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.', sending: 'שולחים...', thanks: 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.', failed: 'השליחה לא הצליחה. נסו שוב בעוד רגע.', play: 'הפעלת אנימציה', pause: 'עצירת אנימציה', email: 'דוא״ל', clubSubject: 'הצטרפות למועדון VIP של MS Group Global', clubConsent: 'אישור קבלת עדכונים: כן', clubMailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, כתבו ל־office@msgp.co.il ונצרף אתכם למועדון.',
       home: 'תל אביב', places: ['קפריסין', 'פורטוגל', 'רומניה', 'גאורגיה', 'דובאי'], font: 'Heebo' },
     en: { emph: ['home', 'one', 'company,', 'key.'], name: 'Name', phone: 'Phone', budget: 'Budget', countries: 'Countries', none: 'Not specified', privacyOk: 'Privacy policy accepted: yes', marketing: 'Marketing consent', yes: 'yes', no: 'no', subject: 'Enquiry from the MS Group Global website',
-      mailto: 'We tried to open a ready-made email with your details. If it did not open, call +972-72-2133266 or write to office@msgp.co.il.', sending: 'Sending…', thanks: 'Thank you! We have your details and will be in touch shortly.', failed: 'Sending failed. Please try again in a moment.', play: 'Play animation', pause: 'Pause animation',
+      mailto: 'We tried to open a ready-made email with your details. If it did not open, call +972-72-2133266 or write to office@msgp.co.il.', sending: 'Sending…', thanks: 'Thank you! We have your details and will be in touch shortly.', failed: 'Sending failed. Please try again in a moment.', play: 'Play animation', pause: 'Pause animation', email: 'Email', clubSubject: 'Joining the MS Group Global VIP club', clubConsent: 'Consent to receive updates: yes', clubMailto: 'We tried to open a ready-made email with your details. If it did not open, write to office@msgp.co.il and we will add you to the club.',
       home: 'Tel Aviv', places: ['Cyprus', 'Portugal', 'Romania', 'Georgia', 'Dubai'], font: 'Heebo' },
     fr: { emph: ['maison\u00a0:', 'seule', 'seul', 'clé.'], name: 'Nom', phone: 'Téléphone', budget: 'Budget', countries: 'Pays', none: 'Non précisé', privacyOk: 'Politique de confidentialité acceptée\u00a0: oui', marketing: 'Accord pour la prospection commerciale', yes: 'oui', no: 'non', subject: 'Demande depuis le site MS Group Global',
-      mailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, appelez le +972 72 213 3266 ou écrivez à office@msgp.co.il.', sending: 'Envoi en cours…', thanks: 'Merci\u202f! Nous avons bien reçu vos coordonnées et revenons vers vous très vite.', failed: 'L’envoi a échoué. Merci de réessayer dans un instant.', play: 'Relancer l’animation', pause: 'Mettre l’animation en pause',
+      mailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, appelez le +972 72 213 3266 ou écrivez à office@msgp.co.il.', sending: 'Envoi en cours…', thanks: 'Merci\u202f! Nous avons bien reçu vos coordonnées et revenons vers vous très vite.', failed: 'L’envoi a échoué. Merci de réessayer dans un instant.', play: 'Relancer l’animation', pause: 'Mettre l’animation en pause', email: 'E-mail', clubSubject: 'Adhésion au club VIP MS Group Global', clubConsent: 'Accord pour recevoir des actualités\u00a0: oui', clubMailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, écrivez à office@msgp.co.il et nous vous ajouterons au club.',
       home: 'Tel-Aviv', places: ['Chypre', 'Portugal', 'Roumanie', 'Géorgie', 'Dubaï'], font: 'Heebo' },
   }[LANG] || null;
   const L = T || {};
@@ -285,6 +285,45 @@
     a.replaceWith(f);
     f.focus();
   }));
+
+  /* VIP club: sign-up (opens a ready-made email until a form backend exists) */
+  const club = document.querySelector('[data-club-form]');
+  club?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const checks = [
+      ['#c-name', '#ce-name', (v) => v.trim().length > 1],
+      ['#c-phone', '#ce-phone', (v) => v.replace(/[^\d]/g, '').length >= 9],
+      ['#c-email', '#ce-email', (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())],
+    ];
+    let first = null;
+    checks.forEach(([f, er, ok]) => {
+      const el = club.querySelector(f), err = club.querySelector(er), good = ok(el.value);
+      el.setAttribute('aria-invalid', String(!good)); err.hidden = good;
+      if (good) el.removeAttribute('aria-describedby'); else el.setAttribute('aria-describedby', err.id);
+      if (!good && !first) first = el;
+    });
+    const consent = club.querySelector('#c-consent'), cErr = club.querySelector('#ce-consent');
+    cErr.hidden = consent.checked; consent.setAttribute('aria-invalid', String(!consent.checked));
+    if (!consent.checked && !first) first = consent;
+    if (first) { first.focus(); return; }
+    const d = new FormData(club), sep = LANG === 'fr' ? '\u00a0: ' : ': ';
+    const body = [`${L.name}${sep}${d.get('name')}`, `${L.phone}${sep}${d.get('phone')}`, `${L.email}${sep}${d.get('email')}`, L.clubConsent, `Language: ${LANG}`].join('\n');
+    window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent(L.clubSubject)}&body=${encodeURIComponent(body)}`;
+    club.querySelector('[data-club-status]').textContent = L.clubMailto;
+  });
+
+  /* VIP card: follows the pointer on desktop */
+  const card = document.querySelector('[data-vip-card]');
+  if (card && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const wrap = card.parentElement;
+    wrap.addEventListener('pointermove', (e) => {
+      if (root.classList.contains('reduced') || root.classList.contains('paused')) return;
+      const r = wrap.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.setProperty('--ry', `${(x * 22).toFixed(2)}deg`); card.style.setProperty('--rx', `${(-y * 16).toFixed(2)}deg`);
+      card.style.setProperty('--sx', `${(x * 60).toFixed(1)}%`);
+    });
+    wrap.addEventListener('pointerleave', () => ['--rx', '--ry', '--sx'].forEach((v) => card.style.removeProperty(v)));
+  }
 
   /* Pause control for moving content (WCAG 2.2.2) */
   let userPaused = false;
