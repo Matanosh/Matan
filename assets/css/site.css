@@ -599,7 +599,7 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
   opacity: clamp(0, (var(--rp, 0) - 0.55) * 3, 1); transform: translateY(calc((1 - clamp(0, (var(--rp, 0) - 0.55) * 3, 1)) * 24px));
 }
 .reveal__text .gold { font-weight: 500; }
-@media (max-width: 900px), (max-height: 560px), (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .reveal { height: auto; }
   .reveal__sticky { position: relative; height: min(110svh, 760px); }
   .reveal__frame { clip-path: none; }
@@ -691,3 +691,27 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
 .legal__body a { color: var(--gold-2); text-underline-offset: 3px; }
 .legal__updated { color: var(--ink-3); font-size: 0.95rem; }
 .legal__back { display: inline-flex; margin-top: 40px; }
+
+/* Mobile: reveal runs too, on a shorter scroll */
+@media (max-width: 900px) {
+  .reveal { height: 200vh; }
+  .reveal__text { font-size: clamp(2rem, 9vw, 2.6rem); }
+}
+/* Mobile journey: a gold line fills as you scroll, each step lights when reached */
+@media (max-width: 900px), (max-height: 560px) {
+  .journey__steps { position: relative; }
+  .journey__steps::after {
+    content: ""; position: absolute; inset-inline-start: -1px; top: 0; width: 2px; height: 100%;
+    background: var(--gold); transform-origin: top; transform: scaleY(var(--jm, 0));
+  }
+  .journey__steps li::before { background: var(--bg-2); border: 1px solid var(--line); transition: background-color 300ms ease, border-color 300ms ease, transform 300ms var(--ease-out); z-index: 1; }
+  .journey__steps li.lit::before { background: var(--gold); border-color: var(--gold); transform: scale(1.25); }
+  .journey__steps li .step__n { transition: background-color 300ms ease, color 300ms ease; }
+  .journey__steps li.lit .step__n { background: var(--gold); color: var(--bg); }
+}
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) { .journey__steps::after { transform: none; } }
+/* Bigger touch targets in the footer and contact list */
+@media (max-width: 900px) {
+  .footer__legal a, .footer__inner a:not(.brand), .contact__ways a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer__legal { gap: 0 20px; }
+}

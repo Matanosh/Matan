@@ -113,10 +113,16 @@
       jKey?.classList.toggle('on', idx === jSteps.length - 1);
     } else if (journey) {
       jSteps.forEach((li) => li.removeAttribute('aria-hidden'));
+      // phone: fill the line down to the reading point, light each step as it is reached
+      const list = journey.querySelector('[data-journey-steps]');
+      const line = innerHeight * 0.6;
+      const r = list.getBoundingClientRect();
+      list.style.setProperty('--jm', clamp((line - r.top) / r.height).toFixed(4));
+      jSteps.forEach((li) => li.classList.toggle('lit', li.getBoundingClientRect().top < line));
     }
 
     if (reveal) {
-      if (pinned() && !root.classList.contains('reduced')) {
+      if (!root.classList.contains('reduced')) {
         const rp = progressOf(reveal);
         const e = 1 - Math.pow(1 - clamp(rp / 0.7), 3); // ease-out over the first 70% of the scroll
         reveal.style.setProperty('--rp', rp.toFixed(4));
