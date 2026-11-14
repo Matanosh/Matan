@@ -1,5 +1,6 @@
 /* MS Group Global — site styles */
 :root {
+  color-scheme: dark;
   /* palette taken from msgp.co.il: navy oklch(0.24 0.07 262), gold oklch(0.74 0.12 80), ivory oklch(0.98 0.01 85) */
   --bg: #0a1836;
   --bg-2: #0c1d40;

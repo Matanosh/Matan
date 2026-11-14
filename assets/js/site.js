@@ -228,7 +228,7 @@
       const body = [`שם: ${d.get('name')}`, `טלפון: ${d.get('phone')}`, `תקציב: ${d.get('budget') || 'לא צוין'}`,
         `מדינות: ${d.getAll('country').join(', ') || 'לא צוין'}`].join('\n');
       window.location.href = `mailto:office@msgp.co.il?subject=${encodeURIComponent('פנייה מאתר MS Group Global')}&body=${encodeURIComponent(body)}`;
-      status.textContent = 'פתחנו לכם הודעת מייל מוכנה. שלחו אותה ונחזור אליכם, או התקשרו 072-2133266.';
+      status.textContent = 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.';
       return;
     }
     const btn = form.querySelector('button[type="submit"]');
