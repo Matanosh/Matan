@@ -7,15 +7,15 @@ NN = ' '   # narrow no-break space (French: before ; ! ? and in numbers)
 HEAD = {
     'en': dict(
         title='MS Group Global | Your home for real estate investment abroad',
-        desc='MS Group Global, a subsidiary of MS Group: full support for property investment in Cyprus, Portugal, Romania, Georgia and Dubai, from choosing the right apartment for your budget to handing over the keys.',
+        desc='MS Group Global, a subsidiary of MS Group: full support for property investment in Cyprus, Portugal, Romania, Georgia, Dubai and Miami, from choosing the right apartment for your budget to handing over the keys.',
         og_title='MS Group Global | Your home for real estate investment abroad',
-        og_desc='From choosing the apartment that fits your budget to handing over the keys. Cyprus, Portugal, Romania, Georgia, Dubai and more.',
+        og_desc='From choosing the apartment that fits your budget to handing over the keys. Cyprus, Portugal, Romania, Georgia, Dubai, Miami and more.',
         locale='en_US'),
     'fr': dict(
         title='MS Group Global | Votre maison pour investir dans l’immobilier à l’étranger',
-        desc='MS Group Global, filiale de MS Group : un accompagnement complet pour investir dans l’immobilier à Chypre, au Portugal, en Roumanie, en Géorgie et à Dubaï, du choix de l’appartement adapté à votre budget jusqu’à la remise des clés.',
+        desc='MS Group Global, filiale de MS Group : un accompagnement complet pour investir dans l’immobilier à Chypre, au Portugal, en Roumanie, en Géorgie, à Dubaï et à Miami, du choix de l’appartement adapté à votre budget jusqu’à la remise des clés.',
         og_title='MS Group Global | Votre maison pour investir dans l’immobilier à l’étranger',
-        og_desc='Du choix de l’appartement adapté à votre budget jusqu’à la remise des clés. Chypre, Portugal, Roumanie, Géorgie, Dubaï et d’autres destinations.',
+        og_desc='Du choix de l’appartement adapté à votre budget jusqu’à la remise des clés. Chypre, Portugal, Roumanie, Géorgie, Dubaï, Miami et d’autres destinations.',
         locale='fr_FR'),
 }
 
@@ -42,11 +42,11 @@ T = [
 ('<span class="line"><span>הבית שלך</span></span>', '<span class="line"><span>Your home</span></span>', '<span class="line"><span>Votre maison</span></span>'),
 ('<span class="line"><span>להשקעות נדל״ן</span></span>', '<span class="line"><span>for property investment</span></span>', '<span class="line"><span>pour investir</span></span>'),
 ('<span class="line"><span class="gold">בחו״ל</span></span>', '<span class="line"><span class="gold">abroad</span></span>', '<span class="line"><span class="gold">à l’étranger</span></span>'),
-('''קפריסין, פורטוגל, רומניה, גאורגיה, דובאי ועוד. מליווי בבחירת הדירה לפי התקציב שלך
+('''קפריסין, פורטוגל, רומניה, גאורגיה, דובאי, מיאמי ועוד. מליווי בבחירת הדירה לפי התקציב שלך
           ועד קבלת המפתח: הכל כולל הכל, תחת קורת גג אחת.''',
- '''Cyprus, Portugal, Romania, Georgia, Dubai and more. From choosing the apartment that fits your budget
+ '''Cyprus, Portugal, Romania, Georgia, Dubai, Miami and more. From choosing the apartment that fits your budget
           to the day you get the keys: everything included, under one roof.''',
- '''Chypre, Portugal, Roumanie, Géorgie, Dubaï et bien d’autres. Du choix de l’appartement adapté à votre budget
+ '''Chypre, Portugal, Roumanie, Géorgie, Dubaï, Miami et bien d’autres. Du choix de l’appartement adapté à votre budget
           jusqu’à la remise des clés : tout compris, sous un même toit.'''),
 ('איך זה עובד', 'How it works', 'Comment ça marche'),
 ('<span data-motion-label>עצירת אנימציה</span>', '<span data-motion-label>Pause animation</span>', '<span data-motion-label>Mettre l’animation en pause</span>'),
@@ -111,8 +111,8 @@ T = [
 
 # --- where (globe) ---
 ('איפה אנחנו<br><span class="gold">עובדים בעולם</span>', 'Where in the world<br><span class="gold">we work</span>', 'Où nous sommes<br><span class="gold">présents dans le monde</span>'),
-('שש מדינות, טיסה קצרה מהבית. גררו את הגלובוס או בחרו מדינה.', 'Six countries, a short flight from home. Drag the globe or choose a country.', 'Six pays, à un court vol d’Israël. Faites tourner le globe ou choisissez un pays.'),
-('aria-label="גלובוס עם המדינות שבהן MS Group Global פועלת: האמירויות, גאורגיה, קפריסין, פורטוגל, רומניה ואוקראינה, וקווי טיסה מתל אביב"', 'aria-label="Globe showing the countries where MS Group Global operates: the UAE, Georgia, Cyprus, Portugal, Romania and Ukraine, with flight paths from Tel Aviv"', 'aria-label="Globe montrant les pays où MS Group Global est présent : Émirats, Géorgie, Chypre, Portugal, Roumanie et Ukraine, avec les liaisons aériennes depuis Tel-Aviv"'),
+('שבע מדינות בשלוש יבשות. גררו את הגלובוס או בחרו מדינה.', 'Seven countries on three continents. Drag the globe or choose a country.', 'Sept pays sur trois continents. Faites tourner le globe ou choisissez un pays.'),
+('aria-label="גלובוס עם המדינות שבהן MS Group Global פועלת: האמירויות, גאורגיה, קפריסין, פורטוגל, רומניה, אוקראינה וארצות הברית, וקווי טיסה מתל אביב"', 'aria-label="Globe showing the countries where MS Group Global operates: the UAE, Georgia, Cyprus, Portugal, Romania, Ukraine and the United States, with flight paths from Tel Aviv"', 'aria-label="Globe montrant les pays où MS Group Global est présent : Émirats, Géorgie, Chypre, Portugal, Roumanie, Ukraine et États-Unis, avec les liaisons aériennes depuis Tel-Aviv"'),
 ('גררו לסיבוב', 'Drag to rotate', 'Faites glisser pour tourner'),
 ('<span class="where__name">האמירויות</span><span class="where__city">דובאי · ראס אל חיימה</span>', '<span class="where__name">UAE</span><span class="where__city">Dubai · Ras Al Khaimah</span>', '<span class="where__name">Émirats</span><span class="where__city">Dubaï · Ras al-Khaïmah</span>'),
 ('<span>7 פרויקטים</span><span>טיסה כשלוש שעות</span>', '<span>7 projects</span><span>About 3 hours’ flight</span>', '<span>7 projets</span><span>Environ 3 h de vol</span>'),
@@ -130,7 +130,7 @@ T = [
 
 # --- destinations ---
 ('<h2 id="dest-title" class="h2">היעדים שלנו</h2>', '<h2 id="dest-title" class="h2">Our destinations</h2>', '<h2 id="dest-title" class="h2">Nos destinations</h2>'),
-('שש מדינות, אותו ליווי בדיוק. <span class="only-desk">גללו כדי לעבור בין היעדים.</span><span class="only-touch">החליקו כדי לעבור בין היעדים.</span>', 'Six countries, exactly the same support. <span class="only-desk">Scroll to move between destinations.</span><span class="only-touch">Swipe to move between destinations.</span>', 'Six pays, exactement le même accompagnement. <span class="only-desk">Faites défiler pour passer d’une destination à l’autre.</span><span class="only-touch">Balayez pour passer d’une destination à l’autre.</span>'),
+('שבע מדינות, אותו ליווי בדיוק. <span class="only-desk">גללו כדי לעבור בין היעדים.</span><span class="only-touch">החליקו כדי לעבור בין היעדים.</span>', 'Seven countries, exactly the same support. <span class="only-desk">Scroll to move between destinations.</span><span class="only-touch">Swipe to move between destinations.</span>', 'Sept pays, exactement le même accompagnement. <span class="only-desk">Faites défiler pour passer d’une destination à l’autre.</span><span class="only-touch">Balayez pour passer d’une destination à l’autre.</span>'),
 ('<span class="country__unit">דקות טיסה<br>מתל אביב</span>', '<span class="country__unit">minutes’ flight<br>from Tel Aviv</span>', '<span class="country__unit">minutes de vol<br>depuis Tel-Aviv</span>'),
 ('<h3 class="country__name">קפריסין</h3>', '<h3 class="country__name">Cyprus</h3>', '<h3 class="country__name">Chypre</h3>'),
 ('<h3 class="country__name">פורטוגל</h3>', '<h3 class="country__name">Portugal</h3>', '<h3 class="country__name">Portugal</h3>'),
@@ -171,6 +171,36 @@ T = [
 ('alt="הדמיית Blue Sky Tower בבאטומי, גאורגיה, עם הים והעיר ברקע"', 'alt="Rendering of Blue Sky Tower in Batumi, Georgia, with the sea and the city behind"', 'alt="Perspective de Blue Sky Tower à Batoumi, en Géorgie, avec la mer et la ville en arrière-plan"'),
 ('alt="SORA Beach Residence בראס אל חיימה בשקיעה"', 'alt="SORA Beach Residence in Ras Al Khaimah at sunset"', 'alt="SORA Beach Residence à Ras al-Khaïmah au coucher du soleil"'),
 ('alt="מגדלי Unity Tower באודסה מהפארק"', 'alt="The Unity Tower buildings in Odesa, seen from the park"', 'alt="Les tours Unity Tower à Odessa, vues depuis le parc"'),
+
+# --- USA / Miami ---
+('<span class="where__name">ארה״ב</span><span class="where__city">מיאמי · פלורידה</span>', '<span class="where__name">USA</span><span class="where__city">Miami · Florida</span>', '<span class="where__name">États-Unis</span><span class="where__city">Miami · Floride</span>'),
+('<span>פרויקט אחד</span><span>טיסה ישירה של כ־13 שעות</span>', '<span>1 project</span><span>About 13 hours’ direct flight</span>', '<span>1 projet</span><span>Environ 13 h de vol direct</span>'),
+('<span class="country__unit">מס הכנסה מדינתי<br>בפלורידה</span>', '<span class="country__unit">state income tax<br>in Florida</span>', '<span class="country__unit">d’impôt sur le revenu<br>de l’État en Floride</span>'),
+('<h3 class="country__name">ארה״ב</h3>', '<h3 class="country__name">USA</h3>', '<h3 class="country__name">États-Unis</h3>'),
+('<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDE</p>'),
+('<dt>מטבע</dt><dd>דולר אמריקאי</dd>', '<dt>Currency</dt><dd>US dollar</dd>', '<dt>Monnaie</dt><dd>Dollar américain</dd>'),
+('<dt>הפרש שעות</dt><dd>7 שעות אחרי ישראל</dd>', '<dt>Time difference</dt><dd>7 hours behind Israel</dd>', '<dt>Décalage horaire</dt><dd>7 h de moins qu’en Israël</dd>'),
+('<dt>טיסה מתל אביב</dt><dd>כ־13 שעות, טיסה ישירה</dd>', '<dt>Flight from Tel Aviv</dt><dd>About 13 hours, direct</dd>', '<dt>Vol depuis Tel-Aviv</dt><dd>Environ 13 h, vol direct</dd>'),
+('data-pick="ארה״ב">מעניין אותי מיאמי', 'data-pick="USA">I’m interested in Miami', 'data-pick="États-Unis">Miami m’intéresse'),
+('<h3>ארה״ב</h3>', '<h3>United States</h3>', '<h3>États-Unis</h3>'),
+('שוק דולרי גדול ונזיל, במדינה שאין בה מס הכנסה מדינתי.', 'A large, liquid dollar market, in a state with no state income tax.', 'Un marché en dollars vaste et liquide, dans un État sans impôt sur le revenu.'),
+('<li>במיאמי־דייד מספר העסקאות עלה 11 חודשים ברציפות, ומכירות הנכסים שמעל 10 מיליון דולר בדרך לשיא שנתי (<bdi>MIAMI REALTORS</bdi>, 2026).</li>',
+ '<li>Home sales in Miami-Dade have risen for 11 consecutive months, and sales above $10 million are on course for an annual record (<bdi>MIAMI REALTORS</bdi>, 2026).</li>',
+ '<li>À Miami-Dade, les ventes de logements progressent depuis 11 mois consécutifs, et les ventes de plus de 10 millions de dollars se dirigent vers un record annuel (<bdi>MIAMI REALTORS</bdi>, 2026).</li>'),
+('<li>תשואה ממוצעת של כ־6.8% ברוטו בדירות במיאמי (<bdi>Global Property Guide</bdi>).</li>', '<li>An average gross yield of about 6.8% on apartments in Miami (<bdi>Global Property Guide</bdi>).</li>', '<li>Un rendement brut moyen d’environ 6,8 % sur les appartements à Miami (<bdi>Global Property Guide</bdi>).</li>'),
+('<li>בפלורידה אין מס הכנסה מדינתי על יחידים.</li>', '<li>Florida has no state income tax on individuals.</li>', '<li>La Floride ne prélève pas d’impôt sur le revenu des particuliers au niveau de l’État.</li>'),
+('<span>שווה לדעת</span>המחיר החציוני של דירה במיאמי־דייד ירד מעט בשנה האחרונה, לכ־408 אלף דולר (אוגוסט 2026), ויש היצע גדול. הוצאות ועד הבית והביטוח בפלורידה עלו, וצריך לחשב אותן בתשואה נטו.',
+ '<span>Worth knowing</span>The median condo price in Miami-Dade dipped slightly over the past year, to about $408,000 (August 2026), and supply is high. Condo association fees and insurance in Florida have risen and need to be factored into the net yield.',
+ '<span>Bon à savoir</span>Le prix médian d’un appartement à Miami-Dade a légèrement baissé sur un an, à environ 408 000 $ (août 2026), et l’offre est abondante. Les charges de copropriété et l’assurance ont augmenté en Floride et doivent être intégrées au rendement net.'),
+('value="ארה״ב"><span>ארה״ב (מיאמי)</span>', 'value="USA"><span>USA (Miami)</span>', 'value="États-Unis"><span>États-Unis (Miami)</span>'),
+
+('>ארה״ב <span class="project__count">', '>USA <span class="project__count">', '>États-Unis <span class="project__count">'),
+('<br><span class="gold">מלון ודירות, מיאמי</span>', '<br><span class="gold">Hotel &amp; Residence, Miami</span>', '<br><span class="gold">Hôtel et résidences, Miami</span>'),
+('מגדל מלון ודירות במרכז העיר מיאמי, ליד מגדל החירות ומפרץ ביסקיין: דירות מרוהטות עם מרפסות ונוף לעיר ולמפרץ, חדר כושר עם נוף פתוח וחללי עבודה משותפים.',
+ 'A hotel and residential tower in Downtown Miami, next to the Freedom Tower and Biscayne Bay: furnished apartments with balconies and city and bay views, a gym with open views, and shared workspaces.',
+ 'Une tour d’hôtel et de résidences au centre-ville de Miami, près de la Freedom Tower et de la baie de Biscayne : appartements meublés avec balcons et vue sur la ville et la baie, salle de sport avec vue dégagée et espaces de travail partagés.'),
+('data-pick="ארה״ב">לפרטים על', 'data-pick="USA">Details on', 'data-pick="États-Unis">En savoir plus sur'),
+('data-yt-title="סרטון הפרויקט GALE Miami"', 'data-yt-title="GALE Miami project film"', 'data-yt-title="Vidéo du projet GALE Miami"'),
 
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
@@ -227,7 +257,7 @@ T = [
  'Les données proviennent de sources de marché publiques et sont à jour pour 2026. Les rendements sont bruts, avant charges et impôts. Ces informations sont générales et ne constituent pas un conseil en investissement ; lors du rendez-vous, nous étudierons avec vous les chiffres de votre projet et de votre situation.'),
 
 # --- projects ---
-('פרויקטים נבחרים<br><span class="gold">בחמש מדינות, 15 פרויקטים</span>', 'Selected projects<br><span class="gold">15 projects in five countries</span>', 'Projets sélectionnés<br><span class="gold">15 projets dans cinq pays</span>'),
+('פרויקטים נבחרים<br><span class="gold">בשש מדינות, 16 פרויקטים</span>', 'Selected projects<br><span class="gold">16 projects in six countries</span>', 'Projets sélectionnés<br><span class="gold">16 projets dans six pays</span>'),
 ('aria-label="סינון לפי מדינה"', 'aria-label="Filter by country"', 'aria-label="Filtrer par pays"'),
 ('>האמירויות <span class="project__count">', '>UAE <span class="project__count">', '>Émirats <span class="project__count">'),
 ('>גאורגיה <span class="project__count">', '>Georgia <span class="project__count">', '>Géorgie <span class="project__count">'),
@@ -374,7 +404,7 @@ T = [
 ('<h3>מא׳ ועד ת׳</h3>', '<h3>From A to Z</h3>', '<h3>De A à Z</h3>'),
 ('בחירת היעד, בחירת הדירה, העסקה והבנייה. כתובת אחת לכל שאלה, עד שהמפתח אצלך.', 'Choosing the destination, choosing the apartment, the purchase and the construction. One point of contact for every question, until the key is yours.', 'Le choix de la destination, de l’appartement, l’acquisition et la construction. Un seul interlocuteur pour chaque question, jusqu’à ce que la clé soit à vous.'),
 ('<h3>כמה מדינות, גוף אחד</h3>', '<h3>Several countries, one company</h3>', '<h3>Plusieurs pays, un seul interlocuteur</h3>'),
-('קפריסין, פורטוגל, רומניה, גאורגיה ודובאי. משווים ביניהן איתך, בלי לרוץ בין חברות.', 'Cyprus, Portugal, Romania, Georgia and Dubai. We compare them with you, without you having to run between companies.', 'Chypre, le Portugal, la Roumanie, la Géorgie et Dubaï. Nous les comparons avec vous, sans que vous ayez à courir d’une société à l’autre.'),
+('קפריסין, פורטוגל, רומניה, גאורגיה, דובאי ומיאמי. משווים ביניהן איתך, בלי לרוץ בין חברות.', 'Cyprus, Portugal, Romania, Georgia, Dubai and Miami. We compare them with you, without you having to run between companies.', 'Chypre, le Portugal, la Roumanie, la Géorgie, Dubaï et Miami. Nous les comparons avec vous, sans que vous ayez à courir d’une société à l’autre.'),
 
 # --- about ---
 ('מי אנחנו<br><span class="gold">המשפחה של <bdi>MS Group</bdi></span>', 'About us<br><span class="gold">the <bdi>MS Group</bdi> family</span>', 'Qui sommes-nous<br><span class="gold">la famille <bdi>MS Group</bdi></span>'),

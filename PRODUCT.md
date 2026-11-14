@@ -40,7 +40,7 @@ Not a listings portal and not a single-project developer: an Israeli company, pa
 ## Capabilities and Constraints
 
 - Lead capture: a consultation request form (where it sends is undecided; until then it must not pretend to send).
-- Countries named by the owner: Cyprus, Portugal, Romania, Georgia, Dubai, "and more".
+- Countries named by the owner: Cyprus, Portugal, Romania, Georgia, Dubai, Ukraine, USA (Miami, added 2026-11-14), "and more".
 - No real photographs of the destinations are available in the build environment yet.
 
 ## Brand Commitments
