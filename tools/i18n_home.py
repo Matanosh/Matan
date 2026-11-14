@@ -178,7 +178,6 @@ T = [
 ('<h3 class="country__name">ארה״ב</h3>', '<h3 class="country__name">USA</h3>', '<h3 class="country__name">États-Unis</h3>'),
 ('<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDE</p>'),
 ('<dt>מטבע</dt><dd>דולר אמריקאי</dd>', '<dt>Currency</dt><dd>US dollar</dd>', '<dt>Monnaie</dt><dd>Dollar américain</dd>'),
-('<dt>הפרש שעות</dt><dd>7 שעות אחרי ישראל</dd>', '<dt>Time difference</dt><dd>7 hours behind Israel</dd>', '<dt>Décalage horaire</dt><dd>7 h de moins qu’en Israël</dd>'),
 ('<dt>טיסה מתל אביב</dt><dd>כ־13 שעות, טיסה ישירה</dd>', '<dt>Flight from Tel Aviv</dt><dd>About 13 hours, direct</dd>', '<dt>Vol depuis Tel-Aviv</dt><dd>Environ 13 h, vol direct</dd>'),
 ('data-pick="ארה״ב">מעניין אותי מיאמי', 'data-pick="USA">I’m interested in Miami', 'data-pick="États-Unis">Miami m’intéresse'),
 ('<h3>ארה״ב</h3>', '<h3>United States</h3>', '<h3>États-Unis</h3>'),
