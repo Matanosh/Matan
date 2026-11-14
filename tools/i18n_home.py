@@ -267,12 +267,11 @@ T = [
 ('alt="חזית הרחוב, החנויות והכניסה לחניה"', 'alt="The street frontage, the shops and the parking entrance"', 'alt="La façade sur rue, les commerces et l’entrée du parking"'),
 ('alt="מטבח ופינת אוכל בדירה"', 'alt="Kitchen and dining area in an apartment"', 'alt="Cuisine et coin repas dans un appartement"'),
 ('aria-label="סרטון הפרויקט Salami Residence: מהים, דרך השדרה ועד הדירה"', 'aria-label="Salami Residence project film: from the sea, along the boulevard and into the apartment"', 'aria-label="Vidéo du projet Salami Residence : de la mer, par le boulevard, jusqu’à l’appartement"'),
-('מגדל מגורים ממותג <bdi>Wyndham</bdi> בגוניו, דרומית לבאטומי, צמוד לטיילת ולחוף, בין ההרים לים. בבסיס המגדל בריכה, ולובי בסגנון מלון. צפו גם בסיור בדירה עם מרפסת ונוף לים.', 'A <bdi>Wyndham</bdi>-branded residential tower in Gonio, south of Batumi, right by the promenade and the beach, between the mountains and the sea. A pool at the base of the tower and a hotel-style lobby. Also watch a tour of an apartment with a sea-view balcony.', 'Une tour résidentielle sous la marque <bdi>Wyndham</bdi> à Gonio, au sud de Batoumi, en bordure de la promenade et de la plage, entre montagnes et mer. Une piscine au pied de la tour et un lobby de style hôtelier. Découvrez aussi la visite d’un appartement avec balcon vue mer.'),
+('מגדל מגורים ממותג <bdi>Wyndham</bdi> בגוניו, דרומית לבאטומי, צמוד לטיילת ולחוף, בין ההרים לים. בבסיס המגדל בריכה, ולובי בסגנון מלון. צפו בסרטון הפרויקט מתחת לגלריה.', 'A <bdi>Wyndham</bdi>-branded residential tower in Gonio, south of Batumi, right by the promenade and the beach, between the mountains and the sea. A pool at the base of the tower and a hotel-style lobby. Watch the project film below the gallery.', 'Une tour résidentielle sous la marque <bdi>Wyndham</bdi> à Gonio, au sud de Batoumi, en bordure de la promenade et de la plage, entre montagnes et mer. Une piscine au pied de la tour et un lobby de style hôtelier. Regardez la vidéo du projet sous la galerie.'),
 ('alt="מגדל Wyndham בגוניו מול החוף, עם ההרים ברקע"', 'alt="The Wyndham tower in Gonio facing the beach, with the mountains behind"', 'alt="La tour Wyndham à Gonio face à la plage, avec les montagnes en arrière-plan"'),
 ('alt="מבט מלמעלה על המגדל, הבריכה, הטיילת והחוף"', 'alt="Aerial view of the tower, the pool, the promenade and the beach"', 'alt="Vue aérienne de la tour, de la piscine, de la promenade et de la plage"'),
 ('alt="המגדל המואר בלילה מול הים"', 'alt="The tower lit up at night facing the sea"', 'alt="La tour illuminée la nuit face à la mer"'),
 ('alt="לובי המגדל עם עמדת הקבלה"', 'alt="The tower lobby with the reception desk"', 'alt="Le lobby de la tour avec la réception"'),
-('aria-label="סרטון: סיור בדירה ב־Wyndham Garden Gonio עם מרפסת ונוף לים"', 'aria-label="Video: tour of an apartment at Wyndham Garden Gonio with a sea-view balcony"', 'aria-label="Vidéo : visite d’un appartement à Wyndham Garden Gonio avec balcon vue mer"'),
 ('מגדל מגורים בבוקרשט עם מרפסות לכל דירה, מסחר בקומת הקרקע ולובי בעיצוב יוקרתי.', 'A residential tower in Bucharest with a balcony for every apartment, ground-floor retail and a luxuriously designed lobby.', 'Une tour résidentielle à Bucarest avec un balcon pour chaque appartement, des commerces en rez-de-chaussée et un lobby au design luxueux.'),
 ('alt="הדמיית Best Residence בבוקרשט מהרחוב"', 'alt="Rendering of Best Residence in Bucharest from the street"', 'alt="Perspective de Best Residence à Bucarest depuis la rue"'),
 ('alt="המגדל מזווית נוספת, עם העצים לאורך הרחוב"', 'alt="The tower from another angle, with the trees along the street"', 'alt="La tour sous un autre angle, avec les arbres le long de la rue"'),
@@ -335,6 +334,8 @@ T = [
 ('data-yt-title="סרטון הפרויקט La Quinta by Wyndham"', 'data-yt-title="La Quinta by Wyndham project film"', 'data-yt-title="Vidéo du projet La Quinta by Wyndham"'),
 
 ('data-yt-title="סרטון הפרויקט Blue Sky Tower"', 'data-yt-title="Blue Sky Tower project film"', 'data-yt-title="Vidéo du projet Blue Sky Tower"'),
+
+('data-yt-title="סרטון הפרויקט Wyndham Garden Gonio"', 'data-yt-title="Wyndham Garden Gonio project film"', 'data-yt-title="Vidéo du projet Wyndham Garden Gonio"'),
 
 # --- home / legacy ---
 ('בית אחד.<br><span class="gold">הכל כולל הכל.</span>', 'One home.<br><span class="gold">Everything included.</span>', 'Une seule maison.<br><span class="gold">Tout compris.</span>'),
