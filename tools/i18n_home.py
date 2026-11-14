@@ -175,7 +175,6 @@ T = [
 # --- USA / Miami ---
 ('<span class="where__name">ארה״ב</span><span class="where__city">מיאמי · פלורידה</span>', '<span class="where__name">USA</span><span class="where__city">Miami · Florida</span>', '<span class="where__name">États-Unis</span><span class="where__city">Miami · Floride</span>'),
 ('<span>2 פרויקטים</span><span>טיסה ישירה של כ־13 שעות</span>', '<span>2 projects</span><span>About 13 hours’ direct flight</span>', '<span>2 projets</span><span>Environ 13 h de vol direct</span>'),
-('<span class="country__unit">מס הכנסה מדינתי<br>בפלורידה</span>', '<span class="country__unit">state income tax<br>in Florida</span>', '<span class="country__unit">d’impôt sur le revenu<br>de l’État en Floride</span>'),
 ('<h3 class="country__name">ארה״ב</h3>', '<h3 class="country__name">USA</h3>', '<h3 class="country__name">États-Unis</h3>'),
 ('<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDA</p>', '<p class="country__latin">MIAMI · FLORIDE</p>'),
 ('<dt>מטבע</dt><dd>דולר אמריקאי</dd>', '<dt>Currency</dt><dd>US dollar</dd>', '<dt>Monnaie</dt><dd>Dollar américain</dd>'),
