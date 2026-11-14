@@ -68,6 +68,8 @@
     });
   }
 
+  const reveal = document.querySelector('[data-reveal]');
+
   /* Destinations */
   const dest = document.querySelector('[data-dest]');
   const track = document.querySelector('[data-dest-track]');
@@ -111,6 +113,19 @@
       jKey?.classList.toggle('on', idx === jSteps.length - 1);
     } else if (journey) {
       jSteps.forEach((li) => li.removeAttribute('aria-hidden'));
+    }
+
+    if (reveal) {
+      if (pinned() && !root.classList.contains('reduced')) {
+        const rp = progressOf(reveal);
+        const e = 1 - Math.pow(1 - clamp(rp / 0.7), 3); // ease-out over the first 70% of the scroll
+        reveal.style.setProperty('--rp', rp.toFixed(4));
+        reveal.style.setProperty('--r-y', (22 * (1 - e)).toFixed(2));
+        reveal.style.setProperty('--r-x', (30 * (1 - e)).toFixed(2));
+        reveal.style.setProperty('--r-rad', (4 * (1 - e)).toFixed(2));
+      } else {
+        ['--rp', '--r-y', '--r-x', '--r-rad'].forEach((v) => reveal.style.removeProperty(v));
+      }
     }
 
     if (dest && track) {

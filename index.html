@@ -52,6 +52,12 @@
   <main id="main">
     <!-- HERO -->
     <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__media" aria-hidden="true">
+        <img src="assets/img/projects/sora/sora-4-1600.webp" alt="" width="1600" height="1142" fetchpriority="high">
+        <img src="assets/img/projects/unity/unity-1-1600.webp" alt="" width="1280" height="1280" loading="lazy">
+        <img src="assets/img/projects/bay/bay-2-1600.webp" alt="" width="1080" height="766" loading="lazy">
+        <img src="assets/img/projects/voxa/voxa-1-1600.webp" alt="" width="1600" height="2035" loading="lazy">
+      </div>
       <div class="hero__globe" aria-hidden="true">
         <canvas data-globe></canvas>
       </div>
@@ -80,6 +86,16 @@
         השקעה בחו״ל לא צריכה להרגיש כמו קפיצה למים. אצלנו יש לך בית: צוות אחד, שפה אחת ואחריות אחת,
         מהשיחה הראשונה ועד שהמפתח בידיים שלך.
       </p>
+    </section>
+
+    <!-- REVEAL: one render opens to full screen with the scroll -->
+    <section class="reveal" aria-label="הבית הבא שלך" data-reveal>
+      <div class="reveal__sticky">
+        <figure class="reveal__frame">
+          <img src="assets/img/projects/sora/sora-1-1600.webp" srcset="assets/img/projects/sora/sora-1-900.webp 900w, assets/img/projects/sora/sora-1-1600.webp 1600w" sizes="100vw" alt="SORA Beach Residence בראס אל חיימה, מבט מהים ומתחת למים" loading="lazy" width="1600" height="1280">
+        </figure>
+        <p class="reveal__text">הבית הבא שלך<br><span class="gold">כבר מחכה מעבר לים.</span></p>
+      </div>
     </section>
 
     <!-- WHY ABROAD -->
@@ -181,7 +197,7 @@
       <div class="dest__sticky">
         <div class="dest__head">
           <h2 id="dest-title" class="h2">היעדים שלנו</h2>
-          <p class="dest__sub">חמש מדינות, אותו ליווי בדיוק. <span class="only-desk">גללו כדי לעבור בין היעדים.</span><span class="only-touch">החליקו כדי לעבור בין היעדים.</span></p>
+          <p class="dest__sub">שש מדינות, אותו ליווי בדיוק. <span class="only-desk">גללו כדי לעבור בין היעדים.</span><span class="only-touch">החליקו כדי לעבור בין היעדים.</span></p>
         </div>
         <div class="dest__viewport">
           <ul class="dest__track" data-dest-track>
@@ -259,7 +275,6 @@
                 <img src="assets/img/projects/sora/sora-4-900.webp" srcset="assets/img/projects/sora/sora-4-900.webp 900w, assets/img/projects/sora/sora-4-1600.webp 1600w" sizes="(max-width: 900px) 84vw, 440px" alt="SORA Beach Residence בראס אל חיימה בשקיעה" loading="lazy" width="1600" height="1142">
               </figure>
               <div class="country__body">
-                <!-- SLOT: photo of dubai; add <img> and remove hidden --><figure class="country__photo" data-slot="photo-dubai" hidden></figure>
                 <h3 class="country__name">האמירויות</h3>
                 <p class="country__latin">DUBAI · RAS AL KHAIMAH</p>
                 <dl class="facts">
@@ -268,6 +283,21 @@
                   <div><dt>טיסה מתל אביב</dt><dd>כשלוש שעות</dd></div>
                 </dl>
                 <a class="link" href="#contact" data-pick="האמירויות">מעניין אותי האמירויות <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
+              </div>
+            </li>
+            <li class="country country--photo">
+              <figure class="country__photo">
+                <img src="assets/img/projects/unity/unity-3-900.webp" srcset="assets/img/projects/unity/unity-3-900.webp 900w, assets/img/projects/unity/unity-3-1600.webp 1600w" sizes="(max-width: 900px) 84vw, 440px" alt="מגדלי Unity Tower באודסה מהפארק" loading="lazy" width="1600" height="1600">
+              </figure>
+              <div class="country__body">
+                <h3 class="country__name">אוקראינה</h3>
+                <p class="country__latin">ODESSA · UKRAINE</p>
+                <dl class="facts">
+                  <div><dt>מטבע</dt><dd>הריבנה</dd></div>
+                  <div><dt>האיחוד האירופי</dt><dd>לא חברה</dd></div>
+                  <div><dt>עיר הפרויקט</dt><dd>אודסה, על הים השחור</dd></div>
+                </dl>
+                <a class="link" href="#contact" data-pick="אוקראינה">מעניין אותי אוקראינה <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
               </div>
             </li>
             <li class="country country--more">
