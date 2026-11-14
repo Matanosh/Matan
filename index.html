@@ -222,13 +222,10 @@
                 <a class="link" href="#contact" data-pick="פורטוגל">מעניין אותי פורטוגל <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
               </div>
             </li>
-            <li class="country">
-              <svg class="skyline" viewBox="0 0 600 200" aria-hidden="true">
-                <path pathLength="1" d="M0 170 H600"/>
-                <path pathLength="1" d="M80 170 V120 H120 V100 H160 V80 H200 V60 H260 V40 H300 V60 H360 V80 H400 V100 H440 V120 H480 V170"/>
-                <path pathLength="1" d="M200 80 V170 M400 80 V170 M270 40 V20 H290 V40"/>
-                <path pathLength="1" d="M520 170 V110 H580 V170 M534 170 V140 A 16 16 0 0 1 566 140 V170"/>
-              </svg>
+            <li class="country country--photo">
+              <figure class="country__photo">
+                <img src="assets/img/projects/best-residence/best-residence-1-900.webp" srcset="assets/img/projects/best-residence/best-residence-1-900.webp 900w, assets/img/projects/best-residence/best-residence-1-1600.webp 1600w" sizes="(max-width: 900px) 84vw, 440px" alt="הדמיית Best Residence בבוקרשט, רומניה" loading="lazy" width="1600" height="1204">
+              </figure>
               <div class="country__body">
                 <!-- SLOT: photo of romania; add <img> and remove hidden --><figure class="country__photo" data-slot="photo-romania" hidden></figure>
                 <h3 class="country__name">רומניה</h3>
@@ -299,12 +296,13 @@
     <section class="project" id="project" aria-labelledby="project-title" data-projects>
       <div class="wrap">
         <div class="project__top">
-          <h2 id="project-title" class="h2">פרויקטים נבחרים<br><span class="gold">בגאורגיה ובפורטוגל</span></h2>
+          <h2 id="project-title" class="h2">פרויקטים נבחרים<br><span class="gold">בגאורגיה, ברומניה ובפורטוגל</span></h2>
           <div class="project__tabs" role="tablist" aria-label="בחירת פרויקט">
             <button role="tab" id="tab-bluesky" aria-controls="panel-bluesky" aria-selected="true">Blue Sky Tower</button>
             <button role="tab" id="tab-laquinta" aria-controls="panel-laquinta" aria-selected="false" tabindex="-1">La Quinta by Wyndham</button>
             <button role="tab" id="tab-salami" aria-controls="panel-salami" aria-selected="false" tabindex="-1">Salami Residence</button>
             <button role="tab" id="tab-gonio" aria-controls="panel-gonio" aria-selected="false" tabindex="-1">Wyndham Garden Gonio</button>
+            <button role="tab" id="tab-best" aria-controls="panel-best" aria-selected="false" tabindex="-1">Best Residence</button>
             <button role="tab" id="tab-almeda" aria-controls="panel-almeda" aria-selected="false" tabindex="-1">Almeda</button>
           </div>
         </div>
@@ -355,11 +353,30 @@
           <div class="project__head">
             <h3 class="project__name">Wyndham Garden Gonio<br><span class="gold">גוניו, באטומי</span></h3>
             <div class="project__copy">
-              <p>מגדל מול החוף בגוניו, דרומית לבאטומי, בין ההרים לים.</p>
+              <p>מגדל מול החוף בגוניו, דרומית לבאטומי, בין ההרים לים. צפו בסיור בדירה עם מרפסת ונוף לים.</p>
               <a class="btn" href="#contact" data-pick="גאורגיה">לפרטים על Wyndham Garden Gonio</a>
             </div>
           </div>
-          <!-- SLOT: renders of this project (send as files; same 4-image mosaic as Blue Sky) --><div class="project__gallery project__gallery--empty" data-slot="renders-gonio" aria-hidden="true"><span class="project__monogram"></span></div>
+          <!-- Video supplied by the owner (apartment interior, 12 s). SLOT: exterior renders can join it as a mosaic -->
+          <figure class="project__video">
+            <video controls playsinline preload="none" poster="assets/img/projects/gonio/gonio-poster.webp" width="1280" height="720" aria-label="סרטון: סיור בדירה ב־Wyndham Garden Gonio עם מרפסת ונוף לים">
+              <source src="assets/video/gonio.mp4" type="video/mp4">
+            </video>
+          </figure>
+        </div>
+        <div class="project__panel" id="panel-best" role="tabpanel" aria-labelledby="tab-best" tabindex="0" hidden>
+          <div class="project__head">
+            <h3 class="project__name">Best Residence<br><span class="gold">בוקרשט, רומניה</span></h3>
+            <div class="project__copy">
+              <p>מגדל מגורים בבוקרשט עם מרפסות לכל דירה, מסחר בקומת הקרקע ולובי בעיצוב יוקרתי.</p>
+              <a class="btn" href="#contact" data-pick="רומניה">לפרטים על Best Residence</a>
+            </div>
+          </div>
+          <div class="project__gallery project__gallery--3">
+            <figure class="project__main"><img src="assets/img/projects/best-residence/best-residence-1-1600.webp" srcset="assets/img/projects/best-residence/best-residence-1-900.webp 900w, assets/img/projects/best-residence/best-residence-1-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 58vw" alt="הדמיית Best Residence בבוקרשט מהרחוב" loading="lazy" width="1600" height="1204"></figure>
+            <figure><img src="assets/img/projects/best-residence/best-residence-2-1600.webp" srcset="assets/img/projects/best-residence/best-residence-2-900.webp 900w, assets/img/projects/best-residence/best-residence-2-1600.webp 1600w" sizes="(max-width: 900px) 50vw, 38vw" alt="המגדל מזווית נוספת, עם העצים לאורך הרחוב" loading="lazy" width="1600" height="1208"></figure>
+            <figure><img src="assets/img/projects/best-residence/best-residence-3-1600.webp" srcset="assets/img/projects/best-residence/best-residence-3-900.webp 900w, assets/img/projects/best-residence/best-residence-3-1600.webp 1600w" sizes="(max-width: 900px) 50vw, 38vw" alt="לובי הבניין בשיש, עץ וברונזה" loading="lazy" width="1600" height="1222"></figure>
+          </div>
         </div>
         <div class="project__panel" id="panel-almeda" role="tabpanel" aria-labelledby="tab-almeda" tabindex="0" hidden>
           <div class="project__head">
