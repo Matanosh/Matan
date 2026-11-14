@@ -212,6 +212,12 @@ T = [
 ('alt="בר הספורט עם מסכי ענק ופינות ישיבה"', 'alt="The sports bar with giant screens and lounge seating"', 'alt="Le bar sportif avec écrans géants et salons"'),
 ('data-yt-title="סרטון הפרויקט E11EVEN Residences Beyond"', 'data-yt-title="E11EVEN Residences Beyond project film"', 'data-yt-title="Vidéo du projet E11EVEN Residences Beyond"'),
 
+('alt="מגדל GALE Miami בערב, ליד מגדל החירות ומפרץ ביסקיין"', 'alt="GALE Miami tower in the evening, next to the Freedom Tower and Biscayne Bay"', 'alt="La tour GALE Miami en soirée, près de la Freedom Tower et de la baie de Biscayne"'),
+('alt="סלון בדירה עם מרפסת ונוף למגדל החירות"', 'alt="An apartment living room with a balcony overlooking the Freedom Tower"', 'alt="Un salon avec balcon donnant sur la Freedom Tower"'),
+('alt="סטודיו מרוהט עם נוף לעיר בשקיעה"', 'alt="A furnished studio with a city view at sunset"', 'alt="Un studio meublé avec vue sur la ville au coucher du soleil"'),
+('alt="חדר הכושר עם חלונות לכל אורך הקיר ונוף לעיר"', 'alt="The gym with floor-to-ceiling windows and city views"', 'alt="La salle de sport avec baies vitrées et vue sur la ville"'),
+('alt="חדר ישיבות מול מגדל החירות והמפרץ"', 'alt="A meeting room facing the Freedom Tower and the bay"', 'alt="Une salle de réunion face à la Freedom Tower et à la baie"'),
+
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
 ('כל שוק נבחר מסיבה. הנה המספרים שמאחורי כל יעד, ומה חשוב לדעת לפני שנכנסים אליו.', 'Every market was chosen for a reason. Here are the numbers behind each destination, and what is worth knowing before you go in.', 'Chaque marché a été choisi pour une raison. Voici les chiffres derrière chaque destination, et ce qu’il faut savoir avant de s’y engager.'),

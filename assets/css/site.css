@@ -971,3 +971,11 @@ bdi { white-space: nowrap; }
 .project__name bdi, .project__copy .btn bdi { white-space: normal; }
 .project__copy .btn { display: inline-block; height: auto; min-height: 52px; padding-block: 15px; line-height: 1.4; text-align: center; text-wrap: balance; }
 @media (max-width: 560px) { .project__gallery.project__gallery--grid { grid-template-columns: minmax(0, 1fr); } }
+/* Portrait tower render beside four landscape ones */
+.project__gallery.project__gallery--tower { grid-template-columns: minmax(0, 0.78fr) repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; height: auto; }
+.project__gallery.project__gallery--tower .project__main { grid-row: 1 / 3; grid-column: auto; aspect-ratio: auto; }
+.project__gallery.project__gallery--tower figure:not(.project__main) { grid-column: auto; aspect-ratio: 5 / 3; }
+@media (max-width: 560px) {
+  .project__gallery.project__gallery--tower { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project__gallery.project__gallery--tower .project__main { grid-row: auto; grid-column: 1 / -1; aspect-ratio: 4 / 5; }
+}
