@@ -59,7 +59,7 @@ From msgp.co.il (read 2026-11-14, the owner asked that it be used):
 - Contacts: 072-2133266, office@msgp.co.il, מגדל ב.ס.ר 4, מצדה 7, בני ברק. These are MS Group's; confirm whether MS Group Global uses the same.
 - Brand: navy oklch(0.24 0.07 262), gold oklch(0.74 0.12 80), ivory oklch(0.98 0.01 85); Frank Ruhl Libre headings, Heebo body.
 
-- Projects (owner, 2026-11-14): Blue Sky Tower, La Quinta by Wyndham, Salami Residence, Wyndham Garden Gonio (Batumi, Georgia); Almeda (Lisbon, Portugal); Best Residence (Bucharest, Romania). On disk: Blue Sky Tower renders, Best Residence renders (assets/img/projects/best-residence/), Wyndham Garden Gonio interior video (assets/video/gonio.mp4, compressed from the owner's 1080p file).
+- Projects (owner, 2026-11-14): Blue Sky Tower, La Quinta by Wyndham, Salami Residence, Wyndham Garden Gonio (Batumi, Georgia); Almeda (Lisbon, Portugal); Best Residence (Bucharest, Romania); Unity Tower (Odessa, Ukraine, renders in assets/img/projects/unity/). On disk: Blue Sky Tower renders, Best Residence renders (assets/img/projects/best-residence/), Wyndham Garden Gonio interior video (assets/video/gonio.mp4, compressed from the owner's 1080p file).
 
 Still missing: renders as files for the other four projects, project facts, a WhatsApp number, and a form backend (the form currently opens a prepared email to the office). Never invent projects, prices, returns or testimonials.
 
