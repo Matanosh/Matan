@@ -510,6 +510,8 @@ T = [
 ('<p>ייעוץ מקצועי של מעצבת פנים בבחירת הדירה ובתכנון שלה.</p>', '<p>Professional advice from an interior designer when choosing and planning the apartment.</p>', '<p>Les conseils d’une architecte d’intérieur pour choisir et aménager l’appartement.</p>'),
 ('<h3>ליווי אישי</h3>', '<h3>Personal support</h3>', '<h3>Accompagnement personnel</h3>'),
 ('<p>מלווה אישי מהצוות שלנו לאורך כל הדרך, מהבחירה ועד קבלת המפתח.</p>', '<p>A personal adviser from our team all the way, from choosing to getting the keys.</p>', '<p>Un conseiller personnel de notre équipe tout au long du parcours, du choix jusqu’à la remise des clés.</p>'),
+('<h3>סקירות שוק ועדכוני בנייה</h3>', '<h3>Market reviews and construction updates</h3>', '<h3>Analyses de marché et suivi de chantier</h3>'),
+('<p>סקירות שוק תקופתיות על היעדים שלנו, ועדכונים שוטפים על התקדמות הבנייה בפרויקט שלכם.</p>', '<p>Regular market reviews of our destinations, and ongoing updates on construction progress in your project.</p>', '<p>Des analyses de marché régulières sur nos destinations, et des points réguliers sur l’avancement du chantier de votre projet.</p>'),
 ('<h3>הצטרפות למועדון</h3>', '<h3>Join the club</h3>', '<h3>Rejoindre le club</h3>'),
 ('ממלאים פרטים ומקבלים את ההזדמנויות הבאות ישירות למייל ולנייד.', 'Leave your details and get the next opportunities straight to your inbox and phone.', 'Laissez vos coordonnées et recevez les prochaines opportunités directement par e-mail et sur votre téléphone.'),
 ('<label for="c-name">שם מלא</label>', '<label for="c-name">Full name</label>', '<label for="c-name">Nom complet</label>'),
