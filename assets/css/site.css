@@ -655,3 +655,9 @@ html { scrollbar-color: var(--gold-deep) var(--bg); }
     .values li { flex-basis: 50%; }
   .values li + li { border-inline-start: 0; }
 }
+
+/* MS Group logo set inline at the size of the surrounding text */
+.inline-logo { display: inline-block; vertical-align: -0.45em; margin-inline: 0.15em; text-decoration: none; }
+.inline-logo img { height: 1.7em; width: auto; display: block; }
+.hero__parent { display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.35em; }
+.hero__parent .inline-logo { vertical-align: middle; margin: 0; }
