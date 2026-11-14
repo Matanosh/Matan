@@ -132,7 +132,6 @@ T = [
 # --- destinations ---
 ('<h2 id="dest-title" class="h2">היעדים שלנו</h2>', '<h2 id="dest-title" class="h2">Our destinations</h2>', '<h2 id="dest-title" class="h2">Nos destinations</h2>'),
 ('שבע מדינות, אותו ליווי בדיוק. <span class="only-desk">גללו כדי לעבור בין היעדים.</span><span class="only-touch">החליקו כדי לעבור בין היעדים.</span>', 'Seven countries, exactly the same support. <span class="only-desk">Scroll to move between destinations.</span><span class="only-touch">Swipe to move between destinations.</span>', 'Sept pays, exactement le même accompagnement. <span class="only-desk">Faites défiler pour passer d’une destination à l’autre.</span><span class="only-touch">Balayez pour passer d’une destination à l’autre.</span>'),
-('<span class="country__unit">דקות טיסה<br>מתל אביב</span>', '<span class="country__unit">minutes’ flight<br>from Tel Aviv</span>', '<span class="country__unit">minutes de vol<br>depuis Tel-Aviv</span>'),
 ('<h3 class="country__name">קפריסין</h3>', '<h3 class="country__name">Cyprus</h3>', '<h3 class="country__name">Chypre</h3>'),
 ('<h3 class="country__name">פורטוגל</h3>', '<h3 class="country__name">Portugal</h3>', '<h3 class="country__name">Portugal</h3>'),
 ('<h3 class="country__name">רומניה</h3>', '<h3 class="country__name">Romania</h3>', '<h3 class="country__name">Roumanie</h3>'),
@@ -231,6 +230,8 @@ T = [
 ('alt="מטבח עם אי שיש וסלון עם נוף לעיר ולים"', 'alt="A kitchen with a marble island and a living room overlooking the city and the sea"', 'alt="Une cuisine avec îlot en marbre et un salon avec vue sur la ville et la mer"'),
 ('alt="מרפסת גג פרטית עם ג׳קוזי, פרגולה ומטבח חוץ"', 'alt="A private roof terrace with a jacuzzi, pergola and outdoor kitchen"', 'alt="Un toit-terrasse privatif avec jacuzzi, pergola et cuisine d’extérieur"'),
 ('alt="מרפסת רחבה עם פינת ישיבה ונוף ללימסול ולים"', 'alt="A wide balcony with a seating area overlooking Limassol and the sea"', 'alt="Un large balcon avec salon face à Limassol et à la mer"'),
+
+('alt="Azura Residences בלימסול, קפריסין, בשקיעה"', 'alt="Azura Residences in Limassol, Cyprus, at sunset"', 'alt="Azura Residences à Limassol, à Chypre, au coucher du soleil"'),
 
 # --- why ---
 ('למה להשקיע<br><span class="gold">בכל אחד מהיעדים</span>', 'Why invest<br><span class="gold">in each destination</span>', 'Pourquoi investir<br><span class="gold">dans chaque destination</span>'),
