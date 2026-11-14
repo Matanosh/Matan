@@ -997,7 +997,7 @@ bdi { white-space: nowrap; }
 .vip-card { position: relative; width: min(100%, 460px); aspect-ratio: 1.586; border-radius: 22px; padding: clamp(20px, 3vw, 30px); overflow: hidden; color: var(--gold-2);
   display: grid; grid-template-rows: auto 1fr auto auto auto; direction: ltr; text-align: left;
   background: linear-gradient(135deg, #1d3566 0%, #0e2149 45%, #081430 100%);
-  box-shadow: 0 0 0 1px rgba(233, 203, 140, 0.45) inset, 0 40px 80px -30px rgba(0, 0, 0, 0.75), 0 0 60px -20px rgba(210, 162, 73, 0.35);
+  box-shadow: 0 0 0 1px rgba(233, 203, 140, 0.45) inset, 0 40px 80px -30px rgba(0, 0, 0, 0.75);
   transform: rotateX(var(--rx, 6deg)) rotateY(var(--ry, -12deg)); transform-style: preserve-3d; transition: transform 600ms var(--ease-out); }
 .vip-card::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, rgba(233, 203, 140, 0.05) 0 2px, transparent 2px 9px); pointer-events: none; }
 .vip-card__shine { position: absolute; inset: -40%; background: linear-gradient(115deg, transparent 40%, rgba(255, 240, 205, 0.22) 50%, transparent 60%); transform: translateX(var(--sx, -30%)); transition: transform 600ms var(--ease-out); pointer-events: none; }
