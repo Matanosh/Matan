@@ -826,3 +826,13 @@ bdi { white-space: nowrap; }
   .mobile-menu:not([hidden]) { overflow-y: auto; overscroll-behavior: contain; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)); }
   .mobile-menu a:not(.btn) { font-size: clamp(1.5rem, 6.5vw, 2rem); padding: 10px 0; }
 }
+
+/* Project status badge */
+.project__status { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; padding: 8px 16px; border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent); border-radius: 999px; font-size: 1rem; font-weight: 600; color: var(--ink); background: color-mix(in oklab, var(--gold) 10%, transparent); }
+.project__status::before { content: ""; inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--gold); flex: none; }
+.project__status-k { font-weight: 400; color: var(--ink-2); }
+.project__status--build::before { background: transparent; border: 2px solid var(--gold); animation: status-pulse 2.4s var(--ease-out) infinite; }
+.project__status--done::before { background: var(--gold-2); }
+@keyframes status-pulse { 0%,100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--gold) 55%, transparent); } 60% { box-shadow: 0 0 0 7px transparent; } }
+@media (prefers-reduced-motion: reduce) { .project__status--build::before { animation: none; } }
+.paused .project__status--build::before { animation: none; }
