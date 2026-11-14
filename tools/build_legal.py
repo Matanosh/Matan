@@ -124,7 +124,7 @@ BODY = {
           <li>The website is available in Hebrew, English and French, with the correct language and reading direction declared on every page.</li>
         </ul>
         <h2>Known limitations</h2>
-        <p>Some parts of the website are not yet fully accessible. The project films (Wyndham Garden Gonio, Azure by Lapis, PONTUS Gonio, La Quinta by Wyndham, Blue Sky Tower, SORA Beach Residence, One Central and OMYA Residence) do not currently have captions or a full text description. The press coverage is in Hebrew. Project renderings are images, and their full details are provided in the consultation. We are working to improve accessibility, and you can contact us to receive information in an accessible format.</p>
+        <p>Some parts of the website are not yet fully accessible. The project films (Wyndham Garden Gonio, Azure by Lapis, PONTUS Gonio, La Quinta by Wyndham, Blue Sky Tower, SORA Beach Residence, One Central, OMYA Residence and VOXA Residence) do not currently have captions or a full text description. The press coverage is in Hebrew. Project renderings are images, and their full details are provided in the consultation. We are working to improve accessibility, and you can contact us to receive information in an accessible format.</p>
         <h2>Accessibility enquiries</h2>
         <!-- SLOT: name of the accessibility coordinator, if the company appoints one -->
         <p>Have you come across an accessibility problem, or do you need information in an accessible format? We are happy to help. Contact us {contact('en')}. We will do our best to reply to every enquiry promptly.</p>
@@ -148,7 +148,7 @@ BODY = {
           <li>Le site est disponible en hébreu, en anglais et en français, avec la langue et le sens de lecture déclarés sur chaque page.</li>
         </ul>
         <h2>Limites connues</h2>
-        <p>Certaines parties du site ne sont pas encore entièrement accessibles. Les vidéos des projets (Wyndham Garden Gonio, Azure by Lapis, PONTUS Gonio, La Quinta by Wyndham, Blue Sky Tower, SORA Beach Residence, One Central et OMYA Residence) ne disposent pas encore de sous-titres ni d’une description textuelle complète. Les reportages de presse sont en hébreu. Les perspectives des projets sont des images, et leurs détails complets sont présentés lors du rendez-vous. Nous travaillons à améliorer l’accessibilité, et vous pouvez nous contacter pour obtenir les informations dans un format accessible.</p>
+        <p>Certaines parties du site ne sont pas encore entièrement accessibles. Les vidéos des projets (Wyndham Garden Gonio, Azure by Lapis, PONTUS Gonio, La Quinta by Wyndham, Blue Sky Tower, SORA Beach Residence, One Central, OMYA Residence et VOXA Residence) ne disposent pas encore de sous-titres ni d’une description textuelle complète. Les reportages de presse sont en hébreu. Les perspectives des projets sont des images, et leurs détails complets sont présentés lors du rendez-vous. Nous travaillons à améliorer l’accessibilité, et vous pouvez nous contacter pour obtenir les informations dans un format accessible.</p>
         <h2>Contact accessibilité</h2>
         <!-- SLOT: name of the accessibility coordinator, if the company appoints one -->
         <p>Vous avez rencontré un problème d’accessibilité ou avez besoin d’informations dans un format accessible ? Nous serons heureux de vous aider. Contactez-nous {contact('fr')}. Nous nous efforçons de répondre rapidement à chaque demande.</p>
