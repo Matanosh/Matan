@@ -1060,3 +1060,9 @@ bdi { white-space: nowrap; }
 .club__film-toggle[aria-pressed="true"] .club__film-icon { width: 15px; height: 18px; border: 0; background: var(--gold-2); clip-path: polygon(0 0, 100% 50%, 0 100%); margin-left: 4px; }
 .club__film-toggle:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
 @media (max-width: 1000px) { .club__join { grid-template-columns: 1fr; } .club__film { width: min(100%, 360px); justify-self: center; } }
+
+/* VIP club dramatized film (16:9, captions in the page language) */
+.club__story { margin: clamp(56px, 8vh, 88px) 0 0; }
+.club__story video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 18px; background: #000; box-shadow: 0 0 0 1px var(--line) inset, 0 40px 80px -40px rgba(0, 0, 0, 0.7); }
+.club__story figcaption { margin-top: 12px; font-size: 0.9rem; color: var(--ink-3); }
+video::cue { font-family: Heebo, sans-serif; font-size: 1.05rem; background: rgba(10, 24, 54, 0.78); color: #fbf8f1; }
