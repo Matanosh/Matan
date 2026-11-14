@@ -115,7 +115,7 @@ T = [
 ('aria-label="גלובוס עם המדינות שבהן MS Group Global פועלת: האמירויות, גאורגיה, קפריסין, פורטוגל, רומניה ואוקראינה, וקווי טיסה מתל אביב"', 'aria-label="Globe showing the countries where MS Group Global operates: the UAE, Georgia, Cyprus, Portugal, Romania and Ukraine, with flight paths from Tel Aviv"', 'aria-label="Globe montrant les pays où MS Group Global est présent : Émirats, Géorgie, Chypre, Portugal, Roumanie et Ukraine, avec les liaisons aériennes depuis Tel-Aviv"'),
 ('גררו לסיבוב', 'Drag to rotate', 'Faites glisser pour tourner'),
 ('<span class="where__name">האמירויות</span><span class="where__city">דובאי · ראס אל חיימה</span>', '<span class="where__name">UAE</span><span class="where__city">Dubai · Ras Al Khaimah</span>', '<span class="where__name">Émirats</span><span class="where__city">Dubaï · Ras al-Khaïmah</span>'),
-('<span>6 פרויקטים</span><span>טיסה כשלוש שעות</span>', '<span>6 projects</span><span>About 3 hours’ flight</span>', '<span>6 projets</span><span>Environ 3 h de vol</span>'),
+('<span>7 פרויקטים</span><span>טיסה כשלוש שעות</span>', '<span>7 projects</span><span>About 3 hours’ flight</span>', '<span>7 projets</span><span>Environ 3 h de vol</span>'),
 ('<span class="where__name">גאורגיה</span><span class="where__city">באטומי · גוניו</span>', '<span class="where__name">Georgia</span><span class="where__city">Batumi · Gonio</span>', '<span class="where__name">Géorgie</span><span class="where__city">Batoumi · Gonio</span>'),
 ('<span>5 פרויקטים</span><span>טיסה כשעתיים וחצי</span>', '<span>5 projects</span><span>About 2.5 hours’ flight</span>', '<span>5 projets</span><span>Environ 2 h 30 de vol</span>'),
 ('<span class="where__name">קפריסין</span><span class="where__city">לימסול · לרנקה</span>', '<span class="where__name">Cyprus</span><span class="where__city">Limassol · Larnaca</span>', '<span class="where__name">Chypre</span><span class="where__city">Limassol · Larnaca</span>'),
@@ -227,7 +227,7 @@ T = [
  'Les données proviennent de sources de marché publiques et sont à jour pour 2026. Les rendements sont bruts, avant charges et impôts. Ces informations sont générales et ne constituent pas un conseil en investissement ; lors du rendez-vous, nous étudierons avec vous les chiffres de votre projet et de votre situation.'),
 
 # --- projects ---
-('פרויקטים נבחרים<br><span class="gold">בחמש מדינות, 14 פרויקטים</span>', 'Selected projects<br><span class="gold">14 projects in five countries</span>', 'Projets sélectionnés<br><span class="gold">14 projets dans cinq pays</span>'),
+('פרויקטים נבחרים<br><span class="gold">בחמש מדינות, 15 פרויקטים</span>', 'Selected projects<br><span class="gold">15 projects in five countries</span>', 'Projets sélectionnés<br><span class="gold">15 projets dans cinq pays</span>'),
 ('aria-label="סינון לפי מדינה"', 'aria-label="Filter by country"', 'aria-label="Filtrer par pays"'),
 ('>האמירויות <span class="project__count">', '>UAE <span class="project__count">', '>Émirats <span class="project__count">'),
 ('>גאורגיה <span class="project__count">', '>Georgia <span class="project__count">', '>Géorgie <span class="project__count">'),
@@ -344,6 +344,19 @@ T = [
 ('data-yt-title="סרטון הפרויקט OMYA Residence"', 'data-yt-title="OMYA Residence project film"', 'data-yt-title="Vidéo du projet OMYA Residence"'),
 
 ('data-yt-title="סרטון הפרויקט VOXA Residence"', 'data-yt-title="VOXA Residence project film"', 'data-yt-title="Vidéo du projet VOXA Residence"'),
+
+# --- LINEA by HOLM (Dubai) ---
+('<br><span class="gold">ג׳ומיירה גארדן סיטי, דובאי</span>', '<br><span class="gold"><bdi>Jumeirah Garden City</bdi>, Dubai</span>', '<br><span class="gold"><bdi>Jumeirah Garden City</bdi>, Dubaï</span>'),
+('מגדל מגורים ב־<bdi>Jumeirah Garden City</bdi> בדובאי, עם בריכת אינסוף על הגג, חדר כושר ומגרש ספורט בקומה העליונה, ומרפסות עם נוף לקו הרקיע של דובאי ולבורג׳ ח׳ליפה.',
+ 'A residential tower in <bdi>Jumeirah Garden City</bdi>, Dubai, with a rooftop infinity pool, a gym and sports court on the top floor, and balconies overlooking the Dubai skyline and the Burj Khalifa.',
+ 'Une tour résidentielle à <bdi>Jumeirah Garden City</bdi>, à Dubaï, avec piscine à débordement sur le toit, salle de sport et terrain de sport au dernier étage, et des balcons face à la skyline de Dubaï et à la Burj Khalifa.'),
+('alt="מגדל LINEA by HOLM בערב, מול קו הרקיע של דובאי ובורג׳ ח׳ליפה"', 'alt="LINEA by HOLM in the evening, facing the Dubai skyline and the Burj Khalifa"', 'alt="LINEA by HOLM en soirée, face à la skyline de Dubaï et à la Burj Khalifa"'),
+('alt="המגדל מהרחוב, עם עצי הדקל לאורך הכביש"', 'alt="The tower from the street, with palm trees along the road"', 'alt="La tour depuis la rue, avec des palmiers le long de la route"'),
+('alt="בריכת האינסוף על הגג, עם מיטות שיזוף ונוף לעיר"', 'alt="The rooftop infinity pool, with sun loungers and a city view"', 'alt="La piscine à débordement sur le toit, avec transats et vue sur la ville"'),
+('alt="מרפסות הדירות בשקיעה, עם נוף לבורג׳ ח׳ליפה"', 'alt="Apartment balconies at sunset, overlooking the Burj Khalifa"', 'alt="Les balcons des appartements au coucher du soleil, face à la Burj Khalifa"'),
+('alt="קומת הגג עם חדר הכושר ומגרש הספורט"', 'alt="The top floor with the gym and the sports court"', 'alt="Le dernier étage avec la salle de sport et le terrain de sport"'),
+
+('data-yt-title="סרטון הפרויקט LINEA by HOLM"', 'data-yt-title="LINEA by HOLM project film"', 'data-yt-title="Vidéo du projet LINEA by HOLM"'),
 
 # --- home / legacy ---
 ('בית אחד.<br><span class="gold">הכל כולל הכל.</span>', 'One home.<br><span class="gold">Everything included.</span>', 'Une seule maison.<br><span class="gold">Tout compris.</span>'),
