@@ -25,3 +25,25 @@ It runs Impeccable's engine binary (engine 0.1.24, checksum-verified on first do
 
 Not installed on purpose:
 - Every other skill in the Emil Kowalski and Taste Skill repositories.
+
+## Matt Pocock's skills
+
+Copied unmodified from https://github.com/mattpocock/skills at commit `5863806`,
+MIT License (each folder's `LICENSE`), © 2026 Matt Pocock.
+
+| Skill folder | Path in upstream |
+|---|---|
+| `chief-of-staff/` | `skills/in-progress/chief-of-staff/` |
+| `retro/` | `skills/engineering/retro/` |
+| `to-spec/` | `skills/engineering/to-spec/` |
+| `to-tickets/` | `skills/engineering/to-tickets/` |
+| `implement-spec/` | `skills/engineering/implement-spec/` |
+| `tdd/` | `skills/engineering/tdd/` |
+| `codebase-design/` | `skills/engineering/codebase-design/` |
+| `setup-matt-pocock-skills/` | `skills/engineering/setup-matt-pocock-skills/` |
+| `writing-for-agents/` | `skills/productivity/writing-for-agents/` |
+
+`chief-of-staff` is the one asked for; it reads `retro`, `to-spec`, `to-tickets` and
+`implement-spec` by relative path, and those in turn call `writing-for-agents`, `tdd`,
+`codebase-design` and `setup-matt-pocock-skills`, so they come along. Upstream marks
+`chief-of-staff` as in-progress.
