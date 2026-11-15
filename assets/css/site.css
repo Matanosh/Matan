@@ -1271,3 +1271,14 @@ a.yt:active { transform: scale(0.99); transition: transform 120ms var(--ease-out
 
 /* Hero on wide screens: each image keeps its whole building in frame (per-image focal point) */
 @media (min-width: 901px) { .hero__media img { object-position: var(--pos, 50% 50%); } }
+
+/* Phone: the flight-map globe sits over the hero image, as on desktop */
+@media (max-width: 900px) {
+  .hero { position: relative; }
+  .hero__globe {
+    display: block; position: absolute; z-index: 1; pointer-events: none;
+    top: calc(var(--nav-h) + 4px); left: 50%; translate: -50% 0; margin: 0;
+    width: min(100vw, calc(min(58svh, 520px) - 44px)); aspect-ratio: 1;
+  }
+  .hero__copy { position: relative; z-index: 2; }
+}
