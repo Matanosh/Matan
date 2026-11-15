@@ -33,11 +33,54 @@
   const nav = document.querySelector('[data-nav]');
   const toggle = document.querySelector('[data-menu-toggle]');
   const menu = document.querySelector('[data-menu]');
+  // The menu unfolds from under the bar (where the button is) and folds back the same way.
+  const menuReduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let menuTimer = 0;
+  menu && [...menu.children].forEach((el, i) => el.style.setProperty('--i', i));
   const setMenu = (open) => {
     toggle.setAttribute('aria-expanded', String(open));
-    menu.hidden = !open;
     document.body.style.overflow = open ? 'hidden' : '';
+    clearTimeout(menuTimer);
+    menu.style.transform = ''; menu.style.opacity = '';
+    if (open) {
+      menu.hidden = false;
+      void menu.offsetWidth;                       // commit the folded state before unfolding
+      menu.classList.add('is-open');
+    } else {
+      menu.classList.remove('is-open');
+      if (menuReduce.matches) menu.hidden = true;
+      else menuTimer = setTimeout(() => { if (!menu.classList.contains('is-open')) menu.hidden = true; }, 380);
+    }
   };
+  // Pull the menu up to close it: it follows the finger, and a flick upward closes it.
+  // Only once the menu has nothing left to scroll, so scrolling a long menu still works.
+  if (menu) {
+    let y0 = 0, x0 = 0, t0 = 0, dy = 0, axis = '';
+    menu.addEventListener('touchstart', (e) => {
+      const t = e.touches[0]; y0 = t.clientY; x0 = t.clientX; t0 = performance.now(); dy = 0; axis = '';
+    }, { passive: true });
+    menu.addEventListener('touchmove', (e) => {
+      if (!t0) return;
+      const t = e.touches[0], ddy = t.clientY - y0, ddx = t.clientX - x0;
+      const atEnd = menu.scrollTop + menu.clientHeight >= menu.scrollHeight - 1;
+      if (!axis && Math.hypot(ddx, ddy) > 10) axis = ddy < 0 && Math.abs(ddy) > Math.abs(ddx) && atEnd ? 'up' : 'none';
+      if (axis !== 'up') return;
+      e.preventDefault();
+      dy = Math.min(0, ddy);
+      menu.classList.add('is-drag');
+      menu.style.transform = `translate3d(0, ${dy}px, 0)`;
+      menu.style.opacity = String(1 + dy / 600);
+    }, { passive: false });
+    const end = () => {
+      if (!t0) return;
+      const v = dy / Math.max(performance.now() - t0, 16) * 1000;   // px/s
+      t0 = 0; menu.classList.remove('is-drag');
+      if (axis === 'up' && dy + (v / 1000) * 0.998 / 0.002 < -140) setMenu(false);
+      else { menu.style.transform = ''; menu.style.opacity = ''; }
+    };
+    menu.addEventListener('touchend', end);
+    menu.addEventListener('touchcancel', end);
+  }
   toggle?.addEventListener('click', () => setMenu(menu.hidden));
   menu?.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu && !menu.hidden) { setMenu(false); toggle.focus(); } });
