@@ -1268,3 +1268,6 @@ a.yt:active { transform: scale(0.99); transition: transform 120ms var(--ease-out
   backdrop-filter: none; -webkit-backdrop-filter: none;
   background: var(--bg); transition: none;
 }
+
+/* Hero on wide screens: each image keeps its whole building in frame (per-image focal point) */
+@media (min-width: 901px) { .hero__media img { object-position: var(--pos, 50% 50%); } }
