@@ -787,3 +787,8 @@
     img.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); } });
   }));
 })();
+
+/* Destination cards: open the projects section on that country */
+document.querySelectorAll('[data-show-country]').forEach((a) => a.addEventListener('click', () => {
+  document.querySelector(`.project__country[data-country="${a.dataset.showCountry}"]`)?.click();
+}));
