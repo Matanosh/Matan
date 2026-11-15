@@ -1227,3 +1227,9 @@ a.yt:active { transform: scale(0.99); transition: transform 120ms var(--ease-out
    no ornaments standing in for content */
 .h2 .gold { color: inherit; }
 .values li::before { display: none; }
+
+/* Phone: the project tab row scrolls sideways; a soft fade at the far edge says there is more */
+@media (max-width: 900px) {
+  .project__tabs.has-more { -webkit-mask-image: linear-gradient(to left, transparent, #000 48px); mask-image: linear-gradient(to left, transparent, #000 48px); }
+  [dir="ltr"] .project__tabs.has-more { -webkit-mask-image: linear-gradient(to right, transparent, #000 48px); mask-image: linear-gradient(to right, transparent, #000 48px); }
+}

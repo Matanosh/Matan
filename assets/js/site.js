@@ -792,3 +792,16 @@
 document.querySelectorAll('[data-show-country]').forEach((a) => a.addEventListener('click', () => {
   document.querySelector(`.project__country[data-country="${a.dataset.showCountry}"]`)?.click();
 }));
+
+/* Project tab row: mark when more tabs sit beyond the far edge (drives the fade) */
+document.querySelectorAll('.project__tabs').forEach((row) => {
+  const update = () => {
+    const max = row.scrollWidth - row.clientWidth;
+    const done = Math.abs(row.scrollLeft) >= max - 4;   // scrollLeft is negative in RTL
+    row.classList.toggle('has-more', max > 4 && !done);
+  };
+  row.addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  new MutationObserver(update).observe(row, { subtree: true, attributes: true, attributeFilter: ['hidden'] });
+  update();
+});
