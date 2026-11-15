@@ -571,102 +571,213 @@
   });
 })();
 
-/* Project galleries: tap an image to view it full screen; swipe or use the arrows to browse, swipe down or Esc to close */
+/* Project galleries: full-screen viewer in the manner of iOS Photos.
+   The image grows out of the thumbnail you tapped and shrinks back into it; every motion is a spring
+   that starts from where things are on screen and inherits the finger's speed; the ends rubber-band. */
 (() => {
-  const lang = document.documentElement.lang || 'he';
+  const lang = (document.documentElement.lang || 'he').slice(0, 2);
   const rtl = document.documentElement.dir === 'rtl';
   const TX = {
     he: { open: 'הגדלת התמונה', close: 'סגירה', prev: 'התמונה הקודמת', next: 'התמונה הבאה', of: 'מתוך', label: 'תמונות הפרויקט' },
     en: { open: 'Enlarge image', close: 'Close', prev: 'Previous image', next: 'Next image', of: 'of', label: 'Project images' },
     fr: { open: 'Agrandir l’image', close: 'Fermer', prev: 'Image précédente', next: 'Image suivante', of: 'sur', label: 'Images du projet' },
-  }[lang.slice(0, 2)] || {};
+  }[lang] || {};
   const galleries = document.querySelectorAll('.project__gallery');
   if (!galleries.length || typeof HTMLDialogElement === 'undefined') return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* --- physics helpers (Apple's damping/response model, WWDC "Designing Fluid Interfaces") --- */
+  // A spring has no fixed duration; it starts from the current value and velocity and can be re-targeted any time.
+  const spring = ({ from, to, velocity = 0, damping = 1, response = 0.4, onUpdate, onDone }) => {
+    const k = (2 * Math.PI / response) ** 2, c = 4 * Math.PI * damping / response;
+    let x = from, v = velocity, last = performance.now(), id = 0, alive = true;
+    const span = Math.max(Math.abs(to - from), 1);
+    const step = (now) => {
+      if (!alive) return;
+      let dt = Math.min((now - last) / 1000, 1 / 30); last = now;
+      while (dt > 0) { const h = Math.min(dt, 1 / 240); v += (-k * (x - to) - c * v) * h; x += v * h; dt -= h; }
+      if (Math.abs(x - to) < span * 0.0008 && Math.abs(v) < span * 0.01) { onUpdate(to); alive = false; onDone?.(); return; }
+      onUpdate(x); id = requestAnimationFrame(step);
+    };
+    if (reduce.matches) { onUpdate(to); onDone?.(); return { stop() {} }; }
+    id = requestAnimationFrame(step);
+    return { stop() { alive = false; cancelAnimationFrame(id); }, get value() { return x; }, get velocity() { return v; } };
+  };
+  // where a flick would come to rest (iOS scroll deceleration)
+  const project = (v /* px/s */, d = 0.998) => (v / 1000) * d / (1 - d);
+  // soft edge: the further past the bound, the less it follows
+  const rubber = (o, dim, c = 0.55) => (o * dim * c) / (dim + c * Math.abs(o));
   const best = (img) => {
     const set = (img.getAttribute('srcset') || '').split(',').map((s) => s.trim().split(/\s+/)).filter((p) => p[0]);
     set.sort((a, b) => parseInt(b[1] || 0, 10) - parseInt(a[1] || 0, 10));
     return set[0]?.[0] || img.currentSrc || img.src;
   };
 
+  /* --- markup --- */
   const dlg = document.createElement('dialog');
   dlg.className = 'lb';
   dlg.setAttribute('aria-label', TX.label);
   dlg.innerHTML = `
-    <div class="lb__stage"><img class="lb__img" alt=""></div>
-    <p class="lb__cap"></p>
-    <p class="lb__count" aria-live="polite"></p>
-    <button type="button" class="lb__btn lb__close" aria-label="${TX.close}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <button type="button" class="lb__btn lb__prev" aria-label="${TX.prev}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-    <button type="button" class="lb__btn lb__next" aria-label="${TX.next}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>`;
+    <div class="lb__scrim"></div>
+    <div class="lb__stage"><img class="lb__img" alt="" decoding="async"></div>
+    <div class="lb__chrome">
+      <p class="lb__cap"></p>
+      <p class="lb__count" aria-live="polite"></p>
+      <button type="button" class="lb__btn lb__close" aria-label="${TX.close}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <button type="button" class="lb__btn lb__prev" aria-label="${TX.prev}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="lb__btn lb__next" aria-label="${TX.next}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    </div>`;
   document.body.append(dlg);
-  const stage = dlg.querySelector('.lb__stage'), big = dlg.querySelector('.lb__img'), cap = dlg.querySelector('.lb__cap'), count = dlg.querySelector('.lb__count');
-  let list = [], idx = 0, opener = null;
+  const scrim = dlg.querySelector('.lb__scrim'), stage = dlg.querySelector('.lb__stage'), big = dlg.querySelector('.lb__img');
+  const chrome = dlg.querySelector('.lb__chrome'), cap = dlg.querySelector('.lb__cap'), count = dlg.querySelector('.lb__count');
+  const bPrev = dlg.querySelector('.lb__prev'), bNext = dlg.querySelector('.lb__next');
 
-  const show = (i, dir = 0) => {
-    idx = (i + list.length) % list.length;
-    const img = list[idx];
-    big.classList.remove('is-in');
-    big.style.setProperty('--from', `${dir * (rtl ? -1 : 1) * 40}px`);
-    big.onload = () => requestAnimationFrame(() => big.classList.add('is-in'));
-    big.src = best(img);
-    big.alt = img.alt;
-    cap.textContent = img.alt;
-    count.textContent = list.length > 1 ? `${idx + 1} ${TX.of} ${list.length}` : '';
-    if (big.complete && big.naturalWidth) big.onload();
-    // warm the neighbours so browsing feels instant
-    [idx + 1, idx - 1].forEach((n) => { const nb = list[(n + list.length) % list.length]; if (nb) new Image().src = best(nb); });
+  /* --- state: one transform for the image, driven by springs --- */
+  let list = [], idx = 0, opener = null, closing = false;
+  const st = { x: 0, y: 0, s: 1, p: 1 };          // drag offset, drag scale, presence (0 = in the thumbnail, 1 = full screen)
+  let zoom = null;                                 // the thumbnail geometry for the current image
+  const springs = {};
+  const run = (key, opts) => { springs[key]?.stop(); springs[key] = spring({ ...opts, onUpdate: (v) => { st[key] = v; paint(); }, onDone: () => { delete springs[key]; opts.onDone?.(); } }); };
+  const stopAll = () => Object.keys(springs).forEach((k) => { springs[k].stop(); delete springs[k]; });
+
+  const measure = () => {
+    // thumbnail rect vs. where the image sits at rest, so the image can grow out of the thumbnail
+    const t = list[idx]; if (!t) return null;
+    const tr = t.getBoundingClientRect();
+    if (!tr.width || tr.bottom < 0 || tr.top > innerHeight) return null;
+    const prev = big.style.transform; big.style.transform = 'none';
+    const fr = big.getBoundingClientRect(); big.style.transform = prev;
+    if (!fr.width) return null;
+    const s = Math.max(tr.width / fr.width, tr.height / fr.height);   // cover, like the thumbnail
+    return {
+      dx: tr.left + tr.width / 2 - (fr.left + fr.width / 2), dy: tr.top + tr.height / 2 - (fr.top + fr.height / 2), s,
+      ix: Math.max(0, (fr.width - tr.width / s) / 2), iy: Math.max(0, (fr.height - tr.height / s) / 2),
+    };
   };
+  const paint = () => {
+    const p = st.p, z = zoom || { dx: 0, dy: 0, s: 0.92, ix: 0, iy: 0 };
+    const k = 1 - p;
+    const sc = (z.s + (1 - z.s) * p) * st.s;
+    big.style.transform = `translate3d(${z.dx * k + st.x}px, ${z.dy * k + st.y}px, 0) scale(${sc})`;
+    big.style.clipPath = k > 0.001 ? `inset(${z.iy * k}px ${z.ix * k}px round ${6 + 4 * k}px)` : '';
+    big.style.opacity = zoom ? '1' : String(Math.min(1, p * 1.4));
+    const drag = Math.min(Math.abs(st.y) / 420, 0.7);
+    scrim.style.opacity = String(Math.max(0, p - drag));
+    chrome.style.opacity = String(Math.max(0, Math.min(1, (p - 0.6) / 0.4) - drag * 1.6));
+  };
+
+  const fill = () => {
+    const t = list[idx];
+    big.width = t.naturalWidth || t.width; big.height = t.naturalHeight || t.height;
+    big.src = t.currentSrc || t.src;               // the thumbnail is already decoded: open instantly
+    big.alt = t.alt; cap.textContent = t.alt;
+    count.textContent = list.length > 1 ? `${idx + 1} ${TX.of} ${list.length}` : '';
+    bPrev.hidden = idx === 0; bNext.hidden = idx === list.length - 1;
+    const hi = best(t);
+    if (hi && !big.src.endsWith(hi.replace(/^.*\//, ''))) { const pre = new Image(); pre.onload = () => { if (list[idx] === t) big.src = hi; }; pre.src = hi; }
+    [idx + 1, idx - 1].forEach((n) => { if (list[n]) new Image().src = best(list[n]); });
+  };
+
+  /* --- open / close --- */
   const open = (img) => {
     list = [...img.closest('.project__gallery').querySelectorAll('img')];
-    opener = img;
-    dlg.classList.toggle('lb--single', list.length < 2);
+    idx = list.indexOf(img); opener = img; closing = false;
+    stopAll(); Object.assign(st, { x: 0, y: 0, s: 1, p: 0 });
+    fill();
     dlg.showModal();
     document.documentElement.classList.add('lb-open');
-    show(list.indexOf(img));
+    zoom = measure(); paint();
+    run('p', { from: 0, to: 1, damping: 1, response: 0.42 });
   };
-  const close = () => {
-    dlg.classList.add('is-closing');
-    const done = () => { dlg.classList.remove('is-closing'); dlg.close(); };
-    reduce.matches ? done() : setTimeout(done, 180);
+  const close = (vy = 0) => {
+    if (closing) return; closing = true;
+    stopAll();
+    // fly back into the thumbnail from exactly where the image is now, keeping the finger's downward speed
+    zoom = measure();
+    const dist = zoom ? Math.max(Math.abs(zoom.dy - st.y), 120) : 400;
+    run('p', { from: st.p, to: 0, damping: 1, response: 0.38, velocity: -Math.max(vy, 0) / dist, onDone: () => dlg.close() });
+    run('x', { from: st.x, to: 0, damping: 1, response: 0.38 });
+    run('y', { from: st.y, to: 0, damping: 1, response: 0.38 });
+    run('s', { from: st.s, to: 1, damping: 1, response: 0.38 });
   };
-  dlg.addEventListener('close', () => { document.documentElement.classList.remove('lb-open'); stage.style.transform = ''; dlg.style.removeProperty('--fade'); opener?.focus({ preventScroll: true }); });
+  dlg.addEventListener('close', () => {
+    stopAll(); document.documentElement.classList.remove('lb-open');
+    big.removeAttribute('src'); opener?.focus({ preventScroll: true }); closing = false;
+  });
   dlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
-  dlg.querySelector('.lb__close').addEventListener('click', close);
-  dlg.querySelector('.lb__next').addEventListener('click', () => show(idx + 1, 1));
-  dlg.querySelector('.lb__prev').addEventListener('click', () => show(idx - 1, -1));
-  // a tap on the dark area closes; a swipe never counts as a tap
-  dlg.addEventListener('click', (e) => { if (dragged) { dragged = false; return; } if (e.target === dlg || e.target === stage) close(); });
+
+  /* --- browsing --- */
+  const W = () => stage.clientWidth || innerWidth;
+  const go = (dir, vx = 0) => {
+    const n = idx + dir;
+    if (n < 0 || n >= list.length) { run('x', { from: st.x, to: 0, damping: 0.8, response: 0.3, velocity: vx }); return; }
+    const out = -dir * (rtl ? -1 : 1) * W();   // where the current image leaves to
+    run('x', {
+      from: st.x, to: out, damping: 1, response: 0.28, velocity: vx,
+      onDone: () => { idx = n; zoom = null; fill(); st.x = -out * 0.35; paint(); requestAnimationFrame(() => { if (!drag) run('x', { from: st.x, to: 0, damping: 1, response: 0.3 }); }); },
+    });
+  };
+  dlg.querySelector('.lb__close').addEventListener('click', () => close());
+  bNext.addEventListener('click', () => go(1));
+  bPrev.addEventListener('click', () => go(-1));
   dlg.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') show(idx + (rtl ? 1 : -1), rtl ? 1 : -1);
-    if (e.key === 'ArrowRight') show(idx + (rtl ? -1 : 1), rtl ? -1 : 1);
+    if (e.key === 'ArrowLeft') go(rtl ? 1 : -1);
+    if (e.key === 'ArrowRight') go(rtl ? -1 : 1);
   });
 
-  // Drag: the image follows the finger 1:1; flick sideways to browse, pull down to close
-  let sx = 0, sy = 0, st = 0, axis = '', dragging = false, dragged = false;
+  /* --- direct manipulation: 1:1 with the finger, velocity from recent samples --- */
+  var drag = null, moved = false;
   stage.addEventListener('pointerdown', (e) => {
-    if (e.button > 0) return;
-    dragging = true; dragged = false; axis = ''; sx = e.clientX; sy = e.clientY; st = performance.now();
-    stage.setPointerCapture(e.pointerId); stage.classList.add('is-drag');
+    if (e.button > 0 || closing) return;
+    // grab mid-flight: stop the springs and continue from what is on screen
+    ['x', 'y'].forEach((k) => { springs[k]?.stop(); delete springs[k]; });
+    drag = { x0: e.clientX - st.x, y0: e.clientY - st.y, axis: '', samples: [{ t: performance.now(), x: e.clientX, y: e.clientY }] };
+    moved = false;
+    stage.setPointerCapture(e.pointerId);
   });
   stage.addEventListener('pointermove', (e) => {
-    if (!dragging) return;
-    const dx = e.clientX - sx, dy = e.clientY - sy;
-    if (!axis && Math.hypot(dx, dy) > 10) { axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; dragged = true; }
-    if (axis === 'x' && list.length > 1) stage.style.transform = `translate3d(${dx}px,0,0)`;
-    if (axis === 'y' && dy > 0) { stage.style.transform = `translate3d(0,${dy}px,0) scale(${1 - Math.min(dy / 1600, 0.12)})`; dlg.style.setProperty('--fade', String(1 - Math.min(dy / 500, 0.6))); }
+    if (!drag) return;
+    const dx = e.clientX - drag.x0, dy = e.clientY - drag.y0;
+    drag.samples.push({ t: performance.now(), x: e.clientX, y: e.clientY });
+    if (drag.samples.length > 6) drag.samples.shift();
+    if (!drag.axis && Math.hypot(dx - st.x * 0, dy) > 10) drag.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+    if (!drag.axis) return;
+    moved = true;
+    if (drag.axis === 'x') {
+      const fwd = rtl ? dx > 0 : dx < 0;
+      const atEnd = (fwd && idx === list.length - 1) || (!fwd && idx === 0);
+      st.x = atEnd ? rubber(dx, W()) : dx;
+    } else {
+      st.y = dy > 0 ? dy : rubber(dy, innerHeight);
+      st.s = 1 - Math.min(Math.max(dy, 0) / 1800, 0.14);
+      st.x = (e.clientX - drag.x0) * 0.6;
+    }
+    paint();
   });
-  const end = (e) => {
-    if (!dragging) return;
-    dragging = false; stage.classList.remove('is-drag');
-    const dx = e.clientX - sx, dy = e.clientY - sy, v = Math.abs(axis === 'x' ? dx : dy) / Math.max(performance.now() - st, 1);
-    stage.style.transform = ''; dlg.style.removeProperty('--fade');
-    if (axis === 'x' && list.length > 1 && (Math.abs(dx) > 80 || v > 0.5)) { const fwd = rtl ? dx > 0 : dx < 0; show(idx + (fwd ? 1 : -1), fwd ? 1 : -1); }
-    else if (axis === 'y' && dy > 0 && (dy > 120 || v > 0.6)) close();
+  const release = () => {
+    if (!drag) return;
+    const sm = drag.samples, a = sm[0], b = sm[sm.length - 1], dt = Math.max((b.t - a.t) / 1000, 0.016);
+    const vx = (b.x - a.x) / dt, vy = (b.y - a.y) / dt, axis = drag.axis;
+    drag = null;
+    if (axis === 'x') {
+      const end = st.x + project(vx);
+      const fwd = rtl ? end > 0 : end < 0;
+      // commit by where the flick would land, or by a clearly fast flick in the same direction
+      const commit = Math.abs(end) > Math.min(W() * 0.42, 260) || (Math.abs(vx) > 450 && Math.sign(vx) === Math.sign(st.x));
+      if (commit && list.length > 1) go(fwd ? 1 : -1, vx);
+      else run('x', { from: st.x, to: 0, damping: 0.85, response: 0.32, velocity: vx });
+    } else if (axis === 'y') {
+      if (st.y + project(vy) > 220) close(vy);
+      else { run('y', { from: st.y, to: 0, damping: 0.85, response: 0.32, velocity: vy }); run('x', { from: st.x, to: 0, damping: 1, response: 0.32 }); run('s', { from: st.s, to: 1, damping: 1, response: 0.32 }); }
+    }
   };
-  stage.addEventListener('pointerup', end);
-  stage.addEventListener('pointercancel', end);
+  stage.addEventListener('pointerup', release);
+  stage.addEventListener('pointercancel', release);
+  // a tap on the dark area closes; a swipe never counts as a tap
+  dlg.addEventListener('click', (e) => { if (moved) { moved = false; return; } if (e.target === stage || e.target === scrim || e.target === dlg) close(); });
+  addEventListener('resize', () => { if (dlg.open) { zoom = null; paint(); } });
 
+  /* --- hook up the galleries --- */
   galleries.forEach((g) => g.querySelectorAll('img').forEach((img) => {
     img.classList.add('is-zoomable');
     img.tabIndex = 0;
