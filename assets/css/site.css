@@ -1222,3 +1222,8 @@ a.yt:active { transform: scale(0.99); transition: transform 120ms var(--ease-out
 }
 .statement__text .w, .statement__text .w.on { color: inherit; transition: none; }
 .statement__text .w.on.em, .statement__text .w.em { color: inherit; }
+
+/* De-templating: one voice for section headings (the gold second line stays only in the hero),
+   no ornaments standing in for content */
+.h2 .gold { color: inherit; }
+.values li::before { display: none; }

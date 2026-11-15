@@ -608,9 +608,6 @@ T = [
 # --- VIP club ---
 ('מועדון VIP<br><span class="gold">למשקיעים בחו״ל</span>', 'VIP Club<br><span class="gold">for investors abroad</span>', 'Club VIP<br><span class="gold">pour les investisseurs à l’étranger</span>'),
 ('הצטרפו למועדון הלקוחות של <bdi>MS Group Global</bdi> וקבלו לפני כולם פרויקטים חדשים בחו״ל, מחירי פריסייל והטבות שמורות לחברי המועדון.', 'Join the <bdi>MS Group Global</bdi> client club and be the first to hear about new projects abroad, pre-sale prices and benefits reserved for members.', 'Rejoignez le club clients de <bdi>MS Group Global</bdi> et découvrez avant tout le monde les nouveaux projets à l’étranger, les prix de prévente et des avantages réservés aux membres.'),
-('<li><strong>7</strong><span>מדינות</span></li>', '<li><strong>7</strong><span>countries</span></li>', '<li><strong>7</strong><span>pays</span></li>'),
-('<li><strong>24</strong><span>פרויקטים</span></li>', '<li><strong>24</strong><span>projects</span></li>', '<li><strong>24</strong><span>projets</span></li>'),
-('<li><strong>15</strong><span>שנות ניסיון</span></li>', '<li><strong>15</strong><span>years of experience</span></li>', '<li><strong>15</strong><span>ans d’expérience</span></li>'),
 ('חינם וללא כל התחייבות', 'Free, with no obligation', 'Gratuit et sans engagement'),
 ('<h3 class="club__sub">ההטבות שלכם</h3>', '<h3 class="club__sub">Your benefits</h3>', '<h3 class="club__sub">Vos avantages</h3>'),
 ('<h3>דיוור ראשון ומחירי פריסייל</h3>', '<h3>First access and pre-sale prices</h3>', '<h3>Accès en avant-première et prix de prévente</h3>'),
