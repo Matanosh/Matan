@@ -7,3 +7,4 @@
 - Known gaps (2026-11-16): no data found on AI at local portals in Cyprus/Georgia/Romania or at Dubai developers; Florida virtual-staging disclosure rule and Dubai ad fines contested; Ukraine not searched.
 
 Related: [open-items](open-items.md), [owner-preferences](owner-preferences.md).
+- 2026-11-16: Owner said "go ahead". Done the same day: rec. #2 partly (club sign-ups get an automatic confirmation email via FormSubmit _autoresponse; the contact form has no email field so it cannot); rec. #5 as docs/policies/ai-images-policy.md. Rec. #1 (country guides) pending, see [open-items](open-items.md).

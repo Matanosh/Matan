@@ -365,7 +365,13 @@
     if (btn) btn.disabled = true;
     st.textContent = L.sending;
     try {
-      await sendForm({ ...rows, ...kv(L.clubConsent), _replyto: d.get('email') }, L.clubSubject);
+      // FormSubmit sends _autoresponse to the field named "email": the new member gets a confirmation right away
+      const AUTO = {
+        he: 'שלום, קיבלנו את בקשת ההצטרפות שלך למועדון ה־VIP של MS Group Global. נציג שלנו יחזור אליך בהקדם עם פרטי המועדון. לשאלות: 072-2133266 או office@msgp.co.il.',
+        en: 'Hello, we have received your request to join the MS Group Global VIP club. One of our team will be in touch shortly with the club details. Questions: +972-72-2133266 or office@msgp.co.il.',
+        fr: 'Bonjour, nous avons bien reçu votre demande d’adhésion au club VIP MS Group Global. Un membre de notre équipe vous contactera très vite avec les détails du club. Questions : +972 72 213 3266 ou office@msgp.co.il.',
+      };
+      await sendForm({ ...rows, ...kv(L.clubConsent), email: d.get('email'), _replyto: d.get('email'), _autoresponse: AUTO[LANG] || AUTO.he }, L.clubSubject);
       club.reset();
       st.textContent = L.thanks;
     } catch {
