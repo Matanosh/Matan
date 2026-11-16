@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Beit Shemesh project film</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --navy: oklch(0.24 0.07 262); --gold: oklch(0.74 0.12 80); --ivory: oklch(0.98 0.01 85); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #070b18; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #070b18; }
+  .layer { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+  .layer img { position: absolute; left: 50%; top: 50%; will-change: transform; }
+  .shade { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(7,11,24,.55) 0%, rgba(7,11,24,0) 22%, rgba(7,11,24,0) 55%, rgba(7,11,24,.88) 100%); }
+  .sweep { position: absolute; inset: -20% -60%; pointer-events: none; mix-blend-mode: screen; opacity: 0;
+    background: linear-gradient(105deg, transparent 42%, rgba(255,214,150,.22) 50%, transparent 58%); }
+  .copy { position: absolute; left: 90px; right: 90px; bottom: 300px; text-align: center; color: var(--ivory); }
+  .kicker { font: 500 34px/1.2 Heebo, sans-serif; letter-spacing: .02em; color: var(--gold); opacity: 0; }
+  .title { font: 700 150px/1.02 "Frank Ruhl Libre", serif; margin-top: 18px; opacity: 0; text-shadow: 0 6px 40px rgba(0,0,0,.45); }
+  .sub { font: 400 48px/1.35 Heebo, sans-serif; margin-top: 26px; opacity: 0; text-shadow: 0 4px 24px rgba(0,0,0,.5); }
+  .sub.feature { font: 500 64px/1.25 "Frank Ruhl Libre", serif; }
+  .rule { height: 2px; width: 0; margin: 34px auto 0; background: var(--gold); }
+  .card { position: absolute; left: 110px; right: 110px; bottom: 330px; padding: 54px 40px 50px; text-align: center; color: var(--ivory);
+    background: rgba(10,16,34,.55); border: 1px solid rgba(214,180,110,.55); border-radius: 28px; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); opacity: 0; }
+  .card .rooms { font: 500 52px/1.2 Heebo, sans-serif; }
+  .card .price { font: 700 128px/1.05 "Frank Ruhl Libre", serif; color: var(--gold); margin-top: 14px; direction: rtl; }
+  .card .note { font: 400 42px/1.3 Heebo, sans-serif; margin-top: 18px; color: rgba(250,246,238,.9); }
+  .disclaimer { position: absolute; top: 120px; left: 0; right: 0; text-align: center; font: 400 28px/1 Heebo, sans-serif; color: rgba(250,246,238,.75); letter-spacing: .04em; }
+  #end { position: absolute; inset: 0; opacity: 0; background: radial-gradient(120% 80% at 50% 40%, #16224a 0%, #0b1230 55%, #070b18 100%); }
+  #end .logo { position: absolute; left: 50%; top: 640px; width: 560px; transform: translateX(-50%); }
+  #end .line { position: absolute; left: 50%; top: 940px; height: 2px; width: 0; transform: translateX(-50%); background: var(--gold); }
+  #end .t1 { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font: 500 64px/1.25 "Frank Ruhl Libre", serif; color: var(--ivory); opacity: 0; }
+  #end .t2 { position: absolute; left: 0; right: 0; top: 1110px; text-align: center; font: 400 44px/1.3 Heebo, sans-serif; color: rgba(250,246,238,.85); opacity: 0; }
+  #end .t3 { position: absolute; left: 0; right: 0; top: 1220px; text-align: center; font: 700 76px/1.2 Heebo, sans-serif; color: var(--gold); direction: ltr; opacity: 0; }
+  #grain { position: absolute; inset: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  #vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 260px rgba(0,0,0,.55); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- Scene 1: sunset aerial, title -->
+  <div class="layer" id="s1"><img src="img/aerial-sunset.jpg" data-w="1536" data-h="1024"><div class="sweep"></div><div class="shade"></div>
+    <div class="disclaimer">הדמיה בלבד</div>
+    <div class="copy"><div class="kicker">MS GROUP מציגה</div><div class="title">בית שמש</div><div class="rule"></div></div></div>
+  <!-- Scene 2: dusk aerial -->
+  <div class="layer" id="s2"><img src="img/aerial-dusk.jpg" data-w="1254" data-h="1254"><div class="sweep"></div><div class="shade"></div>
+    <div class="disclaimer">הדמיה בלבד</div>
+    <div class="copy"><div class="sub">מגדלי מגורים חדשים<br>בבית שמש</div></div></div>
+  <!-- Scene 3: country club -->
+  <div class="layer" id="s3"><img src="img/country-pool.jpg" data-w="1492" data-h="1054"><div class="sweep"></div><div class="shade"></div>
+    <div class="disclaimer">הדמיה בלבד</div>
+    <div class="copy"><div class="kicker">בתוך הפרויקט</div><div class="sub feature">קאנטרי, בריכה<br>ו-Sport Club</div></div></div>
+  <!-- Scene 4: price card over sunset aerial -->
+  <div class="layer" id="s4"><img src="img/aerial-sunset.jpg" data-w="1536" data-h="1024"><div class="sweep"></div><div class="shade"></div>
+    <div class="disclaimer">הדמיה בלבד</div>
+    <div class="card"><div class="rooms">דירת 3 חדרים</div><div class="price">2,174,000 ₪</div><div class="note">פטור מהצמדה למדד</div></div></div>
+  <!-- End card -->
+  <div id="end"><img class="logo" src="img/logo.png"><div class="line"></div>
+    <div class="t1">בית שמש</div><div class="t2">לפרטים ותיאום פגישה</div><div class="t3">054-522-0030</div></div>
+  <div id="vignette"></div><div id="grain"></div>
+</div>
+<script>
+const W = 1080, H = 1920;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ease = (x) => { x = clamp(x); return x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2; };
+const out = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const lerp = (a, b, k) => a + (b - a) * k;
+const rangeK = (t, a, b) => clamp((t - a) / (b - a));
+
+// Each scene: start, end, image motion (scale, x offset in px of the covered image, y offset)
+const SCENES = [
+  { id: 's1', a: 0.0,  b: 6.6,  s: [1.10, 1.24], x: [ 380,  160], y: [ 40, -20] },
+  { id: 's2', a: 5.6,  b: 12.4, s: [1.20, 1.06], x: [   0,    0], y: [-140,  90] },
+  { id: 's3', a: 11.4, b: 18.4, s: [1.02, 1.10], x: [-520, -180], y: [ 30,  -20] },
+  { id: 's4', a: 17.4, b: 24.6, s: [1.30, 1.16], x: [-420, -220], y: [ 10,   10] },
+];
+const FADE = 1.0;
+window.TOTAL = 30;
+
+function cover(img) {
+  const w = +img.dataset.w, h = +img.dataset.h; const k = Math.max(W / w, H / h);
+  img.style.width = (w * k) + 'px'; img.style.height = (h * k) + 'px';
+}
+document.querySelectorAll('.layer img').forEach(cover);
+
+function textIn(el, t, start, dur = 1.1, rise = 40) {
+  if (!el) return; const k = out(rangeK(t, start, start + dur));
+  el.style.opacity = k; el.style.transform = `translateY(${(1 - k) * rise}px)`; el.style.filter = `blur(${(1 - k) * 10}px)`;
+}
+
+window.render = (t) => {
+  for (const sc of SCENES) {
+    const L = document.getElementById(sc.id); const img = L.querySelector('img');
+    const vis = Math.min(rangeK(t, sc.a, sc.a + FADE), 1 - rangeK(t, sc.b - FADE, sc.b));
+    L.style.opacity = sc.id === 's1' ? (t < sc.a + FADE ? out(rangeK(t, 0, 1.4)) : vis) : vis;
+    const k = ease(rangeK(t, sc.a, sc.b));
+    img.style.transform = `translate(-50%,-50%) translate(${lerp(sc.x[0], sc.x[1], k)}px, ${lerp(sc.y[0], sc.y[1], k)}px) scale(${lerp(sc.s[0], sc.s[1], k)})`;
+    const sw = L.querySelector('.sweep'); const sk = rangeK(t, sc.a + 1.2, sc.a + 3.8);
+    sw.style.opacity = Math.sin(sk * Math.PI) * 0.9; sw.style.transform = `translateX(${lerp(60, -60, sk)}%)`;
+    L.querySelectorAll('.disclaimer').forEach(d => d.style.opacity = vis * 0.9);
+  }
+  // Scene 1 copy
+  const s1 = document.getElementById('s1');
+  textIn(s1.querySelector('.kicker'), t, 1.2);
+  textIn(s1.querySelector('.title'), t, 1.7, 1.4, 60);
+  s1.querySelector('.rule').style.width = (out(rangeK(t, 2.6, 3.8)) * 320) + 'px';
+  // Scene 2 copy
+  textIn(document.querySelector('#s2 .sub'), t, 6.8);
+  // Scene 3 copy
+  textIn(document.querySelector('#s3 .kicker'), t, 12.6);
+  textIn(document.querySelector('#s3 .sub'), t, 13.0, 1.2, 50);
+  // Scene 4 card
+  const card = document.querySelector('#s4 .card'); const ck = out(rangeK(t, 18.6, 19.8));
+  card.style.opacity = ck; card.style.transform = `translateY(${(1 - ck) * 70}px) scale(${lerp(.96, 1, ck)})`;
+  // count-up on price
+  const pk = out(rangeK(t, 19.0, 20.6)); const p = Math.round(2174000 * (0.86 + 0.14 * pk) / 1000) * 1000;
+  card.querySelector('.price').textContent = (pk >= 1 ? 2174000 : p).toLocaleString('en-US') + ' ₪';
+  // End card
+  const end = document.getElementById('end'); end.style.opacity = out(rangeK(t, 23.6, 25.0));
+  const logo = end.querySelector('.logo'); const lk = out(rangeK(t, 24.4, 25.8));
+  logo.style.opacity = lk; logo.style.transform = `translateX(-50%) translateY(${(1 - lk) * 30}px) scale(${lerp(.94, 1, lk)})`;
+  end.querySelector('.line').style.width = (out(rangeK(t, 25.4, 26.4)) * 420) + 'px';
+  textIn(end.querySelector('.t1'), t, 25.8); textIn(end.querySelector('.t2'), t, 26.3); textIn(end.querySelector('.t3'), t, 26.8);
+  // gentle fade to black at the very end
+  document.getElementById('stage').style.filter = `brightness(${1 - 0.0 * rangeK(t, 29.4, 30)})`;
+};
+window.render(0);
+</script>
+</body>
+</html>
