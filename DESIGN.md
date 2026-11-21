@@ -126,6 +126,43 @@ components:
     height: "{spacing.nav-height}"
 ---
 
+# DESIGN.md · MS Group Global
+
+> Craft brief: read this first. If this file and the code disagree, the code wins until the owner decides; note the conflict under Open questions. The full design system follows below the brief.
+
+## Product
+A marketing site for MS Group Global, the abroad arm of MS Group (msgp.co.il), which markets and initiates real-estate projects in Cyprus, Portugal, Romania, Georgia, Dubai and Ras Al Khaimah, Ukraine, the USA (Miami) and more. Static HTML/CSS/JS, no build step. Visitors arrive from search and from project-specific ads, mostly on phones and also on desktop. Main job: leave a consultation request. Second job: read as a serious, premium operator at first sight, and as one "home" that handles everything from budget to key. Details: `PRODUCT.md`.
+
+## Audience and voice
+Israeli private investors buying property abroad, in two equal groups: first-timers who need the process explained and want their hand held, and experienced investors looking for new markets, numbers and a professional operator. Many are older. Voice: warm and confident, "we are your home abroad", all-inclusive; never talk down to either group. Hebrew, right-to-left, is the source; English (`/en/`) and French (`/fr/`) are generated from it by `tools/build_i18n.py` and `tools/build_legal.py`. Israeli formats (phone 072-2133266).
+
+## Mood
+Words: classic luxury (executed straight, no irony), warm, confident. Never like: a listings portal of price cards; a flashy "get rich" ad with invented returns; a generic real-estate template; a bright white tech page (assumed from the owner's principles and references; the owner had no further preference).
+
+## Brand
+Design system source: `assets/css/site.css` (`:root`: 22 tokens; colours taken from msgp.co.il) and the system documented below. Logo: the MS Group logo `assets/img/msgroup-logo.png`, favicon `assets/img/favicon.png`; no separate MS Group Global logo exists yet. Colours: night navy, champagne gold, ivory (from msgp.co.il). Fonts: Frank Ruhl Libre headings, Heebo body (from msgp.co.il). Dark theme only.
+
+## References
+- Apple product pages: take the scroll-driven effects, the finish and polish, big calm type, one idea per screen; avoid too much scrolling before the contact form, the bright white product-lab look, and too little information (investors need concrete facts and steps, not only slogans).
+- msgp.co.il (the parent brand): take the logo and colours, the track-record numbers (34 projects completed, 28 in marketing, 15 cities), the project showcase with renders, and the family-brand feel so trust carries over; avoid the dated template look, crowded pages, static pages with no motion, and Israel-only framing.
+
+## Constraints
+Web, phone first and desktop; breakpoints at 900px and 700px, pinned stages off under 900px wide or 560px tall. RTL mirrored throughout in Hebrew; LTR in English and French. Body text 17px minimum at 1.65 line height, generous contrast, 44px minimum targets. Dark theme only. Authored line-drawn SVG icons and arrows, no glyphs. Scroll-led, once-only motion on two easings; every piece of content is present with reduced motion. Never invent projects, prices, returns, counts or testimonials: missing facts are visible slots.
+
+## Decisions log
+- 2026-11-14 — Palette, fonts and logo taken from msgp.co.il — the owner asked that the parent brand be used.
+- 2026-11-14 — English and French versions generated from the Hebrew page — one source of truth for copy; run both build tools after any Hebrew change.
+- 2026-11-14 — Classic luxury real estate, executed straight, chosen over a dealt direction — the owner's standing preference.
+- 2026-11-21 — Craft brief added on top of the existing design system, which stays the source of truth for tokens and components — `craft-setup`; references and their take/avoid confirmed by the owner.
+
+## Open questions
+- What the site must never look like: the list under Mood is assumed; confirm or change it.
+- Does MS Group Global get its own logo, or keep the MS Group logo?
+- Does MS Group Global use MS Group's phone, email and Bene Brak address? A WhatsApp number?
+- Where should the consultation form send? (It currently opens a prepared email to the office.)
+- Renders and facts for the projects that have none on disk yet.
+- Conflict in the text below: the brand caveat at the top of the design system and the last Don't still say msgp.co.il has not been seen and the logo is a stand-in, but `PRODUCT.md` and `site.css` show the parent palette, fonts and logo applied on 2026-11-14. The code wins; update that text when the owner confirms.
+
 # Design System: MS Group Global
 
 <!-- Brand caveat: the parent brand msgp.co.il has not been seen and the real logo has not been received. When they are supplied, the logo and its colours override this palette. The "MS" box wordmark in the build is a stand-in, not a system element. -->
