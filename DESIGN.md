@@ -154,6 +154,7 @@ Web, phone first and desktop; breakpoints at 900px and 700px, pinned stages off 
 - 2026-11-14 — English and French versions generated from the Hebrew page — one source of truth for copy; run both build tools after any Hebrew change.
 - 2026-11-14 — Classic luxury real estate, executed straight, chosen over a dealt direction — the owner's standing preference.
 - 2026-11-21 — Craft brief added on top of the existing design system, which stays the source of truth for tokens and components — `craft-setup`; references and their take/avoid confirmed by the owner.
+- 2026-11-21 — Brief approved by the owner. Foundations are the existing tokens in `assets/css/site.css`; no design tool is used, so craft builds in HTML from them and nothing is imported — the system already lives in the code.
 
 ## Open questions
 - What the site must never look like: the list under Mood is assumed; confirm or change it.
