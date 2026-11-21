@@ -1,0 +1,157 @@
+/* MS Group Global — presentation app (present/<project>/).
+   Loaded after site.css and built only from its tokens. Four pieces live here:
+   app navigation (.pnav rail, .pbar phone bar, .psheet section sheet), the section frame (.pslide),
+   the unit-type card (.unit) and the "coming soon" section state (.soon).
+   The .is-hover / .is-pressed / .is-focus classes exist only so the design board can show those states. */
+
+:root {
+  --rail: 268px;                                   /* width of the desktop section rail */
+  --pbar-h: 64px;                                  /* height of the phone section bar, before the safe area */
+  --glass: rgba(10, 24, 54, 0.72);                 /* the header's glass material, as a role (was a loose value on .nav.is-solid) */
+  --glass-edge: rgba(251, 248, 241, 0.06);
+}
+
+/* ---------- App shell ---------- */
+.papp { min-height: 100svh; }
+.papp__main { margin-inline-start: var(--rail); }
+@media (max-width: 899px) { .papp__main { margin-inline-start: 0; padding-bottom: calc(var(--pbar-h) + env(safe-area-inset-bottom)); } }
+
+/* ---------- 1. Navigation · desktop rail ---------- */
+.pnav {
+  position: fixed; inset-block: 0; inset-inline-start: 0; z-index: 40; width: var(--rail);
+  display: flex; flex-direction: column; padding-block: 28px 24px;
+  background: var(--bg-2); border-inline-end: 1px solid var(--line-soft);
+}
+.pnav__brand { display: grid; gap: 18px; padding-inline: 28px; text-decoration: none; }
+.pnav__brand .brand__logo { height: 36px; }
+.pnav__project { font: 400 1.4rem/1.15 var(--serif); color: var(--ink); }
+.pnav__project small { display: block; margin-top: 4px; font: 400 0.92rem/1.3 var(--sans); color: var(--ink-3); }
+.pnav__list { margin-top: 28px; display: grid; gap: 2px; overflow-y: auto; overscroll-behavior: contain; }
+.pnav__item {
+  position: relative; display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 10px;
+  min-height: 44px; padding-inline: 28px 20px; color: var(--ink-2); text-decoration: none; font-size: 1rem;
+  transition: color 200ms ease;
+}
+.pnav__item::before {                              /* the drawn gold mark of the current section */
+  content: ""; position: absolute; inset-block: 10px; inset-inline-start: 0; width: 2px; background: var(--gold);
+  transform: scaleY(0); transition: transform 300ms var(--ease-out);
+}
+.pnav__num { font-size: 0.82rem; color: var(--ink-3); font-variant-numeric: lining-nums tabular-nums; transition: color 200ms ease; }
+.pnav__soon { font-size: 0.78rem; color: var(--ink-3); }
+@media (hover: hover) and (pointer: fine) { .pnav__item:hover { color: var(--ink); } }
+.pnav__item.is-hover { color: var(--ink); }
+.pnav__item:active, .pnav__item.is-pressed { color: var(--gold-2); }
+.pnav__item:focus-visible, .pnav__item.is-focus { outline: 2px solid var(--gold-2); outline-offset: -2px; }
+.pnav__item[aria-current="step"] { color: var(--gold-2); }
+.pnav__item[aria-current="step"]::before { transform: scaleY(1); }
+.pnav__item[aria-current="step"] .pnav__num { color: var(--gold); }
+.pnav__foot { margin-top: auto; padding: 22px 28px 0; display: grid; gap: 14px; border-top: 1px solid var(--line-soft); }
+.pnav__count { display: flex; justify-content: space-between; color: var(--ink-3); font-size: 0.92rem; font-variant-numeric: lining-nums tabular-nums; }
+.pprog { height: 1px; background: var(--line-soft); overflow: hidden; }
+.pprog > i { display: block; height: 100%; background: var(--gold); transform-origin: right; transform: scaleX(var(--p, 0)); transition: transform 400ms var(--ease-out); }
+.pprog > i:dir(ltr) { transform-origin: left; }
+.pnav__tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.pnav__tools .lang { margin: 0; }
+
+/* ---------- 1. Navigation · phone bar and section sheet ---------- */
+.pbar {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 40; display: none; grid-template-columns: 48px minmax(0, 1fr) 48px;
+  align-items: center; gap: 8px; height: calc(var(--pbar-h) + env(safe-area-inset-bottom));
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+  background: var(--glass); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--glass-edge);
+}
+.pbar .pprog { position: absolute; inset: -1px 0 auto; }
+.psheet {
+  position: fixed; inset: 0; z-index: 45; display: none; flex-direction: column;
+  padding: 20px var(--gutter) calc(20px + env(safe-area-inset-bottom)); background: var(--bg); overflow-y: auto;
+}
+@media (max-width: 899px) {
+  .pnav { display: none; }
+  .pbar { display: grid; }
+  .psheet:not([hidden]) { display: flex; }
+}
+.pbar__arrow {
+  display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid var(--line); border-radius: var(--radius);
+  background: none; color: var(--ink); cursor: pointer; transition: border-color 200ms ease, transform 160ms var(--ease-out);
+}
+.pbar__arrow svg { width: 16px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.pbar__arrow--prev:dir(rtl) svg { transform: scaleX(-1); }   /* the authored arrow points left = forward in RTL */
+.pbar__arrow--next:dir(ltr) svg { transform: scaleX(-1); }
+@media (hover: hover) and (pointer: fine) { .pbar__arrow:hover { border-color: var(--gold); } }
+.pbar__arrow.is-hover { border-color: var(--gold); }
+.pbar__arrow:active, .pbar__arrow.is-pressed { transform: scale(0.97); }
+.pbar__arrow.is-focus { outline: 2px solid var(--gold-2); outline-offset: 4px; }
+.pbar__arrow:disabled { opacity: 0.35; cursor: default; transform: none; border-color: var(--line-soft); }
+.pbar__current {
+  display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 0; min-height: 48px; padding: 0 8px;
+  border: 0; background: none; color: var(--ink); font: 500 1rem/1.2 var(--sans); cursor: pointer;
+}
+.pbar__current .pnav__num { color: var(--gold); font-size: 0.9rem; }
+.pbar__current span:not(.pnav__num) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pbar__current svg { width: 12px; height: 8px; flex: none; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transform: rotate(180deg); }
+.pbar__current:active, .pbar__current.is-pressed { color: var(--gold-2); }
+.pbar__current.is-focus { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+.psheet__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line-soft); }
+.psheet__title { font: 400 1.3rem/1.2 var(--serif); color: var(--ink); }
+.psheet__list { display: grid; gap: 4px; padding-top: 8px; }
+.psheet .pnav__item { padding-inline: 18px 8px; min-height: 56px; font: 400 1.45rem/1.25 var(--serif); }
+.psheet .pnav__num { font-family: var(--sans); }
+.psheet__close { position: relative; }
+.psheet__close::before, .psheet__close::after { content: ""; position: absolute; width: 18px; height: 1.5px; background: var(--ink); }
+.psheet__close::before { transform: rotate(45deg); }
+.psheet__close::after { transform: rotate(-45deg); }
+
+/* ---------- 2. Section frame ---------- */
+.pslide {
+  position: relative; min-height: 100svh; display: grid; align-content: center;
+  padding: clamp(72px, 11vh, 128px) clamp(20px, 5vw, 72px); border-top: 1px solid var(--line-soft);
+}
+.pslide:first-child { border-top: 0; }
+.pslide:nth-child(even) { background: var(--bg-2); }
+.pslide__inner { width: min(1120px, 100%); margin-inline: auto; }
+.pslide__head { display: flex; align-items: center; gap: 20px; margin-bottom: clamp(28px, 5vh, 56px); }
+.pslide__head .step__n { margin: 0; flex: none; }
+.pslide__title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 4.4vw, 4rem); line-height: 1.08; letter-spacing: -0.01em; }
+.pslide__lead { margin-top: 18px; max-width: 46ch; color: var(--ink-2); font-size: 1.12rem; }
+.pslide__split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.pslide__media { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--bg-3); aspect-ratio: 4 / 5; }
+.pslide__media img { width: 100%; height: 100%; object-fit: cover; }
+.pslide__next { position: absolute; inset-block-end: 24px; inset-inline-end: clamp(20px, 5vw, 72px); }
+@media (max-width: 899px) {
+  .pslide { min-height: calc(100svh - var(--pbar-h)); align-content: start; padding-block: 56px 48px; }
+  .pslide__split { grid-template-columns: 1fr; }
+  .pslide__media { aspect-ratio: 4 / 3; order: -1; }
+  .pslide__head .step__n { width: 44px; height: 44px; font-size: 1.1rem; }
+  .pslide__next { display: none; }
+}
+
+/* ---------- 3. Unit-type card ---------- */
+.units { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+.unit {
+  display: grid; align-content: start; gap: 18px; padding: clamp(20px, 2.4vw, 28px);
+  border: 1px solid var(--line-soft); border-radius: var(--radius); transition: border-color 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) { .unit:hover { border-color: var(--line); } }
+.unit.is-hover { border-color: var(--line); }
+.unit:has(.link:focus-visible), .unit.is-focus { border-color: var(--gold); }
+.unit__plan { margin: 0; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; background: var(--bg-3); display: grid; place-items: center; }
+.unit__plan img { width: 100%; height: 100%; object-fit: contain; }
+.unit__name { font: 400 clamp(1.4rem, 2vw, 1.8rem)/1.2 var(--serif); color: var(--ink); }
+.unit .facts { margin: 0; }
+.unit__flag { justify-self: start; padding: 4px 12px; border: 1px solid var(--line-soft); border-radius: 999px; color: var(--ink-3); font-size: 0.92rem; }
+.unit--sold .unit__name, .unit--sold .facts dd { color: var(--ink-2); }
+
+/* ---------- 4. "Coming soon" section state ---------- */
+.soon { display: grid; justify-items: start; gap: 18px; max-width: 48ch; }
+.soon__icon { width: 44px; height: 44px; fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.soon__title { font: 400 clamp(1.6rem, 2.6vw, 2.2rem)/1.2 var(--serif); color: var(--ink); }
+.soon p { color: var(--ink-2); }
+.soon .facts { width: 100%; margin: 6px 0 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pnav__item::before, .pprog > i { transition: none; }
+  .pbar__arrow:active { transform: none; }
+}
+@media (prefers-reduced-transparency: reduce) { .pbar { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; } }
+@media (prefers-contrast: more) { .pbar { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; border-color: var(--gold); } }

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>לוח עיצוב · אפליקציית המצגת</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/present.css">
+  <style>
+    /* Board chrome only (not product CSS) */
+    body { padding: 56px clamp(20px, 4vw, 56px) 120px; }
+    .b-head { max-width: 72ch; display: grid; gap: 14px; color: var(--ink-2); }
+    .b-head h1 { font: 300 clamp(2.4rem, 4.4vw, 3.6rem)/1.05 var(--serif); color: var(--ink); }
+    .b-sec { margin-top: 96px; padding-top: 40px; border-top: 1px solid var(--line); }
+    .b-sec > h2 { font: 400 clamp(1.9rem, 3vw, 2.6rem)/1.1 var(--serif); color: var(--ink); }
+    .b-legend { margin-top: 14px; max-width: 72ch; display: grid; gap: 8px; color: var(--ink-2); }
+    .b-legend b { color: var(--gold-2); font-weight: 600; }
+    .b-h3 { margin: 40px 0 16px; font: 400 1.3rem/1.2 var(--serif); color: var(--ink); }
+    .b-cap { margin-top: 10px; font-size: 0.9rem; color: var(--ink-3); }
+    .b-matrix { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 16px; }
+    .b-cell { padding: 16px; border: 1px dashed var(--line-soft); border-radius: var(--radius); }
+    .b-cell > p:first-child { margin-bottom: 12px; font-size: 0.85rem; color: var(--ink-3); }
+    .b-table { width: 100%; margin-top: 20px; border-collapse: collapse; font-size: 0.98rem; }
+    .b-table th, .b-table td { padding: 12px 10px; border-top: 1px solid var(--line-soft); text-align: start; vertical-align: top; }
+    .b-table th { color: var(--ink-3); font-weight: 400; }
+    .b-table td:first-child { color: var(--ink); white-space: nowrap; }
+    .b-table td { color: var(--ink-2); }
+    .b-frame { position: relative; overflow: hidden; border: 1px solid var(--line-soft); border-radius: var(--radius); }
+    /* Freeze the fixed pieces inside the board so they can be shown side by side */
+    .b-frame .pnav, .b-frame .pbar, .b-frame .psheet:not([hidden]) { position: absolute; display: flex; }
+    .b-frame .pbar { display: grid; }
+    .b-rail { height: 720px; }
+    .b-rail .pnav { position: absolute; }
+    .b-phone { width: 390px; max-width: 100%; height: 120px; background: var(--bg); }
+    .b-phone-sheet { width: 390px; max-width: 100%; height: 640px; }
+    .b-phone .pbar, .b-phone-sheet .psheet { position: absolute; }
+    .b-row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+    .b-row > * { min-width: 0; max-width: 100%; }
+    .b-slide { height: 560px; }
+    .b-slide .pslide { min-height: 100%; }
+    @media (max-width: 899px) { .b-frame .pnav { display: flex; } .b-frame .pbar { display: grid; } }
+  </style>
+</head>
+<body>
+  <header class="b-head">
+    <h1>אפליקציית המצגת · לוח לאישור</h1>
+    <p>שני דברים לאישור לפני הבנייה: רשימת המצבים של כל מסך (חלק א׳), וארבעת הרכיבים החדשים עם מטריצת המצבים שלהם (חלק ב׳). כל השאר בנוי מרכיבי האתר הקיימים: כפתורים, תג סטטוס, רשימת עובדות, מציג התמונות, הסרטון, הטופס, ה״יעודכן בהמשך״ והגלובוס.</p>
+    <p>טוקן חדש אחד: <code>--glass</code> (וגם <code>--glass-edge</code>), שהוא ערך הזכוכית של הכותרת העליונה שהיה כתוב בקוד כערך חופשי. עכשיו יש לו שם, והפס התחתון בטלפון משתמש בו.</p>
+  </header>
+
+  <!-- ================= PART A: STATES ================= -->
+  <section class="b-sec" aria-labelledby="a-title">
+    <h2 id="a-title">א׳ · המצבים של כל מסך</h2>
+    <div class="b-legend">
+      <p>מצבים שחלים על כל האפליקציה: <b>מגיש</b> (מסך גדול, חצים במקלדת או בשלט, מסך מלא) מול <b>לקוח לבד</b> (טלפון, החלקה ותפריט); <b>שלוש שפות</b> (עברית מימין לשמאל, אנגלית וצרפתית משמאל לימין, צרפתית ארוכה בכ־30%); <b>תנועה מופחתת</b> (הכל גלוי, בלי מעברים); <b>טעינה איטית</b> (מסגרות התמונות שומרות גודל); <b>תמונה או סרטון שלא נטענו</b> (טקסט חלופי על כחול, הסרטון שומר את תמונת הפתיחה).</p>
+      <p>לא חלים: רשימה ריקה או מסוננת, רענון, נתונים חיים, ביטול פעולה, הרשאות. התוכן קבוע לכל פרויקט.</p>
+    </div>
+    <table class="b-table">
+      <thead><tr><th>מסך</th><th>מצב עיקרי</th><th>מצבים נוספים</th></tr></thead>
+      <tbody>
+        <tr><td>1 · פתיחה</td><td>הדמיית המגדל, שם, מיקום, סטטוס, מחיר ותאריך המחיר, ״התחילו״</td><td>שם פרויקט ארוך בצרפתית; כניסה ראשונה מול חזרה (הניווט מסמן איפה עצרתם)</td></tr>
+        <tr><td>2 · הסביבה</td><td>הגלובוס על האמירויות וקו הטיסה מתל אביב (״טיסה כשלוש שעות״)</td><td>מקומות קרובים וזמני נסיעה: <span class="slot">יעודכן בהמשך</span>; הגלובוס לא נטען: שם המדינה והעיר כטקסט</td></tr>
+        <tr><td>3 · הפרויקט</td><td>תיאור וארבע הדמיות, פתיחה במסך מלא</td><td>פרויקט עם הדמיה אחת או שתיים (הפריסה עדיין נראית מכוונת)</td></tr>
+        <tr><td>4 · מה מיוחד</td><td>בריכת אינסוף וגן על הגג, מרפסות עם בריכה פרטית, חדר כושר פתוח, ״יותר מ־25 מתקנים״</td><td>פרויקט עם פחות מארבע נקודות</td></tr>
+        <tr><td>5 · סוגי דירות</td><td>כרטיסי דירות (רכיב 3)</td><td><b>באזור: אין נתונים → ״בקרוב״ (רכיב 4)</b>; כרטיס בלי תוכנית; דירה שנמכרה; 1 עד 12 סוגים</td></tr>
+        <tr><td>6 · תנאי תשלום</td><td>שלבי תשלום כרשימה ממוספרת</td><td><b>באזור: ״בקרוב״</b></td></tr>
+        <tr><td>7 · הסרטון</td><td>הסרטון על כל המסך עם תיאור כתוב</td><td>מנגן/בהשהיה; מעבר למסך אחר עוצר את הסרטון</td></tr>
+        <tr><td>8 · מי איתכם</td><td>היזם + ותק MS Group (34 · 28 · 15) וליווי מא׳ ועד ת׳</td><td>פרטי היזם: <span class="slot">יעודכנו בהמשך</span></td></tr>
+        <tr><td>9 · הצעד הבא</td><td>לקוח: טופס עם האמירויות והפרויקט מסומנים. מגיש: טלפון ודוא״ל גדולים על המסך</td><td>שגיאות בשדות; שולח; נשלח; השליחה נכשלה → מייל מוכן ומספר טלפון</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ================= PART B1: NAVIGATION ================= -->
+  <section class="b-sec" aria-labelledby="b1-title">
+    <h2 id="b1-title">ב׳1 · ניווט האפליקציה</h2>
+    <div class="b-legend">
+      <p><b>הכלל:</b> תמיד רואים איפה אתם, כמה נשאר ואיך עוברים הלאה. במחשב: פס צד קבוע בצד ההתחלה. בטלפון: פס תחתון עם הקודם, המסך הנוכחי (פותח את רשימת המסכים) והבא.</p>
+      <p><b>למה:</b> אצל גינדי התפריט לא מסמן את המסך הנוכחי, ובטלפון אין ניווט בכלל מלבד המבורגר. כאן המסך הנוכחי מסומן בקו זהב משורטט (כמו הלשוניות באתר), בלי שינוי משקל כתב.</p>
+    </div>
+    <h3 class="b-h3">פס הצד במחשב</h3>
+    <div class="b-row">
+      <div class="b-frame b-rail" style="width:268px">
+        <nav class="pnav" aria-label="דוגמה: מסכי המצגת">
+          <a class="pnav__brand" href="#"><span class="brand"><img class="brand__logo" src="../../assets/img/msgroup-logo.png" alt="" width="494" height="191"><span class="brand__global">GLOBAL</span></span>
+            <span class="pnav__project"><bdi>Azure by Lapis</bdi><small>ראס אל חיימה, איחוד האמירויות</small></span></a>
+          <div class="pnav__list">
+            <a class="pnav__item" href="#"><span class="pnav__num">01</span><span>פתיחה</span></a>
+            <a class="pnav__item" href="#"><span class="pnav__num">02</span><span>הסביבה</span></a>
+            <a class="pnav__item" href="#" aria-current="step"><span class="pnav__num">03</span><span>הפרויקט</span></a>
+            <a class="pnav__item" href="#"><span class="pnav__num">04</span><span>מה מיוחד</span></a>
+            <a class="pnav__item" href="#"><span class="pnav__num">05</span><span>סוגי דירות</span><span class="pnav__soon">בקרוב</span></a>
+            <a class="pnav__item" href="#"><span class="pnav__num">06</span><span>תנאי תשלום</span><span class="pnav__soon">בקרוב</span></a>
+            <a class="pnav__item" href="#"><span class="pnav__num">07</span><span>הסרטון</span></a>
+            <a class="pnav__item" href="#"><span class="pnav__num">08</span><span>מי איתכם</span></a>
+            <a class="pnav__item" href="#"><span class="pnav__num">09</span><span>הצעד הבא</span></a>
+          </div>
+          <div class="pnav__foot">
+            <div class="pnav__count"><span>3 מתוך 9</span><span>מקלדת: ← →</span></div>
+            <div class="pprog" style="--p:.333"><i></i></div>
+            <div class="pnav__tools"><a class="link" href="#">מצב מצגת</a><nav class="lang" aria-label="שפה"><a href="#" aria-current="true">עב</a><a href="#">EN</a><a href="#">FR</a></nav></div>
+          </div>
+        </nav>
+      </div>
+      <div style="flex:1;min-width:min(100%,280px)">
+        <p class="b-h3" style="margin-top:0">מטריצת מצבים · פריט ברשימה</p>
+        <div class="b-matrix">
+          <div class="b-cell"><p>רגיל</p><a class="pnav__item" href="#"><span class="pnav__num">04</span><span>מה מיוחד</span></a></div>
+          <div class="b-cell"><p>ריחוף (עכבר בלבד): הטקסט מתבהר</p><a class="pnav__item is-hover" href="#"><span class="pnav__num">04</span><span>מה מיוחד</span></a></div>
+          <div class="b-cell"><p>לחוץ: הטקסט זהוב</p><a class="pnav__item is-pressed" href="#"><span class="pnav__num">04</span><span>מה מיוחד</span></a></div>
+          <div class="b-cell"><p>פוקוס (מקלדת בלבד)</p><a class="pnav__item is-focus" href="#"><span class="pnav__num">04</span><span>מה מיוחד</span></a></div>
+          <div class="b-cell"><p>נבחר (המסך הנוכחי): קו זהב, אותו משקל</p><a class="pnav__item" href="#" aria-current="step"><span class="pnav__num">04</span><span>מה מיוחד</span></a></div>
+          <div class="b-cell"><p>מסך ״בקרוב״: עדיין אפשר להגיע אליו</p><a class="pnav__item" href="#"><span class="pnav__num">05</span><span>סוגי דירות</span><span class="pnav__soon">בקרוב</span></a></div>
+          <div class="b-cell"><p>מושבת: לא קיים. כל מסך תמיד נגיש</p><p style="margin:0;color:var(--ink-3)">—</p></div>
+          <div class="b-cell"><p>טוען: לא קיים. המעבר מיידי</p><p style="margin:0;color:var(--ink-3)">—</p></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="b-h3">הפס התחתון בטלפון</h3>
+    <div class="b-row">
+      <div><div class="b-frame b-phone"><div class="pbar"><div class="pprog" style="--p:.333"><i></i></div>
+        <button class="pbar__arrow pbar__arrow--prev" type="button" aria-label="המסך הקודם"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button>
+        <button class="pbar__current" type="button" aria-haspopup="dialog"><span class="pnav__num">03</span><span>הפרויקט</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5"/></svg></button>
+        <button class="pbar__arrow pbar__arrow--next" type="button" aria-label="המסך הבא"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button>
+      </div></div><p class="b-cap">מסך 3 מתוך 9. הפס הדק למעלה מתמלא בזהב מימין</p></div>
+      <div><div class="b-frame b-phone"><div class="pbar"><div class="pprog" style="--p:.111"><i></i></div>
+        <button class="pbar__arrow pbar__arrow--prev" type="button" aria-label="המסך הקודם" disabled><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button>
+        <button class="pbar__current" type="button"><span class="pnav__num">01</span><span>פתיחה</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5"/></svg></button>
+        <button class="pbar__arrow pbar__arrow--next" type="button" aria-label="המסך הבא"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button>
+      </div></div><p class="b-cap">מסך ראשון: ״הקודם״ מושבת</p></div>
+      <div><div class="b-frame b-phone" lang="fr" dir="ltr"><div class="pbar"><div class="pprog" style="--p:.666"><i></i></div>
+        <button class="pbar__arrow pbar__arrow--prev" type="button" aria-label="Écran précédent"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button>
+        <button class="pbar__current" type="button"><span class="pnav__num">06</span><span>Modalités de paiement</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5"/></svg></button>
+        <button class="pbar__arrow pbar__arrow--next" type="button" aria-label="Écran suivant"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button>
+      </div></div><p class="b-cap">צרפתית, שם ארוך: נחתך בשלוש נקודות, הכפתורים לא זזים</p></div>
+    </div>
+    <p class="b-h3">מטריצת מצבים · חץ</p>
+    <div class="b-matrix">
+      <div class="b-cell"><p>רגיל</p><button class="pbar__arrow" type="button" aria-label="הבא"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button></div>
+      <div class="b-cell"><p>ריחוף: רק המסגרת מזהיבה</p><button class="pbar__arrow is-hover" type="button" aria-label="הבא"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button></div>
+      <div class="b-cell"><p>לחוץ: מתכווץ ל־0.97</p><button class="pbar__arrow is-pressed" type="button" aria-label="הבא"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button></div>
+      <div class="b-cell"><p>פוקוס (מקלדת)</p><button class="pbar__arrow is-focus" type="button" aria-label="הבא"><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button></div>
+      <div class="b-cell"><p>מושבת (קצה הרשימה)</p><button class="pbar__arrow" type="button" aria-label="הבא" disabled><svg viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></button></div>
+      <div class="b-cell"><p>נבחר / טוען: לא קיימים לחץ</p><p style="margin:0;color:var(--ink-3)">—</p></div>
+    </div>
+
+    <h3 class="b-h3">רשימת המסכים בטלפון (נפתחת מהמסך הנוכחי)</h3>
+    <div class="b-frame b-phone-sheet">
+      <div class="psheet" role="dialog" aria-label="מסכי המצגת">
+        <div class="psheet__head"><span class="psheet__title"><bdi>Azure by Lapis</bdi></span><button class="pbar__arrow psheet__close" type="button" aria-label="סגירה"></button></div>
+        <div class="psheet__list">
+          <a class="pnav__item" href="#"><span class="pnav__num">01</span><span>פתיחה</span></a>
+          <a class="pnav__item" href="#"><span class="pnav__num">02</span><span>הסביבה</span></a>
+          <a class="pnav__item" href="#" aria-current="step"><span class="pnav__num">03</span><span>הפרויקט</span></a>
+          <a class="pnav__item" href="#"><span class="pnav__num">04</span><span>מה מיוחד</span></a>
+          <a class="pnav__item" href="#"><span class="pnav__num">05</span><span>סוגי דירות</span><span class="pnav__soon">בקרוב</span></a>
+          <a class="pnav__item" href="#"><span class="pnav__num">06</span><span>תנאי תשלום</span><span class="pnav__soon">בקרוב</span></a>
+          <a class="pnav__item" href="#"><span class="pnav__num">07</span><span>הסרטון</span></a>
+          <a class="pnav__item" href="#"><span class="pnav__num">08</span><span>מי איתכם</span></a>
+          <a class="pnav__item" href="#"><span class="pnav__num">09</span><span>הצעד הבא</span></a>
+        </div>
+      </div>
+    </div>
+    <p class="b-cap">אותם פריטים ואותה מטריצת מצבים כמו בפס הצד, בכתב גדול יותר. Esc או ״סגירה״ מחזירים את הפוקוס לכפתור שפתח</p>
+  </section>
+
+  <!-- ================= PART B2: SECTION FRAME ================= -->
+  <section class="b-sec" aria-labelledby="b2-title">
+    <h2 id="b2-title">ב׳2 · מסגרת מסך</h2>
+    <div class="b-legend">
+      <p><b>הכלל:</b> כל מסך תופס את גובה החלון, פותח במספר בעיגול זהב (כמו שלבי המסע באתר) ובכותרת, ומכיל רעיון אחד. מסכים מתחלפים בין שני גווני כחול. תוכן ארוך מהחלון ממשיך לגלול באותו מסך, בלי חיתוך.</p>
+      <p><b>למה:</b> מגיש צריך מסך אחד בכל פעם. לקוח בטלפון צריך לגלול בחופשיות. הקפיצות בין מסכים הן רק במקשים, בחצים ובתפריט, אף פעם לא בכוח בזמן גלילה.</p>
+    </div>
+    <div class="b-row" style="margin-top:28px">
+      <div class="b-frame b-slide" style="flex:1.6;min-width:min(100%,320px)">
+        <section class="pslide" aria-label="דוגמה: מסך מפוצל">
+          <div class="pslide__inner pslide__split">
+            <div>
+              <div class="pslide__head"><span class="step__n">03</span><h2 class="pslide__title">הפרויקט</h2></div>
+              <p class="pslide__lead">מגדל מגורים עגול בראס אל חיימה, עם בריכת אינסוף וגן על הגג, מרפסות עם בריכה פרטית וחדר כושר פתוח מול הנוף.</p>
+            </div>
+            <figure class="pslide__media"><img src="../../assets/img/projects/azure/azure-1-900.webp" alt="מגדל Azure by Lapis מהפארק שלמרגלותיו" width="900" height="506"></figure>
+          </div>
+          <a class="link pslide__next" href="#">הבא: מה מיוחד <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
+        </section>
+      </div>
+      <div class="b-legend" style="flex:1;min-width:min(100%,260px);margin:0">
+        <p><b>וריאנטים:</b> טקסט בלבד · מפוצל (טקסט ותמונה) · מדיה מלאה (סרטון, גלובוס).</p>
+        <p><b>מצבים:</b> רגיל · ארוך מהחלון (ממשיך לגלול, הניווט מתעדכן לפי המסך שבמרכז) · ״בקרוב״ (רכיב 4 בתוך המסגרת) · תנועה מופחתת (בלי גלילה חלקה) · טלפון (מתחיל מלמעלה, התמונה מעל הטקסט, ״הבא״ עובר לפס התחתון).</p>
+        <p><b>אין:</b> ריחוף, לחיצה או בחירה על המסגרת עצמה. היא לא אינטראקטיבית.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PART B3: UNIT CARD ================= -->
+  <section class="b-sec" aria-labelledby="b3-title">
+    <h2 id="b3-title">ב׳3 · כרטיס סוג דירה</h2>
+    <div class="b-legend">
+      <p><b>הכלל:</b> תוכנית הדירה, שם, רשימת עובדות (חדרים, שטח, מרפסת, מחיר התחלתי) וקישור אחד לשיחה על הדירה. ללא צל. בריחוף רק המסגרת מתכהה לזהב שקוף.</p>
+      <p><b>למה:</b> אצל גינדי כל ״SPACE״ הוא דף נפרד. כאן משווים סוגי דירות זה לצד זה. <b>הנתונים כאן הם דוגמה לעיצוב בלבד</b>, לא נתונים של <bdi>Azure</bdi>, ולא יופיעו באפליקציה עד שיגיעו מהיזם.</p>
+    </div>
+    <div class="b-matrix" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));margin-top:24px">
+      <div class="b-cell"><p>רגיל · עם תוכנית חסרה (מונוגרמה)</p>
+        <article class="unit"><figure class="unit__plan"><span class="project__monogram" role="img" aria-label="תוכנית הדירה תעודכן בהמשך"></span></figure>
+          <h3 class="unit__name">דוגמה: דירת שני חדרים</h3>
+          <dl class="facts"><div><dt>שטח</dt><dd>00 מ״ר</dd></div><div><dt>מרפסת</dt><dd>00 מ״ר</dd></div><div><dt>החל מ־</dt><dd>000,000 דירהם</dd></div></dl>
+          <a class="link" href="#">לשיחה על הדירה <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a></article></div>
+      <div class="b-cell"><p>ריחוף: המסגרת לזהב שקוף</p>
+        <article class="unit is-hover"><figure class="unit__plan"><span class="project__monogram" role="img" aria-label="תוכנית הדירה תעודכן בהמשך"></span></figure>
+          <h3 class="unit__name">דוגמה: דירת שני חדרים</h3>
+          <dl class="facts"><div><dt>שטח</dt><dd>00 מ״ר</dd></div><div><dt>החל מ־</dt><dd>000,000 דירהם</dd></div></dl>
+          <a class="link" href="#">לשיחה על הדירה <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a></article></div>
+      <div class="b-cell"><p>פוקוס על הקישור (מקלדת): המסגרת זהב מלא</p>
+        <article class="unit is-focus"><figure class="unit__plan"><span class="project__monogram" role="img" aria-label="תוכנית הדירה תעודכן בהמשך"></span></figure>
+          <h3 class="unit__name">דוגמה: דירת שני חדרים</h3>
+          <dl class="facts"><div><dt>שטח</dt><dd>00 מ״ר</dd></div><div><dt>החל מ־</dt><dd>000,000 דירהם</dd></div></dl>
+          <a class="link" href="#" style="outline:2px solid var(--gold-2);outline-offset:4px">לשיחה על הדירה <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a></article></div>
+      <div class="b-cell"><p>נמכר: תג אפור במקום הקישור, הטקסט עדיין קריא</p>
+        <article class="unit unit--sold"><figure class="unit__plan"><span class="project__monogram" role="img" aria-label="תוכנית הדירה תעודכן בהמשך"></span></figure>
+          <h3 class="unit__name">דוגמה: פנטהאוז עם בריכה פרטית ומרפסת גג</h3>
+          <dl class="facts"><div><dt>שטח</dt><dd>000 מ״ר</dd></div><div><dt>החל מ־</dt><dd>0,000,000 דירהם</dd></div></dl>
+          <span class="unit__flag">נמכר</span></article></div>
+    </div>
+    <p class="b-cap">אין מצב ״נבחר״ או ״מושבת״ לכרטיס. לחיצה = הקישור שבתוכו. הלחיצה עצמה היא של הקישור הקיים (מתכווץ ל־0.97)</p>
+  </section>
+
+  <!-- ================= PART B4: COMING SOON ================= -->
+  <section class="b-sec" aria-labelledby="b4-title">
+    <h2 id="b4-title">ב׳4 · מצב ״בקרוב״ למסך בלי נתונים</h2>
+    <div class="b-legend">
+      <p><b>הכלל:</b> כשאין עדיין נתונים למסך, הוא לא נעלם ולא נשאר ריק. אייקון קווי בזהב, משפט אחד שאומר מה חסר, ופעולה: לבקש שישלחו את הפרטים ברגע שיגיעו. אותו רכיב לכל מסך ולכל פרויקט.</p>
+      <p><b>למה:</b> מסך ריק נראה כמו תקלה, ומסך שנעלם מסתיר שאלה שהלקוח ישאל בכל מקרה (״ומה תנאי התשלום?״). כך גם השאלה הופכת לפנייה.</p>
+    </div>
+    <div class="b-row" style="margin-top:28px">
+      <div class="b-cell" style="flex:1;min-width:min(100%,300px)"><p>רגיל</p>
+        <div class="soon">
+          <svg class="soon__icon" viewBox="0 0 44 44" aria-hidden="true"><path d="M10 5h24M10 39h24M13 5c0 9 9 11 9 17s-9 8-9 17M31 5c0 9-9 11-9 17s9 8 9 17"/></svg>
+          <h3 class="soon__title">תנאי התשלום בדרך</h3>
+          <p>היזם עוד לא פרסם את מסלול התשלום של <bdi>Azure</bdi>. נשלח לכם אותו ברגע שיתקבל.</p>
+          <a class="link" href="#">שלחו לי את תנאי התשלום <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
+        </div></div>
+      <div class="b-cell" style="flex:1;min-width:min(100%,300px)"><p>חלקי: חלק מהנתונים ידוע</p>
+        <div class="soon">
+          <svg class="soon__icon" viewBox="0 0 44 44" aria-hidden="true"><path d="M10 5h24M10 39h24M13 5c0 9 9 11 9 17s-9 8-9 17M31 5c0 9-9 11-9 17s9 8 9 17"/></svg>
+          <h3 class="soon__title">סוגי הדירות בדרך</h3>
+          <p>המחיר ההתחלתי כבר ידוע. התוכניות והשטחים יעודכנו כשיגיעו מהיזם.</p>
+          <dl class="facts"><div><dt>מחיר התחלתי</dt><dd>700,000 דירהם</dd></div><div><dt>סוגי דירות וגדלים</dt><dd class="slot">יעודכן בהמשך</dd></div></dl>
+          <a class="link" href="#">שלחו לי את התוכניות <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
+        </div></div>
+      <div class="b-cell" style="flex:1;min-width:min(100%,300px)" lang="fr" dir="ltr"><p>צרפתית (טקסט ארוך)</p>
+        <div class="soon">
+          <svg class="soon__icon" viewBox="0 0 44 44" aria-hidden="true"><path d="M10 5h24M10 39h24M13 5c0 9 9 11 9 17s-9 8-9 17M31 5c0 9-9 11-9 17s9 8 9 17"/></svg>
+          <h3 class="soon__title">Les modalités de paiement arrivent</h3>
+          <p>Le promoteur n’a pas encore publié l’échéancier de paiement d’<bdi>Azure</bdi>. Nous vous l’enverrons dès sa réception.</p>
+          <a class="link" href="#">Recevoir les modalités de paiement <svg class="arr" viewBox="0 0 16 12" aria-hidden="true"><path d="M15 6H1.5M6.5 1 1.5 6l5 5"/></svg></a>
+        </div></div>
+    </div>
+    <p class="b-cap">המצבים האינטראקטיביים הם של הקישור הקיים באתר (ריחוף: קו תחתון שגדל והחץ זז קדימה; לחוץ; פוקוס). הקישור מוביל למסך 9 ומסמן בטופס מה ביקשתם</p>
+  </section>
+</body>
+</html>
