@@ -12,6 +12,7 @@
 }
 
 /* ---------- App shell ---------- */
+html:has(.papp) { scroll-padding-top: 0; }   /* the app has no top bar to clear */
 .papp { min-height: 100svh; }
 .papp__main { margin-inline-start: var(--rail); }
 @media (max-width: 899px) { .papp__main { margin-inline-start: 0; padding-bottom: calc(var(--pbar-h) + env(safe-area-inset-bottom)); } }
@@ -25,6 +26,7 @@
 .pnav__brand { display: grid; gap: 18px; padding-inline: 28px; text-decoration: none; }
 .pnav__brand .brand__logo { height: 36px; }
 .pnav__project { font: 400 1.4rem/1.15 var(--serif); color: var(--ink); }
+.pnav > .pnav__project { padding-inline: 28px; margin-top: 18px; }
 .pnav__project small { display: block; margin-top: 4px; font: 400 0.92rem/1.3 var(--sans); color: var(--ink-3); }
 .pnav__list { margin-top: 28px; display: grid; gap: 2px; overflow-y: auto; overscroll-behavior: contain; }
 .pnav__item {
@@ -52,6 +54,8 @@
 .pprog > i:dir(ltr) { transform-origin: left; }
 .pnav__tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .pnav__tools .lang { margin: 0; }
+.pnav__tools button.link { padding: 0; border: 0; background: none; font: inherit; font-weight: 600; cursor: pointer; }
+.pnav__tools button.link[aria-pressed="true"] { color: var(--ink); }
 
 /* ---------- 1. Navigation · phone bar and section sheet ---------- */
 .pbar {
