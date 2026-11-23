@@ -7,3 +7,4 @@
 - 2026-11-15: Larger originals wanted for SORA, VOXA and Bay renders (hero sharpness, commit cac2ef9).
 - 2026-11-15: 12 YouTube project films have only partial text descriptions; full ones need the video files (commit a1eb2c9).
 - 2026-11-16: Country guides (research rec. #1) started by a subagent that stopped on the weekly usage limit before writing any file; to be restarted after the limit resets.
+- 2026-11-23: Project tabs are now round colored badges with a typed name (no official logos in the repo). If the owner sends each project's real logo, swap it into the badge (index.html, en, fr; .project__badge in site.css).
