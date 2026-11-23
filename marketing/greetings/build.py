@@ -159,10 +159,71 @@ def star():
     </g>"""
 
 
+def tree():
+    import math
+    leaves = []
+    # Canopy: leaves on rings around the crown, angles offset per ring so they interlock.
+    for ring, (radius, count) in enumerate([(0, 1), (42, 7), (84, 13), (124, 19)]):
+        for k in range(count):
+            a = 2 * math.pi * k / count + ring * 0.4
+            x = 310 + radius * math.cos(a)
+            y = 175 + radius * 0.78 * math.sin(a)
+            rot = math.degrees(a) + 35
+            shade = "url(#g)" if (k + ring) % 3 else "#e9cb8c"
+            leaves.append(f'<ellipse cx="{x:.1f}" cy="{y:.1f}" rx="19" ry="9" '
+                          f'transform="rotate({rot:.0f} {x:.1f} {y:.1f})" fill="{shade}"/>')
+    return f"""
+    <circle cx="310" cy="190" r="180" fill="url(#glow)" opacity=".45"/>
+    <g fill="url(#g)">
+      <path d="M296,404 C300,350 302,300 298,250 L322,250 C318,300 320,350 324,404 Z"/>
+      <path d="M302,292 C280,270 260,258 236,250 L240,242 C266,250 288,262 306,278 Z"/>
+      <path d="M318,272 C338,252 360,240 386,234 L388,242 C364,250 344,262 322,284 Z"/>
+    </g>
+    <g fill="none" stroke="url(#g)" stroke-width="5" stroke-linecap="round">
+      <path d="M298,404 C280,414 262,418 240,420"/>
+      <path d="M322,404 C340,414 358,418 380,420"/>
+      <line x1="170" y1="406" x2="450" y2="406" stroke-width="3" opacity=".6"/>
+    </g>
+    {''.join(leaves)}"""
+
+
+def mask():
+    confetti = "".join(
+        f'<rect x="{x}" y="{y}" width="12" height="5" rx="2" fill="{c}" transform="rotate({r} {x} {y})"/>'
+        for x, y, r, c in [(110, 110, 30, "#e9cb8c"), (520, 96, -25, "#d2a249"), (560, 230, 60, "#e9cb8c"),
+                           (70, 300, -40, "#d2a249"), (180, 380, 20, "#e9cb8c"), (420, 400, -60, "#d2a249"),
+                           (300, 70, 15, "#d2a249"), (470, 60, 70, "#e9cb8c")]
+    ) + "".join(
+        f'<circle cx="{x}" cy="{y}" r="5" fill="{c}"/>'
+        for x, y, c in [(160, 70, "#d2a249"), (560, 160, "#fbf8f1"), (90, 200, "#fbf8f1"),
+                        (250, 400, "#d2a249"), (530, 330, "#fbf8f1")]
+    )
+    return f"""
+    <circle cx="310" cy="220" r="190" fill="url(#glow)" opacity=".45"/>
+    {confetti}
+    <line x1="452" y1="272" x2="520" y2="420" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M140,200 C150,150 220,140 270,160 C290,168 300,176 310,176 C320,176 330,168 350,160
+             C400,140 470,150 480,200 C488,250 450,290 400,292 C360,294 340,270 310,262
+             C280,270 260,294 220,292 C170,290 132,250 140,200 Z" fill="url(#g)"/>
+    <ellipse cx="230" cy="214" rx="42" ry="25" transform="rotate(8 230 214)" fill="#0c1d40"/>
+    <ellipse cx="390" cy="214" rx="42" ry="25" transform="rotate(-8 390 214)" fill="#0c1d40"/>
+    <g fill="url(#g)">
+      <path d="M176,168 C150,120 152,90 170,60 C182,100 190,130 190,164 Z"/>
+      <path d="M200,156 C190,110 198,82 222,58 C224,98 222,128 214,156 Z"/>
+      <path d="M156,182 C118,154 106,128 110,96 C130,124 150,148 166,174 Z"/>
+    </g>"""
+
+
 HOLIDAYS = [
     dict(slug="hanukkah", name="חנוכה", art=menorah,
          title='חג חנוכה <span>שמח</span>',
          wish="שהאור של החג ימלא את הבית,<br>ושהבית הבא יהיה בדיוק מה שחלמתם עליו."),
+    dict(slug="tu-bishvat", name="ט״ו בשבט", art=tree,
+         title='ט״ו בשבט <span>שמח</span>',
+         wish="כמו עץ טוב, גם השקעה טובה צריכה שורשים חזקים,<br>סבלנות, ומקום נכון לצמוח."),
+    dict(slug="purim", name="פורים", art=mask,
+         title='פורים <span>שמח</span>',
+         wish="חג של שמחה, צחוק ומשלוחי מנות,<br>ושנה שבה הכול מתהפך לטובה."),
     dict(slug="rosh-hashana", name="ראש השנה", art=pomegranate,
          title='שנה טובה <span>ומתוקה</span>',
          wish="שנה של בריאות, שקט ושגשוג,<br>ושל צעדים חכמים לבית ולהשקעה הבאה."),
