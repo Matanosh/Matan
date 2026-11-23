@@ -36,10 +36,12 @@
     font-size: 38px; line-height: 1.55; color: var(--mist);
   }
   .sign {
-    position: absolute; bottom: 104px; left: 0; right: 0; text-align: center;
+    position: absolute; bottom: 92px; left: 0; right: 0; text-align: center;
     font-size: 28px; letter-spacing: .02em; color: var(--pale-gold);
   }
   .sign b { font-weight: 500; color: var(--ivory); }
+  .sign .ig { margin-top: 18px; display: flex; justify-content: center; align-items: center; gap: 12px; color: var(--ivory); font-weight: 500; }
+  .sign .ig svg { width: 30px; height: 30px; color: var(--gold); }
   .sign .dot { margin: 0 14px; color: var(--antique); }
 </style>
 </head>
@@ -113,7 +115,13 @@
   <div class="rule"></div>
   <p class="wish">שהאור של החג ימלא את הבית,<br>ושהבית הבא יהיה בדיוק מה שחלמתם עליו.</p>
 
-  <div class="sign"><b>מתן</b><span class="dot">|</span><bdi>M.S. Group</bdi><span class="dot">|</span><bdi>msgp.co.il</bdi></div>
+  <div class="sign">
+    <div><b>מתן</b><span class="dot">|</span><bdi>M.S. Group</bdi><span class="dot">|</span><bdi>msgp.co.il</bdi></div>
+    <div class="ig" dir="ltr">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg>
+      <span>@msgroupproject</span>
+    </div>
+  </div>
 </div>
 </body>
 </html>
