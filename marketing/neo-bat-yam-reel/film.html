@@ -50,15 +50,10 @@
   .n { direction: ltr; unicode-bidi: isolate; display: inline-block; font-variant-numeric: lining-nums; }
 
   /* title */
-  .title { position: absolute; left: 0; right: 0; top: 610px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
-  .neo { font-family: Heebo, sans-serif; font-weight: 500; font-size: 270px; letter-spacing: .03em; direction: ltr; line-height: 1; position: relative;
-    background: linear-gradient(100deg, var(--orange) 0%, var(--orange) 40%, #ffe3cc 50%, var(--orange) 60%, var(--orange) 100%);
-    background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .neo .dots { position: absolute; right: -78px; top: -46px; width: 180px; height: 180px;
-    background-image: radial-gradient(circle, var(--orange) 0 4px, transparent 5px); background-size: 18px 18px;
-    -webkit-mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); }
-  .by { margin-top: 26px; font-family: "Frank Ruhl Libre", serif; font-size: 150px; font-weight: 300; line-height: 1; letter-spacing: .02em; text-shadow: 0 6px 40px rgba(0,0,0,.45); }
-  .by-en { margin-top: 30px; font-size: 34px; font-weight: 300; letter-spacing: .6em; padding-left: .6em; direction: ltr; color: var(--sand); }
+  .title { position: absolute; left: 0; right: 0; top: 520px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
+  /* project logo: the developer's "NEO SEA | BAT YAM" mark, white version for dark grounds (marketing/brand/README.md) */
+  .logo-img { display: block; width: 780px; height: auto; }
+  .by { margin-top: 34px; font-family: "Frank Ruhl Libre", serif; font-size: 110px; font-weight: 300; line-height: 1; letter-spacing: .02em; text-shadow: 0 6px 40px rgba(0,0,0,.45); }
   .trule { height: 2px; background: var(--orange); width: 0; margin: 40px auto 0; }
 
   /* location overlay */
@@ -102,12 +97,17 @@
   #box { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
 
   /* end card */
-  .endtxt { position: absolute; left: 0; right: 0; top: 470px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .cta { margin-top: 96px; font-family: "Frank Ruhl Libre", serif; font-size: 78px; font-weight: 400; line-height: 1.15; }
+  .endtxt { position: absolute; left: 0; right: 0; top: 390px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .cta { margin-top: 70px; font-family: "Frank Ruhl Libre", serif; font-size: 78px; font-weight: 400; line-height: 1.15; }
   .cta-rule { height: 3px; background: var(--orange); width: 0; margin: 34px auto 0; }
   .phone { margin-top: 50px; font-size: 96px; font-weight: 500; font-variant-numeric: lining-nums; color: var(--ink); direction: ltr; letter-spacing: .02em; }
-  .legal { position: absolute; left: 90px; right: 90px; top: 1400px; text-align: center; font-size: 28px; line-height: 1.4; color: rgba(251,248,241,.7); opacity: 0; }
-  .credit { position: absolute; left: 0; right: 0; top: 1488px; text-align: center; font-size: 24px; color: rgba(251,248,241,.55); opacity: 0; }
+  .legal { position: absolute; left: 90px; right: 90px; top: 1290px; text-align: center; font-size: 28px; line-height: 1.4; color: rgba(251,248,241,.7); opacity: 0; }
+  /* credits: marketer (MS Group, secondary to the project logo) and the AI-voice note; kept above y=1540 */
+  .credits { position: absolute; left: 0; right: 0; top: 1392px; display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: 0; }
+  .credits .mkt { display: flex; align-items: center; gap: 20px; direction: rtl; }
+  .credits .mkt span { font-size: 28px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.72); }
+  .credits .mkt img { display: block; width: 170px; height: auto; opacity: .92; }
+  .credits .ai { font-size: 24px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.6); }
 
   .black { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
 </style>
@@ -121,9 +121,8 @@
   <div class="vignette"></div><div class="shade-top"></div>
   <div class="dim" id="dim1"></div>
   <div class="title" id="title">
-    <div class="neo" id="neo">NEO<div class="dots" id="dots1"></div></div>
+    <img class="logo-img" id="neo" src="../brand/neo-bat-yam/neo-sea-bat-yam-white.png" alt="NEO SEA | BAT YAM">
     <div class="by" id="by">בת ים</div>
-    <div class="by-en" id="byen">BAT YAM</div>
     <div class="trule" id="trule"></div>
   </div>
   <div class="hadmaya">הדמיה</div>
@@ -200,14 +199,16 @@
   <div class="media" data-scene="end" style="filter: blur(9px) brightness(.32) saturate(1.05)"></div>
   <div class="vignette"></div>
   <div class="endtxt" id="endTxt">
-    <div class="neo" style="font-size:220px">NEO<div class="dots"></div></div>
-    <div class="by" style="font-size:110px;margin-top:20px">בת ים</div>
+    <img class="logo-img" style="width:600px" src="../brand/neo-bat-yam/neo-sea-bat-yam-white.png" alt="NEO SEA | BAT YAM">
     <div class="cta" id="cta">תאמו פגישה<br>במשרד המכירות</div>
     <div class="cta-rule" id="ctaRule"></div>
     <div class="phone" id="phone">054-522-0030</div>
   </div>
   <div class="legal" id="legal">ההדמיות להמחשה בלבד ואינן מהוות חלק ממסמכי המכר</div>
-  <div class="credit" id="credit">קריינות: AI</div>
+  <div class="credits" id="credits">
+    <div class="mkt"><span>שיווק:</span><img src="../brand/ms-group/ms-group-on-dark.png" alt="M.S. Group"></div>
+    <div class="ai">קריינות: AI</div>
+  </div>
   <div class="hadmaya">הדמיה</div>
 </div>
 
@@ -380,12 +381,9 @@ window.render = function (t) {
     $('title').style.opacity = p * (1 - o);
     $('title').style.transform = `scale(${mix(.94, 1, p) + .02 * lin(t, 8.2, 11.5)})`;
     $('title').style.filter = `blur(${(1 - p) * 10}px)`;
-    $('neo').style.backgroundPosition = `${mix(100, 0, ease(lin(t, 7.6, 9.4)))}% 0`;
-    $('dots1').style.opacity = eout(lin(t, 7.6, 8.6));
+    $('neo').style.filter = `drop-shadow(0 0 ${mix(60, 18, eout(lin(t, 7.0, 9.6)))}px rgba(255,236,205,${mix(.9, .35, eout(lin(t, 7.0, 9.6)))}))`;
     $('by').style.opacity = eout(lin(t, 7.6, 8.6));
     $('by').style.transform = `translateY(${(1 - eout(lin(t, 7.6, 8.6))) * 26}px)`;
-    $('byen').style.opacity = eout(lin(t, 8.3, 9.3));
-    $('byen').style.letterSpacing = mix(.9, .6, eout(lin(t, 8.3, 9.6))) + 'em';
     $('trule').style.width = (ease(lin(t, 8.4, 9.6)) * 260) + 'px'; }
 
   // 2. location: pin on the towers, dotted line to the sea
@@ -440,7 +438,7 @@ window.render = function (t) {
     $('ctaRule').style.width = (ease(lin(et, 2.3, 3.4)) * 240) + 'px';
     $('phone').style.opacity = eout(lin(et, 2.8, 3.8));
     $('legal').style.opacity = eout(lin(et, 3.0, 4.0));
-    $('credit').style.opacity = eout(lin(et, 3.2, 4.2)); }
+    $('credits').style.opacity = eout(lin(et, 3.2, 4.3)); }
 
   $('black').style.opacity = sine(lin(t, 71.0, 72));
   return Promise.resolve();
