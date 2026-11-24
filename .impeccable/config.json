@@ -5,5 +5,20 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "marketing/neo-film/film.html"
+        ],
+        "createdAt": "2026-11-24T07:40:14.152Z",
+        "reason": "Claude: the glow is the moving construction scan-line in a video frame (a literal light effect in motion), not a UI accent"
+      }
+    ]
   }
 }

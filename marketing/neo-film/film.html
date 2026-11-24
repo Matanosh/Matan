@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>NEO Beit Shemesh Film</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --orange: #E8622C; --ink: #fbf7f1; --ink2: rgba(251,247,241,.78); --navy: #07121f; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+  body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); }
+  .layer { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+  .cam { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  .cam img { position: absolute; left: 0; top: 0; display: block; }
+  .full { width: 100%; height: 100%; }
+  .vignette { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%); }
+  .shade-b { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.25) 34%, rgba(0,0,0,0) 55%); }
+  .shade-r { position: absolute; inset: 0; background: linear-gradient(to left, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 40%, rgba(0,0,0,0) 60%); }
+
+  /* captions: lower-right, RTL */
+  .cap { position: absolute; right: 120px; bottom: 120px; text-align: right; opacity: 0; }
+  .cap .k { font-size: 28px; letter-spacing: .04em; color: var(--orange); font-weight: 500; margin-bottom: 18px; }
+  .cap .h { font-family: "Frank Ruhl Libre", serif; font-size: 84px; font-weight: 400; line-height: 1.08; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
+  .cap .s { margin-top: 18px; font-size: 34px; font-weight: 300; color: var(--ink2); }
+  .cap .bar { width: 0; height: 3px; background: var(--orange); margin: 26px 0 0 auto; }
+
+  /* logo */
+  .logo { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
+  .neo { font-family: Heebo, sans-serif; font-weight: 500; font-size: 230px; letter-spacing: .02em; color: var(--orange); direction: ltr; line-height: 1; position: relative; }
+  .neo .dots { position: absolute; right: -70px; top: -40px; width: 160px; height: 160px;
+    background-image: radial-gradient(circle, var(--orange) 0 4px, transparent 5px); background-size: 18px 18px;
+    -webkit-mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); }
+  .bs { margin-top: 26px; font-family: "Frank Ruhl Libre", serif; font-size: 46px; letter-spacing: .5em; direction: ltr; color: var(--ink); padding-left: .5em; }
+  .tag { margin-top: 44px; font-size: 38px; font-weight: 300; color: var(--ink2); }
+
+  /* construction */
+  .lines { filter: brightness(2.1) contrast(1.2); mix-blend-mode: screen; }
+  .grid { position: absolute; inset: 0; background-color: var(--navy);
+    background-image: linear-gradient(rgba(120,190,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120,190,255,.07) 1px, transparent 1px);
+    background-size: 64px 64px; }
+  .scan { position: absolute; left: 0; width: 1920px; height: 4px; background: #ffd9b8;
+    box-shadow: 0 0 24px 8px rgba(232,98,44,.85), 0 0 80px 30px rgba(232,98,44,.35); }
+  .floors { position: absolute; left: 120px; bottom: 120px; direction: rtl; text-align: left; opacity: 0; }
+  .floors .n { font-family: Heebo; font-weight: 200; font-size: 190px; line-height: .9; color: var(--ink); direction: ltr; font-variant-numeric: tabular-nums; }
+  .floors .l { font-size: 32px; letter-spacing: .04em; color: var(--orange); margin-top: 12px; text-align: left; }
+
+  /* plan */
+  .planbg { position: absolute; inset: 0; background: #f4f1ec; }
+  .specpanel { position: absolute; right: 0; top: 0; bottom: 0; width: 760px; background: #f4f1ec; }
+  .specs { position: absolute; right: 110px; top: 50%; transform: translateY(-50%); width: 560px; color: #1c1c1c; text-align: right; opacity: 0; }
+  .specs .k { font-size: 26px; letter-spacing: .3em; direction: ltr; color: var(--orange); font-weight: 500; }
+  .specs .h { font-family: "Frank Ruhl Libre", serif; font-size: 96px; margin: 8px 0 30px; color: #1c1c1c; }
+  .specs .row { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 0; border-top: 1px solid rgba(0,0,0,.14); font-size: 32px; opacity: 0; }
+  .specs .row b { font-weight: 500; font-size: 40px; color: #111; }
+  .specs .row span { color: #555; font-weight: 300; }
+
+  /* end */
+  .endtxt { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .cta { margin-top: 60px; font-size: 44px; font-weight: 300; }
+  .cta b { font-weight: 500; color: var(--orange); }
+  .disc { position: absolute; bottom: 40px; width: 100%; text-align: center; font-size: 20px; color: rgba(255,255,255,.55); }
+  .flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<!-- S0: logo intro -->
+<div class="layer" id="intro" style="background:#000">
+  <div class="logo" id="logo1">
+    <div class="neo">NEO<div class="dots"></div></div>
+    <div class="bs">BEIT SHEMESH</div>
+    <div class="tag">מהיסודות – אל הבית שלכם</div>
+  </div>
+</div>
+
+<!-- S1: blueprint -> construction rising from the ground -> finished at dusk -->
+<div class="layer" id="build">
+  <div class="grid"></div>
+  <div class="cam" id="buildCam" style="width:1920px;height:1920px">
+    <img class="lines" id="lines" src="img/aerial-lines.png" style="width:1920px;height:1920px">
+    <img id="color" src="img/aerial.jpg" style="width:1920px;height:1920px">
+    <div class="scan" id="scan"></div>
+  </div>
+  <div class="vignette"></div>
+  <div class="shade-r" id="buildShade" style="opacity:0"></div>
+  <div class="floors" id="floors"><div class="n" id="floorN">0</div><div class="l">קומות</div></div>
+  <div class="cap" id="capPlan"><div class="k">שלב 1</div><div class="h">הכול מתחיל בחזון</div><div class="s">תכנון אדריכלי מדויק, עד הפרט האחרון</div><div class="bar"></div></div>
+  <div class="cap" id="capBuild"><div class="k">שלב 2</div><div class="h">קומה אחר קומה</div><div class="s">מגדלי מגורים של עד 22 קומות</div><div class="bar"></div></div>
+  <div class="cap" id="capDone"><div class="k">NEO · בית שמש</div><div class="h">רובע מגורים חדש<br>נולד בבית שמש</div><div class="s">מגדלים, ירוק, רחובות מוארים – הכול כבר כאן</div><div class="bar"></div></div>
+</div>
+
+<!-- S2: lobby -->
+<div class="layer" id="lobby">
+  <div class="cam" id="lobbyCam"><img src="img/lobby.jpg" style="width:1920px;height:1279px"></div>
+  <div class="shade-b"></div><div class="vignette"></div>
+  <div class="cap" id="capLobby"><div class="k">הלובי</div><div class="h">כניסה של מלון בוטיק</div><div class="s">שיש, עץ טבעי ותאורה מעוצבת</div><div class="bar"></div></div>
+</div>
+
+<!-- S3: living room -->
+<div class="layer" id="living">
+  <div class="cam" id="livingCam"><img src="img/living.jpg" style="width:1920px;height:1080px"></div>
+  <div class="shade-b"></div><div class="vignette"></div>
+  <div class="cap" id="capLiving"><div class="k">הדירה</div><div class="h">מרחב שמתמלא באור</div><div class="s">חלונות מהרצפה עד התקרה וסלון פתוח למטבח</div><div class="bar"></div></div>
+  <div class="cap" id="capView"><div class="k">הנוף</div><div class="h">ההרים – בתוך הסלון</div><div class="s">נוף פתוח מכל חלון, ומרפסת לארוחות שקיעה</div><div class="bar"></div></div>
+</div>
+
+<!-- S4: country club -->
+<div class="layer" id="country">
+  <div class="cam" id="countryCam"><img src="img/country.jpg" style="width:2200px;height:1554px"></div>
+  <div class="shade-b"></div><div class="vignette"></div>
+  <div class="cap" id="capCountry"><div class="k">קאנטרי בתוך הפרויקט</div><div class="h">חופשה – כל יום</div><div class="s">בריכה · חדר כושר · Sport Club · מדשאות</div><div class="bar"></div></div>
+</div>
+
+<!-- S5: floor plan -->
+<div class="layer" id="plan">
+  <div class="planbg"></div>
+  <div class="cam" id="planCam"><img src="img/plan.png" style="width:1530px;height:1080px"></div>
+  <div class="specpanel"></div>
+  <div class="specs" id="specs">
+    <div class="k">TYPE D</div>
+    <div class="h">דירת 4.5 חדרים</div>
+    <div class="row"><b>105 מ"ר</b><span>שטח הדירה</span></div>
+    <div class="row"><b>10 מ"ר</b><span>מרפסת</span></div>
+    <div class="row"><b dir="ltr">2–22</b><span>קומות</span></div>
+    <div class="row"><b>צפון · מזרח</b><span>כיווני אוויר</span></div>
+  </div>
+</div>
+
+<!-- S6: end card -->
+<div class="layer" id="end">
+  <div class="cam" id="endCam" style="width:1920px;height:1920px"><img src="img/aerial.jpg" style="width:1920px;height:1920px;filter:blur(6px) brightness(.38)"></div>
+  <div class="endtxt" id="endTxt">
+    <div class="logo" style="position:static;opacity:1">
+      <div class="neo" style="font-size:180px">NEO<div class="dots"></div></div>
+      <div class="bs" style="font-size:40px">BEIT SHEMESH</div>
+    </div>
+    <div class="cta" id="cta">הבית הבא שלכם מתחיל כאן · <b>תאמו פגישה במשרד המכירות</b></div>
+  </div>
+  <div class="disc">ההדמיות והתוכניות להמחשה בלבד ואינן מהוות חלק ממסמכי המכר</div>
+</div>
+
+<div class="flash" id="flash"></div>
+
+<script>
+// ---------- timeline (seconds) ----------
+const T = {
+  intro: [0, 4.6],
+  build: [4.0, 24.5],     // blueprint 4–8.5, rise 8.5–17.5, done 17.5–24.5
+  lobby: [24.0, 31.5],
+  living:[31.0, 43.5],
+  country:[43.0, 51.5],
+  plan:  [51.0, 59.5],
+  end:   [59.0, 66.0],
+};
+window.TOTAL = 66;
+const XF = 0.9; // crossfade length
+
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lin = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2;           // easeInOutCubic
+const eout = (x) => 1 - Math.pow(1 - x, 3);
+const mix = (a, b, x) => a + (b - a) * x;
+
+function layerOpacity(t, [a, b], first, last) {
+  const fin = first ? 1 : lin(t, a, a + XF);
+  const fout = last ? 1 : 1 - lin(t, b - XF, b);
+  return Math.min(fin, fout);
+}
+function cap(el, t, a, b) {               // caption in at a, out at b
+  const i = eout(lin(t, a, a + .9)), o = lin(t, b - .6, b);
+  el.style.opacity = i * (1 - o);
+  el.style.transform = `translateY(${(1 - i) * 40 - o * 20}px)`;
+  el.querySelector('.bar') && (el.querySelector('.bar').style.width = (eout(lin(t, a + .3, a + 1.4)) * 180) + 'px');
+}
+// Ken Burns: scale s, translate (x,y) in output px, applied to .cam
+function camSet(el, s, x, y) { el.style.transform = `translate(${x}px,${y}px) scale(${s})`; }
+
+window.render = function (t) {
+  // intro
+  $('intro').style.opacity = layerOpacity(t, T.intro, true, false);
+  const li = eout(lin(t, .3, 1.8)), lo = lin(t, 3.6, 4.4);
+  $('logo1').style.opacity = li * (1 - lo);
+  $('logo1').style.transform = `scale(${mix(.94, 1, li) + lo * .06})`;
+  $('logo1').querySelector('.tag').style.opacity = eout(lin(t, 1.4, 2.4));
+
+  // ---------- build ----------
+  $('build').style.opacity = layerOpacity(t, T.build);
+  const bt = t - T.build[0];
+  // blueprint lines draw in from right-to-left
+  const draw = ease(lin(bt, 0.0, 3.2));
+  $('lines').style.clipPath = `inset(0 ${(1 - draw) * 100}% 0 0)`;
+  // construction rise: reveal edge goes from bottom (1920) to top (0)
+  const rise = ease(lin(bt, 4.5, 13.5));
+  const edge = 1920 * (1 - rise);
+  $('color').style.clipPath = `inset(${edge}px 0 0 0)`;
+  $('scan').style.top = (edge - 2) + 'px';
+  $('scan').style.opacity = rise > 0 && rise < 1 ? 1 : 0;
+  // camera: drone rising with the building
+  const pre = ease(lin(bt, 0, 4.5));                     // blueprint: slow push at street level
+  let off = clamp(edge - 620, 0, 840), s = 1;
+  if (bt < 4.5) { off = mix(560, 840, pre); s = mix(1.10, 1.0, pre); }
+  // after completion: settle back down onto the finished towers with a slow push-in
+  const post = ease(lin(bt, 13.5, 20.5));
+  if (bt >= 13.5) { off = mix(0, 380, post); s = mix(1.0, 1.07, post); }
+  camSet($('buildCam'), s, (1920 - 1920 * s) / 2, -off * s - (s - 1) * 300);
+  $('lines').style.opacity = 1 - lin(bt, 13.0, 14.5) * .9;
+  // floor counter
+  const fl = Math.round(22 * clamp((rise - .12) / .7));
+  $('floorN').textContent = fl;
+  $('floors').style.opacity = lin(bt, 4.8, 5.6) * (1 - lin(bt, 14.2, 15.0));
+  $('buildShade').style.opacity = .9;
+  cap($('capPlan'), bt, 0.8, 4.6);
+  cap($('capBuild'), bt, 5.2, 13.6);
+  cap($('capDone'), bt, 15.2, 20.4);
+  $('flash').style.opacity = .55 * Math.max(0, 1 - Math.abs(bt - 13.6) / .35) * (bt < 14 ? 1 : 1);
+
+  // ---------- lobby: walk down the corridor ----------
+  $('lobby').style.opacity = layerOpacity(t, T.lobby);
+  const lt = ease(lin(t, T.lobby[0], T.lobby[1]));
+  { const s2 = mix(1.0, 1.55, lt); // focus point: end of corridor (~ x 1150, y 470 in 1920x1279 img)
+    const fx = 1150, fy = 520;
+    camSet($('lobbyCam'), s2, 960 - fx * s2 + mix(fx - 960, 0, lt) * 1, 540 - fy * s2 + mix(fy - 540 - 100, 0, lt)); }
+  cap($('capLobby'), t - T.lobby[0], 1.0, 7.0);
+
+  // ---------- living: enter + pan toward the view ----------
+  $('living').style.opacity = layerOpacity(t, T.living);
+  const vt = t - T.living[0];
+  { const p = ease(lin(vt, 0, 12.5));
+    const s3 = mix(1.04, 1.42, p);
+    const fx = mix(760, 1150, p), fy = mix(560, 470, p);   // drift from the sofa toward the right-hand windows
+    let x = 960 - fx * s3, y = 540 - fy * s3;
+    x = Math.min(0, Math.max(1920 - 1920 * s3, x)); y = Math.min(0, Math.max(1080 - 1080 * s3, y));
+    camSet($('livingCam'), s3, x, y); }
+  cap($('capLiving'), vt, 1.0, 6.2);
+  cap($('capView'), vt, 6.6, 12.0);
+
+  // ---------- country club: lateral dolly ----------
+  $('country').style.opacity = layerOpacity(t, T.country);
+  const ct = t - T.country[0];
+  { const p = ease(lin(ct, 0, 8.5));
+    const s4 = mix(1.0, 1.08, p);
+    camSet($('countryCam'), s4, mix(-280, 0, p) - (2200 * s4 - 2200) / 2, mix(-330, -420, p)); }
+  cap($('capCountry'), ct, 1.0, 7.8);
+
+  // ---------- floor plan ----------
+  $('plan').style.opacity = layerOpacity(t, T.plan);
+  const pt = t - T.plan[0];
+  { const p = ease(lin(pt, 0, 8.5));
+    // plan image is 1530x1080; crop off its own title (right part) by placing it left and zooming slightly
+    camSet($('planCam'), mix(1.12, 1.02, p), mix(-80, 20, p), mix(-70, -10, p)); }
+  { const sp = $('specs'); const i = eout(lin(pt, .8, 1.8)); sp.style.opacity = i * (1 - lin(pt, 7.8, 8.4));
+    sp.style.transform = `translateY(-50%) translateX(${(1 - i) * -40}px)`;
+    sp.querySelectorAll('.row').forEach((r, k) => { const a = eout(lin(pt, 1.6 + k * .55, 2.3 + k * .55)); r.style.opacity = a; r.style.transform = `translateX(${(1 - a) * -30}px)`; }); }
+
+  // ---------- end ----------
+  $('end').style.opacity = layerOpacity(t, T.end, false, true);
+  const et = t - T.end[0];
+  camSet($('endCam'), mix(1.0, 1.06, lin(et, 0, 7)), -30 * lin(et, 0, 7), -500);
+  { const i = eout(lin(et, .6, 2.0)); $('endTxt').style.opacity = i; $('endTxt').style.transform = `scale(${mix(.96, 1, i)})`; }
+  $('cta').style.opacity = eout(lin(et, 1.8, 2.8));
+  document.body.style.opacity = 1 - lin(t, 65.2, 66);
+};
+window.render(0);
+</script>
+</body>
+</html>
