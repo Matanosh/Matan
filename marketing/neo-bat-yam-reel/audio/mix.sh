@@ -5,6 +5,7 @@
 #    v4 (numbers) and v8 (apartment list) are cut into phrases so each lands on its number / card.
 #    The title line "ניאו בת ים" is the first phrase of v9 (end-card clip), reused at 7.7 s.
 # 2. Music ducked under the voice (sidechaincompress), mixed, loudness-normalised to -14 LUFS, -1 dBTP.
+#    One-pass loudnorm lands near -13.4 LUFS; GAIN=-0.6 (dB) trims it to -14 (used for the 16:9 film).
 set -e
 SRC=$(realpath "$1"); OUT=$(realpath -m "$2")
 cd "$(dirname "$0")"
@@ -30,6 +31,6 @@ ffmpeg -loglevel error -y -i "$SRC" -i music.mp3 -i voice.wav -filter_complex "
  [1]aresample=48000,aformat=channel_layouts=stereo,atrim=0:72,afade=t=in:st=0:d=0.5,afade=t=out:st=70:d=2,volume=0.55[m];
  [2]aformat=channel_layouts=stereo,asplit=2[vs][vm];
  [m][vs]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=450[duck];
- [duck][vm]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1:LRA=11,aresample=48000[a]" \
+ [duck][vm]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1:LRA=11,aresample=48000,volume=${GAIN:-0}dB[a]" \
  -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -movflags +faststart -t 72 "$OUT"
 echo "wrote $OUT"

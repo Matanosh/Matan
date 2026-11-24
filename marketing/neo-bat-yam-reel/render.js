@@ -3,13 +3,16 @@
 //        node render.js <outdir> stills 3,10.5,47      check stills -> <outdir>/s00_3.png ...
 // Copied from marketing/neo-reel/render.js (same pipeline).
 // Scenes are images only here; window.__videos() returns [] so the video wait is a no-op.
+// FORMAT=16x9 renders the horizontal film (1920x1080, film.html?format=16x9) -> <outdir>/neo-bat-yam-film-16x9.mp4.
 // Uses $HTTPS_PROXY for Google Fonts when set. WORKERS=n sets parallel browser pages (default 4).
 const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs'); const { execFileSync } = require('child_process');
+const WIDE = process.env.FORMAT === '16x9';
+const VIEW = WIDE ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 };
 
 async function openPage(browser) {
-  const p = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-  await p.goto('file://' + path.join(__dirname, 'film.html'), { waitUntil: 'networkidle' });
+  const p = await browser.newPage({ viewport: VIEW, deviceScaleFactor: 1 });
+  await p.goto('file://' + path.join(__dirname, 'film.html') + (WIDE ? '?format=16x9' : ''), { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   const fonts = await p.evaluate(() => [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family));
   if (!fonts.some((f) => /Heebo/.test(f)) || !fonts.some((f) => /Frank/.test(f))) throw new Error('fonts did not load: ' + fonts.join(','));
@@ -42,7 +45,7 @@ async function openPage(browser) {
   await browser.close();
   if (!stills) {
     execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-framerate', String(fps), '-i', path.join(out, 'f%05d.png'),
-      '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '19', '-preset', 'slow', '-profile:v', 'high', '-movflags', '+faststart', path.join(out, 'neo-bat-yam-reel.mp4')]);
+      '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '19', '-preset', 'slow', '-profile:v', 'high', '-movflags', '+faststart', path.join(out, WIDE ? 'neo-bat-yam-film-16x9.mp4' : 'neo-bat-yam-reel.mp4')]);
   }
   console.log('done', jobs.length);
 })().catch((e) => { console.error(e); process.exit(1); });
