@@ -2,225 +2,329 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<title>NEO Bat Yam Reel</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
+<title>NEO SEA Bat Yam Film</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
 <!--
-  NEO Bat Yam, vertical reel 1080x1920, 72 s, Hebrew. Sister of marketing/neo-reel/ (same engine).
-  Also a horizontal 16:9 film (1920x1080) from this same file: film.html?format=16x9. Facts, narration timing
-  and scene lengths are shared (one CONFIG below); only framing and layout differ (WIDE overrides).
+  NEO SEA Bat Yam film, Hebrew. Vertical 1080x1920 (default) or horizontal 1920x1080 (film.html?format=16x9).
+  Both formats share one CONFIG (facts, scene times, narration timing); only framing and layout differ.
   Render: node render.js <outdir>                (frames + silent MP4, 30 fps)
           node render.js <outdir> stills 3,10,18 (check stills)
           FORMAT=16x9 node render.js <outdir> [stills ...]   (horizontal film)
-  Audio:  audio/mix.sh <silent.mp4> <out.mp4>    (narration placed per scene + ducked music, -14 LUFS)
+  Audio:  audio/mix.sh <silent.mp4> <out.mp4>    (narration placed per scene + ducked music, two-pass -14 LUFS)
 
-  Identity: sea, light, height. Sea-blue grounds instead of the Beit Shemesh navy; NEO orange stays the accent.
-  SAFE AREA: no text above y=220 or below y=1540 (bottom 380 px kept clear for the app UI).
-  Numbers and claims: only from docs/wiki/neo-bat-yam.md (owner, 2026-11-24). Invent none. No price.
+  Second cut (2026-11-24), after the owner found the first "not luxurious enough": slower pacing, long dissolves
+  through soft warm light, sea-and-gold palette with the white NEO SEA logo, light serif headlines, tracked Latin
+  kickers, gentle grain, light leaks and sea glints. New chapters: the light rail Red Line (schematic motion
+  graphic), closeness to Tel Aviv, and the developer (trust beat).
+  SAFE AREA (vertical): no text above y=220 or below y=1540 (bottom 380 px kept clear for the app UI).
+  Numbers and claims: only from docs/wiki/neo-bat-yam.md. Invent none. No price, no travel times, no station counts.
   Every render carries "הדמיה" (docs/policies/ai-images-policy.md rule 1); the AI voice is credited on the end card (rule 3).
 -->
 <style>
   :root {
-    --orange: #E8622C;
-    --deep: #041a2b; --sea: #0a3552; --sea-2: #0f4d6e; --foam: #cfe9f2;
-    --ink: #fbf8f1; --sand: #e9dfcc; --mist: rgba(251,248,241,.82);
-    --hair: rgba(251, 248, 241, .18);
+    --deep: #03121d; --navy: #061a29; --sea: #0b2e45; --sea-2: #11405d;
+    --ivory: #f6f1e7; --mist: rgba(246,241,231,.78); --faint: rgba(246,241,231,.55);
+    --hair: rgba(246,241,231,.16);
+    --gold: #cdb07a; --gold-2: #e6d3a8; --gold-dim: rgba(205,176,122,.55);
+    --rail: #c63a43;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
-  body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  body { position: relative; font-family: Heebo, sans-serif; color: var(--ivory); -webkit-font-smoothing: antialiased; }
   .layer { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
   .media { position: absolute; inset: 0; overflow: hidden; }
   .media img.shot { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
-  .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 120% 80% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.45) 100%); }
-  .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(2,16,28,0) 0%, rgba(2,16,28,.55) 18%, rgba(2,16,28,.74) 28%, rgba(2,16,28,.25) 46%, rgba(2,16,28,0) 58%); }
-  .shade-top { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 22%); }
-  .dim { position: absolute; inset: 0; background: #021220; opacity: 0; }
-  /* moving sunlight: a soft warm bloom that drifts across a shot */
+  .grade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,18,29,.10), rgba(3,18,29,0) 30%, rgba(3,18,29,0) 60%, rgba(3,18,29,.18));
+    mix-blend-mode: multiply; }
+  .warm { position: absolute; inset: 0; background: rgba(230,200,150,.07); mix-blend-mode: soft-light; }
+  .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 120% 82% at 50% 46%, rgba(0,0,0,0) 52%, rgba(0,0,0,.5) 100%); }
+  .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(3,18,29,0) 0%, rgba(3,18,29,.5) 18%, rgba(3,18,29,.72) 27%, rgba(3,18,29,.28) 44%, rgba(3,18,29,0) 58%); }
+  .shade-top { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.32) 0%, rgba(0,0,0,0) 20%); }
+  .dim { position: absolute; inset: 0; background: #03121d; opacity: 0; }
   .sun { position: absolute; width: 1500px; height: 1500px; border-radius: 50%; pointer-events: none; mix-blend-mode: screen;
-    background: radial-gradient(circle, rgba(255,236,205,.55) 0%, rgba(255,214,170,.22) 22%, rgba(255,200,150,0) 58%); }
-  .flash { position: absolute; inset: 0; background: #fff8ee; opacity: 0; pointer-events: none; }
+    background: radial-gradient(circle, rgba(255,234,200,.42) 0%, rgba(255,214,170,.16) 24%, rgba(255,200,150,0) 58%); }
+  .sparkles { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; }
+  .sparkles i { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; opacity: 0;
+    background: radial-gradient(circle, rgba(255,250,235,1) 0 2px, rgba(255,240,210,.45) 3px, rgba(255,240,210,0) 9px),
+      linear-gradient(90deg, rgba(255,245,225,0), rgba(255,245,225,.85) 50%, rgba(255,245,225,0)) center / 100% 1px no-repeat,
+      linear-gradient(0deg, rgba(255,245,225,0), rgba(255,245,225,.6) 50%, rgba(255,245,225,0)) center / 1px 60% no-repeat; }
 
-  .hadmaya { position: absolute; left: 72px; top: 240px; padding: 14px 20px 15px; border-radius: 2px;
-    background: rgba(2,16,28,.5); border: 1px solid rgba(251,248,241,.3);
-    font-size: 28px; font-weight: 400; letter-spacing: .02em; color: rgba(251,248,241,.94); }
+  .hadmaya { position: absolute; left: 72px; top: 240px; padding: 9px 16px 10px; border: 1px solid rgba(246,241,231,.34);
+    background: rgba(3,18,29,.32); font-size: 24px; font-weight: 300; letter-spacing: .04em; color: rgba(246,241,231,.9); }
 
-  .cap { position: absolute; right: 140px; left: 72px; bottom: 420px; text-align: right; opacity: 0; }
-  .cap .k { font-size: 36px; font-weight: 500; color: var(--orange); letter-spacing: .03em; margin-bottom: 14px; }
-  .cap .h { font-family: "Frank Ruhl Libre", serif; font-size: 100px; font-weight: 400; line-height: 1.05; letter-spacing: -.01em;
-    text-wrap: balance; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
-  .cap .s { margin-top: 20px; font-size: 44px; font-weight: 300; line-height: 1.35; color: var(--mist); text-wrap: balance; text-shadow: 0 2px 18px rgba(0,0,0,.5); }
-  .cap .bar { width: 0; height: 3px; background: var(--orange); margin: 28px 0 0 auto; }
+  /* captions: tracked Latin kicker, gold hairline, light serif headline */
+  .cap { position: absolute; right: 120px; left: 96px; bottom: 430px; text-align: right; opacity: 0; }
+  .lat { direction: ltr; unicode-bidi: isolate; display: inline-block; font-weight: 300; font-size: 22px; letter-spacing: .42em; color: var(--gold); text-transform: uppercase; }
+  .cap .rule { width: 0; height: 1px; background: var(--gold); margin: 22px 0 26px auto; }
+  .cap .h { font-family: "Frank Ruhl Libre", serif; font-size: 92px; font-weight: 300; line-height: 1.08; letter-spacing: -.005em;
+    text-wrap: balance; text-shadow: 0 4px 34px rgba(0,0,0,.45); }
+  .cap .s { margin-top: 18px; font-size: 38px; font-weight: 300; line-height: 1.4; color: var(--mist); letter-spacing: .01em; text-wrap: balance; text-shadow: 0 2px 18px rgba(0,0,0,.5); }
   .n { direction: ltr; unicode-bidi: isolate; display: inline-block; font-variant-numeric: lining-nums; }
 
   /* title */
-  .title { position: absolute; left: 0; right: 0; top: 520px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
-  /* project logo: the developer's "NEO SEA | BAT YAM" mark, white version for dark grounds (marketing/brand/README.md) */
-  .logo-img { display: block; width: 780px; height: auto; }
-  .by { margin-top: 34px; font-family: "Frank Ruhl Libre", serif; font-size: 110px; font-weight: 300; line-height: 1; letter-spacing: .02em; text-shadow: 0 6px 40px rgba(0,0,0,.45); }
-  .trule { height: 2px; background: var(--orange); width: 0; margin: 40px auto 0; }
+  .title { position: absolute; left: 0; right: 0; top: 600px; display: flex; flex-direction: column; align-items: center; opacity: 0; }
+  .logo-img { display: block; width: 700px; height: auto; }
+  .trule { height: 1px; background: var(--gold); width: 0; margin: 46px auto 0; }
+  .by { margin-top: 34px; font-family: "Frank Ruhl Libre", serif; font-size: 58px; font-weight: 300; line-height: 1; letter-spacing: .04em; color: var(--ivory); }
 
   /* location overlay */
   #locsvg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
-  .chip { position: absolute; padding: 14px 26px 16px; border-radius: 999px; background: rgba(2,16,28,.72); border: 1.5px solid rgba(251,248,241,.35);
-    font-size: 40px; font-weight: 400; white-space: nowrap; opacity: 0; backdrop-filter: blur(4px); }
-  .chip b { color: var(--orange); font-weight: 500; }
+  .chip { position: absolute; padding: 12px 22px 14px; background: rgba(3,18,29,.6); border: 1px solid rgba(205,176,122,.5);
+    font-size: 34px; font-weight: 300; letter-spacing: .02em; white-space: nowrap; opacity: 0; }
+
+  /* light rail chapter: schematic map on navy */
+  #L-rail { background: radial-gradient(ellipse 120% 90% at 55% 55%, #0a2539 0%, #061a29 55%, #03121d 100%); }
+  .rfade { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(3,18,29,.96) 0%, rgba(3,18,29,.9) 25%, rgba(3,18,29,0) 35%, rgba(3,18,29,0) 70%, rgba(3,18,29,.8) 78%, rgba(3,18,29,.94) 100%); }
+  .rhead { position: absolute; left: 0; right: 0; top: 236px; text-align: center; }
+  .rhead .kick { display: inline-flex; align-items: center; gap: 16px; font-size: 30px; font-weight: 300; letter-spacing: .03em; color: var(--mist); }
+  .rhead .kick i { display: block; width: 46px; height: 3px; background: var(--rail); }
+  .rhead .h { margin-top: 18px; font-family: "Frank Ruhl Libre", serif; font-size: 96px; font-weight: 300; line-height: 1.06; }
+  .rhead .h em { font-style: normal; color: var(--gold-2); }
+  .rhead .lat { margin-top: 20px; }
+  #mapHost b { font-weight: 400; color: var(--gold-2); }
+  .icons { position: absolute; left: 90px; right: 90px; top: 1404px; display: flex; flex-direction: row; justify-content: space-between; }
+  .ico { width: 210px; display: flex; flex-direction: column; align-items: center; gap: 16px; opacity: 0; }
+  .ico svg { width: 76px; height: 76px; overflow: visible; }
+  .ico span { font-size: 30px; font-weight: 300; letter-spacing: .02em; color: var(--ivory); white-space: nowrap; }
+  .ico span.lat { font-size: 26px; letter-spacing: .22em; color: var(--ivory); }
+  .note { position: absolute; font-size: 20px; font-weight: 300; letter-spacing: .04em; color: rgba(246,241,231,.42); opacity: 0; white-space: nowrap; }
 
   /* numbers */
-  .stats { position: absolute; left: 90px; right: 90px; top: 420px; }
-  .stat { display: flex; flex-direction: row; align-items: center; gap: 44px; height: 300px; border-top: 1px solid var(--hair); opacity: 0; }
+  .stats { position: absolute; left: 110px; right: 110px; top: 430px; }
+  .stat { display: flex; flex-direction: row; align-items: center; gap: 44px; height: 290px; border-top: 1px solid var(--hair); opacity: 0; }
   .stat:last-child { border-bottom: 1px solid var(--hair); }
-  .stat .v { width: 330px; text-align: center; font-weight: 200; font-size: 250px; line-height: 1; color: var(--ink); direction: ltr; font-variant-numeric: lining-nums tabular-nums; text-shadow: 0 6px 40px rgba(0,0,0,.5); }
-  .stat .l { font-family: "Frank Ruhl Libre", serif; font-size: 84px; font-weight: 400; line-height: 1.05; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
-  .stat .l small { display: block; font-family: Heebo, sans-serif; font-size: 40px; font-weight: 300; color: var(--mist); margin-top: 8px; }
-  .floors { position: absolute; left: 70px; top: 420px; width: 8px; height: 900px; }
-  .floors i { position: absolute; left: 0; width: 8px; height: 26px; background: var(--orange); border-radius: 1px; opacity: 0; }
-  .summary { position: absolute; left: 60px; right: 60px; top: 1360px; text-align: center; font-size: 44px; font-weight: 400; letter-spacing: .02em; color: var(--sand); opacity: 0; }
-  .summary .dot { color: var(--orange); padding: 0 .35em; }
+  .stat .v { width: 320px; text-align: center; font-weight: 200; font-size: 230px; line-height: 1; color: var(--ivory); direction: ltr; font-variant-numeric: lining-nums tabular-nums; text-shadow: 0 6px 40px rgba(0,0,0,.45); }
+  .stat .l { font-family: "Frank Ruhl Libre", serif; font-size: 78px; font-weight: 300; line-height: 1.05; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
+  .stat .l small { display: block; font-family: Heebo, sans-serif; font-size: 36px; font-weight: 300; color: var(--mist); margin-top: 8px; }
+  .floors { position: absolute; left: 76px; top: 430px; width: 4px; height: 870px; }
+  .floors i { position: absolute; left: 0; width: 4px; height: 22px; background: var(--gold); opacity: 0; }
+  .summary { position: absolute; left: 60px; right: 60px; top: 1360px; text-align: center; font-size: 36px; font-weight: 300; letter-spacing: .03em; color: var(--gold-2); opacity: 0; }
+  .summary .dot { color: var(--gold); padding: 0 .5em; }
 
   /* apartment types */
-  #types { background: radial-gradient(ellipse 110% 70% at 50% 40%, var(--sea-2) 0%, var(--sea) 40%, var(--deep) 100%); }
-  .glint { position: absolute; left: -200px; right: -200px; height: 2px; background: linear-gradient(90deg, transparent, rgba(207,233,242,.45), transparent); }
+  #types { background: radial-gradient(ellipse 110% 72% at 50% 40%, var(--sea-2) 0%, var(--sea) 38%, var(--navy) 72%, var(--deep) 100%); }
+  .glint { position: absolute; left: -200px; right: -200px; height: 1px; background: linear-gradient(90deg, transparent, rgba(230,211,168,.45), transparent); }
   .thead { position: absolute; left: 0; right: 0; top: 250px; text-align: center; }
-  .thead .t { font-size: 36px; font-weight: 400; letter-spacing: .08em; color: var(--foam); }
-  .segs { display: flex; flex-direction: row; gap: 12px; justify-content: center; margin-top: 20px; }
-  .segs i { display: block; width: 92px; height: 4px; background: rgba(251,248,241,.16); position: relative; overflow: hidden; }
-  .segs i b { position: absolute; top: 0; bottom: 0; right: 0; width: 0; background: var(--orange); }
+  .thead .t { font-size: 32px; font-weight: 300; letter-spacing: .04em; color: var(--mist); }
+  .segs { display: flex; flex-direction: row; gap: 12px; justify-content: center; margin-top: 22px; }
+  .segs i { display: block; width: 92px; height: 2px; background: rgba(246,241,231,.14); position: relative; overflow: hidden; }
+  .segs i b { position: absolute; top: 0; bottom: 0; right: 0; width: 0; background: var(--gold); }
   .card { position: absolute; inset: 0; opacity: 0; }
-  .card .k { position: absolute; left: 0; right: 0; top: 356px; text-align: center; font-size: 34px; font-weight: 500; color: var(--orange); letter-spacing: .08em; }
-  .card .h { position: absolute; left: 0; right: 0; top: 402px; text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 120px; font-weight: 300; line-height: 1.05; }
-  .card .h b { font-weight: 500; }
+  .card .k { position: absolute; left: 0; right: 0; top: 362px; text-align: center; font-size: 26px; font-weight: 300; color: var(--gold); letter-spacing: .3em; }
+  .card .h { position: absolute; left: 0; right: 0; top: 410px; text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 112px; font-weight: 300; line-height: 1.05; }
+  .card .h b { font-weight: 400; }
   .card .num { position: absolute; left: 0; right: 0; text-align: center; }
   .card .num .v { display: inline-block; font-weight: 200; line-height: 1; direction: ltr; font-variant-numeric: lining-nums; white-space: nowrap; }
-  .card .num .u { display: block; margin-top: 8px; font-size: 44px; font-weight: 300; color: var(--mist); }
-  .card .word { position: absolute; left: 0; right: 0; text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 96px; font-weight: 300; line-height: 1.15; color: var(--sand); }
-  .rows { position: absolute; left: 170px; right: 170px; }
+  .card .num .u { display: block; margin-top: 8px; font-size: 40px; font-weight: 300; color: var(--mist); }
+  .card .word { position: absolute; left: 0; right: 0; text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 88px; font-weight: 300; line-height: 1.2; color: var(--gold-2); }
+  .rows { position: absolute; left: 190px; right: 190px; }
   .row { display: flex; justify-content: space-between; align-items: baseline; padding: 22px 16px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
-  .row span { font-size: 44px; font-weight: 300; color: var(--mist); }
-  .row b { font-size: 54px; font-weight: 500; color: var(--ink); }
+  .row span { font-size: 40px; font-weight: 300; color: var(--mist); }
+  .row b { font-size: 50px; font-weight: 300; color: var(--ivory); }
   #box { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
 
-  /* end card */
-  .endtxt { position: absolute; left: 0; right: 0; top: 390px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .cta { margin-top: 70px; font-family: "Frank Ruhl Libre", serif; font-size: 78px; font-weight: 400; line-height: 1.15; }
-  .cta-rule { height: 3px; background: var(--orange); width: 0; margin: 34px auto 0; }
-  .phone { margin-top: 50px; font-size: 96px; font-weight: 500; font-variant-numeric: lining-nums; color: var(--ink); direction: ltr; letter-spacing: .02em; }
-  .legal { position: absolute; left: 90px; right: 90px; top: 1290px; text-align: center; font-size: 28px; line-height: 1.4; color: rgba(251,248,241,.7); opacity: 0; }
-  /* credits: marketer (MS Group, secondary to the project logo) and the AI-voice note; kept above y=1540 */
-  .credits { position: absolute; left: 0; right: 0; top: 1392px; display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: 0; }
-  .credits .mkt { display: flex; align-items: center; gap: 20px; direction: rtl; }
-  .credits .mkt span { font-size: 28px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.72); }
-  .credits .mkt img { display: block; width: 170px; height: auto; opacity: .92; }
-  .credits .ai { font-size: 24px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.6); }
+  /* developer chapter (trust beat) */
+  #L-dev { background: radial-gradient(ellipse 120% 80% at 50% 42%, #0c2b40 0%, #061a29 52%, #03121d 100%); }
+  #L-dev .media img.shot { filter: blur(16px) brightness(.36) saturate(.85); }
+  #L-dev .veil { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 70% at 50% 45%, rgba(6,26,41,.35), rgba(3,18,29,.88)); }
+  .dev { position: absolute; left: 0; right: 0; top: 540px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .dev > * { opacity: 0; }
+  .dev .k { font-size: 34px; font-weight: 300; letter-spacing: .04em; color: var(--gold); }
+  .dev .lat { margin-top: 14px; }
+  .dev .name { margin-top: 40px; font-family: "Frank Ruhl Libre", serif; font-size: 72px; font-weight: 400; line-height: 1.15; max-width: 900px; text-wrap: balance; }
+  .dev .lead { margin-top: 30px; font-size: 38px; font-weight: 300; line-height: 1.4; color: var(--mist); max-width: 860px; text-wrap: balance; }
+  .dev .rule { width: 0; height: 1px; background: var(--gold); margin-top: 80px; opacity: 1; }
+  .dev .exp { margin-top: 80px; font-size: 34px; font-weight: 300; color: var(--mist); letter-spacing: .04em; }
+  .dev .big { margin-top: 6px; font-family: "Frank Ruhl Libre", serif; font-size: 150px; font-weight: 300; line-height: 1.12; white-space: nowrap;
+    color: var(--gold-2); }
+  .dev .unit { margin-top: 0; font-family: "Frank Ruhl Libre", serif; font-size: 84px; font-weight: 300; line-height: 1.1; }
+  .dev .bank { margin-top: 110px; display: flex; flex-direction: row; align-items: center; gap: 22px; padding-top: 34px; border-top: 1px solid var(--hair); }
+  .dev .bank span { font-size: 32px; font-weight: 300; color: var(--mist); letter-spacing: .04em; }
+  .dev .bank b { font-family: "Frank Ruhl Libre", serif; font-size: 54px; font-weight: 400; }
 
+  /* end card */
+  .endtxt { position: absolute; left: 0; right: 0; top: 420px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .cta { margin-top: 84px; font-family: "Frank Ruhl Libre", serif; font-size: 72px; font-weight: 300; line-height: 1.2; }
+  .cta-rule { height: 1px; background: var(--gold); width: 0; margin: 40px auto 0; }
+  .phone { margin-top: 48px; font-size: 80px; font-weight: 200; font-variant-numeric: lining-nums; color: var(--ivory); direction: ltr; letter-spacing: .08em; }
+  .legal { position: absolute; left: 110px; right: 110px; top: 1290px; text-align: center; font-size: 24px; font-weight: 300; line-height: 1.45; color: rgba(246,241,231,.62); opacity: 0; }
+  .credits { position: absolute; left: 0; right: 0; top: 1392px; display: flex; flex-direction: column; align-items: center; gap: 16px; opacity: 0; }
+  .credits .mkt { display: flex; align-items: center; gap: 20px; direction: rtl; }
+  .credits .mkt span { font-size: 26px; font-weight: 300; letter-spacing: .03em; color: rgba(246,241,231,.66); }
+  .credits .mkt img { display: block; width: 160px; height: auto; opacity: .9; }
+  .credits .ai { font-size: 22px; font-weight: 300; letter-spacing: .03em; color: rgba(246,241,231,.56); }
+
+  /* finishing: light leaks, grain, fade to black */
+  .leak { position: absolute; inset: -20%; pointer-events: none; mix-blend-mode: screen; opacity: 0;
+    background: radial-gradient(ellipse 38% 30% at 82% 18%, rgba(255,196,128,.55), rgba(255,170,110,0) 70%),
+                radial-gradient(ellipse 30% 46% at 8% 72%, rgba(255,222,170,.35), rgba(255,210,160,0) 70%); }
+  #grain { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; opacity: .06; }
+  #grain canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
   .black { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
   .wide-only { display: none; }
+  .slot { display: none !important; }
 
   /* ================= 16:9 (1920x1080): body.wide ================= */
   body.wide .wide-only { display: block; }
   body.wide .tall-only { display: none; }
-  body.wide .shade { background: linear-gradient(to top, rgba(2,16,28,.62) 0%, rgba(2,16,28,.38) 26%, rgba(2,16,28,0) 52%),
-    linear-gradient(to left, rgba(2,16,28,.45) 0%, rgba(2,16,28,0) 48%); }
-  body.wide .shade-top { background: linear-gradient(to bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 18%); }
-  body.wide .vignette { background: radial-gradient(ellipse 90% 110% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.42) 100%); }
+  body.wide .shade { background: linear-gradient(to top, rgba(3,18,29,.7) 0%, rgba(3,18,29,.42) 28%, rgba(3,18,29,0) 54%),
+    linear-gradient(to left, rgba(3,18,29,.5) 0%, rgba(3,18,29,0) 48%); }
+  body.wide .shade-top { background: linear-gradient(to bottom, rgba(0,0,0,.28) 0%, rgba(0,0,0,0) 18%); }
+  body.wide .vignette { background: radial-gradient(ellipse 92% 115% at 50% 46%, rgba(0,0,0,0) 54%, rgba(0,0,0,.46) 100%); }
   body.wide .sun { width: 1100px; height: 1100px; }
-  body.wide .hadmaya { left: 64px; top: 56px; padding: 10px 16px 11px; font-size: 24px; }
-  body.wide .cap { right: 120px; left: auto; bottom: 108px; width: 860px; }
-  body.wide .cap .k { font-size: 30px; margin-bottom: 10px; }
-  body.wide .cap .h { font-size: 88px; }
-  body.wide .cap .s { margin-top: 14px; font-size: 38px; }
-  body.wide .cap .bar { margin-top: 22px; }
-  body.wide .title { top: 250px; }
-  body.wide .logo-img { width: 600px; }
-  body.wide .by { margin-top: 26px; font-size: 92px; }
-  body.wide .trule { margin-top: 32px; }
-  body.wide .chip { font-size: 32px; padding: 11px 22px 13px; }
-  /* numbers laid out across the width: three columns, floor ticks rising beside the 25 */
-  body.wide .stats { left: 150px; right: 150px; top: 250px; display: flex; flex-direction: row; }
-  body.wide .stat { flex: 1; flex-direction: column; justify-content: flex-start; gap: 22px; height: 470px; border: 0; border-inline-start: 1px solid var(--hair); position: relative; }
+  body.wide .hadmaya { left: 64px; top: 56px; padding: 7px 13px 8px; font-size: 20px; }
+  body.wide .cap { right: 130px; left: auto; bottom: 120px; width: 900px; }
+  body.wide .lat { font-size: 17px; }
+  body.wide .cap .rule { margin: 18px 0 20px auto; }
+  body.wide .cap .h { font-size: 76px; }
+  body.wide .cap .s { margin-top: 14px; font-size: 31px; }
+  body.wide .title { top: 300px; }
+  body.wide .logo-img { width: 560px; }
+  body.wide .trule { margin-top: 36px; }
+  body.wide .by { margin-top: 26px; font-size: 46px; }
+  body.wide .chip { font-size: 28px; padding: 10px 18px 12px; }
+  body.wide .rhead { left: auto; right: 120px; width: 660px; top: 150px; text-align: right; }
+  body.wide .rhead .kick { font-size: 26px; }
+  body.wide .rhead .h { font-size: 84px; }
+  body.wide .rfade { background: linear-gradient(to left, rgba(3,18,29,.94) 0%, rgba(3,18,29,.8) 30%, rgba(3,18,29,0) 44%); }
+  body.wide .icons { left: auto; right: 120px; width: 660px; top: 640px; flex-wrap: wrap; row-gap: 46px; justify-content: flex-start; }
+  body.wide .ico { width: 330px; flex-direction: row; gap: 22px; }
+  body.wide .ico svg { width: 56px; height: 56px; }
+  body.wide .ico span { font-size: 28px; }
+  body.wide .ico span.lat { font-size: 22px; }
+  body.wide .stats { left: 170px; right: 170px; top: 260px; display: flex; flex-direction: row; }
+  body.wide .stat { flex: 1; flex-direction: column; justify-content: flex-start; gap: 22px; height: 460px; border: 0; border-inline-start: 1px solid var(--hair); position: relative; }
   body.wide .stat:last-child { border-bottom: 0; border-inline-end: 1px solid var(--hair); }
-  body.wide .stat .v { width: auto; font-size: 230px; margin-top: 40px; }
-  body.wide .stat .l { font-size: 70px; text-align: center; }
-  body.wide .stat .l small { font-size: 34px; }
-  body.wide .floors { left: auto; top: 0; width: 30px; height: 470px; }
-  body.wide .floors i { width: 24px; height: 8px; }
+  body.wide .stat .v { width: auto; font-size: 210px; margin-top: 40px; }
+  body.wide .stat .l { font-size: 62px; text-align: center; }
+  body.wide .stat .l small { font-size: 30px; }
+  body.wide .floors { left: auto; top: 0; width: 22px; height: 460px; }
+  body.wide .floors i { width: 18px; height: 3px; }
   body.wide #dimNum { opacity: .64 !important; }
-  body.wide .summary { top: 860px; font-size: 38px; }
-  /* apartment types: card panel on the right (start side), visual on the left */
+  body.wide .summary { top: 850px; font-size: 32px; }
   body.wide #types { background: #f4f1ec; }
   body.wide .tpanel { position: absolute; right: 0; top: 0; bottom: 0; width: 760px; overflow: hidden;
-    background: radial-gradient(ellipse 120% 80% at 60% 40%, var(--sea-2) 0%, var(--sea) 45%, var(--deep) 100%); }
-  body.wide .thead { left: auto; right: 0; width: 760px; top: 96px; }
-  body.wide .thead .t { font-size: 30px; }
+    background: radial-gradient(ellipse 120% 80% at 60% 40%, var(--sea-2) 0%, var(--sea) 42%, var(--navy) 76%, var(--deep) 100%); }
+  body.wide .thead { left: auto; right: 0; width: 760px; top: 100px; }
+  body.wide .thead .t { font-size: 26px; }
   body.wide .segs i { width: 74px; }
   body.wide .card { left: auto; width: 760px; }
-  body.wide .card .k { top: 190px; font-size: 28px; }
-  body.wide .card .h { top: 228px; font-size: 92px; }
-  body.wide .card .num .u { font-size: 34px; margin-top: 4px; }
-  body.wide .card .word { font-size: 72px; }
-  body.wide .rows { left: 150px; right: 150px; }
+  body.wide .card .k { top: 194px; font-size: 22px; }
+  body.wide .card .h { top: 232px; font-size: 86px; }
+  body.wide .card .num .u { font-size: 30px; margin-top: 4px; }
+  body.wide .card .word { font-size: 64px; }
+  body.wide .rows { left: 160px; right: 160px; }
   body.wide .row { padding: 14px 12px; }
-  body.wide .row span { font-size: 34px; }
-  body.wide .row b { font-size: 42px; }
+  body.wide .row span { font-size: 30px; }
+  body.wide .row b { font-size: 38px; }
   .tvis { position: absolute; left: 0; top: 0; width: 1160px; height: 1080px; overflow: hidden; isolation: isolate; }
   .tv { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
   .tv.paper { background: #f4f1ec; }
-  .tv .plan { position: absolute; left: 70px; right: 70px; top: 120px; bottom: 170px; display: flex; align-items: center; justify-content: center; }
+  .tv .plan { position: absolute; left: 80px; right: 80px; top: 130px; bottom: 180px; display: flex; align-items: center; justify-content: center; }
   .tv .plan img { display: block; max-width: 100%; max-height: 100%; mix-blend-mode: multiply; }
-  .tv .scan { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--orange); opacity: 0; }
-  .tv .plabel { position: absolute; left: 70px; right: 70px; bottom: 74px; display: flex; justify-content: space-between; align-items: baseline;
-    border-top: 1px solid rgba(4,26,43,.18); padding-top: 18px; color: #0a3552; }
-  .tv .plabel b { font-size: 34px; font-weight: 500; }
-  .tv .plabel span { font-size: 24px; font-weight: 300; color: rgba(10,53,82,.7); }
+  .tv .scan { position: absolute; top: 0; bottom: 0; width: 1px; background: #a8894f; opacity: 0; }
+  .tv .plabel { position: absolute; left: 80px; right: 80px; bottom: 80px; display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid rgba(4,26,43,.16); padding-top: 18px; color: #0b2e45; }
+  .tv .plabel b { font-size: 30px; font-weight: 400; letter-spacing: .02em; }
+  .tv .plabel span { font-size: 22px; font-weight: 300; color: rgba(11,46,69,.66); }
   .tv img.shot { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
-  /* end card */
-  body.wide .endtxt { top: 112px; }
-  body.wide .endtxt .logo-img { width: 440px !important; }
-  body.wide .cta { margin-top: 44px; font-size: 70px; }
-  body.wide .cta-rule { margin-top: 26px; }
-  body.wide .phone { margin-top: 30px; font-size: 84px; }
-  body.wide .legal { left: 160px; right: 160px; top: 842px; font-size: 24px; }
-  body.wide .credits { top: 906px; flex-direction: row; justify-content: center; gap: 44px; }
-  body.wide .credits .mkt img { width: 150px; }
-  body.wide .credits .sep { display: block; width: 1px; height: 40px; background: var(--hair); }
+  body.wide .dev { top: 210px; }
+  body.wide .dev .k { font-size: 28px; }
+  body.wide .dev .name { margin-top: 30px; font-size: 60px; max-width: 1400px; }
+  body.wide .dev .lead { margin-top: 18px; font-size: 32px; max-width: 1200px; }
+  body.wide .dev .rule { margin-top: 34px; }
+  body.wide .dev .exp { margin-top: 30px; font-size: 28px; }
+  body.wide .dev .big { font-size: 124px; }
+  body.wide .dev .unit { font-size: 64px; }
+  body.wide .dev .bank { margin-top: 40px; padding-top: 24px; }
+  body.wide .dev .bank span { font-size: 26px; }
+  body.wide .dev .bank b { font-size: 44px; }
+  body.wide .endtxt { top: 130px; }
+  body.wide .endtxt .logo-img { width: 420px !important; }
+  body.wide .cta { margin-top: 52px; font-size: 62px; }
+  body.wide .cta-rule { margin-top: 30px; }
+  body.wide .phone { margin-top: 34px; font-size: 70px; }
+  body.wide .legal { left: 160px; right: 160px; top: 852px; font-size: 21px; }
+  body.wide .credits { top: 910px; flex-direction: row; justify-content: center; gap: 44px; }
+  body.wide .credits .mkt img { width: 140px; }
+  body.wide .credits .sep { display: block; width: 1px; height: 36px; background: var(--hair); }
 </style>
 </head>
 <body>
 
-<!-- 0–11.5 aerial: sky -> sea -> the two towers; the title lands over the same shot -->
+<!-- 0–13 aerial: sky -> sea -> the two towers; the title lands over the same shot -->
 <div class="layer" id="L-open">
   <div class="media" data-scene="open"></div>
+  <div class="sparkles" id="sp-open"></div>
+  <div class="grade"></div><div class="warm"></div>
   <div class="sun" id="sun1"></div>
   <div class="vignette"></div><div class="shade-top"></div>
   <div class="dim" id="dim1"></div>
   <div class="title" id="title">
     <img class="logo-img" id="neo" src="../brand/neo-bat-yam/neo-sea-bat-yam-white.png" alt="NEO SEA | BAT YAM">
-    <div class="by" id="by">בת ים</div>
     <div class="trule" id="trule"></div>
+    <div class="by" id="by">בת ים</div>
   </div>
   <div class="hadmaya">הדמיה</div>
-  <div class="flash" id="flash"></div>
 </div>
 
-<!-- 11.5–19 location -->
+<!-- 13–21.5 location: two minutes from the sea -->
 <div class="layer" id="L-loc">
   <div class="media" data-scene="loc"></div>
+  <div class="sparkles" id="sp-loc"></div>
+  <div class="grade"></div><div class="warm"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
   <svg id="locsvg" viewBox="0 0 1080 1920">
-    <path id="locpath" fill="none" stroke="#fbf8f1" stroke-width="5" stroke-linecap="round" />
-    <circle id="ring1" fill="none" stroke="#E8622C" stroke-width="4"/>
-    <circle id="ring2" fill="none" stroke="#E8622C" stroke-width="3"/>
-    <circle id="pin" fill="#E8622C" r="0"/>
-    <circle id="seadot" fill="#cfe9f2" r="0"/>
+    <path id="locpath" fill="none" stroke="#f6f1e7" stroke-width="3" stroke-linecap="round" />
+    <circle id="ring1" fill="none" stroke="#cdb07a" stroke-width="2"/>
+    <circle id="ring2" fill="none" stroke="#cdb07a" stroke-width="1.5"/>
+    <circle id="pin" fill="#cdb07a" r="0"/>
+    <circle id="seadot" fill="#f6f1e7" r="0"/>
   </svg>
-  <div class="chip" id="chipSea"><b class="n">2</b> דקות הליכה מהים</div>
-  <div class="cap" id="cap-loc"><div class="k">המיקום</div><div class="h">צפון־מערב בת ים</div><div class="s"><span class="n">2</span> דקות הליכה מהים</div><div class="bar"></div></div>
+  <div class="chip" id="chipSea"><span class="n">2</span> דקות הליכה מהים</div>
+  <div class="cap" id="cap-loc"><div class="lat">Location</div><div class="rule"></div><div class="h">צפון־מערב בת ים</div><div class="s"><span class="n">2</span> דקות הליכה מהים</div></div>
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 19–27 height: the towers, numbers -->
+<!-- 21.5–37 light rail, Red Line (docs/wiki/neo-bat-yam.md, owner 2026-11-24): schematic, not to scale -->
+<div class="layer" id="L-rail">
+  <div id="mapHost" style="position:absolute;inset:0"></div>
+  <div class="rfade"></div>
+  <div class="rhead" id="rhead">
+    <div class="kick" id="rkick"><i></i>הקו האדום</div>
+    <div class="h" id="rh">הרכבת הקלה<br><em>כבר פועלת</em></div>
+    <div class="lat" id="rlat">Light Rail · Red Line</div>
+  </div>
+  <div class="icons" id="icons">
+    <div class="ico"><svg viewBox="0 0 64 64" fill="none" stroke="#f6f1e7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 38h44v-8l-6-10H18l-6 10z"/><path d="M14 30h36"/><circle cx="20" cy="42" r="4"/><circle cx="44" cy="42" r="4"/>
+      <path d="M8 54L56 10" stroke="#cdb07a" stroke-width="1.8"/></svg><span>בלי פקקים</span></div>
+    <div class="ico"><svg viewBox="0 0 64 64" fill="none" stroke="#f6f1e7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 10c-3 0-5 2-5 5l3 22h18"/><path d="M20 37c0 4 3 6 7 6h17c3 0 5-2 5-5v-1H20"/><path d="M27 43v11M42 43v11"/><path d="M38 37V27c0-2 2-3 4-3h6" stroke="#cdb07a" stroke-width="1.8"/></svg><span>בנוחות</span></div>
+    <div class="ico"><svg viewBox="0 0 64 64" fill="none" stroke="#f6f1e7" stroke-width="1.6" stroke-linecap="round">
+      <path d="M8 26c13-12 35-12 48 0"/><path d="M16 34c9-8 23-8 32 0"/><path d="M24 42c5-4 11-4 16 0" stroke="#cdb07a" stroke-width="1.8"/><circle cx="32" cy="50" r="2.4" fill="#f6f1e7" stroke="none"/></svg><span class="lat">Wi‑Fi</span></div>
+    <div class="ico"><svg viewBox="0 0 64 64" fill="none" stroke="#f6f1e7" stroke-width="1.6" stroke-linecap="round">
+      <path d="M32 8v48M11 20l42 24M11 44l42-24"/><path d="M26 11l6 5 6-5M26 53l6-5 6 5" stroke="#cdb07a" stroke-width="1.8"/>
+      <path d="M9 27l8-2-2-8M55 37l-8 2 2 8M9 37l8 2-2 8M55 27l-8-2 2-8"/></svg><span>מיזוג אוויר</span></div>
+  </div>
+</div>
+
+<!-- 37–44 Tel Aviv: from the skyline back to the towers -->
+<div class="layer" id="L-ta">
+  <div class="media" data-scene="ta"></div>
+  <div class="sparkles" id="sp-ta"></div>
+  <div class="grade"></div><div class="warm"></div>
+  <div class="sun" id="sun4"></div>
+  <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
+  <div class="cap" id="cap-ta"><div class="lat">Tel Aviv</div><div class="rule"></div><div class="h">תל אביב,<br>קרובה מתמיד</div></div>
+  <div class="hadmaya">הדמיה</div>
+</div>
+
+<!-- 44–53 height: the towers, numbers -->
 <div class="layer" id="L-num">
   <div class="media" data-scene="num"></div>
-  <div class="dim" id="dimNum" style="opacity:.55"></div>
+  <div class="dim" id="dimNum" style="opacity:.58"></div>
   <div class="vignette"></div>
   <div class="floors" id="floors"></div>
   <div class="stats">
@@ -232,48 +336,79 @@
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 27–34 living room facing the sea -->
+<!-- 53–61 living room facing the sea -->
 <div class="layer" id="L-sea">
   <div class="media" data-scene="sea"></div>
+  <div class="grade"></div><div class="warm"></div>
   <div class="sun" id="sun2"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
-  <div class="cap" id="cap-sea"><div class="k">מפרט פרימיום</div><div class="h">אור, ים ומרחב</div><div class="s">סלון פתוח אל המרפסת</div><div class="bar"></div></div>
+  <div class="cap" id="cap-sea"><div class="lat">Premium Specification</div><div class="rule"></div><div class="h">אור, ים ומרחב</div><div class="s">סלון פתוח אל המרפסת</div></div>
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 34–40 living room facing Tel Aviv -->
+<!-- 61–67.5 living room facing Tel Aviv -->
 <div class="layer" id="L-city">
   <div class="media" data-scene="city"></div>
+  <div class="grade"></div><div class="warm"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
-  <div class="cap" id="cap-city"><div class="k">הנוף</div><div class="h">קו הרקיע של תל אביב</div><div class="bar"></div></div>
+  <div class="cap" id="cap-city"><div class="lat">The View</div><div class="rule"></div><div class="h">קו הרקיע של תל אביב</div></div>
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 40–47 penthouse -->
+<!-- 67.5–75.5 penthouse -->
 <div class="layer" id="L-ph">
   <div class="media" data-scene="ph"></div>
+  <div class="grade"></div><div class="warm"></div>
   <div class="sun" id="sun3"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
-  <div class="cap" id="cap-ph"><div class="k">הפנטהאוזים</div><div class="h">מעל הכול</div><div class="s">מרפסת פתוחה לאופק</div><div class="bar"></div></div>
+  <div class="cap" id="cap-ph"><div class="lat">Penthouses</div><div class="rule"></div><div class="h">מעל הכול</div><div class="s">מרפסת פתוחה לאופק</div></div>
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 47–62.8 apartment types (docs/wiki/neo-bat-yam.md) -->
+<!-- ======== SLOT (hidden, not filled): "nothing will block our view" ========
+     Owner's claim, no source yet (docs/wiki/neo-bat-yam.md, 2026-11-24). Do not fill until a source
+     (e.g. the zoning plan of the lots in front) is in the wiki. Its place: here, after the penthouse.
+     To enable: SLOTS.view in CONFIG, a narration clip, and shift the later scene times and audio/mix.sh. -->
+<div class="layer slot" id="L-slot-view"></div>
+
+<!-- 75.5–94 apartment types (docs/wiki/neo-bat-yam.md) -->
 <div class="layer" id="types">
   <div class="tpanel wide-only"><div id="glintsW"></div></div>
   <div class="tvis wide-only" id="tvis"></div>
   <div id="glints" class="tall-only"></div>
   <div class="thead" id="thead"><div class="t">סוגי הדירות</div><div class="segs" id="segs"></div></div>
-  <svg id="box" viewBox="0 0 1080 1920"><rect id="boxr" fill="none" stroke="#E8622C" stroke-width="3" pathLength="1"/></svg>
+  <svg id="box" viewBox="0 0 1080 1920"><rect id="boxr" fill="none" stroke="#cdb07a" stroke-width="1.5" pathLength="1"/></svg>
   <div id="cards"></div>
 </div>
 
-<!-- 62.8–72 end card -->
+<!-- ======== SLOT (hidden, not filled): "our prices compared with competitors" ========
+     The owner has not given figures yet (docs/wiki/neo-bat-yam.md, 2026-11-24). Numbers only from the developer
+     or a saved public source (docs/policies/ai-images-policy.md rule 4). Its place: here, after the apartment types.
+     To enable: SLOTS.prices in CONFIG, a narration clip, and shift the later scene times and audio/mix.sh. -->
+<div class="layer slot" id="L-slot-prices"></div>
+
+<!-- 94–106 the developer and the bank (trust beat; docs/wiki/neo-bat-yam.md, owner 2026-11-24) -->
+<div class="layer" id="L-dev">
+  <div class="media" data-scene="dev"></div>
+  <div class="veil"></div>
+  <div class="dev" id="dev">
+    <div class="k" id="dk">היזם</div>
+    <div class="name" id="dname"></div>
+    <div class="lead" id="dlead">מהחברות המובילות בישראל</div>
+    <div class="rule" id="drule"></div>
+    <div class="exp" id="dexp">ניסיון של</div>
+    <div class="big" id="dbig">עשרות אלפי</div>
+    <div class="unit" id="dunit">יחידות דיור</div>
+    <div class="bank" id="dbank"><span>בנק מלווה:</span><b>בנק מזרחי</b></div>
+  </div>
+</div>
+
+<!-- 106–114 end card -->
 <div class="layer" id="L-end">
-  <div class="media" data-scene="end" style="filter: blur(9px) brightness(.32) saturate(1.05)"></div>
+  <div class="media" data-scene="end" style="filter: blur(10px) brightness(.3) saturate(.95)"></div>
   <div class="vignette"></div>
   <div class="endtxt" id="endTxt">
-    <img class="logo-img" style="width:600px" src="../brand/neo-bat-yam/neo-sea-bat-yam-white.png" alt="NEO SEA | BAT YAM">
+    <img class="logo-img" style="width:560px" src="../brand/neo-bat-yam/neo-sea-bat-yam-white.png" alt="NEO SEA | BAT YAM">
     <div class="cta" id="cta">תאמו פגישה<br>במשרד המכירות</div>
     <div class="cta-rule" id="ctaRule"></div>
     <div class="phone" id="phone">054-522-0030</div>
@@ -288,62 +423,93 @@
   <div class="hadmaya">הדמיה</div>
 </div>
 
+<div class="leak" id="leak"></div>
+<div id="grain"></div>
 <div class="black" id="black"></div>
 
+<script src="map.js"></script>
+<script src="video/frames/index.js" onerror="window.VIDEO_FRAMES = {}"></script>
 <script>
-// Format: vertical 1080x1920 (default) or horizontal 1920x1080 (film.html?format=16x9).
 const WIDE = new URLSearchParams(location.search).get('format') === '16x9';
 const W = WIDE ? 1920 : 1080, H = WIDE ? 1080 : 1920;
 if (WIDE) { document.body.classList.add('wide'); document.documentElement.style.width = document.body.style.width = W + 'px';
   document.documentElement.style.height = document.body.style.height = H + 'px'; }
 // ======================= CONFIG =======================
-// Timing (start/end, CARDS[].t) is shared by both formats and matches audio/mix.sh.
+// Timing is shared by both formats and matches audio/mix.sh.
 // cam: from/to = { s: zoom over cover-fit, fx, fy: focus point as a fraction of the image }; camW: the same for 16:9.
 const SCENES = {
-  open: { src: 'img/aerial-sea.jpg',      start: 0,    end: 11.5,
-          cam:  { from: { s: 1.75, fx: .50, fy: .14 }, to: { s: 1.22, fx: .49, fy: .60 } },
-          camW: { from: { s: 1.28, fx: .50, fy: .08 }, to: { s: 1.00, fx: .50, fy: .64 } } },
-  loc:  { src: 'img/aerial-telaviv.jpg',  start: 11.5, end: 19,
-          cam:  { from: { s: 1.00, fx: .425, fy: .45 }, to: { s: 1.10, fx: .45, fy: .50 } },
-          camW: { from: { s: 1.00, fx: .50, fy: .42 }, to: { s: 1.07, fx: .46, fy: .48 } } },
-  num:  { src: 'img/aerial-sea.jpg',      start: 19,   end: 27,
-          cam:  { from: { s: 1.75, fx: .485, fy: .80 }, to: { s: 1.75, fx: .485, fy: .52 } },
-          camW: { from: { s: 1.18, fx: .49, fy: .80 }, to: { s: 1.18, fx: .49, fy: .50 } } },
-  sea:  { src: 'img/living-sea.jpg',      start: 27,   end: 34,
-          cam:  { from: { s: 1.00, fx: .62, fy: .55 }, to: { s: 1.12, fx: .33, fy: .52 } },
-          camW: { from: { s: 1.00, fx: .62, fy: .55 }, to: { s: 1.12, fx: .38, fy: .52 } } },
-  city: { src: 'img/living-city.jpg',     start: 34,   end: 40,
-          cam:  { from: { s: 1.08, fx: .40, fy: .55 }, to: { s: 1.00, fx: .15, fy: .55 } },
-          camW: { from: { s: 1.12, fx: .58, fy: .55 }, to: { s: 1.02, fx: .40, fy: .52 } } },
-  ph:   { src: 'img/penthouse-living.jpg', start: 40,  end: 47,
-          cam:  { from: { s: 1.02, fx: .55, fy: .55 }, to: { s: 1.16, fx: .16, fy: .52 } },
-          camW: { from: { s: 1.02, fx: .55, fy: .55 }, to: { s: 1.14, fx: .30, fy: .52 } } },
-  end:  { src: 'img/aerial-sea.jpg',      start: 62.8, end: 72,
-          cam:  { from: { s: 1.10, fx: .49, fy: .55 }, to: { s: 1.18, fx: .49, fy: .52 } },
-          camW: { from: { s: 1.00, fx: .50, fy: .58 }, to: { s: 1.06, fx: .50, fy: .55 } } },
+  open: { src: 'img/aerial-sea.jpg',      start: 0,    end: 13,
+          cam:  { from: { s: 1.70, fx: .50, fy: .16 }, to: { s: 1.24, fx: .49, fy: .60 } },
+          camW: { from: { s: 1.26, fx: .50, fy: .10 }, to: { s: 1.02, fx: .50, fy: .64 } } },
+  loc:  { src: 'img/aerial-telaviv.jpg',  start: 13,   end: 21.5,
+          cam:  { from: { s: 1.00, fx: .43, fy: .46 }, to: { s: 1.07, fx: .45, fy: .50 } },
+          camW: { from: { s: 1.00, fx: .50, fy: .43 }, to: { s: 1.05, fx: .47, fy: .48 } } },
+  rail: { start: 21.5, end: 37 },
+  ta:   { src: 'img/aerial-telaviv.jpg',  start: 37,   end: 44,
+          cam:  { from: { s: 1.45, fx: .64, fy: .28 }, to: { s: 1.10, fx: .55, fy: .44 } },
+          camW: { from: { s: 1.5, fx: .62, fy: .28 }, to: { s: 1.16, fx: .55, fy: .42 } } },
+  num:  { src: 'img/aerial-sea.jpg',      start: 44,   end: 53,
+          cam:  { from: { s: 1.72, fx: .485, fy: .78 }, to: { s: 1.72, fx: .485, fy: .54 } },
+          camW: { from: { s: 1.16, fx: .49, fy: .78 }, to: { s: 1.16, fx: .49, fy: .52 } } },
+  sea:  { src: 'img/living-sea.jpg',      start: 53,   end: 61,
+          cam:  { from: { s: 1.00, fx: .60, fy: .55 }, to: { s: 1.08, fx: .36, fy: .53 } },
+          camW: { from: { s: 1.00, fx: .60, fy: .55 }, to: { s: 1.08, fx: .40, fy: .52 } } },
+  city: { src: 'img/living-city.jpg',     start: 61,   end: 67.5,
+          cam:  { from: { s: 1.06, fx: .38, fy: .55 }, to: { s: 1.00, fx: .18, fy: .55 } },
+          camW: { from: { s: 1.09, fx: .56, fy: .55 }, to: { s: 1.02, fx: .42, fy: .52 } } },
+  ph:   { src: 'img/penthouse-living.jpg', start: 67.5, end: 75.5,
+          cam:  { from: { s: 1.02, fx: .52, fy: .55 }, to: { s: 1.12, fx: .20, fy: .52 } },
+          camW: { from: { s: 1.02, fx: .54, fy: .55 }, to: { s: 1.11, fx: .32, fy: .52 } } },
+  types: { start: 75.5, end: 94 },
+  dev:  { src: 'img/aerial-sea.jpg',      start: 94,   end: 106,
+          cam:  { from: { s: 1.30, fx: .49, fy: .62 }, to: { s: 1.38, fx: .49, fy: .58 } },
+          camW: { from: { s: 1.05, fx: .50, fy: .60 }, to: { s: 1.12, fx: .50, fy: .56 } } },
+  end:  { src: 'img/aerial-sea.jpg',      start: 106,  end: 114,
+          cam:  { from: { s: 1.10, fx: .49, fy: .55 }, to: { s: 1.16, fx: .49, fy: .52 } },
+          camW: { from: { s: 1.00, fx: .50, fy: .58 }, to: { s: 1.05, fx: .50, fy: .55 } } },
 };
-if (WIDE) Object.values(SCENES).forEach((sc) => { sc.cam = sc.camW; });
+// AI motion shots (owner approved, 2026-11-24): a scene switches from its render to the clip automatically once
+// video/extract-frames.sh has written video/frames/<name>/ and video/frames/index.js (Chromium cannot decode the
+// HEVC 10-bit clips, so they play from JPEG frames). vcam: framing over the clip (cover-fit), gentler than on the still.
+const VIDEOS = {
+  open: { name: 'aerial-sea',       vcam: { from: { s: 1.06, fx: .50, fy: .50 }, to: { s: 1.0, fx: .50, fy: .52 } } },
+  sea:  { name: 'living-sea',       vcam: { from: { s: 1.00, fx: .50, fy: .52 }, to: { s: 1.04, fx: .46, fy: .52 } } },
+  city: { name: 'living-city', maxSec: 5.5,   // the clip drifts into a hazy close-up after ~6 s
+          vcam: { from: { s: 1.00, fx: .50, fy: .52 }, to: { s: 1.04, fx: .46, fy: .52 } } },
+  ph:   { name: 'penthouse-living', vcam: { from: { s: 1.00, fx: .50, fy: .52 }, to: { s: 1.04, fx: .44, fy: .52 } } },
+};
+if (WIDE) Object.values(SCENES).forEach((sc) => { if (sc.camW) sc.cam = sc.camW; });
+Object.entries(VIDEOS).forEach(([k, v]) => { const f = (window.VIDEO_FRAMES || {})[v.name];
+  if (f) Object.assign(SCENES[k], { video: { dir: 'video/frames/' + v.name + '/', frames: v.maxSec ? Math.min(f.frames, Math.round(v.maxSec * f.fps)) : f.frames, fps: f.fps }, cam: v.vcam }); });
+// Hidden slots. Both stay OFF: no source / no figures yet (docs/wiki/neo-bat-yam.md, 2026-11-24).
+const SLOTS = {
+  view:   { enabled: false, after: 'ph',    note: '"nothing will be built to hide us": owner claim, unsourced' },
+  prices: { enabled: false, after: 'types', note: 'prices vs competitors: owner has not given figures' },
+};
+// Developer (owner, 2026-11-24, name confirmed by the owner via the coordinator). Leave '' to hide the name line.
+const DEVELOPER_NAME = 'ע.ט החברה להתחדשות עירונית';
 // Location beat: pin on the towers, dotted line to the sea, in aerial-telaviv.jpg pixels (1600x1067).
-// Vertical frame only shows the inland strip; the wide frame shows the shore, so the line reaches the water.
 const LOC = WIDE ? { tower: [836, 500], sea: [205, 402], ctrl: [520, 300] }
                  : { tower: [836, 492], sea: [500, 312], ctrl: [700, 330] };
-const TYPES = { start: 47, end: 62.8 };
+// Light rail map, schematic, in a 1000x1000 map space (north up, sea to the west). No street geometry,
+// no intermediate stations, no travel times: only what the owner said (Red Line running, 100–120 m from
+// Rothschild station, easy access to Tel Aviv).
+const MAP = WIDE ? { x0: 40, y0: 70, w: 1080, h: 950 } : { x0: 40, y0: 560, w: 1000, h: 770 };
+const TYPES = SCENES.types;
 // Apartment mix, docs/wiki/neo-bat-yam.md (owner, 2026-11-24). area: list of sizes in m² ("or", not a range).
-// Mini-penthouses: the owner gave no size, so the card shows no number.
-// vis (16:9 only, shown beside the card): one of the owner's floor plans per room count
-// (marketing/brand/neo-bat-yam/plans/, cropped by img/crop-plans.py), or a render.
 const CARDS = [
-  { t: 50.5, title: '<b>3</b> חדרים', area: [81, 83], rows: [['מרפסת', 12]], vis: { plan: 'img/plan-C2.jpg', label: 'דגם C2' } },
-  { t: 53.5, title: '<b>4</b> חדרים', area: [113],    rows: [['מרפסת', 12]], vis: { plan: 'img/plan-A.jpg', label: 'דגם A' } },
-  { t: 56.5, title: '<b>5</b> חדרים', area: [130, 137], rows: [['מרפסת', 12]], vis: { plan: 'img/plan-G.jpg', label: 'דגם G' } },
-  { t: 59.3, title: 'מיני פנטהאוזים', area: null,     rows: [],
-    vis: { src: 'img/aerial-sea.jpg', cam: { from: { s: 2.05, fx: .55, fy: .60 }, to: { s: 2.2, fx: .55, fy: .57 } } } },
-  { t: 62.8, title: 'פנטהאוזים',     area: [186],    rows: [['מרפסת', 50]],
-    vis: { src: 'img/penthouse-living.jpg', cam: { from: { s: 1.06, fx: .62, fy: .5 }, to: { s: 1.16, fx: .40, fy: .5 } } } },
+  { t: 79.5, title: '<b>3</b> חדרים', area: [81, 83], rows: [['מרפסת', 12]], vis: { plan: 'img/plan-C2.jpg', label: 'דגם C2' } },
+  { t: 83.1, title: '<b>4</b> חדרים', area: [113],    rows: [['מרפסת', 12]], vis: { plan: 'img/plan-A.jpg', label: 'דגם A' } },
+  { t: 86.7, title: '<b>5</b> חדרים', area: [130, 137], rows: [['מרפסת', 12]], vis: { plan: 'img/plan-G.jpg', label: 'דגם G' } },
+  { t: 90.1, title: 'מיני פנטהאוזים', area: null,     rows: [],
+    vis: { src: 'img/aerial-sea.jpg', cam: { from: { s: 2.0, fx: .55, fy: .60 }, to: { s: 2.12, fx: .55, fy: .57 } } } },
+  { t: 94,   title: 'פנטהאוזים',     area: [186],    rows: [['מרפסת', 50]],
+    vis: { src: 'img/penthouse-living.jpg', cam: { from: { s: 1.05, fx: .62, fy: .5 }, to: { s: 1.14, fx: .42, fy: .5 } } } },
 ];
-window.TOTAL = 72;
-const FADE = 1.0;
+window.TOTAL = 114;
+const FADE = 1.6;   // every scene change is a long dissolve
 // ======================================================
+if (Object.values(SLOTS).some((s) => s.enabled)) throw new Error('a hidden slot is enabled but not built: see SLOTS');
 
 const $ = (id) => document.getElementById(id);
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -352,49 +518,159 @@ const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 const eout = (x) => 1 - Math.pow(1 - x, 3);
 const sine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
 const mix = (a, b, x) => a + (b - a) * x;
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+  t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
 const media = {};
 document.querySelectorAll('.media[data-scene]').forEach((box) => {
   const key = box.dataset.scene, sc = SCENES[key];
-  const el = document.createElement('img'); el.className = 'shot'; el.src = sc.src;
-  box.appendChild(el); media[key] = { el, sc };
+  const el = document.createElement('img'); el.className = 'shot';
+  let el2 = null;
+  if (sc.video) { el.src = sc.video.dir + '0001.jpg'; el2 = document.createElement('img'); el2.className = 'shot'; el2.src = sc.video.dir + '0002.jpg'; el2.style.opacity = 0; }
+  else el.src = sc.src;
+  box.appendChild(el); if (el2) box.appendChild(el2); media[key] = { el, el2, sc };
 });
+// scene-local time u -> clip time: 1x, easing to half speed if the scene outlasts the clip (same as marketing/neo-reel)
+function clipTime(u, D, L) {
+  if (D <= L) return { c: Math.min(u, L), sp: 1 };
+  let v = .5, k = (1 + v) / 2, a = (L - D * k) / (1 - k);
+  if (a < 0) { a = 0; v = 2 * L / D - 1; }
+  if (u <= a) return { c: u, sp: 1 };
+  const x = Math.min(u, D) - a, T = D - a;
+  return { c: Math.min(L, a + x - (1 - v) * x * x / (2 * T)), sp: 1 - (1 - v) * x / T };
+}
+function setFrame(img, url) { if (img.dataset.f === url) return null; img.dataset.f = url; img.src = url; return img.decode().catch(() => {}); }
+function videoFrame(m, local, D) {
+  const v = m.sc.video, L = (v.frames - 1) / v.fps, { c, sp } = clipTime(local, D, L);
+  const f = c * v.fps, i = Math.min(Math.floor(f), v.frames - 1), frac = f - i;
+  const w = i >= v.frames - 1 ? 0 : clamp(.5 + (frac - .5) / Math.max(.001, 1 - sp) / 2);
+  const name = (n) => v.dir + String(n).padStart(4, '0') + '.jpg';
+  const ps = [setFrame(m.el, name(i + 1)), setFrame(m.el2, name(Math.min(i + 2, v.frames)))];
+  m.el2.style.opacity = w;
+  return ps.filter(Boolean);
+}
 window.__videos = () => [];
 
 function camera(m, s, fx, fy, vw = W, vh = H) {
   const w = m.el.naturalWidth, h = m.el.naturalHeight; if (!w) return null;
   const k = Math.max(vw / w, vh / h) * s;
   const x = clamp(vw / 2 - fx * w * k, vw - w * k, 0), y = clamp(vh / 2 - fy * h * k, vh - h * k, 0);
-  m.el.style.transform = `translate(${x}px,${y}px) scale(${k})`;
+  m.el.style.transform = `translate(${x}px,${y}px) scale(${k})`; if (m.el2) m.el2.style.transform = m.el.style.transform;
   return { x, y, k };
 }
 function shot(key, p) {
   const m = media[key], c = m.sc.cam;
   return camera(m, mix(c.from.s, c.to.s, p), mix(c.from.fx, c.to.fx, p), mix(c.from.fy, c.to.fy, p));
 }
-function layerIn(t, start, first) { return first ? 1 : sine(lin(t, start - FADE / 2, start + FADE / 2)); }
+// a scene's progress over its whole visible span (dissolve included), eased gently
+const span = (key) => { const sc = SCENES[key]; return ease(lin(sc.start - FADE / 2, sc.start - FADE / 2, sc.end + FADE / 2)); };
+function prog(t, key) { const sc = SCENES[key]; return sine(lin(t, sc.start - FADE / 2, sc.end + FADE / 2)); }
 function setLayer(el, t, start, end, first) {
   const v = t >= start - FADE / 2 && t <= end + FADE / 2;
-  el.style.opacity = v ? layerIn(t, start, first) : 0; el.style.visibility = v ? 'visible' : 'hidden'; return v;
+  el.style.opacity = v ? (first ? 1 : sine(lin(t, start - FADE / 2, start + FADE / 2))) : 0;
+  el.style.visibility = v ? 'visible' : 'hidden'; return v;
 }
+// captions: kicker tracks in, hairline draws, headline rises out of a soft blur; drifts slowly (parallax)
 function cap(el, t, a, b) {
-  const i = eout(lin(t, a, a + 1.0)), o = sine(lin(t, b - .7, b));
+  const i = eout(lin(t, a, a + 1.4)), o = sine(lin(t, b - 1.0, b));
   el.style.opacity = i * (1 - o);
-  el.style.transform = `translateY(${(1 - i) * 36 - o * 18}px)`;
-  const bar = el.querySelector('.bar'); if (bar) bar.style.width = (eout(lin(t, a + .35, a + 1.5)) * 200) + 'px';
+  el.style.transform = `translate(${lin(t, a, b) * -14}px, ${(1 - i) * 26 - o * 10}px)`;
+  const lat = el.querySelector('.lat'); if (lat) lat.style.letterSpacing = mix(.62, .42, eout(lin(t, a, a + 1.8))) + 'em';
+  const rule = el.querySelector('.rule'); if (rule) rule.style.width = (ease(lin(t, a + .3, a + 1.6)) * (WIDE ? 90 : 110)) + 'px';
+  const h = el.querySelector('.h'); if (h) { const q = eout(lin(t, a + .25, a + 1.6)); h.style.filter = `blur(${(1 - q) * 8}px)`; h.style.opacity = q; }
+  const s = el.querySelector('.s'); if (s) s.style.opacity = eout(lin(t, a + .7, a + 1.9));
 }
 function sun(el, t, a, b, x0, y0, x1, y1, amp) {
-  const p = lin(t, a, b);
-  el.style.left = (mix(x0, x1, sine(p)) - 750) + 'px'; el.style.top = (mix(y0, y1, sine(p)) - 750) + 'px';
+  const p = lin(t, a, b), r = WIDE ? 550 : 750;
+  el.style.left = (mix(x0, x1, sine(p)) - r) + 'px'; el.style.top = (mix(y0, y1, sine(p)) - r) + 'px';
   el.style.opacity = amp * Math.sin(Math.PI * p);
+}
+// sea glints: tiny twinkles placed in image pixels on the water, following the camera
+const SPARK = { open: { box: [120, 600, 1590, 840], n: 16, seed: 3 }, loc: { box: [0, 300, 420, 440], n: 9, seed: 7 }, ta: { box: [0, 300, 420, 440], n: 9, seed: 11 } };
+Object.entries(SPARK).forEach(([k, s]) => {
+  const r = rng(s.seed), host = $('sp-' + k); s.pts = [];
+  for (let i = 0; i < s.n; i++) { const el = document.createElement('i'); host.appendChild(el);
+    s.pts.push({ el, x: mix(s.box[0], s.box[2], r()), y: mix(s.box[1], s.box[3], r()), ph: r(), sp: .35 + r() * .4, sz: .5 + r() * .7 }); }
+});
+function sparkle(k, cam, t, amp = 1) {
+  if (!cam) return;
+  SPARK[k].pts.forEach((p) => {
+    const ph = (t * p.sp + p.ph) % 1, a = Math.pow(Math.max(0, Math.sin(Math.PI * ph * 2.2)), 6) * (ph < .45 ? 1 : 0);
+    p.el.style.left = (cam.x + p.x * cam.k) + 'px'; p.el.style.top = (cam.y + p.y * cam.k) + 'px';
+    p.el.style.opacity = a * .8 * amp; p.el.style.transform = `scale(${p.sz * (.6 + .6 * a)}) rotate(${45 * p.ph}deg)`;
+  });
+}
+
+// ---------- grain: pre-made noise frames, one shown per film frame ----------
+const GRAIN = [];
+{ const gw = WIDE ? 640 : 360, gh = WIDE ? 360 : 640, r = rng(42);
+  for (let f = 0; f < 8; f++) {
+    const c = document.createElement('canvas'); c.width = gw; c.height = gh; const g = c.getContext('2d'), im = g.createImageData(gw, gh);
+    for (let i = 0; i < im.data.length; i += 4) { const v = 128 + (r() + r() + r() - 1.5) * 120; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
+    g.putImageData(im, 0, 0); $('grain').appendChild(c); GRAIN.push(c);
+  } }
+// light leaks bloom on every dissolve and breathe softly in between
+const BOUNDS = Object.values(SCENES).map((s) => s.start).filter((s) => s > 0);
+function leak(t) {
+  let b = 0; BOUNDS.forEach((s) => { b = Math.max(b, Math.exp(-Math.pow((t - s) / .9, 2))); });
+  const el = $('leak');
+  el.style.opacity = .07 + .05 * Math.sin(t * .37) + .26 * b;
+  el.style.transform = `translate(${Math.sin(t * .11) * 60}px, ${Math.cos(t * .08) * 40}px) rotate(${Math.sin(t * .05) * 4}deg)`;
 }
 
 // ---------- numbers scene: floor ticks ----------
 const floorsEl = $('floors');
-if (WIDE) { $('st2').appendChild(floorsEl); floorsEl.style.left = '48px'; }
-for (let i = 0; i < 25; i++) floorsEl.insertAdjacentHTML('beforeend', `<i style="top:${WIDE ? 470 - (i + 1) * 18.8 : 900 - (i + 1) * 36}px"></i>`);
+if (WIDE) { $('st2').appendChild(floorsEl); floorsEl.style.left = '44px'; }
+for (let i = 0; i < 25; i++) floorsEl.insertAdjacentHTML('beforeend', `<i style="top:${WIDE ? 460 - (i + 1) * 18.4 : 870 - (i + 1) * 34.8}px"></i>`);
 $('locsvg').setAttribute('viewBox', `0 0 ${W} ${H}`); $('locsvg').style.width = W + 'px'; $('locsvg').style.height = H + 'px';
 $('box').setAttribute('viewBox', `0 0 ${W} ${H}`); $('box').style.width = W + 'px'; $('box').style.height = H + 'px';
+
+// ---------- light rail map (map.js, reusable) ----------
+const RS = SCENES.rail.start;
+const map = createRailMap($('mapHost'), {
+  coast: [[150, 1080], [215, 830], [190, 650], [265, 470], [300, 300], [330, 120], [345, -80]],
+  rail: { path: 'M 520 1080 L 470 840 C 420 640 560 520 505 340 S 470 250 480 150' },
+  from: .2, dots: [.08, .36, .52, .66], station: { at: .2, label: 'רוטשילד' },
+  pin: { at: [358, 812], label: 'NEO SEA' },
+  city: { at: [480, 150], label: 'תל אביב', lat: 'TEL AVIV' },
+  area: { at: [690, 905], label: 'בת ים' },
+  sea: { at: [110, 420], label: 'MEDITERRANEAN' },
+  walk: '<b class="n">100–120</b> מ׳ מתחנת רוטשילד',
+  note: 'מפה סכמטית, להמחשה',
+  notePos: WIDE ? { left: '60px', top: '1024px' } : { left: '72px', top: '240px' },
+  pinLabelDx: 66,
+  view: WIDE ? { x: 40, y: 60, w: 1100, h: 960 } : { x: 0, y: 610, w: 1080, h: 790 },
+  zoom: { to: 2.4, focus: [414, 840] },
+  walkDy: WIDE ? 54 : 70,
+  times: { in: 0, draw: [1.4, 4.4], pin: 3.4, zoomIn: [3.8, 5.8], arrow: [4.9, 6.3], zoomOut: [8.6, 10.4], train: [9.4, 11.0], out: 15.5 },
+  walkAt: 'pin', walkDx: WIDE ? 20 : 30,
+  styles: {
+    city: `font-family:"Frank Ruhl Libre",serif;font-weight:300;font-size:${WIDE ? 40 : 48}px;color:#f6f1e7;text-align:center;`,
+    cityLat: `display:block;margin-top:4px;direction:ltr;font-family:Heebo;font-weight:300;font-size:${WIDE ? 15 : 17}px;letter-spacing:.42em;color:#cdb07a;`,
+    station: `font-weight:400;font-size:${WIDE ? 26 : 30}px;color:#f6f1e7;`,
+    pin: `direction:ltr;font-weight:400;font-size:${WIDE ? 19 : 22}px;letter-spacing:.36em;color:#f2b08e;`,
+    walk: `padding:12px 22px 14px;border:1px solid rgba(205,176,122,.55);background:rgba(3,18,29,.6);font-weight:300;font-size:${WIDE ? 30 : 36}px;color:#f6f1e7;`,
+    area: `font-family:"Frank Ruhl Libre",serif;font-weight:300;font-size:${WIDE ? 30 : 34}px;letter-spacing:.04em;color:rgba(246,241,231,.5);`,
+    sea: `direction:ltr;font-weight:300;font-size:${WIDE ? 15 : 17}px;letter-spacing:.6em;color:rgba(207,226,236,.45);`,
+    note: `font-weight:300;font-size:${WIDE ? 18 : 20}px;letter-spacing:.04em;color:rgba(246,241,231,.5);`,
+  },
+});
+const RAIL_ICONS = [32.0, 32.95, 33.85, 34.6];
+function renderRail(t) {
+  const sc = SCENES.rail;
+  map.render(t - RS, W, H);
+  const h0 = sc.start + .6;
+  $('rkick').style.opacity = eout(lin(t, h0, h0 + 1.2));
+  const hq = eout(lin(t, h0 + .3, h0 + 1.8)); $('rh').style.opacity = hq; $('rh').style.filter = `blur(${(1 - hq) * 8}px)`;
+  $('rh').querySelector('em').style.opacity = eout(lin(t, 24.6, 25.8));
+  $('rlat').style.opacity = eout(lin(t, h0 + 1.0, h0 + 2.4)) * .95;
+  $('rlat').style.letterSpacing = mix(.62, .42, eout(lin(t, h0 + 1.0, h0 + 3))) + 'em';
+  document.querySelectorAll('#icons .ico').forEach((el, i) => {
+    const q = eout(lin(t, RAIL_ICONS[i] - .1, RAIL_ICONS[i] + .9));
+    el.style.opacity = q; el.style.transform = `translateY(${(1 - q) * 16}px)`;
+    el.querySelector('svg').style.filter = `drop-shadow(0 0 ${mix(14, 0, q)}px rgba(230,211,168,${.6 * (1 - q)}))`;
+  });
+}
 
 // ---------- sea glints on the apartment-types ground ----------
 const glints = [];
@@ -418,7 +694,7 @@ CARDS.forEach((c, i) => {
     <div class="rows" style="top:${BOX.cy + BOX.max / 2 + 40}px">${c.rows.map(([a, b]) => `<div class="row"><span>${a}</span><b><span class="n">${b}</span> מ״ר</b></div>`).join('')}</div>`;
   $('cards').appendChild(el); c.el = el;
   segs.insertAdjacentHTML('beforeend', '<i><b></b></i>');
-  if (WIDE) {   // visual beside the card: a plan drawing on, or a render with a slow camera
+  if (WIDE) {
     const v = document.createElement('div'); v.className = 'tv' + (c.vis.plan ? ' paper' : '');
     v.innerHTML = c.vis.plan
       ? `<div class="plan"><img src="${c.vis.plan}" alt=""></div><div class="scan"></div><div class="plabel"><b>${c.vis.label}</b><span>תוכנית להמחשה בלבד</span></div>`
@@ -430,147 +706,185 @@ CARDS.forEach((c, i) => {
 function layoutCards() {
   CARDS.forEach((c) => {
     const num = c.el.querySelector('.num'); if (!num) return;
-    const v = num.querySelector('.v'); v.style.fontSize = '190px';
-    const fs = Math.min(190, 190 * (c.side * .82) / v.getBoundingClientRect().width);
+    const v = num.querySelector('.v'); v.style.fontSize = '180px';
+    const fs = Math.min(180, 180 * (c.side * .8) / v.getBoundingClientRect().width);
     v.style.fontSize = fs + 'px';
     num.style.top = (BOX.cy - num.getBoundingClientRect().height / 2) + 'px';
   });
 }
 function boxSide(t) {
   let side = CARDS[0].side;
-  CARDS.forEach((c, i) => { if (i) side = mix(side, c.side, ease(lin(t, c.from - .45, c.from + .45))); });
+  CARDS.forEach((c, i) => { if (i) side = mix(side, c.side, ease(lin(t, c.from - .6, c.from + .6))); });
   return side;
 }
 function renderTypes(t) {
   const lt = t - TYPES.start;
-  $('thead').style.opacity = eout(lin(lt, .2, 1.1)) * (1 - lin(t, TYPES.end - .3, TYPES.end + .4));
+  $('thead').style.opacity = eout(lin(lt, .4, 1.6)) * (1 - lin(t, TYPES.end - .6, TYPES.end + .4));
   const side = boxSide(t), r = $('boxr');
   r.setAttribute('x', BOX.cx - side / 2); r.setAttribute('y', BOX.cy - side / 2);
   r.setAttribute('width', side); r.setAttribute('height', side);
   r.setAttribute('stroke-dasharray', '1 1');
-  r.setAttribute('stroke-dashoffset', 1 - ease(lin(lt, .3, 1.6)));
-  r.style.opacity = side > 8 ? 1 : 0;
-  $('box').style.opacity = 1 - sine(lin(t, TYPES.end - .4, TYPES.end + .3));
+  r.setAttribute('stroke-dashoffset', 1 - ease(lin(lt, .5, 2.2)));
+  r.style.opacity = side > 8 ? .9 : 0;
+  $('box').style.opacity = 1 - sine(lin(t, TYPES.end - .6, TYPES.end + .3));
   segs.querySelectorAll('b').forEach((el, i) => { const c = CARDS[i]; el.style.width = (100 * ease(lin(t, c.from + .2, c.t - .2))) + '%'; });
   glints.forEach((g, i) => {
-    const ph = (t * (.18 + (i % 4) * .05) + i * .37) % 1;
+    const ph = (t * (.1 + (i % 4) * .03) + i * .37) % 1;
     g.style.transform = `translateX(${mix(-500, 500, ph) * (i % 2 ? 1 : -1)}px) scaleX(${.4 + (i % 5) * .15})`;
-    g.style.opacity = (.25 + .5 * Math.sin(Math.PI * ph)) * (1 - i / 18);
+    g.style.opacity = (.2 + .45 * Math.sin(Math.PI * ph)) * (1 - i / 18);
   });
   CARDS.forEach((c, i) => {
     const last = i === CARDS.length - 1;
-    const a = c.from + (i ? .15 : .5), z = c.t - .3;
-    const inp = eout(lin(t, a, a + .9)), out = last ? 0 : sine(lin(t, z, z + .5));
+    const a = c.from + (i ? .2 : .6), z = c.t - .5;
+    const inp = eout(lin(t, a, a + 1.2)), out = last ? 0 : sine(lin(t, z, z + .7));
     c.el.style.opacity = inp * (1 - out);
-    c.el.style.transform = `translateX(${(1 - inp) * -70 + out * 70}px)`;
+    c.el.style.transform = `translateX(${(1 - inp) * -36 + out * 36}px)`;
     const k = c.el.querySelector('.k'), h = c.el.querySelector('.h'), num = c.el.querySelector('.num'), word = c.el.querySelector('.word');
-    k.style.opacity = eout(lin(t, a, a + .6));
-    h.style.transform = `translateY(${(1 - eout(lin(t, a + .05, a + 1.0))) * 30}px)`;
-    if (num) { const q = eout(lin(t, a + .25, a + 1.1)); num.style.opacity = q; num.style.transform = `scale(${mix(.92, 1, q)})`; }
-    if (word) { const q = eout(lin(t, a + .3, a + 1.2)); word.style.opacity = q; word.style.transform = `translateY(${(1 - q) * 24}px)`; }
+    k.style.opacity = eout(lin(t, a, a + .8));
+    h.style.transform = `translateY(${(1 - eout(lin(t, a + .05, a + 1.3))) * 22}px)`;
+    if (num) { const q = eout(lin(t, a + .3, a + 1.4)); num.style.opacity = q; num.style.transform = `scale(${mix(.96, 1, q)})`; }
+    if (word) { const q = eout(lin(t, a + .35, a + 1.5)); word.style.opacity = q; word.style.transform = `translateY(${(1 - q) * 18}px)`; }
     c.el.querySelectorAll('.row').forEach((row, j) => {
-      const q = eout(lin(t, a + .5 + j * .25, a + 1.3 + j * .25));
-      row.style.opacity = q; row.style.transform = `translateY(${(1 - q) * 20}px)`;
+      const q = eout(lin(t, a + .6 + j * .25, a + 1.6 + j * .25));
+      row.style.opacity = q; row.style.transform = `translateY(${(1 - q) * 14}px)`;
     });
-    if (c.tv) {   // the visual cross-fades on the card change; plans draw on from the right (RTL)
-      const va = c.from - (i ? .35 : 0), vz = c.t - .35;
-      c.tv.style.opacity = i ? sine(lin(t, va, va + .7)) : 1;
+    if (c.tv) {
+      const va = c.from - (i ? .45 : 0), vz = c.t - .45;
+      c.tv.style.opacity = i ? sine(lin(t, va, va + 1.0)) : 1;
       c.tv.style.zIndex = i;
-      c.tv.style.visibility = t >= va && (last || t <= CARDS[i + 1].from + .5) ? 'visible' : 'hidden';
+      c.tv.style.visibility = t >= va && (last || t <= CARDS[i + 1].from + .7) ? 'visible' : 'hidden';
       if (c.vis.plan) {
-        const d = ease(lin(t, a + .1, a + 1.7)), img = c.tv.querySelector('.plan img'), sc = c.tv.querySelector('.scan');
+        const d = ease(lin(t, a + .1, a + 2.0)), img = c.tv.querySelector('.plan img'), sc = c.tv.querySelector('.scan');
         img.style.clipPath = `inset(0 0 0 ${(1 - d) * 100}%)`;
         img.style.transform = `scale(${mix(.97, 1, eout(lin(t, a, c.t)))})`;
         const r = img.getBoundingClientRect();
-        sc.style.left = (r.left + r.width * (1 - d) - 1) + 'px'; sc.style.opacity = d > 0 && d < 1 ? .9 : 0;
-        c.tv.querySelector('.plabel').style.opacity = eout(lin(t, a + 1.0, a + 1.7));
+        sc.style.left = (r.left + r.width * (1 - d) - 1) + 'px'; sc.style.opacity = d > 0 && d < 1 ? .8 : 0;
+        c.tv.querySelector('.plabel').style.opacity = eout(lin(t, a + 1.2, a + 2.0));
       } else camera(c.tvm, mix(c.vis.cam.from.s, c.vis.cam.to.s, lin(t, va, c.t + .5)), mix(c.vis.cam.from.fx, c.vis.cam.to.fx, lin(t, va, c.t + .5)),
                     mix(c.vis.cam.from.fy, c.vis.cam.to.fy, lin(t, va, c.t + .5)), 1160, 1080);
     }
   });
 }
 
+// ---------- developer chapter ----------
+if (DEVELOPER_NAME) $('dname').textContent = DEVELOPER_NAME; else $('dname').remove();
+const DEV_T = { k: 94.9, name: 96.0, lead: 98.4, rule: 99.4, big: 100.2, bank: 102.8 };
+function renderDev(t) {
+  const sc = SCENES.dev, out = sine(lin(t, sc.end - .9, sc.end + .3));
+  const up = (el, a, dy = 18, dur = 1.4) => { if (!el) return; const q = eout(lin(t, a, a + dur)); el.style.opacity = q * (1 - out); el.style.transform = `translateY(${(1 - q) * dy}px)`; return q; };
+  up($('dk'), DEV_T.k);
+  const nq = up($('dname'), DEV_T.name, 14, 1.6); if ($('dname')) $('dname').style.filter = `blur(${(1 - (nq || 0)) * 6}px)`;
+  up($('dlead'), DEV_T.lead);
+  $('drule').style.width = (ease(lin(t, DEV_T.rule, DEV_T.rule + 1.4)) * (WIDE ? 160 : 200)) + 'px'; $('drule').style.opacity = 1 - out;
+  up($('dexp'), DEV_T.big - .5, 12);
+  // the big line: tracks in from wide spacing, settles, then a slow gold shimmer passes across it
+  const b = $('dbig'), bq = eout(lin(t, DEV_T.big, DEV_T.big + 2.0));
+  b.style.opacity = bq * (1 - out); b.style.letterSpacing = mix(.22, 0, bq) + 'em';
+  const glow = Math.sin(Math.PI * lin(t, DEV_T.big + .6, DEV_T.big + 3.6));
+  b.style.filter = `blur(${(1 - bq) * 10}px)`; b.style.textShadow = `0 0 ${(18 + 22 * glow).toFixed(1)}px rgba(230,211,168,${(.12 + .28 * glow).toFixed(3)})`;
+  up($('dunit'), DEV_T.big + .6, 14, 1.6);
+  up($('dbank'), DEV_T.bank, 14, 1.4);
+}
+
 // ---------- render ----------
 let laidOut = false;
 window.render = function (t) {
   if (!laidOut) { layoutCards(); laidOut = true; }
-  Object.entries(SCENES).forEach(([key, sc], idx) => setLayer($('L-' + key), t, sc.start, sc.end, idx === 0));
+  const seeks = [];
+  Object.entries(SCENES).forEach(([key, sc], idx) => {
+    const vis = setLayer($(key === 'types' ? 'types' : 'L-' + key), t, sc.start, sc.end, idx === 0);
+    if (vis && sc.video) seeks.push(...videoFrame(media[key], Math.max(0, t - (idx ? sc.start - FADE / 2 : 0)), sc.end - sc.start + FADE));
+  });
 
   // 1. open: tilt down from the sky over the sea onto the towers, then the title
-  shot('open', ease(lin(t, 0, 9.5)));
-  $('flash').style.opacity = 1 - eout(lin(t, 0, 1.4));
-  sun($('sun1'), t, 0, 9, 980, 300, 540, 1100, .9);
-  { const p = eout(lin(t, 6.9, 8.2)), o = sine(lin(t, 10.9, 11.6));
+  { const cam = shot('open', SCENES.open.video ? sine(lin(t, 0, 13.8)) : ease(lin(t, 0, 11.5)));
+    if (!SCENES.open.video) sparkle('open', cam, t, 1 - lin(t, 7, 9));
+    $('L-open').style.filter = `brightness(${mix(1.6, 1, eout(lin(t, 0, 2.4)))})`;
+    sun($('sun1'), t, 0, 11, 980, 300, 540, 1100, .8);
+    const p = eout(lin(t, 8.2, 10.0)), o = sine(lin(t, 12.0, 13.2));
     $('dim1').style.opacity = .62 * p;
     $('title').style.opacity = p * (1 - o);
-    $('title').style.transform = `scale(${mix(.94, 1, p) + .02 * lin(t, 8.2, 11.5)})`;
+    $('title').style.transform = `scale(${mix(.97, 1, p) + .015 * lin(t, 10, 13)})`;
     $('title').style.filter = `blur(${(1 - p) * 10}px)`;
-    $('neo').style.filter = `drop-shadow(0 0 ${mix(60, 18, eout(lin(t, 7.0, 9.6)))}px rgba(255,236,205,${mix(.9, .35, eout(lin(t, 7.0, 9.6)))}))`;
-    $('by').style.opacity = eout(lin(t, 7.6, 8.6));
-    $('by').style.transform = `translateY(${(1 - eout(lin(t, 7.6, 8.6))) * 26}px)`;
-    $('trule').style.width = (ease(lin(t, 8.4, 9.6)) * 260) + 'px'; }
+    $('neo').style.filter = `drop-shadow(0 0 ${mix(50, 14, eout(lin(t, 8.3, 11)))}px rgba(255,236,205,${mix(.75, .25, eout(lin(t, 8.3, 11)))}))`;
+    $('trule').style.width = (ease(lin(t, 9.2, 10.8)) * (WIDE ? 200 : 240)) + 'px';
+    $('by').style.opacity = eout(lin(t, 9.6, 11.0)); $('by').style.letterSpacing = mix(.14, .04, eout(lin(t, 9.6, 11.8))) + 'em'; }
 
   // 2. location: pin on the towers, dotted line to the sea
-  { const cam = shot('loc', ease(lin(t, 11, 19.5)));
+  { const cam = shot('loc', prog(t, 'loc'));
+    sparkle('loc', cam, t);
     if (cam) {
       const P = (x, y) => [cam.x + x * cam.k, cam.y + y * cam.k];
       const [tx, ty] = P(...LOC.tower), [sx, sy] = P(...LOC.sea), [cx, cy] = P(...LOC.ctrl);
       $('locpath').setAttribute('d', `M ${tx} ${ty} Q ${cx} ${cy} ${sx} ${sy}`);
-      const len = $('locpath').getTotalLength(), d = ease(lin(t, 13.6, 15.2));
+      const len = $('locpath').getTotalLength(), d = ease(lin(t, 15.2, 17.2));
       $('locpath').setAttribute('stroke-dasharray', dotted(len, d));
-      const pp = eout(lin(t, 12.4, 13.2));
-      $('pin').setAttribute('cx', tx); $('pin').setAttribute('cy', ty); $('pin').setAttribute('r', 14 * pp);
-      [['ring1', 0], ['ring2', .9]].forEach(([id, off]) => {
-        const ph = ((t - 12.4 + off) % 1.8) / 1.8, on = t > 12.4 ? 1 : 0;
+      const pp = eout(lin(t, 14.0, 15.0));
+      $('pin').setAttribute('cx', tx); $('pin').setAttribute('cy', ty); $('pin').setAttribute('r', 10 * pp);
+      [['ring1', 0], ['ring2', 1.3]].forEach(([id, off]) => {
+        const ph = ((t - 14.0 + off) % 2.6) / 2.6, on = t > 14.0 ? 1 : 0;
         $(id).setAttribute('cx', tx); $(id).setAttribute('cy', ty);
-        $(id).setAttribute('r', 16 + 70 * eout(ph)); $(id).style.opacity = on * (1 - ph) * pp;
+        $(id).setAttribute('r', 14 + 60 * eout(ph)); $(id).style.opacity = on * (1 - ph) * pp * .9;
       });
-      $('seadot').setAttribute('cx', sx); $('seadot').setAttribute('cy', sy); $('seadot').setAttribute('r', 11 * eout(lin(t, 15.0, 15.5)));
-      const ch = $('chipSea'), q = eout(lin(t, 15.1, 15.9));
-      ch.style.opacity = q * (1 - sine(lin(t, 18.4, 19)));
-      ch.style.left = Math.max(40, sx - 40) + 'px'; ch.style.top = (sy + 40 + (1 - q) * 20) + 'px';
+      $('seadot').setAttribute('cx', sx); $('seadot').setAttribute('cy', sy); $('seadot').setAttribute('r', 8 * eout(lin(t, 17.0, 17.6)));
+      const ch = $('chipSea'), q = eout(lin(t, 17.2, 18.2));
+      ch.style.opacity = q * (1 - sine(lin(t, 20.4, 21.2)));
+      ch.style.left = Math.max(40, sx - 40) + 'px'; ch.style.top = (sy + 36 + (1 - q) * 14) + 'px';
     }
-    cap($('cap-loc'), t, 12.4, 18.9); }
+    cap($('cap-loc'), t, 14.2, 21.2); }
 
-  // 3. height: tilt up the towers, numbers land on the narration
-  { shot('num', ease(lin(t, 18.5, 27.5)));
-    const s1 = eout(lin(t, 19.5, 20.3)), s2 = eout(lin(t, 22.3, 23.1)), s3 = eout(lin(t, 24.3, 25.1)), out = sine(lin(t, 26.4, 27.1));
-    [[$('st1'), s1], [$('st2'), s2], [$('st3'), s3]].forEach(([el, q]) => { el.style.opacity = q * (1 - out); el.style.transform = `translateX(${(1 - q) * -60}px)`; });
-    $('v2').textContent = Math.max(1, Math.round(25 * ease(lin(t, 22.3, 23.9))));
-    floorsEl.querySelectorAll('i').forEach((el, i) => { el.style.opacity = (lin(t, 22.3 + i * .064, 22.4 + i * .064) * .9) * (1 - out); });
-    const sm = eout(lin(t, 25.3, 26.0)); $('summary').style.opacity = sm * (1 - out); $('summary').style.transform = `translateY(${(1 - sm) * 20}px)`; }
+  // 3. light rail
+  if (t >= SCENES.rail.start - FADE / 2 && t <= SCENES.rail.end + FADE / 2) renderRail(t);
 
-  // 4–6 interiors
-  shot('sea', ease(lin(t, 26.5, 34.5)));  sun($('sun2'), t, 26.5, 34.5, 200, 700, 520, 820, .55);
-  cap($('cap-sea'), t, 28.0, 33.7);
-  shot('city', ease(lin(t, 33.5, 40.5)));
-  cap($('cap-city'), t, 34.8, 39.7);
-  shot('ph', ease(lin(t, 39.5, 47.5)));  sun($('sun3'), t, 39.5, 47.5, 100, 600, 300, 800, .5);
-  cap($('cap-ph'), t, 40.8, 46.7);
+  // 4. Tel Aviv: from the skyline back to the towers
+  { const cam = shot('ta', prog(t, 'ta')); sparkle('ta', cam, t);
+    sun($('sun4'), t, 36.2, 44.8, WIDE ? 1500 : 900, WIDE ? 200 : 520, WIDE ? 1100 : 600, WIDE ? 380 : 760, .5);
+    cap($('cap-ta'), t, 38.3, 43.8); }
 
-  // 7. apartment types
+  // 5. height: tilt up the towers, numbers land on the narration
+  { shot('num', prog(t, 'num'));
+    const s1 = eout(lin(t, 45.2, 46.3)), s2 = eout(lin(t, 47.9, 49.0)), s3 = eout(lin(t, 49.9, 51.0)), out = sine(lin(t, 52.2, 53.2));
+    [[$('st1'), s1], [$('st2'), s2], [$('st3'), s3]].forEach(([el, q]) => { el.style.opacity = q * (1 - out); el.style.transform = `translateX(${(1 - q) * -40}px)`; });
+    $('v2').textContent = Math.max(1, Math.round(25 * ease(lin(t, 47.9, 49.8))));
+    floorsEl.querySelectorAll('i').forEach((el, i) => { el.style.opacity = (lin(t, 47.9 + i * .076, 48.0 + i * .076) * .85) * (1 - out); });
+    const sm = eout(lin(t, 51.0, 52.0)); $('summary').style.opacity = sm * (1 - out); $('summary').style.transform = `translateY(${(1 - sm) * 14}px)`; }
+
+  // 6–8 interiors
+  shot('sea', prog(t, 'sea'));  sun($('sun2'), t, 52.2, 61.8, 200, 700, 520, 820, .45);
+  cap($('cap-sea'), t, 54.3, 60.6);
+  shot('city', prog(t, 'city'));
+  cap($('cap-city'), t, 62.0, 67.0);
+  shot('ph', prog(t, 'ph'));  sun($('sun3'), t, 66.7, 76.3, 100, 600, 300, 800, .42);
+  cap($('cap-ph'), t, 68.6, 75.0);
+
+  // 9. apartment types
   if (t >= TYPES.start - FADE / 2 && t <= TYPES.end + FADE / 2) renderTypes(t);
-  setLayer($('types'), t, TYPES.start, TYPES.end);
 
-  // 8. end card
+  // 10. developer
+  shot('dev', prog(t, 'dev'));
+  if (t >= SCENES.dev.start - FADE / 2 && t <= SCENES.dev.end + FADE / 2) renderDev(t);
+
+  // 11. end card
   { const et = t - SCENES.end.start;
-    shot('end', sine(lin(t, 62.3, 72)));
-    const i = eout(lin(et, .3, 1.6));
-    $('endTxt').style.opacity = i; $('endTxt').style.transform = `scale(${mix(.95, 1, i)})`;
-    const c = eout(lin(et, 1.8, 2.8));
-    $('cta').style.opacity = c; $('cta').style.transform = `translateY(${(1 - c) * 24}px)`;
-    $('ctaRule').style.width = (ease(lin(et, 2.3, 3.4)) * 240) + 'px';
-    $('phone').style.opacity = eout(lin(et, 2.8, 3.8));
-    $('legal').style.opacity = $('legalW').style.opacity = eout(lin(et, 3.0, 4.0));
-    $('credits').style.opacity = eout(lin(et, 3.2, 4.3)); }
+    shot('end', sine(lin(t, 105, 114)));
+    const i = eout(lin(et, .4, 2.0));
+    $('endTxt').style.opacity = i; $('endTxt').style.transform = `scale(${mix(.97, 1, i)})`;
+    const c = eout(lin(et, 1.8, 3.0));
+    $('cta').style.opacity = c; $('cta').style.transform = `translateY(${(1 - c) * 16}px)`;
+    $('ctaRule').style.width = (ease(lin(et, 2.3, 3.7)) * 200) + 'px';
+    $('phone').style.opacity = eout(lin(et, 2.8, 4.0));
+    $('legal').style.opacity = $('legalW').style.opacity = eout(lin(et, 3.2, 4.4));
+    $('credits').style.opacity = eout(lin(et, 3.4, 4.6)); }
 
-  $('black').style.opacity = sine(lin(t, 71.0, 72));
-  return Promise.resolve();
+  // finishing
+  leak(t);
+  const gi = Math.floor(t * 30) % GRAIN.length; GRAIN.forEach((c, k) => { c.style.display = k === gi ? 'block' : 'none'; });
+  $('black').style.opacity = sine(lin(t, 112.6, 114));
+  return Promise.all(seeks);
 };
-// dotted stroke that grows along the path: dots every 18 px up to d*len, then a gap
 function dotted(len, d) {
-  const n = Math.floor(len * d / 18), arr = [];
-  for (let i = 0; i < n; i++) arr.push(2, 16);
+  const n = Math.floor(len * d / 16), arr = [];
+  for (let i = 0; i < n; i++) arr.push(1.5, 14.5);
   arr.push(0, len + 20);
   return arr.join(' ');
 }
