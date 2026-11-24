@@ -41,3 +41,4 @@ Related: [neo-beit-shemesh](neo-beit-shemesh.md), [file-intake](file-intake.md).
 - 2026-11-24: Lesson: two render agents used the same scratch folder name ("rv") at once and could corrupt each other's frames. Every render must use its own folder named after the project and format.
 - 2026-11-24: Beit Shemesh third cut delivered (commit 6fbabbb, 95 s, all three formats, -14.4 LUFS): schematic Ramat Lehi location map and ע.ט developer chapter; music extended by repeating calm sections (not yet heard by a person). DEVELOPER_LOGO slot empty in both films.
 - 2026-11-24: Owner: remove the "היזם / ע.ט" heading from the developer chapter in both films; the developer logo ("החברה להתחדשות עירונית") is the same company and suffices. Narration still names ע.ט.
+- 2026-11-24: Owner: remove "ע.ט" from the narration too ("למחוק ע.ט"). Developer is referred to only as "החברה להתחדשות עירונית" in both films. Supersedes the line above about narration.
