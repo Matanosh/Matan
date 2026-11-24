@@ -21,3 +21,4 @@ Related: [marketing-films](marketing-films.md), [neo-beit-shemesh](neo-beit-shem
 - 2026-11-24: Owner sent the executing contractor's logo, "קבלן מבצע": אלקטרה בנייה, מקבוצת אלקטרה (`marketing/brand/source/electra-construction.jpg`, 450x300). Assumed to be for NEO Bat Yam (sent during Bat Yam work); Beit Shemesh not confirmed. Larger developer logo `developer-at-urban-renewal-large.png` (730x300).
 - 2026-11-24: Light-rail ride AI shot generated (Seedance 2.5, 720p, 5 s, 14,004 credits): `marketing/neo-bat-yam-reel/video/light-rail-ride.mp4`.
 - 2026-11-24: Correction (owner, session transcript): Electra Construction is the executing contractor of NEO Beit Shemesh only, not Bat Yam. Supersedes the assumption above.
+- 2026-11-24: Executing contractor of NEO Bat Yam (owner): שיכון ובינוי – סולל בונה (logo `marketing/brand/source/shikun-binui-solel-boneh.png`, 1280x476).
