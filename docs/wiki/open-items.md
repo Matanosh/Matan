@@ -7,4 +7,4 @@
 - 2026-11-15: Larger originals wanted for SORA, VOXA and Bay renders (hero sharpness, commit cac2ef9).
 - 2026-11-15: 12 YouTube project films have only partial text descriptions; full ones need the video files (commit a1eb2c9).
 - 2026-11-16: Country guides (research rec. #1) started by a subagent that stopped on the weekly usage limit before writing any file; to be restarted after the limit resets.
-- 2026-11-24: NEO reel waits on the owner for: remaining floor plans (only Type D on hand), whether phase B (buildings 7–10) is NEO, a "starting from" price and the phone number. Drive folder "NEO בית שמש" not visible. See [marketing-films](marketing-films.md).
+- 2026-11-24: NEO reel waits on the owner for: remaining floor plans (only Type D on hand), a "starting from" price and the phone number. Drive folder "NEO בית שמש" not visible. See [marketing-films](marketing-films.md).
