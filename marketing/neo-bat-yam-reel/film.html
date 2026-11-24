@@ -143,20 +143,17 @@
   #L-dev { background: radial-gradient(ellipse 120% 80% at 50% 42%, #0c2b40 0%, #061a29 52%, #03121d 100%); }
   #L-dev .media img.shot { filter: blur(16px) brightness(.36) saturate(.85); }
   #L-dev .veil { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 70% at 50% 45%, rgba(6,26,41,.35), rgba(3,18,29,.88)); }
-  .dev { position: absolute; left: 0; right: 0; top: 480px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  /* no heading block (owner, 2026-11-24): the developer's logo in the credits row names the company. The three
+     groups (lead line, experience, credits) sit centred in the safe area. */
+  .dev { position: absolute; left: 0; right: 0; top: 220px; bottom: 380px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
   .dev > * { opacity: 0; }
-  .dev .k { font-size: 34px; font-weight: 300; letter-spacing: .04em; color: var(--gold); }
-  .dev .lat { margin-top: 14px; }
-  .dev .name { margin-top: 40px; font-family: "Frank Ruhl Libre", serif; font-size: 72px; font-weight: 400; line-height: 1.15; max-width: 900px; text-wrap: balance; }
-  .dev .lead { margin-top: 30px; font-size: 38px; font-weight: 300; line-height: 1.4; color: var(--mist); max-width: 860px; text-wrap: balance; }
-  .dev .rule { width: 0; height: 1px; background: var(--gold); margin-top: 80px; opacity: 1; }
-  .dev .exp { margin-top: 80px; font-size: 34px; font-weight: 300; color: var(--mist); letter-spacing: .04em; }
+  .dev .lead { margin-top: 0; font-size: 38px; font-weight: 300; line-height: 1.4; color: var(--mist); max-width: 860px; text-wrap: balance; }
+  .dev .exp { margin-top: 110px; font-size: 34px; font-weight: 300; color: var(--mist); letter-spacing: .04em; }
   .dev .big { margin-top: 6px; font-family: "Frank Ruhl Libre", serif; font-size: 150px; font-weight: 300; line-height: 1.12; white-space: nowrap;
     color: var(--gold-2); }
   .dev .unit { margin-top: 0; font-family: "Frank Ruhl Libre", serif; font-size: 84px; font-weight: 300; line-height: 1.1; }
-  .dev.haslogo .name { font-size: 120px; line-height: 1; margin-top: 30px; }
   /* credits row: יזם · בנק מלווה · קבלן מבצע, logos sized to equal area (equal visual weight) */
-  .dev .cred { margin-top: 80px; display: flex; flex-direction: row; align-items: stretch; padding-top: 40px; border-top: 1px solid var(--hair); }
+  .dev .cred { margin-top: 120px; display: flex; flex-direction: row; align-items: stretch; padding-top: 40px; border-top: 1px solid var(--hair); }
   .dev .cred .c { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 22px; padding: 0 38px; }
   .dev .cred .c span { font-size: 26px; font-weight: 300; color: var(--gold); letter-spacing: .06em; white-space: nowrap; }
   .dev .cred .c .lg { flex: 1; display: flex; align-items: center; }
@@ -249,16 +246,12 @@
   .tv .plabel b { font-size: 30px; font-weight: 400; letter-spacing: .02em; }
   .tv .plabel span { font-size: 22px; font-weight: 300; color: rgba(11,46,69,.66); }
   .tv img.shot { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
-  body.wide .dev { top: 210px; }
-  body.wide .dev .k { font-size: 28px; }
-  body.wide .dev .name { margin-top: 30px; font-size: 60px; max-width: 1400px; }
-  body.wide .dev .lead { margin-top: 18px; font-size: 32px; max-width: 1200px; }
-  body.wide .dev .rule { margin-top: 34px; }
-  body.wide .dev .exp { margin-top: 30px; font-size: 28px; }
+  body.wide .dev { top: 0; bottom: 0; }
+  body.wide .dev .lead { font-size: 32px; max-width: 1200px; }
+  body.wide .dev .exp { margin-top: 56px; font-size: 28px; }
   body.wide .dev .big { font-size: 124px; }
   body.wide .dev .unit { font-size: 64px; }
-  body.wide .dev.haslogo .name { font-size: 96px; margin-top: 22px; }
-  body.wide .dev .cred { margin-top: 34px; padding-top: 26px; }
+  body.wide .dev .cred { margin-top: 64px; padding-top: 26px; }
   body.wide .dev .cred .c { padding: 0 90px; gap: 16px; }
   body.wide .dev .cred .c span { font-size: 22px; }
   body.wide .endtxt { top: 130px; }
@@ -414,10 +407,7 @@
   <div class="media" data-scene="dev"></div>
   <div class="veil"></div>
   <div class="dev" id="dev">
-    <div class="k" id="dk">היזם</div>
-    <div class="name" id="dname"></div>
     <div class="lead" id="dlead">מהחברות המובילות בישראל</div>
-    <div class="rule" id="drule"></div>
     <div class="exp" id="dexp">ניסיון של</div>
     <div class="big" id="dbig">עשרות אלפי</div>
     <div class="unit" id="dunit">יחידות דיור</div>
@@ -508,11 +498,8 @@ const SLOTS = {
   view:   { enabled: false, after: 'ph',    note: '"nothing will be built to hide us": owner claim, unsourced' },
   prices: { enabled: false, after: 'types', note: 'prices vs competitors: owner has not given figures' },
 };
-// Developer (owner, 2026-11-24, name confirmed by the owner via the coordinator). Leave '' to hide the name line.
-const DEVELOPER_NAME = 'ע.ט החברה להתחדשות עירונית';
-// Developer logo (owner, 2026-11-24, marketing/brand/README.md), shown in the credits row below. It carries
-// "החברה להתחדשות עירונית", so with it the name line shows only "ע.ט" (large). '' brings the full typed name back
-// and drops the developer from the row.
+// Developer logo (owner, 2026-11-24, marketing/brand/README.md), shown in the credits row below; it carries the
+// company name, so the chapter has no separate "היזם / ע.ט" heading (owner, 2026-11-24). '' drops it from the row.
 const DEVELOPER_LOGO = '../brand/at-urban-renewal/at-urban-renewal-on-dark.png';
 // Credits row at the foot of the chapter (owner, 2026-11-24): developer, accompanying bank (Bank Mizrahi
 // Tefahot), executing contractor (Shikun & Binui – Solel Boneh). Electra Construction builds NEO Beit Shemesh,
@@ -824,19 +811,15 @@ function renderTypes(t) {
 }
 
 // ---------- developer chapter ----------
-if (DEVELOPER_NAME) $('dname').textContent = DEVELOPER_LOGO ? DEVELOPER_NAME.split(' ')[0] : DEVELOPER_NAME; else $('dname').remove();
-if (DEVELOPER_LOGO) $('dev').classList.add('haslogo');
 { const area = WIDE ? 34000 : 21000;
   $('dcred').innerHTML = CREDITS.filter((c) => c.img).map((c, i) => (i ? '<i class="sep"></i>' : '') +
     `<div class="c" id="cr${i}"><span>${c.label}</span><div class="lg"><img src="${c.img}" alt="${c.alt}" style="height:${Math.round(Math.sqrt(area / c.ar))}px"></div></div>`).join(''); }
-const DEV_T = { k: 94.9, name: 96.0, lead: 98.4, rule: 99.4, big: 100.2, bank: 102.6 };
+// lead line, then experience, then the credits row: fully in by ~101.1, held ~4 s before the fade at 105.1
+const DEV_T = { lead: 95.0, big: 96.5, bank: 98.4 };
 function renderDev(t) {
   const sc = SCENES.dev, out = sine(lin(t, sc.end - .9, sc.end + .3));
   const up = (el, a, dy = 18, dur = 1.4) => { if (!el) return; const q = eout(lin(t, a, a + dur)); el.style.opacity = q * (1 - out); el.style.transform = `translateY(${(1 - q) * dy}px)`; return q; };
-  up($('dk'), DEV_T.k);
-  const nq = up($('dname'), DEV_T.name, 14, 1.6); if ($('dname')) $('dname').style.filter = `blur(${(1 - (nq || 0)) * 6}px)`;
   up($('dlead'), DEV_T.lead);
-  $('drule').style.width = (ease(lin(t, DEV_T.rule, DEV_T.rule + 1.4)) * (WIDE ? 160 : 200)) + 'px'; $('drule').style.opacity = 1 - out;
   up($('dexp'), DEV_T.big - .5, 12);
   // the big line: tracks in from wide spacing, settles, then a slow gold shimmer passes across it
   const b = $('dbig'), bq = eout(lin(t, DEV_T.big, DEV_T.big + 2.0));
