@@ -33,3 +33,4 @@ Related: [neo-beit-shemesh](neo-beit-shemesh.md), [file-intake](file-intake.md).
 - 2026-11-24: Lesson: an ElevenLabs call that times out may still have completed; check the flow before generating again.
 - 2026-11-24: Beit Shemesh horizontal film delivered: `marketing/neo-reel/neo-beit-shemesh-film-he-16x9.mp4` (commit fc72eed, 1920x1080, 80 s, -14.3 LUFS). film.html takes ?w=&h=; render.js takes W=; loudnorm is now two-pass.
 - 2026-11-24: Bat Yam horizontal film delivered: `marketing/neo-bat-yam-reel/neo-bat-yam-film-he-16x9.mp4` (commit e4ae17b, 72 s, -14.0 LUFS, plans C2/A/B drawn beside cards; `film.html?format=16x9`). Plan B too wide and touching the panel edge; a fix was started the same day.
+- 2026-11-24: Bat Yam 16:9 plan fix delivered: 5 rooms now shows plan G (B too wide, B1 portrait), all plans fit their panel with even margins; commit 9de4771. Note: all Bat Yam plans are about 3:1, so room labels stay small at film size.
