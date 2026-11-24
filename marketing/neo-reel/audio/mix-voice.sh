@@ -1,5 +1,6 @@
 #!/bin/bash
 # Builds voice.wav (80 s) by placing each narration clip at its scene time.
+# v2 (6.0 s) was re-recorded on 2026-11-24 with "עד עשרים ושבע קומות" (27 floors); it is 7.0 s, ends 13.0 s.
 # Clip v6 (room list) is cut into phrases so each lands on its apartment card.
 set -e
 cd "$(dirname "$0")"

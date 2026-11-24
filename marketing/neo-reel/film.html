@@ -20,6 +20,12 @@
 
   SAFE AREA (Instagram/TikTok UI): no text above y=220 or below y=1540, captions keep 140px
   clear on the right for the like/share rail.
+
+  HEIGHT: film.html?h=2340 lays the film out 1080 wide by h tall (default 1920, the 9:16 master).
+  The tall "phone" version (1080x2340, about 9:19.5) fills modern phones in WhatsApp/the gallery.
+  Backgrounds and shots extend to the full height (shots re-cropped to cover: no bars, no
+  stretching); all text and cards keep their 1920 layout, centred (shifted down by --dy =
+  (h-1920)/2), so the safe area becomes y=220+dy .. 1540+dy. render.js: H=2340 node render.js <out>.
   Numbers: only from docs/wiki/neo-beit-shemesh.md and the owner (2026-11-24). Invent none.
 -->
 <style>
@@ -28,9 +34,10 @@
     --navy: #0a1836; --navy-2: #0c1d40; --navy-3: #15284b;   /* DESIGN.md night grounds */
     --ink: #fbf8f1; --mist: #ddd6c6; --slate: #9fb2db;
     --hair: rgba(251, 248, 241, .16);
+    --h: 1920px; --dy: 0px;      /* set from ?h= by the script */
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  html, body { width: 1080px; height: var(--h); overflow: hidden; background: #000; }
   body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
   .layer { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
   .media { position: absolute; inset: 0; overflow: hidden; }
@@ -41,12 +48,12 @@
   .shade-top { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 22%); }
 
   /* "הדמיה" label on every render shot (docs/policies/ai-images-policy.md, rule 1) */
-  .hadmaya { position: absolute; left: 72px; top: 240px; padding: 8px 18px 9px; border-radius: 2px;
+  .hadmaya { position: absolute; left: 72px; top: calc(240px + var(--dy)); padding: 8px 18px 9px; border-radius: 2px;
     background: rgba(4,10,24,.5); border: 1px solid rgba(251,248,241,.28);
     font-size: 28px; font-weight: 400; letter-spacing: .02em; color: rgba(251,248,241,.92); }
 
   /* captions: RTL, lower third, inside the safe area */
-  .cap { position: absolute; right: 140px; left: 72px; bottom: 420px; text-align: right; opacity: 0; }
+  .cap { position: absolute; right: 140px; left: 72px; bottom: calc(420px + var(--dy)); text-align: right; opacity: 0; }
   .cap .k { font-size: 36px; font-weight: 500; color: var(--orange); letter-spacing: .02em; margin-bottom: 16px; }
   .cap .h { font-family: "Frank Ruhl Libre", serif; font-size: 96px; font-weight: 400; line-height: 1.06; letter-spacing: -.01em;
     text-wrap: balance; text-shadow: 0 4px 30px rgba(0,0,0,.45); }
@@ -66,19 +73,19 @@
   .logo { display: flex; flex-direction: column; align-items: center; }
   .logo-img { display: block; width: 780px; height: auto; }
   .tag { margin-top: 56px; font-family: "Frank Ruhl Libre", serif; font-size: 58px; font-weight: 300; color: var(--mist); }
-  .logoWrap { position: absolute; left: 0; right: 0; top: 700px; display: flex; justify-content: center; }
+  .logoWrap { position: absolute; left: 0; right: 0; top: calc(700px + var(--dy)); display: flex; justify-content: center; }
   .rule { height: 2px; background: var(--orange); width: 0; margin: 48px auto 0; }
 
   /* apartment types */
   #types { background: radial-gradient(ellipse 90% 60% at 50% 48%, var(--navy-3) 0%, var(--navy) 62%, #060f24 100%); }
-  .thead { position: absolute; left: 0; right: 0; top: 250px; text-align: center; }
+  .thead { position: absolute; left: 0; right: 0; top: calc(250px + var(--dy)); text-align: center; }
   .thead .t { font-size: 34px; font-weight: 400; letter-spacing: .06em; color: var(--slate); }
   .segs { display: flex; flex-direction: row; gap: 12px; justify-content: center; margin-top: 20px; }
   .segs i { display: block; width: 92px; height: 4px; background: rgba(251,248,241,.16); position: relative; overflow: hidden; }
   .segs i b { position: absolute; top: 0; bottom: 0; right: 0; width: 0; background: var(--orange); }
   .card { position: absolute; inset: 0; opacity: 0; }
-  .card .k { position: absolute; left: 0; right: 0; top: 352px; text-align: center; font-size: 34px; font-weight: 500; color: var(--orange); letter-spacing: .08em; }
-  .card .h { position: absolute; left: 0; right: 0; top: 398px; text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 124px; font-weight: 300; line-height: 1.05; }
+  .card .k { position: absolute; left: 0; right: 0; top: calc(352px + var(--dy)); text-align: center; font-size: 34px; font-weight: 500; color: var(--orange); letter-spacing: .08em; }
+  .card .h { position: absolute; left: 0; right: 0; top: calc(398px + var(--dy)); text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 124px; font-weight: 300; line-height: 1.05; }
   .card .h b { font-weight: 500; }
   .card .num { position: absolute; left: 0; right: 0; text-align: center; }
   .card .num .v { display: inline-block; font-weight: 200; line-height: 1; direction: ltr; font-variant-numeric: lining-nums; white-space: nowrap; }
@@ -89,17 +96,17 @@
   .row span { font-size: 42px; font-weight: 300; color: var(--mist); }
   .row b { font-size: 50px; font-weight: 500; color: var(--ink); }
   .n { direction: ltr; unicode-bidi: isolate; display: inline-block; }
-  #box { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
-  #plan { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; opacity: 0; }
+  #box { position: absolute; left: 0; top: 0; width: 1080px; height: var(--h); overflow: visible; }
+  #plan { position: absolute; left: 0; top: 0; width: 1080px; height: var(--h); opacity: 0; }
   .plannote { position: absolute; left: 0; right: 0; text-align: center; font-size: 26px; color: #6b6b6b; opacity: 0; }
 
   /* end card */
-  .endtxt { position: absolute; left: 0; right: 0; top: 560px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .endtxt { position: absolute; left: 0; right: 0; top: calc(560px + var(--dy)); display: flex; flex-direction: column; align-items: center; text-align: center; }
   .cta { margin-top: 110px; font-family: "Frank Ruhl Libre", serif; font-size: 76px; font-weight: 400; line-height: 1.15; }
   .cta-rule { height: 3px; background: var(--orange); width: 0; margin: 34px auto 0; }
-  .legal { position: absolute; left: 90px; right: 90px; top: 1462px; text-align: center; font-size: 28px; line-height: 1.4; color: rgba(251,248,241,.66); }
+  .legal { position: absolute; left: 90px; right: 90px; top: calc(1462px + var(--dy)); text-align: center; font-size: 28px; line-height: 1.4; color: rgba(251,248,241,.66); }
   /* credits: marketer (MS Group, secondary to the project logo) and AI narration note */
-  .credits { position: absolute; left: 0; right: 0; top: 1548px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .credits { position: absolute; left: 0; right: 0; top: calc(1548px + var(--dy)); display: flex; flex-direction: column; align-items: center; gap: 22px; }
   .credits .mkt { display: flex; align-items: center; gap: 22px; direction: rtl; }
   .credits .mkt span { font-size: 28px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.72); }
   .credits .mkt img { display: block; width: 190px; height: auto; opacity: .92; }
@@ -215,6 +222,11 @@
 <div class="black" id="black"></div>
 
 <script>
+// Frame height from ?h= (default 1920). Text keeps its 1920 layout, centred: DY = (H - 1920) / 2.
+const H = Math.max(1920, Math.round(+new URLSearchParams(location.search).get('h') || 1920)), DY = (H - 1920) / 2;
+document.documentElement.style.setProperty('--h', H + 'px');
+document.documentElement.style.setProperty('--dy', DY + 'px');
+['box', 'plan'].forEach((id) => document.getElementById(id).setAttribute('viewBox', `0 0 1080 ${H}`));
 // ======================= CONFIG (edit here) =======================
 // One entry per shot. To use an AI video, change `src` to a .mp4/.webm file; nothing else.
 // start/end: on-screen seconds (crossfades are centred on them). cam: image-only Ken Burns,
@@ -314,8 +326,8 @@ function videoFrame(m, local, D) {
 // cover-fit camera for an image: zoom s, focus (fx, fy), clamped so no edge shows
 function camera(m, s, fx, fy) {
   const w = m.el.naturalWidth, h = m.el.naturalHeight; if (!w) return null;
-  const k = Math.max(1080 / w, 1920 / h) * s;
-  const x = clamp(540 - fx * w * k, 1080 - w * k, 0), y = clamp(960 - fy * h * k, 1920 - h * k, 0);
+  const k = Math.max(1080 / w, H / h) * s;
+  const x = clamp(540 - fx * w * k, 1080 - w * k, 0), y = clamp(H / 2 - fy * h * k, H - h * k, 0);
   const tf = `translate(${x}px,${y}px) scale(${k})`;
   m.el.style.transform = tf; if (m.lines) m.lines.style.transform = tf; if (m.el2) m.el2.style.transform = tf;
   return { x, y, k, h };
@@ -340,8 +352,8 @@ function shot(key, t, p) {
 }
 
 // ---------- apartment cards ----------
-const BOX = { cx: 540, cy: 900, max: 520, maxArea: 148 };
-const PLAN = { cx: 540, cy: 915, side: 760, crop: [180, 90, 1160, 1170] };
+const BOX = { cx: 540, cy: 900 + DY, max: 520, maxArea: 148 };
+const PLAN = { cx: 540, cy: 915 + DY, side: 760, crop: [180, 90, 1160, 1170] };
 const segs = $('segs');
 CARDS.forEach((c, i) => {
   c.from = i ? CARDS[i - 1].t : TYPES.start;
