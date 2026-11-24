@@ -1,4 +1,4 @@
-// Renders film.html (1080x1920, or 1080xH with H=2340 for the tall phone version) frame by frame with Playwright, then encodes an MP4 with ffmpeg.
+// Renders film.html (1080x1920, 1080xH with H=2340 for the tall phone version, or W=1920 H=1080 for the 16:9 film) frame by frame with Playwright, then encodes an MP4 with ffmpeg.
 // Usage: node render.js <outdir> [fps=30]            full film -> <outdir>/neo-reel.mp4
 //        node render.js <outdir> stills 3,10.5,47      check stills -> <outdir>/s00_3.png ...
 // Same pipeline as marketing/club-film/render.js. AI shots play from frames pre-extracted by
@@ -7,13 +7,14 @@
 // Encode is capped at 5 Mbit/s so the final film stays under 60 MB.
 // Uses $HTTPS_PROXY for Google Fonts when set. WORKERS=n sets parallel browser pages (default 4).
 // H=n sets the frame height (default 1920): film.html?h=n extends backgrounds and shots, text stays centred.
+// W=1920 H=1080: the landscape 16:9 film (film.html?w=1920&h=1080, its own wide layout of the same scenes).
 const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs'); const { execFileSync } = require('child_process');
-const H = +(process.env.H || 1920);
+const W = +(process.env.W || 1080), H = +(process.env.H || (W > 1080 ? 1080 : 1920));
 
 async function openPage(browser) {
-  const p = await browser.newPage({ viewport: { width: 1080, height: H }, deviceScaleFactor: 1 });
-  await p.goto('file://' + path.join(__dirname, 'film.html') + '?h=' + H, { waitUntil: 'networkidle' });
+  const p = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
+  await p.goto('file://' + path.join(__dirname, 'film.html') + '?w=' + W + '&h=' + H, { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   const fonts = await p.evaluate(() => [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family));
   if (!fonts.some((f) => /Heebo/.test(f)) || !fonts.some((f) => /Frank/.test(f))) throw new Error('fonts did not load: ' + fonts.join(','));

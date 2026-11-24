@@ -26,6 +26,11 @@
   Backgrounds and shots extend to the full height (shots re-cropped to cover: no bars, no
   stretching); all text and cards keep their 1920 layout, centred (shifted down by --dy =
   (h-1920)/2), so the safe area becomes y=220+dy .. 1540+dy. render.js: H=2340 node render.js <out>.
+  LANDSCAPE: film.html?w=1920&h=1080 is the horizontal 16:9 film (YouTube/TV), a separate layout of
+  the same SCENES, CARDS, timing and narration (html.land): shots cover the wide frame with their
+  own `land` camera, captions sit lower right with wide margins, the apartment cards are a side
+  panel on the right beside a render (the Type D plan draws on large in its place), and the end
+  card is laid out for the wide frame. render.js: W=1920 H=1080 node render.js <out>.
   Numbers: only from docs/wiki/neo-beit-shemesh.md and the owner (2026-11-24). Invent none.
 -->
 <style>
@@ -34,10 +39,10 @@
     --navy: #0a1836; --navy-2: #0c1d40; --navy-3: #15284b;   /* DESIGN.md night grounds */
     --ink: #fbf8f1; --mist: #ddd6c6; --slate: #9fb2db;
     --hair: rgba(251, 248, 241, .16);
-    --h: 1920px; --dy: 0px;      /* set from ?h= by the script */
+    --w: 1080px; --h: 1920px; --dy: 0px;      /* set from ?w= / ?h= by the script */
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 1080px; height: var(--h); overflow: hidden; background: #000; }
+  html, body { width: var(--w); height: var(--h); overflow: hidden; background: #000; }
   body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
   .layer { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
   .media { position: absolute; inset: 0; overflow: hidden; }
@@ -96,8 +101,8 @@
   .row span { font-size: 42px; font-weight: 300; color: var(--mist); }
   .row b { font-size: 50px; font-weight: 500; color: var(--ink); }
   .n { direction: ltr; unicode-bidi: isolate; display: inline-block; }
-  #box { position: absolute; left: 0; top: 0; width: 1080px; height: var(--h); overflow: visible; }
-  #plan { position: absolute; left: 0; top: 0; width: 1080px; height: var(--h); opacity: 0; }
+  #box { position: absolute; left: 0; top: 0; width: var(--w); height: var(--h); overflow: visible; }
+  #plan { position: absolute; left: 0; top: 0; width: var(--w); height: var(--h); opacity: 0; }
   .plannote { position: absolute; left: 0; right: 0; text-align: center; font-size: 26px; color: #6b6b6b; opacity: 0; }
 
   /* end card */
@@ -110,6 +115,7 @@
   .credits .mkt { display: flex; align-items: center; gap: 22px; direction: rtl; }
   .credits .mkt span { font-size: 28px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.72); }
   .credits .mkt img { display: block; width: 190px; height: auto; opacity: .92; }
+  .credits .sep { display: none; }
   .credits .ai { font-size: 24px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.55); }
 
   /* SLOT: phone number. Hidden unless SLOTS.phone is set in the script (adds .slot-on).
@@ -119,6 +125,50 @@
   .slot-phone { margin-top: 56px; font-size: 92px; font-weight: 500; font-variant-numeric: lining-nums; color: var(--ink); direction: ltr; letter-spacing: .02em; }
 
   .black { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+
+  /* ===== LANDSCAPE 1920x1080 (html.land, from ?w=1920&h=1080) ===== */
+  .land .hadmaya { left: 64px; top: 56px; font-size: 24px; padding: 6px 16px 7px; }
+  .land .shade { background: radial-gradient(ellipse 62% 78% at 100% 100%, rgba(4,10,24,.86) 0%, rgba(4,10,24,.58) 42%, rgba(4,10,24,0) 80%); }
+  .land .shade-top { background: linear-gradient(to bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 18%); }
+  .land .vignette { background: radial-gradient(ellipse 85% 95% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,.42) 100%); }
+  .land .cap { right: 128px; left: auto; width: 1000px; bottom: 112px; }
+  .land .cap .k { font-size: 30px; margin-bottom: 12px; }
+  .land .cap .h { font-size: 80px; }
+  .land .cap .s { margin-top: 16px; font-size: 36px; }
+  .land .cap .bar { margin-top: 24px; }
+  .land .logoWrap { top: 250px; }
+  .land .logo-img { width: 640px; }
+  .land .tag { margin-top: 44px; font-size: 52px; }
+  /* apartment types: render (or the plan) on the left, card panel on the right */
+  .land #tvis { position: absolute; overflow: hidden; }
+  .land #tvis img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; will-change: transform; }
+  .land #tvis .hadmaya { left: 28px; top: 28px; }
+  .land .thead { left: auto; right: 128px; width: 600px; top: 112px; text-align: right; }
+  .land .thead .t { font-size: 30px; }
+  .land .segs { justify-content: flex-start; gap: 10px; margin-top: 18px; }
+  .land .segs i { width: 88px; }
+  .land .card .k { left: auto; right: 128px; width: 600px; top: 236px; text-align: right; font-size: 30px; }
+  .land .card .h { left: auto; right: 128px; width: 640px; top: 282px; text-align: right; font-size: 108px; }
+  .land .card .num { left: auto; right: 128px; width: 640px; top: 446px; text-align: right; }
+  .land .card .num .pre { display: block; font-size: 40px; font-weight: 300; color: var(--mist); margin-bottom: 4px; }
+  .land .card .num .v { font-size: 172px; }
+  .land .card .num .u { font-size: 40px; margin-top: 6px; }
+  .land .rows { left: auto; right: 128px; width: 600px; }
+  .land .row { padding: 18px 4px; }
+  .land .row span { font-size: 36px; }
+  .land .row b { font-size: 44px; }
+  .land .plannote { font-size: 24px; }
+  /* end card */
+  .land .endtxt { top: 128px; }
+  .land .endtxt .logo-img { width: 500px !important; }
+  .land .cta { margin-top: 60px; font-size: 66px; }
+  .land .cta-rule { margin-top: 28px; }
+  .land .slot-phone { margin-top: 40px; font-size: 84px; }
+  .land .legal { left: 200px; right: 200px; top: 862px; font-size: 26px; }
+  .land .credits { top: 924px; flex-direction: row; justify-content: center; gap: 0; }
+  .land .credits .mkt img { width: 150px; }
+  .land .credits .ai { font-size: 26px; }
+  .land .credits .sep { display: block; width: 1px; height: 44px; background: rgba(251,248,241,.3); margin: 0 48px; }
 </style>
 </head>
 <body>
@@ -178,6 +228,7 @@
 <!-- 42–68 apartment types, one card per room count. Numbers: wiki + owner, 2026-11-24 (phases A and B). -->
 <div class="layer" id="types">
   <div class="thead" id="thead"><div class="t">סוגי הדירות</div><div class="segs" id="segs"></div></div>
+  <div id="tvis"></div>
   <svg id="box" viewBox="0 0 1080 1920"><rect id="boxr" fill="none" stroke="#E8622C" stroke-width="3" pathLength="1"/></svg>
   <svg id="plan" viewBox="0 0 1080 1920">
     <defs>
@@ -215,38 +266,56 @@
   <div class="legal" id="legal">ההדמיות והתוכניות להמחשה בלבד ואינן מהוות חלק ממסמכי המכר</div>
   <div class="credits" id="credits">
     <div class="mkt"><span>שיווק:</span><img src="../brand/ms-group/ms-group-on-dark.png" alt="M.S. Group"></div>
-    <div class="ai">קריינות: AI</div>
+    <div class="sep"></div><div class="ai">קריינות: AI</div>
   </div>
 </div>
 
 <div class="black" id="black"></div>
 
 <script>
-// Frame height from ?h= (default 1920). Text keeps its 1920 layout, centred: DY = (H - 1920) / 2.
-const H = Math.max(1920, Math.round(+new URLSearchParams(location.search).get('h') || 1920)), DY = (H - 1920) / 2;
+// Frame size from ?w= / ?h=. Vertical (w=1080, default): height >= 1920, text keeps its 1920 layout,
+// centred: DY = (H - 1920) / 2. Landscape (w > 1080, e.g. ?w=1920&h=1080): html.land layout, DY = 0.
+const Q = new URLSearchParams(location.search);
+const W = Math.max(1080, Math.round(+Q.get('w') || 1080)), LAND = W > 1080;
+const H = LAND ? Math.round(+Q.get('h') || 1080) : Math.max(1920, Math.round(+Q.get('h') || 1920)), DY = LAND ? 0 : (H - 1920) / 2;
+if (LAND) document.documentElement.classList.add('land');
+document.documentElement.style.setProperty('--w', W + 'px');
 document.documentElement.style.setProperty('--h', H + 'px');
 document.documentElement.style.setProperty('--dy', DY + 'px');
-['box', 'plan'].forEach((id) => document.getElementById(id).setAttribute('viewBox', `0 0 1080 ${H}`));
+['box', 'plan'].forEach((id) => document.getElementById(id).setAttribute('viewBox', `0 0 ${W} ${H}`));
 // ======================= CONFIG (edit here) =======================
 // One entry per shot. To use an AI video, change `src` to a .mp4/.webm file; nothing else.
 // start/end: on-screen seconds (crossfades are centred on them). cam: image-only Ken Burns,
 // from/to = { s: zoom over cover-fit, fx, fy: focus point as a fraction of the image }.
+// `land` is the same move framed for the 16:9 film (wide: towers, corridor end, windows and
+// balcony, and the club signs stay in frame; at s=1 a 3:2 or 16:9 shot fills the width).
 const SCENES = {
   // AI shots (video/*.mp4, 24 fps). Crops: towers / corridor end / windows and balcony / club signs.
   aerial:  { src: 'video/aerial.mp4', frames: 193, fps: 24, start: 0, end: 5,
-             cam: { from: { s: 1.00, fx: .34, fy: .50 }, to: { s: 1.05, fx: .40, fy: .46 } } },
+             cam: { from: { s: 1.00, fx: .34, fy: .50 }, to: { s: 1.05, fx: .40, fy: .46 } },
+             land: { from: { s: 1.00, fx: .50, fy: .47 }, to: { s: 1.04, fx: .48, fy: .45 } } },
   complex: { src: 'img/aerial.jpg',  start: 8.6,  end: 14,
-             cam: { from: { s: 1.02, fx: .30, fy: .45 }, to: { s: 1.20, fx: .36, fy: .40 } } },
+             cam: { from: { s: 1.02, fx: .30, fy: .45 }, to: { s: 1.20, fx: .36, fy: .40 } },
+             land: { from: { s: 1.00, fx: .50, fy: .48 }, to: { s: 1.10, fx: .44, fy: .46 } } },
   lobby:   { src: 'video/lobby.mp4', frames: 193, fps: 24, start: 14, end: 22,
-             cam: { from: { s: 1.00, fx: .56, fy: .50 }, to: { s: 1.08, fx: .51, fy: .48 } } },
+             cam: { from: { s: 1.00, fx: .56, fy: .50 }, to: { s: 1.08, fx: .51, fy: .48 } },
+             land: { from: { s: 1.00, fx: .50, fy: .50 }, to: { s: 1.06, fx: .50, fy: .47 } } },
   living:  { src: 'video/living.mp4', frames: 241, fps: 24, start: 22, end: 34,
-             cam: { from: { s: 1.00, fx: .66, fy: .50 }, to: { s: 1.07, fx: .72, fy: .50 } } },
+             cam: { from: { s: 1.00, fx: .66, fy: .50 }, to: { s: 1.07, fx: .72, fy: .50 } },
+             land: { from: { s: 1.00, fx: .50, fy: .50 }, to: { s: 1.06, fx: .60, fy: .48 } } },
   country: { src: 'video/country.mp4', frames: 193, fps: 24, start: 34, end: 42,
-             cam: { from: { s: 1.00, fx: .73, fy: .50 }, to: { s: 1.03, fx: 1.0, fy: .50 } } },
+             cam: { from: { s: 1.00, fx: .73, fy: .50 }, to: { s: 1.03, fx: 1.0, fy: .50 } },
+             land: { from: { s: 1.00, fx: .50, fy: .00 }, to: { s: 1.03, fx: 1.0, fy: .00 } } },
   end:     { src: 'img/aerial.jpg',  start: 68,   end: 80,
-             cam: { from: { s: 1.05, fx: .40, fy: .40 }, to: { s: 1.14, fx: .42, fy: .38 } } },
+             cam: { from: { s: 1.05, fx: .40, fy: .40 }, to: { s: 1.14, fx: .42, fy: .38 } },
+             land: { from: { s: 1.04, fx: .48, fy: .46 }, to: { s: 1.12, fx: .46, fy: .44 } } },
 };
 const LOGO = { start: 5, end: 8.6 };
+// Landscape only: the render beside the apartment cards (left of the panel). `img` per card index;
+// the Type D card shows the plan instead. Same files as the scenes, labelled "הדמיה".
+const TYPES_LAND = { vis: { x: 64, y: 64, w: 1056, h: 952 },
+  imgs: [{ src: 'img/living.jpg', cards: [0, 1], from: { s: 1.02, x: 50 }, to: { s: 1.10, x: 62 } },
+         { src: 'video/frames/living/0241.jpg', cards: [3, 4], from: { s: 1.02, x: 46 }, to: { s: 1.10, x: 56 } }] };
 const TYPES = { start: 42, end: 68 };
 // Apartment cards. area/balcony/garden in m²; ranges as [min, max]. Source: docs/wiki/neo-beit-shemesh.md and
 // the owner's 2026-11-24 confirmation that phase B (buildings 7–10) is NEO. Do not add numbers that are not there.
@@ -326,8 +395,8 @@ function videoFrame(m, local, D) {
 // cover-fit camera for an image: zoom s, focus (fx, fy), clamped so no edge shows
 function camera(m, s, fx, fy) {
   const w = m.el.naturalWidth, h = m.el.naturalHeight; if (!w) return null;
-  const k = Math.max(1080 / w, H / h) * s;
-  const x = clamp(540 - fx * w * k, 1080 - w * k, 0), y = clamp(H / 2 - fy * h * k, H - h * k, 0);
+  const k = Math.max(W / w, H / h) * s;
+  const x = clamp(W / 2 - fx * w * k, W - w * k, 0), y = clamp(H / 2 - fy * h * k, H - h * k, 0);
   const tf = `translate(${x}px,${y}px) scale(${k})`;
   m.el.style.transform = tf; if (m.lines) m.lines.style.transform = tf; if (m.el2) m.el2.style.transform = tf;
   return { x, y, k, h };
@@ -347,7 +416,7 @@ function cap(el, t, a, b) {
   const bar = el.querySelector('.bar'); if (bar) bar.style.width = (eout(lin(t, a + .35, a + 1.5)) * 200) + 'px';
 }
 function shot(key, t, p) {
-  const m = media[key], c = m.sc.cam;
+  const m = media[key], c = LAND && m.sc.land ? m.sc.land : m.sc.cam;
   if (c) camera(m, mix(c.from.s, c.to.s, p), mix(c.from.fx, c.to.fx, p), mix(c.from.fy, c.to.fy, p));
 }
 
@@ -361,8 +430,8 @@ CARDS.forEach((c, i) => {
   c.side = c.plan ? PLAN.side : BOX.max * Math.sqrt(big / BOX.maxArea);
   const valTxt = c.garden ? `${c.garden}` : (c.area.length > 1 ? `${c.area[0]}–${c.area[1]}` : `${c.area[0]}`);
   const unit = c.garden ? 'מ״ר גינה פרטית' : 'מ״ר';
-  const pre = c.garden ? '<span style="display:block;font-size:44px;font-weight:300;color:var(--mist);margin-bottom:6px">עד</span>' : '';
-  const rowsTop = c.plan ? PLAN.cy + PLAN.side / 2 + 46 : BOX.cy + BOX.max / 2 + 40;
+  const pre = c.garden ? (LAND ? '<span class="pre">עד</span>' : '<span style="display:block;font-size:44px;font-weight:300;color:var(--mist);margin-bottom:6px">עד</span>') : '';
+  const rowsTop = LAND ? (c.plan ? 470 : c.garden ? 760 : 712) : c.plan ? PLAN.cy + PLAN.side / 2 + 46 : BOX.cy + BOX.max / 2 + 40;
   const el = document.createElement('div'); el.className = 'card';
   el.innerHTML = `<div class="k"><span class="n">${String(i + 1).padStart(2, "0")} / ${String(CARDS.length).padStart(2, "0")}</span></div>
     <div class="h">${c.title}</div>
@@ -371,7 +440,20 @@ CARDS.forEach((c, i) => {
   $('cards').appendChild(el); c.el = el;
   segs.insertAdjacentHTML('beforeend', '<i><b></b></i>');
 });
+const TV = TYPES_LAND.vis;
+if (LAND) {
+  const tv = $('tvis');
+  Object.assign(tv.style, { left: TV.x + 'px', top: TV.y + 'px', width: TV.w + 'px', height: TV.h + 'px' });
+  TYPES_LAND.imgs.forEach((im) => { im.el = document.createElement('img'); im.el.src = im.src; tv.appendChild(im.el); });
+  tv.insertAdjacentHTML('beforeend', '<div class="hadmaya" id="tvisLabel">הדמיה</div>');
+}
 function layoutCards() {   // fit the number inside its box, then centre it vertically
+  if (LAND) {   // landscape: fixed size in the panel, shrunk only if wider than the panel
+    CARDS.forEach((c) => { const v = c.el.querySelector('.num .v'); if (!v) return;
+      c.el.querySelector('.num').style.top = '';
+      const w = v.getBoundingClientRect().width; if (w > 620) v.style.fontSize = (172 * 620 / w) + 'px'; });
+    return;
+  }
   CARDS.forEach((c) => {
     const num = c.el.querySelector('.num'); if (!num) return;
     const v = num.querySelector('.v'); v.style.fontSize = '200px';
@@ -395,8 +477,22 @@ function renderTypes(t) {
   const lt = t - TYPES.start;
   $('thead').style.opacity = eout(lin(lt, .2, 1.1)) * (1 - lin(t, TYPES.end - .3, TYPES.end + .4));
   const b = boxAt(t), r = $('boxr');
+  if (LAND) {   // the outline frames the render; it fills white for the plan
+    r.setAttribute('x', TV.x); r.setAttribute('y', TV.y); r.setAttribute('width', TV.w); r.setAttribute('height', TV.h);
+    $('tvis').style.opacity = 1 - b.fill; $('tvisLabel').style.opacity = 1;
+    TYPES_LAND.imgs.forEach((im) => {
+      const a = CARDS[im.cards[0]].from, z = CARDS[im.cards[im.cards.length - 1]].t;
+      const p = sine(lin(t, a - .5, z + .5));
+      // shown from its first card until the plan panel has covered it (or to the end)
+      const on = im.cards[0] === 0 ? 1 - lin(t, CARDS[2].from + .8, CARDS[2].from + .9) : lin(t, CARDS[3].from - 1.2, CARDS[3].from - 1.1);
+      im.el.style.opacity = on;
+      im.el.style.objectPosition = `${mix(im.from.x, im.to.x, p)}% 50%`;
+      im.el.style.transform = `scale(${mix(im.from.s, im.to.s, p)})`;
+    });
+  } else {
   r.setAttribute('x', 540 - b.side / 2); r.setAttribute('y', b.cy - b.side / 2);
   r.setAttribute('width', b.side); r.setAttribute('height', b.side);
+  }
   r.setAttribute('fill', `rgba(255,255,255,${b.fill})`);
   r.setAttribute('stroke-dasharray', '1 1');
   r.setAttribute('stroke-dashoffset', 1 - ease(lin(lt, .3, 1.6)));
@@ -424,13 +520,15 @@ function renderTypes(t) {
       const pr = ease(lin(t, a + .6, c.t - 1.4));
       const v = mix(-.05, 1.06, pr);
       ['fr', 'fg', 'fb'].forEach((id) => { $(id).setAttribute('slope', -20); $(id).setAttribute('intercept', 20 * v); });
-      const [cx0, cy0, cw, ch] = PLAN.crop, side = b.side - 110, k2 = side / Math.max(cw, ch);
+      const [cx0, cy0, cw, ch] = PLAN.crop, side = LAND ? TV.h - 96 : b.side - 110, k2 = side / Math.max(cw, ch);
       const zoom = mix(1.0, 1.04, lin(t, a, c.t));
-      const tf = `translate(${540 - (cx0 + cw / 2) * k2 * zoom} ${b.cy - 18 - (cy0 + ch / 2) * k2 * zoom}) scale(${k2 * zoom})`;
+      const pcx = LAND ? TV.x + TV.w / 2 : 540, pcy = LAND ? TV.y + TV.h / 2 - 16 : b.cy - 18;
+      const tf = `translate(${pcx - (cx0 + cw / 2) * k2 * zoom} ${pcy - (cy0 + ch / 2) * k2 * zoom}) scale(${k2 * zoom})`;
       $('planG').setAttribute('transform', tf);
       const po = lin(t, a + .3, a + .8) * (1 - lin(t, c.t - .4, c.t + .1));
       $('plan').style.opacity = po;
-      $('plannote').style.top = (b.cy + b.side / 2 - 46) + 'px'; $('plannote').style.opacity = po * lin(t, a + 1.5, a + 2.2);
+      $('plannote').style.top = (LAND ? TV.y + TV.h - 40 : b.cy + b.side / 2 - 46) + 'px';
+      if (LAND) Object.assign($('plannote').style, { left: TV.x + 'px', right: 'auto', width: TV.w + 'px' }); $('plannote').style.opacity = po * lin(t, a + 1.5, a + 2.2);
     }
   });
 }
@@ -513,6 +611,7 @@ window.render = function (t) {
 };
 
 // slots: shown only when filled
+if (LAND) $('cta').innerHTML = $('cta').innerHTML.replace(/<br>/g, ' ');   // one line in the wide frame
 if (SLOTS.phone) { $('slotPhone').textContent = SLOTS.phone; $('slotPhone').classList.add('slot-on'); }
 </script>
 </body>
