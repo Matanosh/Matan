@@ -19,3 +19,4 @@ A residential project in Beit Shemesh that MS Group markets (in Israel, not abro
 - Drive also holds (not yet opened): "בית שמש V2mp4.mp4" (161 MB, Jan 2026) and "ע.ט באנרים NEO בית שמש שתפ אשמורת.zip" (1.2 GB, 2024, likely the original renders). Both are too large for the Drive connector, which returns files as base64.
 
 Related: [marketing-films](marketing-films.md), [file-intake](file-intake.md), [open-items](open-items.md).
+- 2026-11-24: Owner correction (session transcript): the towers go up to 27 floors, not 22. Supersedes the "floors 2–22" reading taken from the Type D plan of 1.8.2023 for any statement about tower height.
