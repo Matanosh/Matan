@@ -4,6 +4,7 @@
 // Copied from marketing/neo-reel/render.js (same pipeline).
 // Scenes are images only here; window.__videos() returns [] so the video wait is a no-op.
 // FORMAT=16x9 renders the horizontal film (1920x1080, film.html?format=16x9) -> <outdir>/neo-bat-yam-film-16x9.mp4.
+// Encode is capped at 4 Mbit/s (grain and the AI shots otherwise push the 16:9 film past GitHub's 100 MB limit).
 // Uses $HTTPS_PROXY for Google Fonts when set. WORKERS=n sets parallel browser pages (default 4).
 const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs'); const { execFileSync } = require('child_process');
@@ -45,7 +46,7 @@ async function openPage(browser) {
   await browser.close();
   if (!stills) {
     execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-framerate', String(fps), '-i', path.join(out, 'f%05d.png'),
-      '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '19', '-preset', 'slow', '-profile:v', 'high', '-movflags', '+faststart', path.join(out, WIDE ? 'neo-bat-yam-film-16x9.mp4' : 'neo-bat-yam-reel.mp4')]);
+      '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '19', '-maxrate', '4M', '-bufsize', '8M', '-preset', 'slow', '-profile:v', 'high', '-movflags', '+faststart', path.join(out, WIDE ? 'neo-bat-yam-film-16x9.mp4' : 'neo-bat-yam-reel.mp4')]);
   }
   console.log('done', jobs.length);
 })().catch((e) => { console.error(e); process.exit(1); });

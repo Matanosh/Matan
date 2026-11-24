@@ -37,9 +37,19 @@ def unmix(rgb, colours, gain=1.0):
     return best_a, label
 
 
+def flatten(im):
+    """Any source to RGB on white (a transparent PNG is composited on white first, so its whitish
+    edge pixels are unmixed like any other anti-aliased edge)."""
+    if im.mode in ('RGBA', 'LA', 'P'):
+        im = im.convert('RGBA')
+        bg = Image.new('RGBA', im.size, (255, 255, 255, 255))
+        return Image.alpha_composite(bg, im).convert('RGB')
+    return im.convert('RGB')
+
+
 def build(name, src, colours, scale, crop=None, gain=1.0, variants=None, margin=0.03, keep=None):
     """variants: {suffix: list of output colours, one per input colour}."""
-    im = Image.open(os.path.join(HERE, src)).convert('RGB')
+    im = flatten(Image.open(os.path.join(HERE, src)))
     if crop:
         im = im.crop(crop)
     if keep is not None:                              # blank areas outside the logo (e.g. other print on a plan)
@@ -93,3 +103,102 @@ build('neo-bat-yam/neo-seaside-living-bat-yam', 'neo-bat-yam/plans/A.jpg', [SL_N
 MS_GOLD = (171, 123, 46); MS_CHAR = (59, 61, 68); MS_CREAM = (250, 246, 236)
 build('ms-group/ms-group', 'ms-group/source/ms-group-logo.png', [MS_GOLD, MS_CHAR], scale=2, gain=1.1,
       variants={'color': [MS_GOLD, MS_CHAR], 'white': [W, W], 'on-dark': [MS_GOLD, MS_CREAM]})
+
+
+# Bank Mizrahi Tefahot (owner, 2026-11-24, 1200x800 transparent PNG): orange ribbon, grey loop and lettering.
+# The PNG's edge pixels are blended with white, so it is flattened on white and unmixed like the rest.
+MZ_ORANGE = (244, 130, 33); MZ_GREY = (81, 90, 95)
+build('mizrahi-tefahot/mizrahi-tefahot', 'source/mizrahi-tefahot.png', [MZ_ORANGE, MZ_GREY], scale=1,
+      variants={'color': [MZ_ORANGE, MZ_GREY], 'white': [W, W], 'on-dark': [MZ_ORANGE, W]})
+
+
+def build_gradient(name, src, scale, split_x=None, margin=0.03, sharpen=(1.2, 60, 2)):
+    """For a logo with colour gradients on white (no flat palette to unmix against).
+    Upscale with Lanczos and a light unsharp mask, then: pixels far from white are 'core' ink and keep
+    their own colour at full alpha; every other pixel takes the colour of the nearest core ink
+    (spread outwards a few pixels) and alpha = its projection on the white->that-colour line. Edges keep
+    their anti-aliasing, the colour stays the logo's own, and no white is left in the edge (no halo).
+    split_x (source px): ink right of it is the mark; left of it is lettering (white in *-on-dark)."""
+    from PIL import ImageFilter
+    im = flatten(Image.open(os.path.join(HERE, src)))
+    im = im.resize((im.width * scale, im.height * scale), Image.LANCZOS)
+    im = im.filter(ImageFilter.UnsharpMask(*sharpen))
+    rgb = np.asarray(im).astype(float)
+    d = WHITE - rgb
+    dist = np.linalg.norm(d, axis=2)
+    core = dist > 0.70 * np.percentile(dist[dist > 60], 50)
+    col = np.where(core[..., None], rgb, 0.0); known = core.copy()
+    for _ in range(4 * scale):                        # spread core colours outwards
+        acc = np.zeros_like(col); n = np.zeros(known.shape)
+        for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)):
+            acc += np.roll(np.roll(col * known[..., None], dy, 0), dx, 1)
+            n += np.roll(np.roll(known, dy, 0), dx, 1)
+        new = (~known) & (n > 0)
+        col[new] = acc[new] / n[new][:, None]; known |= new
+    v = WHITE - col
+    a = np.einsum('ijk,ijk->ij', d, v) / np.maximum(np.einsum('ijk,ijk->ij', v, v), 1)
+    a = np.clip(a, 0, 1); a[core] = 1; a[~known] = 0; a[a < 0.04] = 0
+    ys, xs = np.where(a > 0.04)
+    pad = round(margin * (xs.max() - xs.min()))
+    y0, y1 = max(ys.min() - pad, 0), min(ys.max() + pad + 1, a.shape[0])
+    x0, x1 = max(xs.min() - pad, 0), min(xs.max() + pad + 1, a.shape[1])
+    is_text = np.zeros(a.shape, bool)
+    if split_x is not None:
+        is_text[:, :split_x * scale] = True
+    a, col, is_text = a[y0:y1, x0:x1], np.clip(col[y0:y1, x0:x1], 0, 255), is_text[y0:y1, x0:x1]
+    for suffix in ('color', 'white', 'on-dark'):
+        if suffix == 'color':
+            px = col
+        elif suffix == 'white':
+            px = np.full_like(col, 255)
+        else:
+            if split_x is None:
+                continue
+            px = np.where(is_text[..., None], 255.0, col)
+        rgba = np.dstack([px, a * 255]).round().astype(np.uint8)
+        path = os.path.join(HERE, name + '-' + suffix + '.png')
+        Image.fromarray(rgba, 'RGBA').save(path, optimize=True)
+        print(os.path.relpath(path, HERE), rgba.shape[1], 'x', rgba.shape[0])
+
+
+# Developer "ע.ט החברה להתחדשות עירונית" (owner, 2026-11-24): source/developer-at-urban-renewal-large.png,
+# 730x300 transparent PNG (mark plus lettering about 717x167 px). Blue gradient lettering; mark of navy,
+# sky-blue and orange-red columns (gradients). Flattened on white, upscaled 2x (Lanczos + light unsharp),
+# not redrawn. The owner's first copy, source/developer-at-urban-renewal.jpg (260x130), is superseded.
+build_gradient('at-urban-renewal/at-urban-renewal', 'source/developer-at-urban-renewal-large.png', scale=2,
+               split_x=592, sharpen=(1.0, 40, 2))
+
+
+# Electra Construction, executing contractor of NEO Bat Yam (owner, 2026-11-24): source/electra-construction.jpg,
+# 450x300 JPEG. "אלקטרה בנייה, מקבוצת אלקטרה": blue mark and "בנייה", charcoal lettering. Upscaled 2x.
+EL_BLUE = (2, 142, 216); EL_CHAR = (52, 50, 48)
+build('electra-construction/electra-construction', 'source/electra-construction.jpg', [EL_BLUE, EL_CHAR], scale=2, gain=1.1,
+      variants={'color': [EL_BLUE, EL_CHAR], 'white': [W, W], 'on-dark': [EL_BLUE, W]})
+
+
+def build_transparent(name, src, split_x, margin=0.03):
+    """For a source that is already a clean transparent PNG (edges not blended with white): keep its pixels
+    and alpha as they are, only trim. *-white: every pixel white, same alpha. *-on-dark: lettering (ink left of
+    split_x, source px; Hebrew word mark to the right of the mark is at x >= split_x here) turned white,
+    the mark kept in its own colours."""
+    im = np.asarray(Image.open(os.path.join(HERE, src)).convert('RGBA')).astype(float)
+    a = im[..., 3]
+    ys, xs = np.where(a > 10)
+    pad = round(margin * (xs.max() - xs.min()))
+    y0, y1 = max(ys.min() - pad, 0), min(ys.max() + pad + 1, a.shape[0])
+    x0, x1 = max(xs.min() - pad, 0), min(xs.max() + pad + 1, a.shape[1])
+    is_text = np.zeros(a.shape, bool); is_text[:, split_x:] = True
+    im, is_text = im[y0:y1, x0:x1], is_text[y0:y1, x0:x1]
+    rgb, al = im[..., :3], im[..., 3:]
+    for suffix, px in (('color', rgb), ('white', np.full_like(rgb, 255)),
+                       ('on-dark', np.where(is_text[..., None], 255.0, rgb))):
+        rgba = np.dstack([px, al]).round().astype(np.uint8)
+        path = os.path.join(HERE, name + '-' + suffix + '.png')
+        Image.fromarray(rgba, 'RGBA').save(path, optimize=True)
+        print(os.path.relpath(path, HERE), rgba.shape[1], 'x', rgba.shape[0])
+
+
+# Shikun & Binui – Solel Boneh, executing contractor of NEO Bat Yam (owner, 2026-11-24):
+# source/shikun-binui-solel-boneh.png, 1280x476, transparent. Gradient mark (blue, grey, lime), navy word mark.
+# Already clean, so kept at 1x and only trimmed; *-on-dark has white lettering and rule beside the colour mark.
+build_transparent('shikun-binui-solel-boneh/shikun-binui-solel-boneh', 'source/shikun-binui-solel-boneh.png', split_x=490)

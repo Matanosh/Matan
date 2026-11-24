@@ -7,7 +7,7 @@ set -e
 cd "$(dirname "$0")"
 mkdir -p frames
 echo "window.VIDEO_FRAMES = {" > frames/index.js.tmp
-for f in aerial-sea living-sea living-city penthouse-living; do
+for f in aerial-sea living-sea living-city penthouse-living light-rail-ride; do
   [ -f $f.mp4 ] || continue
   mkdir -p frames/$f
   if ! { [ -f frames/$f/0001.jpg ] && [ frames/$f/0001.jpg -nt $f.mp4 ]; }; then

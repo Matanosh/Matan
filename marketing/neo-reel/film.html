@@ -40,8 +40,11 @@
   eases in to the NEO pin, "שכונת רמת לח״י, בית שמש" (owner, 2026-11-24). City labels that leave
   the frame stay pinned to its edge, in the direction of the city.
   DEVELOPER CHAPTER (TRUST, 74–83): "ע.ט החברה להתחדשות עירונית" (owner, 2026-11-24, wiki
-  neo-beit-shemesh.md / neo-bat-yam.md). DEVELOPER_LOGO is an empty slot for ע.ט's logo; set a
-  path and it shows above the name. No bank: none was given for Beit Shemesh.
+  neo-beit-shemesh.md / neo-bat-yam.md). Credits row at the foot (owner, 2026-11-24): "יזם" with ע.ט's logo
+  (DEVELOPER_LOGO, marketing/brand/at-urban-renewal/) and "קבלן מבצע" with Electra Construction's logo
+  (marketing/brand/electra-construction/), white lettering + colour marks for the dark ground, sized to equal
+  area. The logo carries "החברה להתחדשות עירונית", so with it the serif name shows only "ע.ט".
+  No bank: none was given for Beit Shemesh.
 -->
 <style>
   :root {
@@ -168,8 +171,14 @@
             mask-image: linear-gradient(to top, #000 var(--fill, 0%), transparent calc(var(--fill, 0%) + 22%)); }
   .tgrid-fade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,24,54,1) 38%, rgba(10,24,54,.55) 70%, rgba(10,24,54,.15) 100%); }
   .trust { position: absolute; left: 0; right: 0; top: calc(960px + var(--dy)); display: flex; flex-direction: column; align-items: center; text-align: center; will-change: transform; }
-  .trust .devlogo { display: none; margin-bottom: 44px; }
-  .trust .devlogo img { display: block; max-width: 440px; max-height: 170px; width: auto; height: auto; }
+  .trust.haslogo .tn2 { display: none; }
+  /* credits row: יזם · קבלן מבצע, logos sized to equal area (equal visual weight) */
+  .trust .cred { margin-top: 64px; display: flex; flex-direction: row; align-items: stretch; padding-top: 40px; border-top: 1px solid rgba(251,248,241,0); }
+  .trust .cred .c { display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 0 70px; }
+  .trust .cred .c span { font-size: 28px; font-weight: 500; color: var(--orange); letter-spacing: .08em; white-space: nowrap; }
+  .trust .cred .c .lg { flex: 1; display: flex; align-items: center; }
+  .trust .cred .c img { display: block; width: auto; }
+  .trust .cred .sep { width: 1px; background: var(--hair); }
   .trust .tk { font-size: 36px; font-weight: 500; color: var(--orange); letter-spacing: .1em; }
   .trust .tn { margin-top: 22px; display: flex; flex-direction: column; align-items: center; font-family: "Frank Ruhl Libre", serif; }
   .trust .tn1 { font-size: 156px; font-weight: 500; line-height: 1; letter-spacing: .02em; }
@@ -190,8 +199,9 @@
   .land .trust .tbig { margin-top: 50px; font-size: 138px; }
   .land .trust .tu { margin-top: 12px; font-size: 54px; }
   .land .trust .tbar { margin-top: 22px; }
-  .land .trust .devlogo { margin-bottom: 28px; }
-  .land .trust .devlogo img { max-width: 360px; max-height: 120px; }
+  .land .trust .cred { margin-top: 40px; padding-top: 26px; }
+  .land .trust .cred .c { padding: 0 110px; gap: 16px; }
+  .land .trust .cred .c span { font-size: 24px; }
   .land .tgrid { height: 52%; }
 
   /* ===== LANDSCAPE 1920x1080 (html.land, from ?w=1920&h=1080) ===== */
@@ -337,7 +347,6 @@
   <div class="tgrid" id="tgrid"></div><div class="tgrid-fade"></div>
   <div class="vignette"></div>
   <div class="trust" id="trust">
-    <div class="devlogo" id="devLogo"><!-- SLOT: DEVELOPER_LOGO, filled from the config --></div>
     <div class="tk" id="tk">היזם</div>
     <div class="tn" id="tn"><span class="tn1">ע.ט</span><span class="tn2">החברה להתחדשות עירונית</span></div>
     <div class="trule" id="trule"></div>
@@ -345,6 +354,7 @@
     <div class="tbig" id="tbig"><span class="w" id="tw1">עשרות</span> <span class="w" id="tw2">אלפי</span></div>
     <div class="tu" id="tu">יחידות דיור</div>
     <div class="tbar" id="tbar"></div>
+    <div class="cred" id="tcred"><!-- credits row, filled from CREDITS --></div>
   </div>
 </div>
 
@@ -418,9 +428,16 @@ const MAP_W = {
 };
 // Developer chapter, 74–83. Name and claims: owner, 2026-11-24 (docs/wiki/neo-bat-yam.md, neo-beit-shemesh.md).
 const TRUST = { start: 74, end: 83 };
-// SLOT: ע.ט logo (none supplied yet). Set a path, e.g. '../brand/<folder>/<file>-on-dark.png', to show it
-// above the name; '' hides it.
-const DEVELOPER_LOGO = '';
+// ע.ט logo (owner, 2026-11-24; marketing/brand/README.md), shown in the credits row; '' drops it from the row
+// and brings the typed "החברה להתחדשות עירונית" back under the name.
+const DEVELOPER_LOGO = '../brand/at-urban-renewal/at-urban-renewal-on-dark.png';
+// Credits row (owner, 2026-11-24): developer and executing contractor (Electra Construction, Beit Shemesh only).
+// `ar` = logo width/height; logos get equal area (equal visual weight).
+const CREDITS = [
+  { label: 'יזם', img: DEVELOPER_LOGO, ar: 1460 / 422, alt: 'ע.ט החברה להתחדשות עירונית' },
+  { label: 'קבלן מבצע', img: '../brand/electra-construction/electra-construction-on-dark.png', ar: 900 / 393, alt: 'אלקטרה בנייה' },
+].filter((c) => c.img);
+const CRED_T = 7.4;   // chapter-local time the row comes in (after "יחידות דיור")
 // Landscape only: the render beside the apartment cards (left of the panel). `img` per card index;
 // the Type D card shows the plan instead. Same files as the scenes, labelled "הדמיה".
 const TYPES_LAND = { vis: { x: 64, y: 64, w: 1056, h: 952 },
@@ -763,8 +780,12 @@ function renderTrust(t) {
   const rise = (el, a, d = .9, dy = 24) => { const q = eout(lin(lt, a, a + d)); el.style.opacity = q; el.style.transform = `translateY(${(1 - q) * dy}px)`; };
   $('trust').style.opacity = 1 - sine(lin(t, TRUST.end - .6, TRUST.end + .1));
   $('trust').style.transform = `translateY(-50%) scale(${1 + .025 * lin(lt, 0, 9)})`;
-  rise($('devLogo'), .3); rise($('tk'), .4);
+  rise($('tk'), .4);
   rise($('tn'), 1.2, 1.1, 30);
+  const cq = eout(lin(lt, CRED_T - .4, CRED_T + .8));
+  $('tcred').style.borderTopColor = `rgba(251,248,241,${(.16 * cq).toFixed(3)})`;
+  CREDITS.forEach((c, i) => rise($('tc' + i), CRED_T + i * .45, 1.2, 14));
+  $('tcred').querySelectorAll('.sep').forEach((el) => { el.style.opacity = eout(lin(lt, CRED_T + .3, CRED_T + 1.3)); });
   $('trule').style.width = ease(lin(lt, 2.0, 3.2)) * 220 + 'px';
   rise($('ts'), 3.6, 1.0);
   ['tw1', 'tw2'].forEach((id, i) => {   // the two big words settle in from a soft blur
@@ -863,7 +884,10 @@ window.render = function (t) {
 // slots: shown only when filled
 if (LAND) $('cta').innerHTML = $('cta').innerHTML.replace(/<br>/g, ' ');   // one line in the wide frame
 if (LAND) $('ts').innerHTML = $('ts').innerHTML.replace(/<br>/g, ' ');
-if (DEVELOPER_LOGO) { $('devLogo').innerHTML = `<img src="${DEVELOPER_LOGO}" alt="ע.ט">`; $('devLogo').style.display = 'block'; }
+if (DEVELOPER_LOGO) $('trust').classList.add('haslogo');
+{ const area = LAND ? 44000 : 40000;
+  $('tcred').innerHTML = CREDITS.map((c, i) => (i ? '<i class="sep"></i>' : '') +
+    `<div class="c" id="tc${i}" style="opacity:0"><span>${c.label}</span><div class="lg"><img src="${c.img}" alt="${c.alt}" style="height:${Math.round(Math.sqrt(area / c.ar))}px"></div></div>`).join(''); }
 if (SLOTS.phone) { $('slotPhone').textContent = SLOTS.phone; $('slotPhone').classList.add('slot-on'); }
 </script>
 </body>

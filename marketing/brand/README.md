@@ -77,6 +77,62 @@ upscaled 2×; copy in `source/ms-group-logo.png`. Also kept for reference: `sour
 (1UfKqozMgmtvBU3XQfftyKtQnFO6ZwvTg), both 336 × 186 email signatures. The site uses its own
 `assets/img/msgroup-logo.png` (494 × 191, white lettering), unchanged.
 
+## Developer ע.ט — `at-urban-renewal/`
+
+"ע.ט החברה להתחדשות עירונית", developer of NEO Bat Yam and NEO Beit Shemesh (owner, 2026-11-24).
+
+| File | Size (px) | Notes |
+|---|---|---|
+| `at-urban-renewal-color.png` | 1460 × 422 | blue-gradient lettering, navy / sky-blue / orange-red columns (light grounds) |
+| `at-urban-renewal-on-dark.png` | 1460 × 422 | white lettering, mark in its own colours (dark grounds; used in both films) |
+| `at-urban-renewal-white.png` | 1460 × 422 | all white (the three columns merge into one shape) |
+
+Source: `source/developer-at-urban-renewal-large.png` (730 × 300 transparent PNG, the owner's second, larger copy;
+the lettering is about 590 px wide). The logo has colour gradients, so it is not unmixed against a flat palette:
+it is flattened on white, upscaled 2× with Lanczos and a light unsharp mask (not redrawn), core ink keeps its own
+colour and edge pixels take the colour of the nearest ink with alpha from white (no halo). Crisp at film sizes
+(shown at about 0.5–0.65× of its native lettering). The owner's first copy, `source/developer-at-urban-renewal.jpg`
+(260 × 130), is superseded. The logo itself does not contain "ע.ט": the films set "ע.ט" in serif type above it.
+
+## Bank Mizrahi Tefahot — `mizrahi-tefahot/`
+
+Accompanying bank of NEO Bat Yam (owner, 2026-11-24).
+
+| File | Size (px) | Notes |
+|---|---|---|
+| `mizrahi-tefahot-color.png` | 1181 × 473 | orange ribbon, grey loop and lettering (light grounds) |
+| `mizrahi-tefahot-on-dark.png` | 1181 × 473 | orange ribbon, white loop and lettering (dark grounds; used in the Bat Yam film) |
+| `mizrahi-tefahot-white.png` | 1181 × 473 | all white |
+
+Source: `source/mizrahi-tefahot.png` (1200 × 800, transparent, but its edge pixels were blended with white, which
+would halo on dark grounds), flattened on white and unmixed against orange (244,130,33) and grey (81,90,95), trimmed.
+
+## Electra Construction — `electra-construction/`
+
+"אלקטרה בנייה, מקבוצת אלקטרה", executing contractor of **NEO Beit Shemesh only** (owner, 2026-11-24; not Bat Yam).
+
+| File | Size (px) | Notes |
+|---|---|---|
+| `electra-construction-color.png` | 900 × 393 | blue mark and "בנייה", charcoal lettering (light grounds) |
+| `electra-construction-on-dark.png` | 900 × 393 | blue mark and "בנייה", white lettering (dark grounds; used in the Beit Shemesh film) |
+| `electra-construction-white.png` | 900 × 393 | all white |
+
+Source: `source/electra-construction.jpg` (450 × 300 JPEG), upscaled 2×, unmixed against blue (2,142,216) and
+charcoal (52,50,48). The tiny "ב עמ" beside "בנייה" is soft at any size (it is a few pixels in the source).
+
+## Shikun & Binui – Solel Boneh — `shikun-binui-solel-boneh/`
+
+"שיכון ובינוי סולל בונה", executing contractor of NEO Bat Yam (owner, 2026-11-24).
+
+| File | Size (px) | Notes |
+|---|---|---|
+| `shikun-binui-solel-boneh-color.png` | 1280 × 475 | gradient mark (blue, grey, lime), navy lettering and rule (light grounds) |
+| `shikun-binui-solel-boneh-on-dark.png` | 1280 × 475 | gradient mark, white lettering and rule (dark grounds; used in the Bat Yam film) |
+| `shikun-binui-solel-boneh-white.png` | 1280 × 475 | all white (the mark becomes one solid shape) |
+
+Source: `source/shikun-binui-solel-boneh.png` (1280 × 476), already a clean transparent PNG: kept at 1×, only trimmed.
+
 ## Where they are used
 
-- `marketing/neo-reel/film.html`: NEO Beit Shemesh on-dark logo (intro and end card), MS Group on-dark logo in the end-card credit "שיווק:".
+- `marketing/neo-reel/film.html`: NEO Beit Shemesh on-dark logo (intro and end card), MS Group on-dark logo in the end-card credit "שיווק:"; developer chapter credits row "יזם" (ע.ט on-dark) · "קבלן מבצע" (Electra on-dark).
+- `marketing/neo-bat-yam-reel/film.html`: developer chapter credits row "יזם" (ע.ט on-dark) · "בנק מלווה" (Mizrahi Tefahot on-dark) · "קבלן מבצע" (Shikun & Binui – Solel Boneh on-dark).

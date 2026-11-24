@@ -16,6 +16,10 @@
   through soft warm light, sea-and-gold palette with the white NEO SEA logo, light serif headlines, tracked Latin
   kickers, gentle grain, light leaks and sea glints. New chapters: the light rail Red Line (schematic motion
   graphic), closeness to Tel Aviv, and the developer (trust beat).
+  Third pass (2026-11-24): light-rail ride beat in the Red Line chapter (AI shot video/light-rail-ride.mp4, a generic
+  tram, labelled "המחשה"; 30.8–37, a 16:9 window over the dimmed map, shown at or below 1x since the clip is 720p);
+  developer chapter ends on a credits row: יזם (ע.ט logo) · בנק מלווה (Mizrahi Tefahot) · קבלן מבצע (Shikun & Binui –
+  Solel Boneh), logos from marketing/brand/, equal area.
   SAFE AREA (vertical): no text above y=220 or below y=1540 (bottom 380 px kept clear for the app UI).
   Numbers and claims: only from docs/wiki/neo-bat-yam.md. Invent none. No price, no travel times, no station counts.
   Every render carries "הדמיה" (docs/policies/ai-images-policy.md rule 1); the AI voice is credited on the end card (rule 3).
@@ -83,6 +87,17 @@
   .rhead .h em { font-style: normal; color: var(--gold-2); }
   .rhead .lat { margin-top: 20px; }
   #mapHost b { font-weight: 400; color: var(--gold-2); }
+  /* light-rail ride beat (AI shot, generic tram: "המחשה"): a cinematic 16:9 window over the dimmed map. The clip is
+     720p, so the window shows it at or below 1x (1080 / 1040 px wide), never upscaled; light warm grade + grain. */
+  .ride { position: absolute; left: 0; right: 0; top: 668px; height: 608px; overflow: hidden; opacity: 0; background: #03121d;
+    border-top: 1px solid rgba(205,176,122,.38); border-bottom: 1px solid rgba(205,176,122,.38); box-shadow: 0 30px 80px rgba(0,0,0,.45); }
+  .ride img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 46% 55%;
+    filter: saturate(.93) contrast(1.04) brightness(.96) sepia(.05); }
+  .ride .rvig { position: absolute; inset: 0; background: radial-gradient(ellipse 110% 95% at 50% 50%, rgba(0,0,0,0) 55%, rgba(3,18,29,.55) 100%); }
+  .ride .rgrain { position: absolute; inset: 0; mix-blend-mode: overlay; opacity: .09; }
+  .ride .hadmaya { left: 28px; top: 24px; }
+  body.wide .ride { left: 60px; right: auto; width: 1040px; top: 248px; height: 585px; border: 1px solid rgba(205,176,122,.38); }
+  body.wide .ride .hadmaya { left: 24px; top: 20px; }
   .icons { position: absolute; left: 90px; right: 90px; top: 1404px; display: flex; flex-direction: row; justify-content: space-between; }
   .ico { width: 210px; display: flex; flex-direction: column; align-items: center; gap: 16px; opacity: 0; }
   .ico svg { width: 76px; height: 76px; overflow: visible; }
@@ -128,7 +143,7 @@
   #L-dev { background: radial-gradient(ellipse 120% 80% at 50% 42%, #0c2b40 0%, #061a29 52%, #03121d 100%); }
   #L-dev .media img.shot { filter: blur(16px) brightness(.36) saturate(.85); }
   #L-dev .veil { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 70% at 50% 45%, rgba(6,26,41,.35), rgba(3,18,29,.88)); }
-  .dev { position: absolute; left: 0; right: 0; top: 540px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .dev { position: absolute; left: 0; right: 0; top: 480px; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .dev > * { opacity: 0; }
   .dev .k { font-size: 34px; font-weight: 300; letter-spacing: .04em; color: var(--gold); }
   .dev .lat { margin-top: 14px; }
@@ -139,9 +154,14 @@
   .dev .big { margin-top: 6px; font-family: "Frank Ruhl Libre", serif; font-size: 150px; font-weight: 300; line-height: 1.12; white-space: nowrap;
     color: var(--gold-2); }
   .dev .unit { margin-top: 0; font-family: "Frank Ruhl Libre", serif; font-size: 84px; font-weight: 300; line-height: 1.1; }
-  .dev .bank { margin-top: 110px; display: flex; flex-direction: row; align-items: center; gap: 22px; padding-top: 34px; border-top: 1px solid var(--hair); }
-  .dev .bank span { font-size: 32px; font-weight: 300; color: var(--mist); letter-spacing: .04em; }
-  .dev .bank b { font-family: "Frank Ruhl Libre", serif; font-size: 54px; font-weight: 400; }
+  .dev.haslogo .name { font-size: 120px; line-height: 1; margin-top: 30px; }
+  /* credits row: יזם · בנק מלווה · קבלן מבצע, logos sized to equal area (equal visual weight) */
+  .dev .cred { margin-top: 80px; display: flex; flex-direction: row; align-items: stretch; padding-top: 40px; border-top: 1px solid var(--hair); }
+  .dev .cred .c { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 22px; padding: 0 38px; }
+  .dev .cred .c span { font-size: 26px; font-weight: 300; color: var(--gold); letter-spacing: .06em; white-space: nowrap; }
+  .dev .cred .c .lg { flex: 1; display: flex; align-items: center; }
+  .dev .cred .c img { display: block; width: auto; }
+  .dev .cred .sep { width: 1px; background: var(--hair); }
 
   /* end card */
   .endtxt { position: absolute; left: 0; right: 0; top: 420px; display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -237,9 +257,10 @@
   body.wide .dev .exp { margin-top: 30px; font-size: 28px; }
   body.wide .dev .big { font-size: 124px; }
   body.wide .dev .unit { font-size: 64px; }
-  body.wide .dev .bank { margin-top: 40px; padding-top: 24px; }
-  body.wide .dev .bank span { font-size: 26px; }
-  body.wide .dev .bank b { font-size: 44px; }
+  body.wide .dev.haslogo .name { font-size: 96px; margin-top: 22px; }
+  body.wide .dev .cred { margin-top: 34px; padding-top: 26px; }
+  body.wide .dev .cred .c { padding: 0 90px; gap: 16px; }
+  body.wide .dev .cred .c span { font-size: 22px; }
   body.wide .endtxt { top: 130px; }
   body.wide .endtxt .logo-img { width: 420px !important; }
   body.wide .cta { margin-top: 52px; font-size: 62px; }
@@ -291,6 +312,7 @@
 <div class="layer" id="L-rail">
   <div id="mapHost" style="position:absolute;inset:0"></div>
   <div class="rfade"></div>
+  <div class="ride" id="ride"><img id="rideA" src="video/frames/light-rail-ride/0001.jpg" alt=""><img id="rideB" src="video/frames/light-rail-ride/0002.jpg" alt="" style="opacity:0"><div class="rvig"></div><div class="rgrain" id="rgrain"></div><div class="hadmaya">המחשה</div></div>
   <div class="rhead" id="rhead">
     <div class="kick" id="rkick"><i></i>הקו האדום</div>
     <div class="h" id="rh">הרכבת הקלה<br><em>כבר פועלת</em></div>
@@ -399,7 +421,7 @@
     <div class="exp" id="dexp">ניסיון של</div>
     <div class="big" id="dbig">עשרות אלפי</div>
     <div class="unit" id="dunit">יחידות דיור</div>
-    <div class="bank" id="dbank"><span>בנק מלווה:</span><b>בנק מזרחי</b></div>
+    <div class="cred" id="dcred"></div>
   </div>
 </div>
 
@@ -488,6 +510,18 @@ const SLOTS = {
 };
 // Developer (owner, 2026-11-24, name confirmed by the owner via the coordinator). Leave '' to hide the name line.
 const DEVELOPER_NAME = 'ע.ט החברה להתחדשות עירונית';
+// Developer logo (owner, 2026-11-24, marketing/brand/README.md), shown in the credits row below. It carries
+// "החברה להתחדשות עירונית", so with it the name line shows only "ע.ט" (large). '' brings the full typed name back
+// and drops the developer from the row.
+const DEVELOPER_LOGO = '../brand/at-urban-renewal/at-urban-renewal-on-dark.png';
+// Credits row at the foot of the chapter (owner, 2026-11-24): developer, accompanying bank (Bank Mizrahi
+// Tefahot), executing contractor (Shikun & Binui – Solel Boneh). Electra Construction builds NEO Beit Shemesh,
+// not Bat Yam (owner correction). `ar` = logo width/height; logos get equal area (equal visual weight).
+const CREDITS = [
+  { label: 'יזם', img: DEVELOPER_LOGO, ar: 1460 / 422, alt: 'ע.ט החברה להתחדשות עירונית' },
+  { label: 'בנק מלווה', img: '../brand/mizrahi-tefahot/mizrahi-tefahot-on-dark.png', ar: 1181 / 473, alt: 'בנק מזרחי טפחות' },
+  { label: 'קבלן מבצע', img: '../brand/shikun-binui-solel-boneh/shikun-binui-solel-boneh-on-dark.png', ar: 1280 / 475, alt: 'שיכון ובינוי סולל בונה' },
+];
 // Location beat: pin on the towers, dotted line to the sea, in aerial-telaviv.jpg pixels (1600x1067).
 const LOC = WIDE ? { tower: [836, 500], sea: [205, 402], ctrl: [520, 300] }
                  : { tower: [836, 492], sea: [500, 312], ctrl: [700, 330] };
@@ -609,6 +643,8 @@ const GRAIN = [];
     for (let i = 0; i < im.data.length; i += 4) { const v = 128 + (r() + r() + r() - 1.5) * 120; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
     g.putImageData(im, 0, 0); $('grain').appendChild(c); GRAIN.push(c);
   } }
+// extra grain on the 720p ride window (same noise frames, stronger), so it sits with the sharper renders
+const RGRAIN = $('rgrain') ? GRAIN.map((c) => { const i = new Image(); i.src = c.toDataURL(); i.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:none'; $('rgrain').appendChild(i); return i; }) : [];
 // light leaks bloom on every dissolve and breathe softly in between
 const BOUNDS = Object.values(SCENES).map((s) => s.start).filter((s) => s > 0);
 function leak(t) {
@@ -656,9 +692,29 @@ const map = createRailMap($('mapHost'), {
   },
 });
 const RAIL_ICONS = [32.0, 32.95, 33.85, 34.6];
+// Light-rail ride (AI shot, owner approved 2026-11-24; a generic modern tram, not the real Red Line, so labelled
+// "המחשה", not "הדמיה"). Once the map has drawn the line, the pin and the walk, the window dissolves in over the
+// zoom-out (30.8) and holds to the end of the chapter, under the second rail narration and its icons. No audio
+// change. The 5 s clip eases to half speed near its end if the window outlasts it (clipTime).
+const RIDE = { in: 30.8, dur: 1.1 };
+const rideClip = (window.VIDEO_FRAMES || {})['light-rail-ride'];
+const ride = rideClip ? { el: $('rideA'), el2: $('rideB'), sc: { video: { dir: 'video/frames/light-rail-ride/', frames: rideClip.frames, fps: rideClip.fps } } } : null;
+if (ride) { ride.el.src = ride.sc.video.dir + '0001.jpg'; ride.el2.src = ride.sc.video.dir + '0002.jpg'; } else $('ride').remove();
 function renderRail(t) {
   const sc = SCENES.rail;
   map.render(t - RS, W, H);
+  let seeks = [];
+  if (ride) {
+    const q = sine(lin(t, RIDE.in, RIDE.in + RIDE.dur)), D = sc.end + FADE / 2 - RIDE.in;
+    $('ride').style.opacity = q; $('ride').style.visibility = q > 0 ? 'visible' : 'hidden';
+    $('ride').style.transform = `scale(${mix(.965, 1, eout(q))})`;
+    $('mapHost').style.opacity = 1 - .85 * q;
+    if (q > 0) {
+      seeks = videoFrame(ride, Math.max(0, t - RIDE.in), D);
+      const z = `scale(${mix(1.0, 1.06, sine(lin(t, RIDE.in, sc.end + FADE / 2)))})`;
+      ride.el.style.transform = z; ride.el2.style.transform = z;
+    }
+  }
   const h0 = sc.start + .6;
   $('rkick').style.opacity = eout(lin(t, h0, h0 + 1.2));
   const hq = eout(lin(t, h0 + .3, h0 + 1.8)); $('rh').style.opacity = hq; $('rh').style.filter = `blur(${(1 - hq) * 8}px)`;
@@ -670,6 +726,7 @@ function renderRail(t) {
     el.style.opacity = q; el.style.transform = `translateY(${(1 - q) * 16}px)`;
     el.querySelector('svg').style.filter = `drop-shadow(0 0 ${mix(14, 0, q)}px rgba(230,211,168,${.6 * (1 - q)}))`;
   });
+  return seeks;
 }
 
 // ---------- sea glints on the apartment-types ground ----------
@@ -767,8 +824,12 @@ function renderTypes(t) {
 }
 
 // ---------- developer chapter ----------
-if (DEVELOPER_NAME) $('dname').textContent = DEVELOPER_NAME; else $('dname').remove();
-const DEV_T = { k: 94.9, name: 96.0, lead: 98.4, rule: 99.4, big: 100.2, bank: 102.8 };
+if (DEVELOPER_NAME) $('dname').textContent = DEVELOPER_LOGO ? DEVELOPER_NAME.split(' ')[0] : DEVELOPER_NAME; else $('dname').remove();
+if (DEVELOPER_LOGO) $('dev').classList.add('haslogo');
+{ const area = WIDE ? 34000 : 21000;
+  $('dcred').innerHTML = CREDITS.filter((c) => c.img).map((c, i) => (i ? '<i class="sep"></i>' : '') +
+    `<div class="c" id="cr${i}"><span>${c.label}</span><div class="lg"><img src="${c.img}" alt="${c.alt}" style="height:${Math.round(Math.sqrt(area / c.ar))}px"></div></div>`).join(''); }
+const DEV_T = { k: 94.9, name: 96.0, lead: 98.4, rule: 99.4, big: 100.2, bank: 102.6 };
 function renderDev(t) {
   const sc = SCENES.dev, out = sine(lin(t, sc.end - .9, sc.end + .3));
   const up = (el, a, dy = 18, dur = 1.4) => { if (!el) return; const q = eout(lin(t, a, a + dur)); el.style.opacity = q * (1 - out); el.style.transform = `translateY(${(1 - q) * dy}px)`; return q; };
@@ -783,7 +844,10 @@ function renderDev(t) {
   const glow = Math.sin(Math.PI * lin(t, DEV_T.big + .6, DEV_T.big + 3.6));
   b.style.filter = `blur(${(1 - bq) * 10}px)`; b.style.textShadow = `0 0 ${(18 + 22 * glow).toFixed(1)}px rgba(230,211,168,${(.12 + .28 * glow).toFixed(3)})`;
   up($('dunit'), DEV_T.big + .6, 14, 1.6);
-  up($('dbank'), DEV_T.bank, 14, 1.4);
+  const cq = eout(lin(t, DEV_T.bank, DEV_T.bank + 1.2)); $('dcred').style.opacity = 1 - out;   // hairline, then the three credits
+  $('dcred').style.borderTopColor = `rgba(246,241,231,${(.16 * cq).toFixed(3)})`;
+  CREDITS.filter((c) => c.img).forEach((c, i) => up($('cr' + i), DEV_T.bank + .35 + i * .45, 12, 1.4));
+  $('dcred').querySelectorAll('.sep').forEach((el, i) => { el.style.opacity = eout(lin(t, DEV_T.bank + .6 + i * .45, DEV_T.bank + 1.6 + i * .45)); });
 }
 
 // ---------- render ----------
@@ -834,7 +898,7 @@ window.render = function (t) {
     cap($('cap-loc'), t, 14.2, 21.2); }
 
   // 3. light rail
-  if (t >= SCENES.rail.start - FADE / 2 && t <= SCENES.rail.end + FADE / 2) renderRail(t);
+  if (t >= SCENES.rail.start - FADE / 2 && t <= SCENES.rail.end + FADE / 2) seeks.push(...renderRail(t));
 
   // 4. Tel Aviv: from the skyline back to the towers
   { const cam = shot('ta', prog(t, 'ta')); sparkle('ta', cam, t);
@@ -878,7 +942,7 @@ window.render = function (t) {
 
   // finishing
   leak(t);
-  const gi = Math.floor(t * 30) % GRAIN.length; GRAIN.forEach((c, k) => { c.style.display = k === gi ? 'block' : 'none'; });
+  const gi = Math.floor(t * 30) % GRAIN.length; GRAIN.forEach((c, k) => { c.style.display = k === gi ? 'block' : 'none'; }); RGRAIN.forEach((c, k) => { c.style.display = k === gi ? 'block' : 'none'; });
   $('black').style.opacity = sine(lin(t, 112.6, 114));
   return Promise.all(seeks);
 };
