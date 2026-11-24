@@ -5,3 +5,4 @@
 - 2026-11-24: The owner said they put files in a Drive folder "NEO בית שמש"; no such folder (and no file created that day) was visible to the connector. Possible causes: a different Google account, or upload still running.
 
 Related: [owner-preferences](owner-preferences.md), [neo-beit-shemesh](neo-beit-shemesh.md).
+- 2026-11-24: Later the same day five images attached in the app did arrive (saved under ~/.claude/uploads/<session>/). Chat upload works at least sometimes; Drive remains the fallback.

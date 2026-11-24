@@ -13,6 +13,7 @@ Historical record kept by the chief-of-staff session. Every claim is dated; page
 ## Marketing
 - [marketing-films](marketing-films.md): how the promo films are made, past films and branches, the NEO reel.
 - [neo-beit-shemesh](neo-beit-shemesh.md): NEO Beit Shemesh facts with their sources (apartment mix, renders, what is private).
+- [neo-bat-yam](neo-bat-yam.md): NEO Bat Yam facts from the owner (towers, apartment mix, renders).
 - [file-intake](file-intake.md): how files reach us from the owner; phone uploads fail, Drive works.
 
 ## Research
