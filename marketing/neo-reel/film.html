@@ -58,13 +58,10 @@
   .scan { position: absolute; left: -50px; width: 1180px; height: 4px; background: #ffd9b8;
     box-shadow: 0 0 24px 8px rgba(232,98,44,.85), 0 0 80px 30px rgba(232,98,44,.35); opacity: 0; }
 
-  /* NEO logo (type set as in the 2026-11-24 horizontal film) */
+  /* NEO Beit Shemesh logo: the developer's mark, cut from the Type D plan (marketing/brand/README.md).
+     On-dark variant: orange NEO, white BEIT SHEMESH. */
   .logo { display: flex; flex-direction: column; align-items: center; }
-  .neo { font-family: Heebo, sans-serif; font-weight: 500; font-size: 250px; letter-spacing: .02em; color: var(--orange); direction: ltr; line-height: 1; position: relative; }
-  .neo .dots { position: absolute; right: -74px; top: -44px; width: 170px; height: 170px;
-    background-image: radial-gradient(circle, var(--orange) 0 4px, transparent 5px); background-size: 18px 18px;
-    -webkit-mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); }
-  .bs { margin-top: 30px; font-family: "Frank Ruhl Libre", serif; font-size: 50px; letter-spacing: .5em; padding-left: .5em; direction: ltr; color: var(--ink); }
+  .logo-img { display: block; width: 780px; height: auto; }
   .tag { margin-top: 56px; font-family: "Frank Ruhl Libre", serif; font-size: 58px; font-weight: 300; color: var(--mist); }
   .logoWrap { position: absolute; left: 0; right: 0; top: 700px; display: flex; justify-content: center; }
   .rule { height: 2px; background: var(--orange); width: 0; margin: 48px auto 0; }
@@ -98,6 +95,12 @@
   .cta { margin-top: 110px; font-family: "Frank Ruhl Libre", serif; font-size: 76px; font-weight: 400; line-height: 1.15; }
   .cta-rule { height: 3px; background: var(--orange); width: 0; margin: 34px auto 0; }
   .legal { position: absolute; left: 90px; right: 90px; top: 1462px; text-align: center; font-size: 28px; line-height: 1.4; color: rgba(251,248,241,.66); }
+  /* credits: marketer (MS Group, secondary to the project logo) and AI narration note */
+  .credits { position: absolute; left: 0; right: 0; top: 1548px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .credits .mkt { display: flex; align-items: center; gap: 22px; direction: rtl; }
+  .credits .mkt span { font-size: 28px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.72); }
+  .credits .mkt img { display: block; width: 190px; height: auto; opacity: .92; }
+  .credits .ai { font-size: 24px; font-weight: 300; letter-spacing: .04em; color: rgba(251,248,241,.55); }
 
   /* SLOT: phone number. Hidden unless SLOTS.phone is set in the script (adds .slot-on).
      Owner decided 2026-11-24: no price in the reel, so there is no price slot. */
@@ -122,8 +125,7 @@
 <div class="layer" id="L-logo" style="background: radial-gradient(ellipse 90% 55% at 50% 45%, #13203a 0%, #050a14 75%)">
   <div class="logoWrap" id="logo1">
     <div class="logo">
-      <div class="neo">NEO<div class="dots" id="dots1"></div></div>
-      <div class="bs">BEIT SHEMESH</div>
+      <img class="logo-img" src="../brand/neo-beit-shemesh/neo-beit-shemesh-on-dark.png" alt="NEO Beit Shemesh">
       <div class="rule" id="rule1"></div>
       <div class="tag" id="tag1">מהיסודות – אל הבית שלכם</div>
     </div>
@@ -194,14 +196,17 @@
   <div class="vignette"></div>
   <div class="endtxt" id="endTxt">
     <div class="logo">
-      <div class="neo" style="font-size:210px">NEO<div class="dots"></div></div>
-      <div class="bs" style="font-size:44px">BEIT SHEMESH</div>
+      <img class="logo-img" style="width:660px" src="../brand/neo-beit-shemesh/neo-beit-shemesh-on-dark.png" alt="NEO Beit Shemesh">
     </div>
     <div class="cta" id="cta">תאמו פגישה<br>במשרד המכירות</div>
     <div class="cta-rule" id="ctaRule"></div>
     <div class="slot slot-phone" id="slotPhone" dir="ltr"><!-- SLOT: phone, filled from SLOTS.phone --></div>
   </div>
   <div class="legal" id="legal">ההדמיות והתוכניות להמחשה בלבד ואינן מהוות חלק ממסמכי המכר</div>
+  <div class="credits" id="credits">
+    <div class="mkt"><span>שיווק:</span><img src="../brand/ms-group/ms-group-on-dark.png" alt="M.S. Group"></div>
+    <div class="ai">קריינות: AI</div>
+  </div>
 </div>
 
 <div class="black" id="black"></div>
@@ -428,7 +433,6 @@ window.render = function (t) {
       const i = eout(lin(lt, .1, 1.3));
       $('logo1').style.opacity = i;
       $('logo1').style.transform = `scale(${mix(.93, 1, i) + .03 * lin(lt, 1.3, 4)})`;
-      $('dots1').style.opacity = eout(lin(lt, .6, 1.6));
       $('rule1').style.width = (ease(lin(lt, .9, 2.0)) * 260) + 'px';
       $('tag1').style.opacity = eout(lin(lt, 1.4, 2.4));
       $('tag1').style.transform = `translateY(${(1 - eout(lin(lt, 1.4, 2.4))) * 20}px)`;
@@ -460,6 +464,7 @@ window.render = function (t) {
     $('cta').style.opacity = c; $('cta').style.transform = `translateY(${(1 - c) * 24}px)`;
     $('ctaRule').style.width = (ease(lin(et, 2.4, 3.6)) * 240) + 'px';
     $('legal').style.opacity = eout(lin(et, 2.6, 3.6));
+    $('credits').style.opacity = eout(lin(et, 3.2, 4.3));
     $('slotPhone').style.opacity = eout(lin(et, 3.0, 4.0)); }
 
   $('black').style.opacity = sine(lin(t, 79.0, 80));
