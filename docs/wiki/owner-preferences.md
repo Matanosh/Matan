@@ -8,3 +8,4 @@
 - 2026-11-16: Agreed to keep this wiki inside the website repo under docs/wiki.
 
 Related: [open-items](open-items.md), [site-conventions](site-conventions.md).
+- 2026-11-24: For films, wants the highest finish with effects, AI camera moves and an AI Hebrew narrator; vertical reels first; show every apartment type. (session transcript)

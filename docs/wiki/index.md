@@ -10,5 +10,10 @@ Historical record kept by the chief-of-staff session. Every claim is dated; page
 - [hosting-and-domain](hosting-and-domain.md): Render static site, deploys, the global.msgp.co.il domain.
 - [site-conventions](site-conventions.md): how the site is built and changed (i18n build, publish flow, QA).
 
+## Marketing
+- [marketing-films](marketing-films.md): how the promo films are made, past films and branches, the NEO reel.
+- [neo-beit-shemesh](neo-beit-shemesh.md): NEO Beit Shemesh facts with their sources (apartment mix, renders, what is private).
+- [file-intake](file-intake.md): how files reach us from the owner; phone uploads fail, Drive works.
+
 ## Research
 - [research-ai-real-estate](research-ai-real-estate.md): AI in real estate, Nov 2026 (points to the full report).
