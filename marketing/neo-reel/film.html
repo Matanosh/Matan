@@ -5,7 +5,8 @@
 <title>NEO Beit Shemesh Reel</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
 <!--
-  NEO Beit Shemesh, vertical reel 1080x1920, about 80 s. Edit skeleton: no audio yet, narration comes later.
+  NEO Beit Shemesh, vertical reel 1080x1920, 95 s: aerial, logo, location map (8.6–14.6), complex, lobby, living
+  room, country club, apartment types, developer chapter (74–83), end card. Narration and music: audio/.
   Render: node render.js <outdir>            (full MP4, 30 fps)
           node render.js <outdir> stills 3,10,18   (check stills)
 
@@ -32,6 +33,15 @@
   panel on the right beside a render (the Type D plan draws on large in its place), and the end
   card is laid out for the wide frame. render.js: W=1920 H=1080 node render.js <out>.
   Numbers: only from docs/wiki/neo-beit-shemesh.md and the owner (2026-11-24). Invent none.
+
+  LOCATION MAP (MAP, 8.6–14.6): schematic, drawn in SVG from rough world coordinates in km (MAP_W),
+  not a survey map: labelled "מפה סכמטית, להמחשה". Regional view (Beit Shemesh in the foothills,
+  soft lines toward Jerusalem and Tel Aviv, names only, no distances or times), then the camera
+  eases in to the NEO pin, "שכונת רמת לח״י, בית שמש" (owner, 2026-11-24). City labels that leave
+  the frame stay pinned to its edge, in the direction of the city.
+  DEVELOPER CHAPTER (TRUST, 74–83): "ע.ט החברה להתחדשות עירונית" (owner, 2026-11-24, wiki
+  neo-beit-shemesh.md / neo-bat-yam.md). DEVELOPER_LOGO is an empty slot for ע.ט's logo; set a
+  path and it shows above the name. No bank: none was given for Beit Shemesh.
 -->
 <style>
   :root {
@@ -126,6 +136,64 @@
 
   .black { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
 
+  /* location map (schematic) */
+  #L-map { background: #0b1a3a; }
+  #mapSvg { position: absolute; left: 0; top: 0; width: var(--w); height: var(--h); }
+  #mapSvg .ln { fill: none; vector-effect: non-scaling-stroke; }
+  .mlab { position: absolute; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; white-space: nowrap; will-change: transform; }
+  .mlab i { display: block; width: 14px; height: 14px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 5px rgba(251,248,241,.14); }
+  .mlab span { margin-top: 14px; font-size: 36px; font-weight: 400; letter-spacing: .02em; color: var(--mist); text-shadow: 0 2px 14px rgba(4,10,24,.9); }
+  .mlab.region span { font-family: "Frank Ruhl Libre", serif; font-size: 34px; font-weight: 300; letter-spacing: .14em; color: rgba(159,178,219,.62); margin-top: 0; }
+  .mlab.city-bs span { font-size: 40px; font-weight: 500; color: var(--ink); }
+  #pin { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform; }
+  #pin .ring, #pin .halo, #pin .dot { position: absolute; left: 0; top: 0; width: 0; height: 0; border-radius: 50%; }
+  #pin .ring { border: 2px solid var(--orange); }
+  #pin .halo { border: 3px solid rgba(246,241,231,.9); }
+  #pin .dot { background: var(--orange); }
+  #pinLab { position: absolute; left: 0; top: 0; display: flex; flex-direction: column; align-items: center; white-space: nowrap; will-change: transform; }
+  #pinLab .a { font-family: "Frank Ruhl Libre", serif; font-size: 76px; font-weight: 400; line-height: 1.05; text-shadow: 0 4px 24px rgba(4,10,24,.85); }
+  #pinLab .b { margin-top: 10px; font-size: 42px; font-weight: 300; color: var(--mist); text-shadow: 0 2px 14px rgba(4,10,24,.9); }
+  #pinLab .bar { width: 0; height: 3px; background: var(--orange); margin-top: 24px; }
+  .land #pinLab .a { font-size: 64px; }
+  .land #pinLab .b { font-size: 36px; }
+  .land .mlab span { font-size: 32px; }
+
+  /* developer chapter */
+  #L-trust { background: radial-gradient(ellipse 95% 62% at 50% 46%, #15284b 0%, var(--navy) 60%, #050c1d 100%); }
+  /* lit windows: a field of small lights that fills from the bottom under "עשרות אלפי יחידות דיור" */
+  .tgrid { position: absolute; left: 0; right: 0; bottom: 0; height: 58%; opacity: 0;
+    background-image: radial-gradient(circle, rgba(255,214,170,.95) 0 2.2px, transparent 2.8px);
+    background-size: 27px 27px; background-position: center bottom;
+    -webkit-mask-image: linear-gradient(to top, #000 var(--fill, 0%), transparent calc(var(--fill, 0%) + 22%));
+            mask-image: linear-gradient(to top, #000 var(--fill, 0%), transparent calc(var(--fill, 0%) + 22%)); }
+  .tgrid-fade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,24,54,1) 38%, rgba(10,24,54,.55) 70%, rgba(10,24,54,.15) 100%); }
+  .trust { position: absolute; left: 0; right: 0; top: calc(960px + var(--dy)); display: flex; flex-direction: column; align-items: center; text-align: center; will-change: transform; }
+  .trust .devlogo { display: none; margin-bottom: 44px; }
+  .trust .devlogo img { display: block; max-width: 440px; max-height: 170px; width: auto; height: auto; }
+  .trust .tk { font-size: 36px; font-weight: 500; color: var(--orange); letter-spacing: .1em; }
+  .trust .tn { margin-top: 22px; display: flex; flex-direction: column; align-items: center; font-family: "Frank Ruhl Libre", serif; }
+  .trust .tn1 { font-size: 156px; font-weight: 500; line-height: 1; letter-spacing: .02em; }
+  .trust .tn2 { margin-top: 12px; font-size: 70px; font-weight: 300; line-height: 1.1; }
+  .trust .trule { width: 0; height: 2px; background: var(--orange); margin-top: 40px; }
+  .trust .ts { margin-top: 38px; font-size: 46px; font-weight: 300; line-height: 1.35; color: var(--mist); }
+  .trust .tbig { margin-top: 96px; font-family: "Frank Ruhl Libre", serif; font-size: 172px; font-weight: 400; line-height: 1; white-space: nowrap; }
+  .trust .tbig .w { display: inline-block; }
+  .trust .tu { margin-top: 20px; font-size: 66px; font-weight: 300; color: var(--ink); letter-spacing: .02em; }
+  .trust .tbar { width: 0; height: 3px; background: var(--orange); margin-top: 30px; }
+  .land .trust { top: 540px; }
+  .land .trust .tk { font-size: 30px; }
+  .land .trust .tn { margin-top: 16px; }
+  .land .trust .tn1 { font-size: 112px; }
+  .land .trust .tn2 { font-size: 56px; margin-top: 8px; }
+  .land .trust .trule { margin-top: 28px; }
+  .land .trust .ts { margin-top: 26px; font-size: 38px; }
+  .land .trust .tbig { margin-top: 50px; font-size: 138px; }
+  .land .trust .tu { margin-top: 12px; font-size: 54px; }
+  .land .trust .tbar { margin-top: 22px; }
+  .land .trust .devlogo { margin-bottom: 28px; }
+  .land .trust .devlogo img { max-width: 360px; max-height: 120px; }
+  .land .tgrid { height: 52%; }
+
   /* ===== LANDSCAPE 1920x1080 (html.land, from ?w=1920&h=1080) ===== */
   .land .hadmaya { left: 64px; top: 56px; font-size: 24px; padding: 6px 16px 7px; }
   .land .shade { background: radial-gradient(ellipse 62% 78% at 100% 100%, rgba(4,10,24,.86) 0%, rgba(4,10,24,.58) 42%, rgba(4,10,24,0) 80%); }
@@ -192,7 +260,20 @@
   </div>
 </div>
 
-<!-- 8.6–14 the complex -->
+<!-- 8.6–14.6 location map (schematic) -->
+<div class="layer" id="L-map">
+  <svg id="mapSvg" viewBox="0 0 1080 1920"><g id="mapGrid" stroke="#f6f1e7" stroke-opacity=".045" stroke-width="1"></g><g id="mapW"></g><g id="mapRoads"></g></svg>
+  <div id="mapLabs"></div>
+  <div id="pin">
+    <div class="ring" id="ring1"></div><div class="ring" id="ring2"></div>
+    <div class="halo" id="pinHalo"></div><div class="dot" id="pinDot"></div>
+  </div>
+  <div id="pinLab"><div class="a">שכונת רמת לח״י</div><div class="b">בית שמש</div><div class="bar" id="pinBar"></div></div>
+  <div class="vignette"></div>
+  <div class="hadmaya" id="mapNote">מפה סכמטית, להמחשה</div>
+</div>
+
+<!-- 14.6–20 the complex -->
 <div class="layer" id="L-complex">
   <div class="media" data-scene="complex"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
@@ -200,7 +281,7 @@
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 14–22 lobby walk -->
+<!-- 20–28 lobby walk -->
 <div class="layer" id="L-lobby">
   <div class="media" data-scene="lobby"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
@@ -208,7 +289,7 @@
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 22–34 living room, push toward the view -->
+<!-- 28–40 living room, push toward the view -->
 <div class="layer" id="L-living">
   <div class="media" data-scene="living"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
@@ -217,7 +298,7 @@
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 34–42 country club -->
+<!-- 40–48 country club -->
 <div class="layer" id="L-country">
   <div class="media" data-scene="country"></div>
   <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
@@ -225,7 +306,7 @@
   <div class="hadmaya">הדמיה</div>
 </div>
 
-<!-- 42–68 apartment types, one card per room count. Numbers: wiki + owner, 2026-11-24 (phases A and B). -->
+<!-- 48–74 apartment types, one card per room count. Numbers: wiki + owner, 2026-11-24 (phases A and B). -->
 <div class="layer" id="types">
   <div class="thead" id="thead"><div class="t">סוגי הדירות</div><div class="segs" id="segs"></div></div>
   <div id="tvis"></div>
@@ -251,7 +332,23 @@
   <div id="cards"></div>
 </div>
 
-<!-- 68–80 end card -->
+<!-- 74–83 developer (trust) chapter -->
+<div class="layer" id="L-trust">
+  <div class="tgrid" id="tgrid"></div><div class="tgrid-fade"></div>
+  <div class="vignette"></div>
+  <div class="trust" id="trust">
+    <div class="devlogo" id="devLogo"><!-- SLOT: DEVELOPER_LOGO, filled from the config --></div>
+    <div class="tk" id="tk">היזם</div>
+    <div class="tn" id="tn"><span class="tn1">ע.ט</span><span class="tn2">החברה להתחדשות עירונית</span></div>
+    <div class="trule" id="trule"></div>
+    <div class="ts" id="ts">מהחברות המובילות בישראל<br>בהתחדשות עירונית</div>
+    <div class="tbig" id="tbig"><span class="w" id="tw1">עשרות</span> <span class="w" id="tw2">אלפי</span></div>
+    <div class="tu" id="tu">יחידות דיור</div>
+    <div class="tbar" id="tbar"></div>
+  </div>
+</div>
+
+<!-- 83–95 end card -->
 <div class="layer" id="L-end">
   <div class="media" data-scene="end" style="filter: blur(8px) brightness(.34) saturate(.9)"></div>
   <div class="vignette"></div>
@@ -282,7 +379,7 @@ if (LAND) document.documentElement.classList.add('land');
 document.documentElement.style.setProperty('--w', W + 'px');
 document.documentElement.style.setProperty('--h', H + 'px');
 document.documentElement.style.setProperty('--dy', DY + 'px');
-['box', 'plan'].forEach((id) => document.getElementById(id).setAttribute('viewBox', `0 0 ${W} ${H}`));
+['box', 'plan', 'mapSvg'].forEach((id) => document.getElementById(id).setAttribute('viewBox', `0 0 ${W} ${H}`));
 // ======================= CONFIG (edit here) =======================
 // One entry per shot. To use an AI video, change `src` to a .mp4/.webm file; nothing else.
 // start/end: on-screen seconds (crossfades are centred on them). cam: image-only Ken Burns,
@@ -294,42 +391,55 @@ const SCENES = {
   aerial:  { src: 'video/aerial.mp4', frames: 193, fps: 24, start: 0, end: 5,
              cam: { from: { s: 1.00, fx: .34, fy: .50 }, to: { s: 1.05, fx: .40, fy: .46 } },
              land: { from: { s: 1.00, fx: .50, fy: .47 }, to: { s: 1.04, fx: .48, fy: .45 } } },
-  complex: { src: 'img/aerial.jpg',  start: 8.6,  end: 14,
+  complex: { src: 'img/aerial.jpg',  start: 14.6, end: 20,
              cam: { from: { s: 1.02, fx: .30, fy: .45 }, to: { s: 1.20, fx: .36, fy: .40 } },
              land: { from: { s: 1.00, fx: .50, fy: .48 }, to: { s: 1.10, fx: .44, fy: .46 } } },
-  lobby:   { src: 'video/lobby.mp4', frames: 193, fps: 24, start: 14, end: 22,
+  lobby:   { src: 'video/lobby.mp4', frames: 193, fps: 24, start: 20, end: 28,
              cam: { from: { s: 1.00, fx: .56, fy: .50 }, to: { s: 1.08, fx: .51, fy: .48 } },
              land: { from: { s: 1.00, fx: .50, fy: .50 }, to: { s: 1.06, fx: .50, fy: .47 } } },
-  living:  { src: 'video/living.mp4', frames: 241, fps: 24, start: 22, end: 34,
+  living:  { src: 'video/living.mp4', frames: 241, fps: 24, start: 28, end: 40,
              cam: { from: { s: 1.00, fx: .66, fy: .50 }, to: { s: 1.07, fx: .72, fy: .50 } },
              land: { from: { s: 1.00, fx: .50, fy: .50 }, to: { s: 1.06, fx: .60, fy: .48 } } },
-  country: { src: 'video/country.mp4', frames: 193, fps: 24, start: 34, end: 42,
+  country: { src: 'video/country.mp4', frames: 193, fps: 24, start: 40, end: 48,
              cam: { from: { s: 1.00, fx: .73, fy: .50 }, to: { s: 1.03, fx: 1.0, fy: .50 } },
              land: { from: { s: 1.00, fx: .50, fy: .00 }, to: { s: 1.03, fx: 1.0, fy: .00 } } },
-  end:     { src: 'img/aerial.jpg',  start: 68,   end: 80,
+  end:     { src: 'img/aerial.jpg',  start: 83,   end: 95,
              cam: { from: { s: 1.05, fx: .40, fy: .40 }, to: { s: 1.14, fx: .42, fy: .38 } },
              land: { from: { s: 1.04, fx: .48, fy: .46 }, to: { s: 1.12, fx: .46, fy: .44 } } },
 };
 const LOGO = { start: 5, end: 8.6 };
+// Location map, 8.6–14.6. World coordinates in km from Beit Shemesh, x east, y south; rough and
+// schematic (the frame says so). The pin is NEO in Ramat Lehi (owner, 2026-11-24).
+const MAP = { start: 8.6, end: 14.6, zoom: [9.5, 12.9], pinAt: 12.35 };
+const MAP_W = {
+  pin: [0.9, 0.5], bs: [0, 0], jlm: [22, -3], tlv: [-20.5, -37],
+  coast: [[-36, 30], [-30.5, 5], [-27, -15], [-23.5, -32], [-21.6, -40], [-18.5, -62]],
+  roads: [[[0, 0], [6, -1.4], [13, -3.6], [22, -3]], [[0, 0], [-3.5, -12], [-11, -24.5], [-20.5, -37]]],
+};
+// Developer chapter, 74–83. Name and claims: owner, 2026-11-24 (docs/wiki/neo-bat-yam.md, neo-beit-shemesh.md).
+const TRUST = { start: 74, end: 83 };
+// SLOT: ע.ט logo (none supplied yet). Set a path, e.g. '../brand/<folder>/<file>-on-dark.png', to show it
+// above the name; '' hides it.
+const DEVELOPER_LOGO = '';
 // Landscape only: the render beside the apartment cards (left of the panel). `img` per card index;
 // the Type D card shows the plan instead. Same files as the scenes, labelled "הדמיה".
 const TYPES_LAND = { vis: { x: 64, y: 64, w: 1056, h: 952 },
   imgs: [{ src: 'img/living.jpg', cards: [0, 1], from: { s: 1.02, x: 50 }, to: { s: 1.10, x: 62 } },
          { src: 'video/frames/living/0241.jpg', cards: [3, 4], from: { s: 1.02, x: 46 }, to: { s: 1.10, x: 56 } }] };
-const TYPES = { start: 42, end: 68 };
+const TYPES = { start: 48, end: 74 };
 // Apartment cards. area/balcony/garden in m²; ranges as [min, max]. Source: docs/wiki/neo-beit-shemesh.md and
 // the owner's 2026-11-24 confirmation that phase B (buildings 7–10) is NEO. Do not add numbers that are not there.
 const CARDS = [
-  { t: 46.5, title: '<b>3</b> חדרים', area: [75],       rows: [['מרפסת', [10, 15]]] },
-  { t: 51,   title: '<b>4</b> חדרים', area: [85, 91],   rows: [['מרפסת', [10, 17]]] },
-  { t: 58,   title: '<b>4.5</b> חדרים', area: [101, 105], plan: true,
+  { t: 52.5, title: '<b>3</b> חדרים', area: [75],       rows: [['מרפסת', [10, 15]]] },
+  { t: 57,   title: '<b>4</b> חדרים', area: [85, 91],   rows: [['מרפסת', [10, 17]]] },
+  { t: 64,   title: '<b>4.5</b> חדרים', area: [101, 105], plan: true,
              rows: [['שטח הדירה', [101, 105]], ['מרפסת', [10, 15.5]]] },
-  { t: 62.8, title: '<b>5</b> חדרים', area: [108, 121], rows: [['מרפסת', [12, 18]]] },
-  { t: 68,   title: 'דירות <b>גן</b>', garden: 148,     rows: [['חדרים', [4, 5]], ['קומה', 'קרקע']] },
+  { t: 68.8, title: '<b>5</b> חדרים', area: [108, 121], rows: [['מרפסת', [12, 18]]] },
+  { t: 74,   title: 'דירות <b>גן</b>', garden: 148,     rows: [['חדרים', [4, 5]], ['קומה', 'קרקע']] },
 ];
 // Phone slot: null hides it. Number confirmed by the owner on 2026-11-24.
 const SLOTS = { phone: '054-522-0030' };
-window.TOTAL = 80;
+window.TOTAL = 95;
 const FADE = 1.0;
 // ==================================================================
 
@@ -533,6 +643,140 @@ function renderTypes(t) {
   });
 }
 
+// ---------- location map (schematic) ----------
+const SVGNS = 'http://www.w3.org/2000/svg', mapW = $('mapW');
+function svgEl(tag, attrs, parent = mapW) { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+function smooth(pts) {   // Catmull-Rom through the points, as cubic Béziers
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+    d += ` C${p1[0] + (p2[0] - p0[0]) / 6} ${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6} ${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]} ${p2[1]}`;
+  }
+  return d;
+}
+function blob(cx, cy, r, seed, n = 96) {   // soft irregular closed shape (contours, town areas)
+  const pts = [];
+  for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2;
+    const k = 1 + .13 * Math.sin(3 * a + seed) + .07 * Math.sin(5 * a + 2.1 * seed) + .035 * Math.sin(9 * a + 3.7 * seed);
+    pts.push(`${(cx + Math.cos(a) * r * k).toFixed(3)} ${(cy + Math.sin(a) * r * k * .82).toFixed(3)}`); }
+  return 'M' + pts.join(' L') + ' Z';
+}
+const MV = {};
+{
+  const W_ = MAP_W, defs = svgEl('defs', {});
+  const g = svgEl('radialGradient', { id: 'pinGlow' }, defs);
+  svgEl('stop', { offset: '0', 'stop-color': '#ffb08a', 'stop-opacity': '.8' }, g);
+  svgEl('stop', { offset: '1', 'stop-color': '#E8622C', 'stop-opacity': '0' }, g);
+  const bsArea = blob(0, 0, 2.7, 1.3);
+  const cp = svgEl('clipPath', { id: 'bsClip' }, defs); svgEl('path', { d: bsArea }, cp);
+  // sea west of the coast (colours as in marketing/neo-bat-yam-reel/map.js)
+  const sg = svgEl('linearGradient', { id: 'seaG', x1: '0', x2: '1', gradientUnits: 'userSpaceOnUse' }, defs);
+  sg.setAttribute('x1', -60); sg.setAttribute('x2', -18);
+  svgEl('stop', { offset: '0', 'stop-color': '#0e3a57', 'stop-opacity': '.85' }, sg);
+  svgEl('stop', { offset: '1', 'stop-color': '#0b2e45', 'stop-opacity': '.35' }, sg);
+  const c = W_.coast;
+  svgEl('path', { d: smooth(c) + ` L-90 ${c[c.length - 1][1]} L-90 ${c[0][1]} Z`, fill: 'url(#seaG)' });
+  svgEl('path', { class: 'ln', d: smooth(c.map(([x, y]) => [x - 2.4, y])), stroke: 'rgba(207,226,236,.12)', 'stroke-width': 1, 'stroke-dasharray': '2 8' });
+  svgEl('path', { class: 'ln', d: smooth(c), stroke: 'rgba(207,226,236,.42)', 'stroke-width': 1.4 });
+  // relief: the Judean hills rising east toward Jerusalem, and the low foothills around Beit Shemesh
+  [[17, -3, [4, 7, 10, 13.5, 17, 21, 25.5], .16], [-3.5, 6, [2, 4, 6.5], .11], [6, 9.5, [2.2, 4.8], .11], [-8, -7, [2.4, 5], .10], [-4, -20, [2.6, 5.5], .08], [9, 16, [3, 6, 9.5], .10], [-13, 13, [3, 6.5], .08]]
+    .forEach(([x, y, rs, o], j) => rs.forEach((r, i) => svgEl('path', { class: 'ln', d: blob(x, y, r, j * 2.3 + i * .9), stroke: `rgba(159,178,219,${o})`, 'stroke-width': 1.4 })));
+  // towns (soft areas)
+  [[W_.jlm, 3.4, 2.2], [W_.tlv, 4.2, 3.1]].forEach(([p, r, sd]) => svgEl('path', { d: blob(p[0], p[1], r, sd), fill: 'rgba(159,178,219,.10)', stroke: 'rgba(159,178,219,.22)', 'stroke-width': 1.2, 'vector-effect': 'non-scaling-stroke' }));
+  svgEl('path', { d: bsArea, fill: 'rgba(159,178,219,.13)', stroke: 'rgba(159,178,219,.34)', 'stroke-width': 1.4, 'vector-effect': 'non-scaling-stroke' });
+  // street pattern inside Beit Shemesh, shown as the camera arrives
+  MV.streets = svgEl('g', { 'clip-path': 'url(#bsClip)', opacity: 0 });
+  for (let i = -12; i <= 12; i++) {
+    svgEl('path', { class: 'ln', d: `M${i * .24 - 4} -4 L${i * .24 + 4} 4.6`, stroke: 'rgba(251,248,241,.16)', 'stroke-width': 1 }, MV.streets);
+    svgEl('path', { class: 'ln', d: `M-4 ${i * .3 + 1.5} L4 ${i * .3 - 1.2}`, stroke: 'rgba(251,248,241,.12)', 'stroke-width': 1 }, MV.streets);
+  }
+  // soft lines toward Jerusalem and Tel Aviv (direction only; no distances)
+  // (drawn in screen space each frame, so the draw-on dash and the line width stay exact)
+  MV.roads = W_.roads.map(() => svgEl('path', { fill: 'none', stroke: 'rgba(251,248,241,.5)', 'stroke-width': 3, 'stroke-linecap': 'round', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1 }, $('mapRoads')));
+  MV.glow = svgEl('circle', { cx: W_.pin[0], cy: W_.pin[1], r: 1.3, fill: 'url(#pinGlow)', opacity: 0 });
+  // frame geometry: the regional view fits Tel Aviv to Jerusalem inside the safe area
+  const top = LAND ? 90 : 220 + DY, bot = LAND ? 990 : 1540 + DY;
+  MV.box = LAND ? [150, 1770, 64, 980] : [130, 850, 350 + DY, 1490 + DY];   // label clamp: x0, x1, y0, y1
+  MV.s0 = Math.min((MV.box[1] - MV.box[0] - 40) / 44, (bot - top) / 50);
+  MV.s1 = MV.s0 * 7;
+  const C0 = [.75, -17], O0 = [(MV.box[0] + MV.box[1]) / 2, (top + bot) / 2];
+  MV.p0 = [O0[0] + (W_.pin[0] - C0[0]) * MV.s0, O0[1] + (W_.pin[1] - C0[1]) * MV.s0];
+  MV.p1 = [W / 2, LAND ? 420 : 860 + DY];
+  // labels (HTML, positioned each frame so the text never scales)
+  MV.labs = [
+    { at: W_.jlm, txt: 'ירושלים', cls: 'city', clamp: true },
+    { at: W_.tlv, txt: 'תל אביב', cls: 'city', clamp: true },
+    { at: W_.bs, txt: 'בית שמש', cls: 'city city-bs', bs: true },
+    { at: [-31, -22], txt: 'הים התיכון', cls: 'region' },
+    { at: [-8.5, 9.5], txt: 'שפלת יהודה', cls: 'region' },
+  ];
+  MV.labs.forEach((l) => { l.el = document.createElement('div'); l.el.className = 'mlab ' + l.cls;
+    l.el.innerHTML = (l.cls === 'region' ? '' : '<i></i>') + `<span>${l.txt}</span>`; $('mapLabs').appendChild(l.el); });
+}
+function renderMap(t) {
+  const P = MAP_W.pin, z = ease(lin(t, MAP.zoom[0], MAP.zoom[1]));
+  const s = MV.s0 * Math.pow(MV.s1 / MV.s0, z) * (1 + .025 * lin(t, MAP.zoom[1], MAP.end + .5));
+  const px = mix(MV.p0[0], MV.p1[0], z), py = mix(MV.p0[1], MV.p1[1], z);
+  mapW.setAttribute('transform', `translate(${px - P[0] * s} ${py - P[1] * s}) scale(${s})`);
+  { const go = 60 * mix(1, 1.25, z), gx = (px - P[0] * s * .3) % go, gy = (py - P[1] * s * .3) % go; let g = '';   // parallax grid, slower than the map
+    for (let x = gx - go; x <= W + go; x += go) g += `<path d="M${x.toFixed(1)} 0 V${H}"/>`;
+    for (let y = gy - go; y <= H + go; y += go) g += `<path d="M0 ${y.toFixed(1)} H${W}"/>`;
+    $('mapGrid').innerHTML = g; }
+  const S = (w) => [px + (w[0] - P[0]) * s, py + (w[1] - P[1]) * s];
+  MV.roads.forEach((r, i) => { r.setAttribute('d', smooth(MAP_W.roads[i].map(S)));
+    r.setAttribute('stroke-dashoffset', 1 - ease(lin(t, 8.9 + i * .25, 10.7 + i * .25))); });
+  MV.streets.setAttribute('opacity', lin(z, .45, 1));
+  MV.glow.setAttribute('opacity', eout(lin(t, MAP.pinAt, MAP.pinAt + .9))); MV.glow.setAttribute('r', 80 / s);   // ~80 px at any zoom
+  const [x0, x1, y0, y1] = MV.box;
+  MV.labs.forEach((l) => {
+    let [x, y] = S(l.at), o = lin(t, 9.0, 9.8), off = x < x0 || x > x1 || y < y0 || y > y1;
+    if (l.clamp && off) {   // keep the name on the frame edge, along the line from the pin toward the city
+      const dx = x - px, dy = y - py; let k = 1;
+      if (x < x0) k = Math.min(k, (x0 - px) / dx); if (x > x1) k = Math.min(k, (x1 - px) / dx);
+      if (y < y0) k = Math.min(k, (y0 - py) / dy); if (y > y1) k = Math.min(k, (y1 - py) / dy);
+      x = px + dx * k; y = py + dy * k;
+    } else if (off) o = 0;
+    if (l.cls === 'region') o *= 1 - lin(z, .25, .6);
+    if (l.bs) o *= 1 - lin(t, MAP.pinAt - .4, MAP.pinAt + .1);
+    l.el.style.opacity = o;
+    const dot = l.el.querySelector('i'); if (dot) dot.style.opacity = l.clamp && off ? 0 : 1;
+    l.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, ${l.cls === 'region' ? '-50%' : '-7px'})`;
+  });
+  // NEO pin: lands with a gentle pulse (same pin as marketing/neo-bat-yam-reel/map.js, at film scale)
+  const pa = MAP.pinAt, pp = eout(lin(t, pa, pa + .9)), land = 1 + .35 * (1 - pp);
+  $('pin').style.transform = `translate(${px}px, ${py}px)`;
+  const circ = (el, r) => Object.assign(el.style, { width: 2 * r + 'px', height: 2 * r + 'px', left: -r + 'px', top: -r + 'px' });
+  circ($('pinDot'), 15 * pp * land); circ($('pinHalo'), 23 * pp); $('pinHalo').style.opacity = pp;
+  ['ring1', 'ring2'].forEach((id, k) => {
+    const ph = (t - pa + k * 1.3) % 2.6 / 2.6, el = $(id);
+    el.style.opacity = t > pa ? (1 - ph) * .75 * pp : 0; circ(el, 26 + 76 * eout(ph));
+  });
+  const q = eout(lin(t, pa + .45, pa + 1.3));
+  $('pinLab').style.opacity = q;
+  $('pinLab').style.transform = `translate(${px}px, ${py + 48 + (1 - q) * 22}px) translateX(-50%)`;
+  $('pinBar').style.width = ease(lin(t, pa + .9, pa + 2.0)) * 180 + 'px';
+}
+
+// ---------- developer chapter ----------
+function renderTrust(t) {
+  const lt = t - TRUST.start;
+  const rise = (el, a, d = .9, dy = 24) => { const q = eout(lin(lt, a, a + d)); el.style.opacity = q; el.style.transform = `translateY(${(1 - q) * dy}px)`; };
+  $('trust').style.opacity = 1 - sine(lin(t, TRUST.end - .6, TRUST.end + .1));
+  $('trust').style.transform = `translateY(-50%) scale(${1 + .025 * lin(lt, 0, 9)})`;
+  rise($('devLogo'), .3); rise($('tk'), .4);
+  rise($('tn'), 1.2, 1.1, 30);
+  $('trule').style.width = ease(lin(lt, 2.0, 3.2)) * 220 + 'px';
+  rise($('ts'), 3.6, 1.0);
+  ['tw1', 'tw2'].forEach((id, i) => {   // the two big words settle in from a soft blur
+    const a = 5.3 + i * .45, q = eout(lin(lt, a, a + 1.2)), el = $(id);
+    el.style.opacity = q; el.style.filter = `blur(${(1 - q) * 14}px)`;
+    el.style.transform = `translateY(${(1 - q) * 40}px) scale(${mix(.9, 1, q)})`; el.style.letterSpacing = `${(1 - q) * .12}em`;
+  });
+  rise($('tu'), 6.2, 1.0);
+  $('tbar').style.width = ease(lin(lt, 6.5, 7.7)) * 260 + 'px';
+  const g = $('tgrid'); g.style.opacity = .3 * lin(lt, 5.0, 6.0); g.style.setProperty('--fill', (ease(lin(lt, 5.0, 8.6)) * 100) + '%');
+}
+
 // ---------- render ----------
 let laidOut = false;
 window.render = function (t) {
@@ -577,26 +821,32 @@ window.render = function (t) {
       $('tag1').style.transform = `translateY(${(1 - eout(lin(lt, 1.4, 2.4))) * 20}px)`;
     } }
 
+  // location map
+  if (setLayer($('L-map'), t, MAP.start, MAP.end)) renderMap(t);
+
   // complex
   shot('complex', t, ease(lin(t, SCENES.complex.start - .5, SCENES.complex.end + .5)));
-  cap($('cap-complex'), t, 9.4, 13.7);
+  cap($('cap-complex'), t, 15.4, 19.7);
   // lobby walk
-  shot('lobby', t, ease(lin(t, 13.5, 22.5)));
-  cap($('cap-lobby'), t, 15.0, 21.4);
+  shot('lobby', t, ease(lin(t, 19.5, 28.5)));
+  cap($('cap-lobby'), t, 21.0, 27.4);
   // living: push toward the view
-  shot('living', t, ease(lin(t, 21.5, 34.5)));
-  cap($('cap-living1'), t, 23.0, 27.8);
-  cap($('cap-living2'), t, 28.4, 33.5);
+  shot('living', t, ease(lin(t, 27.5, 40.5)));
+  cap($('cap-living1'), t, 29.0, 33.8);
+  cap($('cap-living2'), t, 34.4, 39.5);
   // country: lateral dolly
-  shot('country', t, ease(lin(t, 33.5, 42.5)));
-  cap($('cap-country'), t, 35.0, 41.3);
+  shot('country', t, ease(lin(t, 39.5, 48.5)));
+  cap($('cap-country'), t, 41.0, 47.3);
 
   // apartment types
   if (setLayer($('types'), t, TYPES.start, TYPES.end)) renderTypes(t);
 
+  // developer chapter
+  if (setLayer($('L-trust'), t, TRUST.start, TRUST.end)) renderTrust(t);
+
   // end card
   { const et = t - SCENES.end.start;
-    shot('end', t, sine(lin(t, 67.5, 80)));
+    shot('end', t, sine(lin(t, 82.5, 95)));
     const i = eout(lin(et, .5, 1.9));
     $('endTxt').style.opacity = i; $('endTxt').style.transform = `scale(${mix(.95, 1, i)})`;
     const c = eout(lin(et, 1.8, 2.9));
@@ -606,12 +856,14 @@ window.render = function (t) {
     $('credits').style.opacity = eout(lin(et, 3.2, 4.3));
     $('slotPhone').style.opacity = eout(lin(et, 3.0, 4.0)); }
 
-  $('black').style.opacity = sine(lin(t, 79.0, 80));
+  $('black').style.opacity = sine(lin(t, 94.0, 95));
   return Promise.all(seeks);
 };
 
 // slots: shown only when filled
 if (LAND) $('cta').innerHTML = $('cta').innerHTML.replace(/<br>/g, ' ');   // one line in the wide frame
+if (LAND) $('ts').innerHTML = $('ts').innerHTML.replace(/<br>/g, ' ');
+if (DEVELOPER_LOGO) { $('devLogo').innerHTML = `<img src="${DEVELOPER_LOGO}" alt="ע.ט">`; $('devLogo').style.display = 'block'; }
 if (SLOTS.phone) { $('slotPhone').textContent = SLOTS.phone; $('slotPhone').classList.add('slot-on'); }
 </script>
 </body>
