@@ -43,3 +43,4 @@ Related: [neo-beit-shemesh](neo-beit-shemesh.md), [file-intake](file-intake.md).
 - 2026-11-24: Owner: remove the "היזם / ע.ט" heading from the developer chapter in both films; the developer logo ("החברה להתחדשות עירונית") is the same company and suffices. Narration still names ע.ט.
 - 2026-11-24: Owner: remove "ע.ט" from the narration too ("למחוק ע.ט"). Developer is referred to only as "החברה להתחדשות עירונית" in both films. Supersedes the line above about narration.
 - 2026-11-24: A background agent's ElevenLabs speech call was refused by the session's permission check; instead "עין טית" was cut out of the existing developer clips with ffmpeg (originals kept as `*-with-at.mp3`). Cut points chosen from silences; not yet heard by a person.
+- 2026-11-24: Beit Shemesh fourth cut delivered (commit 2c25d74, 95 s, three formats): no "ע.ט" on screen or in narration, credits row (developer + Electra) visible together from ~78 s.
