@@ -9,11 +9,14 @@
   Render: node render.js <outdir>            (full MP4, 30 fps)
           node render.js <outdir> stills 3,10,18   (check stills)
 
-  SWAPPING IN AI VIDEO: every shot is one entry in SCENES at the top of the script.
-  Change its `src` from 'img/x.jpg' to 'video/x.mp4' and nothing else. A video is shown
-  full-frame (object-fit: cover) and seeked to scene-local time on every frame; the
-  image-only camera moves and the blueprint intro switch off by themselves.
-  Scene-local time 0 = the moment the scene starts fading in (start - FADE/2).
+  AI VIDEO: every shot is one entry in SCENES at the top of the script. A scene whose `src` is
+  'video/x.mp4' plays from pre-extracted JPEG frames (video/frames/x/0001.jpg ..., made by
+  video/extract-frames.sh; the clips are HEVC 10-bit, which Playwright's Chromium cannot decode),
+  so every rendered frame is exact. `frames` = frame count, `fps` = clip rate. `cam` is the
+  vertical crop and slow Ken Burns over the clip (fx picks the column of the landscape frame).
+  Scene-local time 0 = the moment the scene starts fading in (start - FADE/2). If the scene is
+  longer than the clip, playback eases down to half speed and lands on the last frame exactly at
+  the scene's end (adjacent frames are blended while slowed), so there is no freeze or loop.
 
   SAFE AREA (Instagram/TikTok UI): no text above y=220 or below y=1540, captions keep 140px
   clear on the right for the like/share rail.
@@ -217,16 +220,17 @@
 // start/end: on-screen seconds (crossfades are centred on them). cam: image-only Ken Burns,
 // from/to = { s: zoom over cover-fit, fx, fy: focus point as a fraction of the image }.
 const SCENES = {
-  aerial:  { src: 'img/aerial.jpg',  start: 0,    end: 5,    blueprint: 'img/aerial-lines.png',
-             cam: { from: { s: 1.30, fx: .50, fy: .80 }, to: { s: 1.06, fx: .44, fy: .36 } } },
+  // AI shots (video/*.mp4, 24 fps). Crops: towers / corridor end / windows and balcony / club signs.
+  aerial:  { src: 'video/aerial.mp4', frames: 193, fps: 24, start: 0, end: 5,
+             cam: { from: { s: 1.00, fx: .34, fy: .50 }, to: { s: 1.05, fx: .40, fy: .46 } } },
   complex: { src: 'img/aerial.jpg',  start: 8.6,  end: 14,
              cam: { from: { s: 1.02, fx: .30, fy: .45 }, to: { s: 1.20, fx: .36, fy: .40 } } },
-  lobby:   { src: 'img/lobby.jpg',   start: 14,   end: 22,
-             cam: { from: { s: 1.00, fx: .62, fy: .50 }, to: { s: 1.45, fx: .58, fy: .47 } } },
-  living:  { src: 'img/living.jpg',  start: 22,   end: 34,
-             cam: { from: { s: 1.00, fx: .64, fy: .62 }, to: { s: 1.55, fx: .44, fy: .45 } } },
-  country: { src: 'img/country.jpg', start: 34,   end: 42,
-             cam: { from: { s: 1.06, fx: .30, fy: .55 }, to: { s: 1.12, fx: .72, fy: .50 } } },
+  lobby:   { src: 'video/lobby.mp4', frames: 193, fps: 24, start: 14, end: 22,
+             cam: { from: { s: 1.00, fx: .56, fy: .50 }, to: { s: 1.08, fx: .51, fy: .48 } } },
+  living:  { src: 'video/living.mp4', frames: 241, fps: 24, start: 22, end: 34,
+             cam: { from: { s: 1.00, fx: .66, fy: .50 }, to: { s: 1.07, fx: .72, fy: .50 } } },
+  country: { src: 'video/country.mp4', frames: 193, fps: 24, start: 34, end: 42,
+             cam: { from: { s: 1.00, fx: .73, fy: .50 }, to: { s: 1.03, fx: 1.0, fy: .50 } } },
   end:     { src: 'img/aerial.jpg',  start: 68,   end: 80,
              cam: { from: { s: 1.05, fx: .40, fy: .40 }, to: { s: 1.14, fx: .42, fy: .38 } } },
 };
@@ -263,9 +267,13 @@ const media = {};
 document.querySelectorAll('.media[data-scene]').forEach((box) => {
   const key = box.dataset.scene, sc = SCENES[key];
   const vid = isVideo(sc.src);
-  const el = document.createElement(vid ? 'video' : 'img');
-  el.className = 'shot'; el.src = sc.src;
-  if (vid) { el.muted = true; el.playsInline = true; el.preload = 'auto'; }
+  const el = document.createElement('img'); el.className = 'shot';
+  let el2 = null, dir = null;
+  if (vid) {   // two stacked frame images: el = frame i, el2 = frame i+1 blended on top
+    dir = sc.src.replace(/\/([^/]+)\.\w+$/, '/frames/$1/');
+    el.src = dir + '0001.jpg'; el2 = document.createElement('img'); el2.className = 'shot'; el2.src = dir + '0002.jpg';
+    el2.style.opacity = 0;
+  } else el.src = sc.src;
   let lines = null, scan = null;
   if (!vid && sc.blueprint) {
     box.insertAdjacentHTML('afterbegin', '<div class="grid"></div>');
@@ -273,10 +281,35 @@ document.querySelectorAll('.media[data-scene]').forEach((box) => {
     box.appendChild(lines);
     scan = document.createElement('div'); scan.className = 'scan';
   }
-  box.appendChild(el); if (scan) box.appendChild(scan);
-  media[key] = { el, vid, lines, scan, sc };
+  box.appendChild(el); if (el2) box.appendChild(el2); if (scan) box.appendChild(scan);
+  media[key] = { el, el2, dir, vid, lines, scan, sc };
 });
-window.__videos = () => Object.values(media).filter((m) => m.vid).map((m) => m.el);
+window.__videos = () => [];   // no <video> elements: AI shots play from frame images
+
+// scene-local time u -> clip time. Plays at 1x; if the scene (D s) outlasts the clip (L s), it
+// eases linearly down to half speed and reaches the last frame exactly at u = D.
+function clipTime(u, D, L) {
+  if (D <= L) return { c: Math.min(u, L), sp: 1 };
+  let v = .5, k = (1 + v) / 2, a = (L - D * k) / (1 - k);
+  if (a < 0) { a = 0; v = 2 * L / D - 1; }
+  if (u <= a) return { c: u, sp: 1 };
+  const x = Math.min(u, D) - a, T = D - a;
+  return { c: Math.min(L, a + x - (1 - v) * x * x / (2 * T)), sp: 1 - (1 - v) * x / T };
+}
+function setFrame(img, url) {
+  if (img.dataset.f === url) return null;
+  img.dataset.f = url; img.src = url; return img.decode().catch(() => {});
+}
+function videoFrame(m, local, D) {
+  const sc = m.sc, L = (sc.frames - 1) / sc.fps, { c, sp } = clipTime(local, D, L);
+  const f = c * sc.fps, i = Math.min(Math.floor(f), sc.frames - 1), frac = f - i;
+  // at 1x show the nearest frame (normal 24-in-30 cadence); blend neighbours as playback slows
+  const w = i >= sc.frames - 1 ? 0 : clamp(.5 + (frac - .5) / Math.max(.001, 1 - sp) / 2);
+  const name = (n) => m.dir + String(n).padStart(4, '0') + '.jpg';
+  const ps = [setFrame(m.el, name(i + 1)), setFrame(m.el2, name(Math.min(i + 2, sc.frames)))];
+  m.el2.style.opacity = w;
+  return ps.filter(Boolean);
+}
 
 // cover-fit camera for an image: zoom s, focus (fx, fy), clamped so no edge shows
 function camera(m, s, fx, fy) {
@@ -284,7 +317,7 @@ function camera(m, s, fx, fy) {
   const k = Math.max(1080 / w, 1920 / h) * s;
   const x = clamp(540 - fx * w * k, 1080 - w * k, 0), y = clamp(960 - fy * h * k, 1920 - h * k, 0);
   const tf = `translate(${x}px,${y}px) scale(${k})`;
-  m.el.style.transform = tf; if (m.lines) m.lines.style.transform = tf;
+  m.el.style.transform = tf; if (m.lines) m.lines.style.transform = tf; if (m.el2) m.el2.style.transform = tf;
   return { x, y, k, h };
 }
 
@@ -303,7 +336,7 @@ function cap(el, t, a, b) {
 }
 function shot(key, t, p) {
   const m = media[key], c = m.sc.cam;
-  if (!m.vid && c) camera(m, mix(c.from.s, c.to.s, p), mix(c.from.fx, c.to.fx, p), mix(c.from.fy, c.to.fy, p));
+  if (c) camera(m, mix(c.from.s, c.to.s, p), mix(c.from.fx, c.to.fx, p), mix(c.from.fy, c.to.fy, p));
 }
 
 // ---------- apartment cards ----------
@@ -399,13 +432,9 @@ window.render = function (t) {
   Object.entries(SCENES).forEach(([key, sc], idx) => {
     const vis = setLayer(L(key), t, sc.start, sc.end, idx === 0);
     const m = media[key];
-    if (m.vid && vis) {   // seek the AI shot to scene-local time
+    if (m.vid && vis) {   // show the AI shot's frame for scene-local time; wait until it is decoded
       const local = Math.max(0, t - (sc.start - FADE / 2));
-      const target = Math.min(local, (m.el.duration || 1e9) - 0.04);
-      if (Math.abs(m.el.currentTime - target) > 1e-3) {
-        seeks.push(new Promise((res) => { m.el.addEventListener('seeked', res, { once: true }); setTimeout(res, 5000); }));
-        m.el.currentTime = target;
-      }
+      seeks.push(...videoFrame(m, local, sc.end - sc.start + FADE));
     }
   });
 

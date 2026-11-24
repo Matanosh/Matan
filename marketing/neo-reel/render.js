@@ -1,8 +1,10 @@
 // Renders film.html (1080x1920) frame by frame with Playwright, then encodes an MP4 with ffmpeg.
 // Usage: node render.js <outdir> [fps=30]            full film -> <outdir>/neo-reel.mp4
 //        node render.js <outdir> stills 3,10.5,47      check stills -> <outdir>/s00_3.png ...
-// Same pipeline as marketing/club-film/render.js. Scenes whose src is a video are seeked per
-// frame: window.render(t) returns a promise that settles once every visible video has seeked.
+// Same pipeline as marketing/club-film/render.js. AI shots play from frames pre-extracted by
+// video/extract-frames.sh (run it first): window.render(t) returns a promise that settles once
+// every visible frame image has decoded, so each screenshot is frame-accurate.
+// Encode is capped at 5 Mbit/s so the final film stays under 60 MB.
 // Uses $HTTPS_PROXY for Google Fonts when set. WORKERS=n sets parallel browser pages (default 4).
 const { chromium } = require('playwright');
 const path = require('path'); const fs = require('fs'); const { execFileSync } = require('child_process');
@@ -42,7 +44,7 @@ async function openPage(browser) {
   await browser.close();
   if (!stills) {
     execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-framerate', String(fps), '-i', path.join(out, 'f%05d.png'),
-      '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '19', '-preset', 'slow', '-profile:v', 'high', '-movflags', '+faststart', path.join(out, 'neo-reel.mp4')]);
+      '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '19', '-maxrate', '5M', '-bufsize', '10M', '-preset', 'slow', '-profile:v', 'high', '-movflags', '+faststart', path.join(out, 'neo-reel.mp4')]);
   }
   console.log('done', jobs.length);
 })().catch((e) => { console.error(e); process.exit(1); });
