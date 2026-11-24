@@ -13,3 +13,4 @@
 Related: [marketing-films](marketing-films.md), [neo-beit-shemesh](neo-beit-shemesh.md).
 - 2026-11-24: Logos (agent report, commit f679c8b, `marketing/brand/`): the Drive file "לוגו בת ים" is a "NEO SEA | BAT YAM" mark; the Feb 2026 floor plans carry a different mark, "NEO Seaside Living Bat Yam". Owner to choose which the films use; "NEO SEA" used meanwhile.
 - 2026-11-24: Floor plans on Drive folder "תכניות דירה" (copied to `marketing/brand/neo-bat-yam/plans/`): 3 rooms C2, D; 4 rooms A, A1-101, A1-201, K (K: 24.5 m² balcony); 5 rooms B, B1, G. C.jpg is empty on Drive.
+- 2026-11-24: Owner chose the "NEO SEA | BAT YAM" logo for the films (session transcript). Supersedes the open choice above.
