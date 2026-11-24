@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>NEO Beit Shemesh Reel</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
+<!--
+  NEO Beit Shemesh, vertical reel 1080x1920, about 80 s. Edit skeleton: no audio yet, narration comes later.
+  Render: node render.js <outdir>            (full MP4, 30 fps)
+          node render.js <outdir> stills 3,10,18   (check stills)
+
+  SWAPPING IN AI VIDEO: every shot is one entry in SCENES at the top of the script.
+  Change its `src` from 'img/x.jpg' to 'video/x.mp4' and nothing else. A video is shown
+  full-frame (object-fit: cover) and seeked to scene-local time on every frame; the
+  image-only camera moves and the blueprint intro switch off by themselves.
+  Scene-local time 0 = the moment the scene starts fading in (start - FADE/2).
+
+  SAFE AREA (Instagram/TikTok UI): no text above y=220 or below y=1540, captions keep 140px
+  clear on the right for the like/share rail.
+  Numbers: only from docs/wiki/neo-beit-shemesh.md and the owner (2026-11-24). Invent none.
+-->
+<style>
+  :root {
+    --orange: #E8622C;            /* NEO brand orange, from the developer's logo */
+    --navy: #0a1836; --navy-2: #0c1d40; --navy-3: #15284b;   /* DESIGN.md night grounds */
+    --ink: #fbf8f1; --mist: #ddd6c6; --slate: #9fb2db;
+    --hair: rgba(251, 248, 241, .16);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .layer { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+  .media { position: absolute; inset: 0; overflow: hidden; }
+  .media img.shot { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  .media video.shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .vignette { position: absolute; inset: 0; background: radial-gradient(ellipse 120% 80% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,.5) 100%); }
+  .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(4,10,24,0) 0%, rgba(4,10,24,.55) 19%, rgba(4,10,24,.72) 30%, rgba(4,10,24,.25) 48%, rgba(4,10,24,0) 60%); }
+  .shade-top { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 22%); }
+
+  /* "הדמיה" label on every render shot (docs/policies/ai-images-policy.md, rule 1) */
+  .hadmaya { position: absolute; left: 72px; top: 240px; padding: 8px 18px 9px; border-radius: 2px;
+    background: rgba(4,10,24,.5); border: 1px solid rgba(251,248,241,.28);
+    font-size: 28px; font-weight: 400; letter-spacing: .02em; color: rgba(251,248,241,.92); }
+
+  /* captions: RTL, lower third, inside the safe area */
+  .cap { position: absolute; right: 140px; left: 72px; bottom: 420px; text-align: right; opacity: 0; }
+  .cap .k { font-size: 36px; font-weight: 500; color: var(--orange); letter-spacing: .02em; margin-bottom: 16px; }
+  .cap .h { font-family: "Frank Ruhl Libre", serif; font-size: 96px; font-weight: 400; line-height: 1.06; letter-spacing: -.01em;
+    text-wrap: balance; text-shadow: 0 4px 30px rgba(0,0,0,.45); }
+  .cap .s { margin-top: 20px; font-size: 42px; font-weight: 300; line-height: 1.35; color: rgba(251,248,241,.88); text-wrap: balance; }
+  .cap .bar { width: 0; height: 3px; background: var(--orange); margin: 30px 0 0 auto; }
+
+  /* blueprint intro (image stand-in only) */
+  .grid { position: absolute; inset: 0; background-color: #07121f;
+    background-image: linear-gradient(rgba(120,190,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120,190,255,.07) 1px, transparent 1px);
+    background-size: 60px 60px; }
+  .lines { filter: brightness(2.1) contrast(1.2); mix-blend-mode: screen; }
+  .scan { position: absolute; left: -50px; width: 1180px; height: 4px; background: #ffd9b8;
+    box-shadow: 0 0 24px 8px rgba(232,98,44,.85), 0 0 80px 30px rgba(232,98,44,.35); opacity: 0; }
+
+  /* NEO logo (type set as in the 2026-11-24 horizontal film) */
+  .logo { display: flex; flex-direction: column; align-items: center; }
+  .neo { font-family: Heebo, sans-serif; font-weight: 500; font-size: 250px; letter-spacing: .02em; color: var(--orange); direction: ltr; line-height: 1; position: relative; }
+  .neo .dots { position: absolute; right: -74px; top: -44px; width: 170px; height: 170px;
+    background-image: radial-gradient(circle, var(--orange) 0 4px, transparent 5px); background-size: 18px 18px;
+    -webkit-mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); mask: radial-gradient(circle at 30% 70%, #000 0 30%, transparent 70%); }
+  .bs { margin-top: 30px; font-family: "Frank Ruhl Libre", serif; font-size: 50px; letter-spacing: .5em; padding-left: .5em; direction: ltr; color: var(--ink); }
+  .tag { margin-top: 56px; font-family: "Frank Ruhl Libre", serif; font-size: 58px; font-weight: 300; color: var(--mist); }
+  .logoWrap { position: absolute; left: 0; right: 0; top: 700px; display: flex; justify-content: center; }
+  .rule { height: 2px; background: var(--orange); width: 0; margin: 48px auto 0; }
+
+  /* apartment types */
+  #types { background: radial-gradient(ellipse 90% 60% at 50% 48%, var(--navy-3) 0%, var(--navy) 62%, #060f24 100%); }
+  .thead { position: absolute; left: 0; right: 0; top: 250px; text-align: center; }
+  .thead .t { font-size: 34px; font-weight: 400; letter-spacing: .06em; color: var(--slate); }
+  .segs { display: flex; flex-direction: row; gap: 12px; justify-content: center; margin-top: 20px; }
+  .segs i { display: block; width: 92px; height: 4px; background: rgba(251,248,241,.16); position: relative; overflow: hidden; }
+  .segs i b { position: absolute; top: 0; bottom: 0; right: 0; width: 0; background: var(--orange); }
+  .card { position: absolute; inset: 0; opacity: 0; }
+  .card .k { position: absolute; left: 0; right: 0; top: 352px; text-align: center; font-size: 34px; font-weight: 500; color: var(--orange); letter-spacing: .08em; }
+  .card .h { position: absolute; left: 0; right: 0; top: 398px; text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 124px; font-weight: 300; line-height: 1.05; }
+  .card .h b { font-weight: 500; }
+  .card .num { position: absolute; left: 0; right: 0; text-align: center; }
+  .card .num .v { display: inline-block; font-weight: 200; line-height: 1; direction: ltr; font-variant-numeric: lining-nums; white-space: nowrap; }
+  .card .num .u { display: block; margin-top: 8px; font-size: 44px; font-weight: 300; color: var(--mist); }
+  .rows { position: absolute; left: 150px; right: 150px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; padding: 22px 6px; border-top: 1px solid var(--hair); }
+  .row:last-child { border-bottom: 1px solid var(--hair); }
+  .row span { font-size: 42px; font-weight: 300; color: var(--mist); }
+  .row b { font-size: 50px; font-weight: 500; color: var(--ink); }
+  .n { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+  #box { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+  #plan { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; opacity: 0; }
+  .plannote { position: absolute; left: 0; right: 0; text-align: center; font-size: 26px; color: #6b6b6b; opacity: 0; }
+
+  /* end card */
+  .endtxt { position: absolute; left: 0; right: 0; top: 560px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .cta { margin-top: 110px; font-family: "Frank Ruhl Libre", serif; font-size: 76px; font-weight: 400; line-height: 1.15; }
+  .cta-rule { height: 3px; background: var(--orange); width: 0; margin: 34px auto 0; }
+  .legal { position: absolute; left: 90px; right: 90px; top: 1462px; text-align: center; font-size: 28px; line-height: 1.4; color: rgba(251,248,241,.66); }
+
+  /* SLOT: phone number. Hidden unless SLOTS.phone is set in the script (adds .slot-on).
+     Owner decided 2026-11-24: no price in the reel, so there is no price slot. */
+  .slot { display: none; }
+  .slot.slot-on { display: block; }
+  .slot-phone { margin-top: 56px; font-size: 92px; font-weight: 500; font-variant-numeric: lining-nums; color: var(--ink); direction: ltr; letter-spacing: .02em; }
+
+  .black { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<!-- 0–5 aerial rise at dusk -->
+<div class="layer" id="L-aerial">
+  <div class="media" data-scene="aerial"></div>
+  <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
+  <div class="cap" id="cap-aerial"><div class="h">הבית הבא שלכם<br>כבר נראה באופק</div><div class="bar"></div></div>
+  <div class="hadmaya">הדמיה</div>
+</div>
+
+<!-- 5–8.6 NEO logo -->
+<div class="layer" id="L-logo" style="background: radial-gradient(ellipse 90% 55% at 50% 45%, #13203a 0%, #050a14 75%)">
+  <div class="logoWrap" id="logo1">
+    <div class="logo">
+      <div class="neo">NEO<div class="dots" id="dots1"></div></div>
+      <div class="bs">BEIT SHEMESH</div>
+      <div class="rule" id="rule1"></div>
+      <div class="tag" id="tag1">מהיסודות – אל הבית שלכם</div>
+    </div>
+  </div>
+</div>
+
+<!-- 8.6–14 the complex -->
+<div class="layer" id="L-complex">
+  <div class="media" data-scene="complex"></div>
+  <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
+  <div class="cap" id="cap-complex"><div class="k">NEO · בית שמש</div><div class="h">רובע מגורים חדש בבית שמש</div><div class="s">מגדלי מגורים, לובי מעוצב וקאנטרי</div><div class="bar"></div></div>
+  <div class="hadmaya">הדמיה</div>
+</div>
+
+<!-- 14–22 lobby walk -->
+<div class="layer" id="L-lobby">
+  <div class="media" data-scene="lobby"></div>
+  <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
+  <div class="cap" id="cap-lobby"><div class="k">הלובי</div><div class="h">כניסה של מלון בוטיק</div><div class="s">שיש, עץ טבעי ותאורה מעוצבת</div><div class="bar"></div></div>
+  <div class="hadmaya">הדמיה</div>
+</div>
+
+<!-- 22–34 living room, push toward the view -->
+<div class="layer" id="L-living">
+  <div class="media" data-scene="living"></div>
+  <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
+  <div class="cap" id="cap-living1"><div class="k">הדירה</div><div class="h">מרחב שמתמלא באור</div><div class="s">חלונות גדולים וסלון פתוח למטבח</div><div class="bar"></div></div>
+  <div class="cap" id="cap-living2"><div class="k">הנוף</div><div class="h">ההרים בתוך הסלון</div><div class="s">נוף פתוח ומרפסת לארוחות שקיעה</div><div class="bar"></div></div>
+  <div class="hadmaya">הדמיה</div>
+</div>
+
+<!-- 34–42 country club -->
+<div class="layer" id="L-country">
+  <div class="media" data-scene="country"></div>
+  <div class="vignette"></div><div class="shade"></div><div class="shade-top"></div>
+  <div class="cap" id="cap-country"><div class="k">קאנטרי בתוך הפרויקט</div><div class="h">חופשה, כל יום</div><div class="s">בריכה · חדר כושר · מדשאות</div><div class="bar"></div></div>
+  <div class="hadmaya">הדמיה</div>
+</div>
+
+<!-- 42–68 apartment types, one card per room count. Numbers: wiki + owner, 2026-11-24 (phases A and B). -->
+<div class="layer" id="types">
+  <div class="thead" id="thead"><div class="t">סוגי הדירות</div><div class="segs" id="segs"></div></div>
+  <svg id="box" viewBox="0 0 1080 1920"><rect id="boxr" fill="none" stroke="#E8622C" stroke-width="3" pathLength="1"/></svg>
+  <svg id="plan" viewBox="0 0 1080 1920">
+    <defs>
+      <!-- draw-on: a pixel shows once the reveal value passes its value in plan-order.png -->
+      <filter id="reveal" color-interpolation-filters="sRGB" x="0" y="0" width="1" height="1">
+        <feComponentTransfer>
+          <feFuncR id="fr" type="linear" slope="-20" intercept="0"/>
+          <feFuncG id="fg" type="linear" slope="-20" intercept="0"/>
+          <feFuncB id="fb" type="linear" slope="-20" intercept="0"/>
+        </feComponentTransfer>
+      </filter>
+      <clipPath id="planClip"><rect x="180" y="90" width="1160" height="1170"/></clipPath>
+      <mask id="planMask" maskUnits="userSpaceOnUse" x="0" y="0" width="2000" height="1412">
+        <image href="img/plan-order.png" width="2000" height="1412" filter="url(#reveal)"/>
+      </mask>
+    </defs>
+    <g id="planG"><image href="img/plan.png" width="2000" height="1412" mask="url(#planMask)" clip-path="url(#planClip)"/></g>
+  </svg>
+  <div class="plannote" id="plannote">התוכנית להמחשה בלבד</div>
+  <div id="cards"></div>
+</div>
+
+<!-- 68–80 end card -->
+<div class="layer" id="L-end">
+  <div class="media" data-scene="end" style="filter: blur(8px) brightness(.34) saturate(.9)"></div>
+  <div class="vignette"></div>
+  <div class="endtxt" id="endTxt">
+    <div class="logo">
+      <div class="neo" style="font-size:210px">NEO<div class="dots"></div></div>
+      <div class="bs" style="font-size:44px">BEIT SHEMESH</div>
+    </div>
+    <div class="cta" id="cta">תאמו פגישה<br>במשרד המכירות</div>
+    <div class="cta-rule" id="ctaRule"></div>
+    <div class="slot slot-phone" id="slotPhone" dir="ltr"><!-- SLOT: phone, filled from SLOTS.phone --></div>
+  </div>
+  <div class="legal" id="legal">ההדמיות והתוכניות להמחשה בלבד ואינן מהוות חלק ממסמכי המכר</div>
+</div>
+
+<div class="black" id="black"></div>
+
+<script>
+// ======================= CONFIG (edit here) =======================
+// One entry per shot. To use an AI video, change `src` to a .mp4/.webm file; nothing else.
+// start/end: on-screen seconds (crossfades are centred on them). cam: image-only Ken Burns,
+// from/to = { s: zoom over cover-fit, fx, fy: focus point as a fraction of the image }.
+const SCENES = {
+  aerial:  { src: 'img/aerial.jpg',  start: 0,    end: 5,    blueprint: 'img/aerial-lines.png',
+             cam: { from: { s: 1.30, fx: .50, fy: .80 }, to: { s: 1.06, fx: .44, fy: .36 } } },
+  complex: { src: 'img/aerial.jpg',  start: 8.6,  end: 14,
+             cam: { from: { s: 1.02, fx: .30, fy: .45 }, to: { s: 1.20, fx: .36, fy: .40 } } },
+  lobby:   { src: 'img/lobby.jpg',   start: 14,   end: 22,
+             cam: { from: { s: 1.00, fx: .62, fy: .50 }, to: { s: 1.45, fx: .58, fy: .47 } } },
+  living:  { src: 'img/living.jpg',  start: 22,   end: 34,
+             cam: { from: { s: 1.00, fx: .64, fy: .62 }, to: { s: 1.55, fx: .44, fy: .45 } } },
+  country: { src: 'img/country.jpg', start: 34,   end: 42,
+             cam: { from: { s: 1.06, fx: .30, fy: .55 }, to: { s: 1.12, fx: .72, fy: .50 } } },
+  end:     { src: 'img/aerial.jpg',  start: 68,   end: 80,
+             cam: { from: { s: 1.05, fx: .40, fy: .40 }, to: { s: 1.14, fx: .42, fy: .38 } } },
+};
+const LOGO = { start: 5, end: 8.6 };
+const TYPES = { start: 42, end: 68 };
+// Apartment cards. area/balcony/garden in m²; ranges as [min, max]. Source: docs/wiki/neo-beit-shemesh.md and
+// the owner's 2026-11-24 confirmation that phase B (buildings 7–10) is NEO. Do not add numbers that are not there.
+const CARDS = [
+  { t: 46.5, title: '<b>3</b> חדרים', area: [75],       rows: [['מרפסת', [10, 15]]] },
+  { t: 51,   title: '<b>4</b> חדרים', area: [85, 91],   rows: [['מרפסת', [10, 17]]] },
+  { t: 58,   title: '<b>4.5</b> חדרים', area: [101, 105], plan: true,
+             rows: [['שטח הדירה', [101, 105]], ['מרפסת', [10, 15.5]]] },
+  { t: 62.8, title: '<b>5</b> חדרים', area: [108, 121], rows: [['מרפסת', [12, 18]]] },
+  { t: 68,   title: 'דירות <b>גן</b>', garden: 148,     rows: [['חדרים', [4, 5]], ['קומה', 'קרקע']] },
+];
+// Phone slot: null hides it. Number confirmed by the owner on 2026-11-24.
+const SLOTS = { phone: '054-522-0030' };
+window.TOTAL = 80;
+const FADE = 1.0;
+// ==================================================================
+
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lin = (t, a, b) => clamp((t - a) / (b - a));
+const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eout = (x) => 1 - Math.pow(1 - x, 3);
+const sine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+const mix = (a, b, x) => a + (b - a) * x;
+const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|$)/i.test(src);
+const fmt = (r) => Array.isArray(r) ? (r.length > 1 ? `<span class="n">${r[0]}–${r[1]}</span>` : `<span class="n">${r[0]}</span>`) : r;
+
+// ---------- build media (img or video per SCENES.src) ----------
+const media = {};
+document.querySelectorAll('.media[data-scene]').forEach((box) => {
+  const key = box.dataset.scene, sc = SCENES[key];
+  const vid = isVideo(sc.src);
+  const el = document.createElement(vid ? 'video' : 'img');
+  el.className = 'shot'; el.src = sc.src;
+  if (vid) { el.muted = true; el.playsInline = true; el.preload = 'auto'; }
+  let lines = null, scan = null;
+  if (!vid && sc.blueprint) {
+    box.insertAdjacentHTML('afterbegin', '<div class="grid"></div>');
+    lines = document.createElement('img'); lines.className = 'shot lines'; lines.src = sc.blueprint;
+    box.appendChild(lines);
+    scan = document.createElement('div'); scan.className = 'scan';
+  }
+  box.appendChild(el); if (scan) box.appendChild(scan);
+  media[key] = { el, vid, lines, scan, sc };
+});
+window.__videos = () => Object.values(media).filter((m) => m.vid).map((m) => m.el);
+
+// cover-fit camera for an image: zoom s, focus (fx, fy), clamped so no edge shows
+function camera(m, s, fx, fy) {
+  const w = m.el.naturalWidth, h = m.el.naturalHeight; if (!w) return null;
+  const k = Math.max(1080 / w, 1920 / h) * s;
+  const x = clamp(540 - fx * w * k, 1080 - w * k, 0), y = clamp(960 - fy * h * k, 1920 - h * k, 0);
+  const tf = `translate(${x}px,${y}px) scale(${k})`;
+  m.el.style.transform = tf; if (m.lines) m.lines.style.transform = tf;
+  return { x, y, k, h };
+}
+
+// layer visibility: later layers sit on top, so the incoming one fades in over the outgoing one
+function layerIn(t, start, first) { return first ? 1 : sine(lin(t, start - FADE / 2, start + FADE / 2)); }
+function layerVisible(t, start, end) { return t >= start - FADE / 2 && t <= end + FADE / 2; }
+function setLayer(el, t, start, end, first) {
+  const v = layerVisible(t, start, end); el.style.opacity = v ? layerIn(t, start, first) : 0;
+  el.style.visibility = v ? 'visible' : 'hidden'; return v;
+}
+function cap(el, t, a, b) {
+  const i = eout(lin(t, a, a + 1.0)), o = sine(lin(t, b - .7, b));
+  el.style.opacity = i * (1 - o);
+  el.style.transform = `translateY(${(1 - i) * 36 - o * 18}px)`;
+  const bar = el.querySelector('.bar'); if (bar) bar.style.width = (eout(lin(t, a + .35, a + 1.5)) * 200) + 'px';
+}
+function shot(key, t, p) {
+  const m = media[key], c = m.sc.cam;
+  if (!m.vid && c) camera(m, mix(c.from.s, c.to.s, p), mix(c.from.fx, c.to.fx, p), mix(c.from.fy, c.to.fy, p));
+}
+
+// ---------- apartment cards ----------
+const BOX = { cx: 540, cy: 900, max: 520, maxArea: 148 };
+const PLAN = { cx: 540, cy: 915, side: 760, crop: [180, 90, 1160, 1170] };
+const segs = $('segs');
+CARDS.forEach((c, i) => {
+  c.from = i ? CARDS[i - 1].t : TYPES.start;
+  const big = c.garden || c.area[c.area.length - 1];
+  c.side = c.plan ? PLAN.side : BOX.max * Math.sqrt(big / BOX.maxArea);
+  const valTxt = c.garden ? `${c.garden}` : (c.area.length > 1 ? `${c.area[0]}–${c.area[1]}` : `${c.area[0]}`);
+  const unit = c.garden ? 'מ״ר גינה פרטית' : 'מ״ר';
+  const pre = c.garden ? '<span style="display:block;font-size:44px;font-weight:300;color:var(--mist);margin-bottom:6px">עד</span>' : '';
+  const rowsTop = c.plan ? PLAN.cy + PLAN.side / 2 + 46 : BOX.cy + BOX.max / 2 + 40;
+  const el = document.createElement('div'); el.className = 'card';
+  el.innerHTML = `<div class="k"><span class="n">${String(i + 1).padStart(2, "0")} / ${String(CARDS.length).padStart(2, "0")}</span></div>
+    <div class="h">${c.title}</div>
+    ${c.plan ? '' : `<div class="num" style="top:0">${pre}<span class="v">${valTxt}</span><span class="u">${unit}</span></div>`}
+    <div class="rows" style="top:${rowsTop}px">${c.rows.map(([a, b]) => `<div class="row"><span>${a}</span><b>${fmt(b)}${Array.isArray(b) && a !== 'חדרים' ? ' מ״ר' : ''}</b></div>`).join('')}</div>`;
+  $('cards').appendChild(el); c.el = el;
+  segs.insertAdjacentHTML('beforeend', '<i><b></b></i>');
+});
+function layoutCards() {   // fit the number inside its box, then centre it vertically
+  CARDS.forEach((c) => {
+    const num = c.el.querySelector('.num'); if (!num) return;
+    const v = num.querySelector('.v'); v.style.fontSize = '200px';
+    const fs = Math.min(200, 200 * (c.side * .80) / v.getBoundingClientRect().width);
+    v.style.fontSize = fs + 'px';
+    num.style.top = (BOX.cy - num.getBoundingClientRect().height / 2) + 'px';
+  });
+}
+function boxAt(t) {  // morph the square between cards
+  let side = CARDS[0].side, fill = 0, cy = BOX.cy;
+  CARDS.forEach((c, i) => {
+    if (i === 0) { side = c.side; fill = c.plan ? 1 : 0; cy = c.plan ? PLAN.cy : BOX.cy; return; }
+    const p = ease(lin(t, c.from - .45, c.from + .45));
+    // the white plan panel fills only once the old card's number has gone, and empties before the next one arrives
+    const pf = c.plan ? ease(lin(t, c.from + .05, c.from + .7)) : ease(lin(t, c.from - .5, c.from + .1));
+    side = mix(side, c.side, p); fill = mix(fill, c.plan ? 1 : 0, pf); cy = mix(cy, c.plan ? PLAN.cy : BOX.cy, p);
+  });
+  return { side, fill, cy };
+}
+function renderTypes(t) {
+  const lt = t - TYPES.start;
+  $('thead').style.opacity = eout(lin(lt, .2, 1.1)) * (1 - lin(t, TYPES.end - .3, TYPES.end + .4));
+  const b = boxAt(t), r = $('boxr');
+  r.setAttribute('x', 540 - b.side / 2); r.setAttribute('y', b.cy - b.side / 2);
+  r.setAttribute('width', b.side); r.setAttribute('height', b.side);
+  r.setAttribute('fill', `rgba(255,255,255,${b.fill})`);
+  r.setAttribute('stroke-dasharray', '1 1');
+  r.setAttribute('stroke-dashoffset', 1 - ease(lin(lt, .3, 1.6)));
+  $('box').style.opacity = 1 - sine(lin(t, TYPES.end - .4, TYPES.end + .3));
+  segs.querySelectorAll('b').forEach((el, i) => {
+    const c = CARDS[i]; el.style.width = (100 * ease(lin(t, c.from + .2, c.t - .2))) + '%';
+  });
+  CARDS.forEach((c, i) => {
+    const last = i === CARDS.length - 1;
+    const a = c.from + (i ? .15 : .5), z = c.t - .3;
+    const inp = eout(lin(t, a, a + .9)), out = last ? 0 : sine(lin(t, z, z + .5));
+    c.el.style.opacity = inp * (1 - out);
+    // RTL: the next card arrives from the left, the old one leaves to the right
+    c.el.style.transform = `translateX(${(1 - inp) * -70 + out * 70}px)`;
+    const k = c.el.querySelector('.k'), h = c.el.querySelector('.h'), num = c.el.querySelector('.num');
+    k.style.opacity = eout(lin(t, a, a + .6));
+    h.style.transform = `translateY(${(1 - eout(lin(t, a + .05, a + 1.0))) * 30}px)`;
+    if (num) { const q = eout(lin(t, a + .25, a + 1.1)); num.style.opacity = q; num.style.transform = `scale(${mix(.92, 1, q)})`; }
+    c.el.querySelectorAll('.row').forEach((row, j) => {
+      const q = eout(lin(t, a + .5 + j * .25, a + 1.3 + j * .25));
+      row.style.opacity = q; row.style.transform = `translateY(${(1 - q) * 20}px)`;
+    });
+    if (c.plan) {
+      // plan.png draws itself on: walls along their lines from the front door, then the rooms
+      const pr = ease(lin(t, a + .6, c.t - 1.4));
+      const v = mix(-.05, 1.06, pr);
+      ['fr', 'fg', 'fb'].forEach((id) => { $(id).setAttribute('slope', -20); $(id).setAttribute('intercept', 20 * v); });
+      const [cx0, cy0, cw, ch] = PLAN.crop, side = b.side - 110, k2 = side / Math.max(cw, ch);
+      const zoom = mix(1.0, 1.04, lin(t, a, c.t));
+      const tf = `translate(${540 - (cx0 + cw / 2) * k2 * zoom} ${b.cy - 18 - (cy0 + ch / 2) * k2 * zoom}) scale(${k2 * zoom})`;
+      $('planG').setAttribute('transform', tf);
+      const po = lin(t, a + .3, a + .8) * (1 - lin(t, c.t - .4, c.t + .1));
+      $('plan').style.opacity = po;
+      $('plannote').style.top = (b.cy + b.side / 2 - 46) + 'px'; $('plannote').style.opacity = po * lin(t, a + 1.5, a + 2.2);
+    }
+  });
+}
+
+// ---------- render ----------
+let laidOut = false;
+window.render = function (t) {
+  if (!laidOut) { layoutCards(); laidOut = true; }
+  const seeks = [];
+  const L = (key) => $('L-' + key);
+  Object.entries(SCENES).forEach(([key, sc], idx) => {
+    const vis = setLayer(L(key), t, sc.start, sc.end, idx === 0);
+    const m = media[key];
+    if (m.vid && vis) {   // seek the AI shot to scene-local time
+      const local = Math.max(0, t - (sc.start - FADE / 2));
+      const target = Math.min(local, (m.el.duration || 1e9) - 0.04);
+      if (Math.abs(m.el.currentTime - target) > 1e-3) {
+        seeks.push(new Promise((res) => { m.el.addEventListener('seeked', res, { once: true }); setTimeout(res, 5000); }));
+        m.el.currentTime = target;
+      }
+    }
+  });
+
+  // aerial rise: blueprint scans into the dusk render (image stand-in only), drone rises
+  { const m = media.aerial, p = ease(lin(t, 0, 5.4));
+    shot('aerial', t, p);
+    if (m.lines) {
+      const draw = ease(lin(t, 0, 1.1));
+      m.lines.style.clipPath = `inset(${(1 - draw) * 100}% 0 0 0)`;
+      const rise = ease(lin(t, .7, 2.6));
+      const cam = camera(m, mix(m.sc.cam.from.s, m.sc.cam.to.s, p), mix(m.sc.cam.from.fx, m.sc.cam.to.fx, p), mix(m.sc.cam.from.fy, m.sc.cam.to.fy, p));
+      if (cam) {
+        const edgeImg = cam.h * (1 - rise);              // in image px
+        m.el.style.clipPath = `inset(${edgeImg}px 0 0 0)`;
+        m.scan.style.top = (cam.y + edgeImg * cam.k - 2) + 'px';
+        m.scan.style.opacity = rise > 0 && rise < 1 ? 1 : 0;
+      }
+      m.lines.style.opacity = 1 - lin(t, 2.4, 3.2);
+    }
+    cap($('cap-aerial'), t, 2.4, 5.3); }
+
+  // logo
+  { const vis = setLayer($('L-logo'), t, LOGO.start, LOGO.end); const lt = t - LOGO.start;
+    if (vis) {
+      const i = eout(lin(lt, .1, 1.3));
+      $('logo1').style.opacity = i;
+      $('logo1').style.transform = `scale(${mix(.93, 1, i) + .03 * lin(lt, 1.3, 4)})`;
+      $('dots1').style.opacity = eout(lin(lt, .6, 1.6));
+      $('rule1').style.width = (ease(lin(lt, .9, 2.0)) * 260) + 'px';
+      $('tag1').style.opacity = eout(lin(lt, 1.4, 2.4));
+      $('tag1').style.transform = `translateY(${(1 - eout(lin(lt, 1.4, 2.4))) * 20}px)`;
+    } }
+
+  // complex
+  shot('complex', t, ease(lin(t, SCENES.complex.start - .5, SCENES.complex.end + .5)));
+  cap($('cap-complex'), t, 9.4, 13.7);
+  // lobby walk
+  shot('lobby', t, ease(lin(t, 13.5, 22.5)));
+  cap($('cap-lobby'), t, 15.0, 21.4);
+  // living: push toward the view
+  shot('living', t, ease(lin(t, 21.5, 34.5)));
+  cap($('cap-living1'), t, 23.0, 27.8);
+  cap($('cap-living2'), t, 28.4, 33.5);
+  // country: lateral dolly
+  shot('country', t, ease(lin(t, 33.5, 42.5)));
+  cap($('cap-country'), t, 35.0, 41.3);
+
+  // apartment types
+  if (setLayer($('types'), t, TYPES.start, TYPES.end)) renderTypes(t);
+
+  // end card
+  { const et = t - SCENES.end.start;
+    shot('end', t, sine(lin(t, 67.5, 80)));
+    const i = eout(lin(et, .5, 1.9));
+    $('endTxt').style.opacity = i; $('endTxt').style.transform = `scale(${mix(.95, 1, i)})`;
+    const c = eout(lin(et, 1.8, 2.9));
+    $('cta').style.opacity = c; $('cta').style.transform = `translateY(${(1 - c) * 24}px)`;
+    $('ctaRule').style.width = (ease(lin(et, 2.4, 3.6)) * 240) + 'px';
+    $('legal').style.opacity = eout(lin(et, 2.6, 3.6));
+    $('slotPhone').style.opacity = eout(lin(et, 3.0, 4.0)); }
+
+  $('black').style.opacity = sine(lin(t, 79.0, 80));
+  return Promise.all(seeks);
+};
+
+// slots: shown only when filled
+if (SLOTS.phone) { $('slotPhone').textContent = SLOTS.phone; $('slotPhone').classList.add('slot-on'); }
+</script>
+</body>
+</html>
