@@ -16,3 +16,4 @@
 
 Related: [neo-beit-shemesh](neo-beit-shemesh.md), [file-intake](file-intake.md).
 - 2026-11-24: Owner decided the NEO reel shows no price (session transcript).
+- 2026-11-24: Owner chose phone 054-522-0030 for the NEO reel end card (session transcript).
