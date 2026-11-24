@@ -11,3 +11,4 @@ Related: [open-items](open-items.md), [site-conventions](site-conventions.md).
 - 2026-11-24: For films, wants the highest finish with effects, AI camera moves and an AI Hebrew narrator; vertical reels first; show every apartment type. (session transcript)
 - 2026-11-24: Asked for the NEO Beit Shemesh film in "normal size, not Reels size", and on a follow-up question chose horizontal 16:9 (session transcript). Ask about format at the start of each new film rather than assuming vertical.
 - 2026-11-24: Wants a beautiful location map in every project film; for Bat Yam, the light-rail map with an arrow from the project to Rothschild station (session transcript).
+- 2026-11-24: Owner complained, not for the first time, that replies came in English. Rule: every reply to the owner is in Hebrew, including short status notes and replies after automatic system checks. (session transcript)
