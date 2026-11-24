@@ -15,3 +15,4 @@
 - Draft script sent to the owner on 2026-11-24 (session transcript), waiting on: other floor plans, whether phase B is NEO, price and phone to show.
 
 Related: [neo-beit-shemesh](neo-beit-shemesh.md), [file-intake](file-intake.md).
+- 2026-11-24: Owner decided the NEO reel shows no price (session transcript).
