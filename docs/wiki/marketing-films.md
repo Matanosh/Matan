@@ -17,3 +17,7 @@
 Related: [neo-beit-shemesh](neo-beit-shemesh.md), [file-intake](file-intake.md).
 - 2026-11-24: Owner decided the NEO reel shows no price (session transcript).
 - 2026-11-24: Owner chose phone 054-522-0030 for the NEO reel end card (session transcript).
+- 2026-11-24: Narration recorded with ElevenLabs voice "Nimrod - Warm & Confident" (ZiofZHcEBTn5sRySe5h8), model eleven_v4, one clip per paragraph so each lands on its scene; timing in `marketing/neo-reel/audio/mix-voice.sh` (commit 24ebafd). Two music options (eleven_music_v2_5). All on ElevenLabs flow YlXoNdRvzhPYem6Fvfo1.
+- 2026-11-24: Four Seedance 2.5 image-to-video shots (9:16, 1080p, 8–10 s) set up on that flow; estimate 213,156 credits (about $35). Waiting for the owner's go-ahead before running.
+- 2026-11-24: Lesson: ElevenLabs output files live on elevenlabsusercontent.com, which the Default environment blocks; the "Matan" cloud environment allows it. Reference images reach ElevenLabs via raw.githubusercontent.com (the repo is public).
+- 2026-11-24: Open: the reel has no "AI voice" label yet (policy rule 3); add before publishing.
