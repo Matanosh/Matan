@@ -335,7 +335,7 @@ const TYPES = { start: 47, end: 62.8 };
 const CARDS = [
   { t: 50.5, title: '<b>3</b> חדרים', area: [81, 83], rows: [['מרפסת', 12]], vis: { plan: 'img/plan-C2.jpg', label: 'דגם C2' } },
   { t: 53.5, title: '<b>4</b> חדרים', area: [113],    rows: [['מרפסת', 12]], vis: { plan: 'img/plan-A.jpg', label: 'דגם A' } },
-  { t: 56.5, title: '<b>5</b> חדרים', area: [130, 137], rows: [['מרפסת', 12]], vis: { plan: 'img/plan-B.jpg', label: 'דגם B' } },
+  { t: 56.5, title: '<b>5</b> חדרים', area: [130, 137], rows: [['מרפסת', 12]], vis: { plan: 'img/plan-G.jpg', label: 'דגם G' } },
   { t: 59.3, title: 'מיני פנטהאוזים', area: null,     rows: [],
     vis: { src: 'img/aerial-sea.jpg', cam: { from: { s: 2.05, fx: .55, fy: .60 }, to: { s: 2.2, fx: .55, fy: .57 } } } },
   { t: 62.8, title: 'פנטהאוזים',     area: [186],    rows: [['מרפסת', 50]],
@@ -480,7 +480,7 @@ function renderTypes(t) {
       if (c.vis.plan) {
         const d = ease(lin(t, a + .1, a + 1.7)), img = c.tv.querySelector('.plan img'), sc = c.tv.querySelector('.scan');
         img.style.clipPath = `inset(0 0 0 ${(1 - d) * 100}%)`;
-        img.style.transform = `scale(${mix(1.03, 1, eout(lin(t, a, c.t)))})`;
+        img.style.transform = `scale(${mix(.97, 1, eout(lin(t, a, c.t)))})`;
         const r = img.getBoundingClientRect();
         sc.style.left = (r.left + r.width * (1 - d) - 1) + 'px'; sc.style.opacity = d > 0 && d < 1 ? .9 : 0;
         c.tv.querySelector('.plabel').style.opacity = eout(lin(t, a + 1.0, a + 1.7));
