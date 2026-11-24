@@ -22,3 +22,4 @@ Related: [marketing-films](marketing-films.md), [file-intake](file-intake.md), [
 - 2026-11-24: Owner correction (session transcript): the towers go up to 27 floors, not 22. Supersedes the "floors 2–22" reading taken from the Type D plan of 1.8.2023 for any statement about tower height.
 - 2026-11-24: Owner confirmed the developer of NEO Beit Shemesh is "ע.ט החברה להתחדשות עירונית", the same as NEO Bat Yam (session transcript). Accompanying bank for Beit Shemesh: not given.
 - 2026-11-24: Owner confirmed the project is in the Ramat Lehi neighbourhood (רמת לח"י) of Beit Shemesh (session transcript). A schematic location map beat was requested for the film.
+- 2026-11-24: Executing contractor (קבלן מבצע): אלקטרה בנייה, מקבוצת אלקטרה (owner; logo `marketing/brand/source/electra-construction.jpg`).
