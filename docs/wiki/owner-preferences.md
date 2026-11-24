@@ -9,3 +9,4 @@
 
 Related: [open-items](open-items.md), [site-conventions](site-conventions.md).
 - 2026-11-24: For films, wants the highest finish with effects, AI camera moves and an AI Hebrew narrator; vertical reels first; show every apartment type. (session transcript)
+- 2026-11-24: Asked for the NEO Beit Shemesh film in "normal size, not Reels size", and on a follow-up question chose horizontal 16:9 (session transcript). Ask about format at the start of each new film rather than assuming vertical.
