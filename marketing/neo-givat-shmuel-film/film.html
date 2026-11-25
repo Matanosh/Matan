@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>NEO Givat Shmuel Phase B film</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* Rendered frame by frame by render.js: every value comes from render(t), nothing animates on its own. */
+  :root { --teal: #6c9fa2; --teal2: #a9d0d2; --ink: #ffffff; --ink2: #e4ecec; --deep: #0f1c1f; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+  body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); }
+  .shot { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; will-change: transform, opacity; }
+  .ov { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+  #shade { background: #000; }
+  #veilR { background: linear-gradient(270deg, rgba(8, 18, 20, 0.86) 0%, rgba(8, 18, 20, 0.55) 38%, rgba(8, 18, 20, 0) 62%); }
+  #veilL { background: linear-gradient(90deg, rgba(8, 18, 20, 0.86) 0%, rgba(8, 18, 20, 0.55) 38%, rgba(8, 18, 20, 0) 62%); }
+  #veilB { background: linear-gradient(0deg, rgba(8, 18, 20, 0.9) 0%, rgba(8, 18, 20, 0.35) 55%, rgba(8, 18, 20, 0.55) 100%); }
+  #paper { background: #fff; }
+  .L { position: absolute; will-change: transform, opacity; opacity: 0; }
+  .kick { font-size: 34px; font-weight: 500; letter-spacing: 0.06em; color: var(--teal2); }
+  .h1 { font-family: "Frank Ruhl Libre", serif; font-weight: 400; font-size: 104px; line-height: 1.08; text-shadow: 0 4px 40px rgba(0, 0, 0, 0.35); }
+  .h2 { font-family: "Frank Ruhl Libre", serif; font-weight: 400; font-size: 78px; line-height: 1.12; text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4); }
+  .lead { font-size: 40px; font-weight: 300; line-height: 1.45; color: var(--ink2); }
+  .t { color: var(--teal2); }
+  .txtR { right: 130px; width: 820px; text-align: right; }
+  .txtL { left: 130px; width: 820px; text-align: right; }
+  .center { left: 0; right: 0; text-align: center; }
+  .bar { display: inline-block; width: 90px; height: 6px; background: var(--teal); margin-bottom: 26px; }
+  .stats { display: flex; gap: 64px; margin-top: 50px; }
+  .stat { display: grid; gap: 4px; }
+  .stat b { font-family: Heebo, sans-serif; font-weight: 300; font-size: 128px; line-height: 1; direction: ltr; text-align: right; }
+  .stat span { font-size: 30px; color: var(--teal2); }
+  .pill { display: inline-flex; align-items: center; gap: 14px; margin-top: 40px; padding: 16px 34px; border: 2px solid var(--teal2); border-radius: 999px; font-size: 32px; color: var(--ink); background: rgba(8, 18, 20, 0.35); }
+  .pill svg { width: 30px; height: 30px; }
+  .badge { display: inline-block; padding: 24px 60px; background: var(--teal); color: #fff; font-weight: 700; font-size: 48px; letter-spacing: 0.02em; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6); }
+  .mark { left: 64px; top: 50px; }
+  .mark img { height: 74px; display: block; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.55)); }
+  .units { left: 0; right: 0; top: 560px; display: flex; justify-content: center; gap: 30px; opacity: 1; }
+  .unit { position: relative; width: 250px; height: 300px; padding: 30px 26px; display: grid; align-content: end; gap: 4px; text-align: right; opacity: 0;
+    background: rgba(10, 22, 25, 0.62); backdrop-filter: blur(14px); box-shadow: 0 0 0 1px rgba(169, 208, 210, 0.45) inset; border-top: 6px solid var(--teal); }
+  .unit b { font-weight: 300; font-size: 130px; line-height: 0.9; }
+  .unit b.w { font-family: "Frank Ruhl Libre", serif; font-weight: 400; font-size: 52px; line-height: 1.05; }
+  .unit span { font-size: 32px; color: var(--teal2); }
+  .unit em { position: absolute; top: 24px; right: 26px; font-style: normal; font-size: 22px; color: var(--teal2); }
+  .unit.ph { background: rgba(108, 159, 162, 0.55); }
+  .unit.ph span { color: #fff; }
+  .dark { color: #1d2a2d; }
+  .credits { display: flex; align-items: center; gap: 120px; }
+  .credit { display: grid; gap: 30px; justify-items: center; }
+  .credit small { font-size: 32px; font-weight: 500; color: #6c7d80; letter-spacing: 0.04em; }
+  .credit img { display: block; }
+  .vr { width: 2px; height: 300px; background: #d6e2e3; }
+  .fine { left: 0; right: 0; bottom: 36px; text-align: center; font-size: 21px; color: #7d8b8d; }
+</style>
+</head>
+<body>
+<div class="shot" id="i_dusk" style="background-image:url(img/dusk.jpg)"></div>
+<div class="shot" id="i_aerial" style="background-image:url(img/aerial.jpg);background-position:center 62%"></div>
+<div class="shot" id="i_street" style="background-image:url(img/street.jpg)"></div>
+<div class="shot" id="i_piazza" style="background-image:url(img/piazza.jpg)"></div>
+<div class="shot" id="i_living1" style="background-image:url(img/living-1.jpg)"></div>
+<div class="shot" id="i_living2" style="background-image:url(img/living-2.jpg)"></div>
+<div class="shot" id="i_penthouse" style="background-image:url(img/penthouse.jpg)"></div>
+<div class="shot" id="i_lobby" style="background-image:url(img/lobby.jpg)"></div>
+<div class="shot" id="i_garden" style="background-image:url(img/garden.jpg)"></div>
+<canvas id="con" width="1920" height="1080" style="position:absolute;inset:0;opacity:0"></canvas>
+<div class="ov" id="shade"></div>
+<div class="ov" id="veilR"></div>
+<div class="ov" id="veilL"></div>
+<div class="ov" id="veilB"></div>
+<div class="ov" id="paper"></div>
+
+<div class="L mark" id="mark"><img src="img/neo-logo-white.png" alt="NEO בגבעת שמואל"></div>
+
+<!-- 1 opening -->
+<div class="L center" id="o_logo" style="top:250px"><img src="img/neo-logo-white.png" style="width:760px" alt=""></div>
+<div class="L center lead" id="o_s" style="top:700px;color:#fff;font-weight:400">שלב ב' · מכירה מוקדמת</div>
+
+<!-- 2 phase A -->
+<div class="L txtR" id="a_t" style="top:150px">
+  <span class="bar"></span>
+  <div class="kick">שלב א'</div>
+  <div class="h1" style="margin-top:18px">הוכחנו את זה<br><span class="t">בשטח.</span></div>
+  <div class="stats">
+    <div class="stat"><b id="a_n1">0</b><span>מגדלים</span></div>
+    <div class="stat"><b id="a_n2">0</b><span>קומות</span></div>
+    <div class="stat"><b id="a_n3">0</b><span>יחידות דיור</span></div>
+  </div>
+  <div class="pill" id="a_pill"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#a9d0d2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>נבנה ונמסר · רחוב בן גוריון 246</div>
+</div>
+
+<!-- 3a demolition / construction captions -->
+<div class="L txtR" id="d_t" style="top:110px">
+  <span class="bar"></span>
+  <div class="kick">התחדשות עירונית</div>
+  <div class="h2" style="margin-top:14px">הישן מפנה את מקומו</div>
+</div>
+<div class="L txtR" id="k_t" style="top:110px">
+  <span class="bar"></span>
+  <div class="kick">שלב אחר שלב</div>
+  <div class="h2" style="margin-top:14px">קומה אחר קומה</div>
+  <div class="lead" style="margin-top:20px">קומה <b id="k_n" style="font-weight:500;color:#fff;display:inline-block;min-width:1.4em;text-align:center">0</b> מתוך 14</div>
+</div>
+<!-- 3 now -->
+<div class="L center kick" id="n_k" style="top:330px;font-size:40px">אחרי ההצלחה של שלב א'</div>
+<div class="L center h1" id="n_t" style="top:400px;font-size:150px">מתחילים את <span class="t">שלב ב'</span></div>
+<div class="L center" id="n_b" style="top:660px"><span class="badge">מכירה מוקדמת</span></div>
+
+<!-- 4 phase B -->
+<div class="L txtL" id="b_t" style="top:150px">
+  <span class="bar"></span>
+  <div class="kick">שלב ב'</div>
+  <div class="h1" style="margin-top:18px">שלושה מגדלים<br><span class="t">קרקע + 14 קומות</span></div>
+  <div class="stats">
+    <div class="stat"><b id="b_n1">0</b><span>מגדלים</span></div>
+    <div class="stat"><b id="b_n2">0</b><span>קומות מעל הקרקע</span></div>
+    <div class="stat"><b id="b_n3">0</b><span>יחידות דיור</span></div>
+  </div>
+</div>
+
+<!-- 5 location -->
+<div class="L txtR" id="m_t" style="top:170px">
+  <span class="bar"></span>
+  <div class="kick">המיקום</div>
+  <div class="h1" style="margin-top:18px">אחת הפיסות<br><span class="t">היפות בגבעת שמואל</span></div>
+  <div class="lead" style="margin-top:34px">בכניסה הצפון-מערבית של השכונה</div>
+  <div class="pill"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" fill="none" stroke="#a9d0d2" stroke-width="1.8"/><circle cx="12" cy="10" r="2.6" fill="#a9d0d2"/></svg>רחוב בן גוריון 10–16</div>
+</div>
+
+<!-- 6 piazza -->
+<div class="L txtR" id="p_t" style="top:150px">
+  <span class="bar"></span>
+  <div class="kick">הנוף מהבית</div>
+  <div class="h1" style="margin-top:18px">משקיף על<br><span class="t">פיאצה יפהפייה</span></div>
+</div>
+
+<!-- 7 units -->
+<div class="L center" id="u_t" style="top:170px">
+  <div class="kick">תמהיל הדירות</div>
+  <div class="h2" style="margin-top:18px">דירות 3 עד 6 חדרים,<br>מיני פנטהאוזים ופנטהאוזים</div>
+</div>
+<div class="L units" id="units">
+  <div class="unit"><em>01</em><b>3</b><span>חדרים</span></div>
+  <div class="unit"><em>02</em><b>4</b><span>חדרים</span></div>
+  <div class="unit"><em>03</em><b>5</b><span>חדרים</span></div>
+  <div class="unit"><em>04</em><b>6</b><span>חדרים</span></div>
+  <div class="unit ph"><em>05</em><b class="w">מיני<br>פנטהאוז</b><span>&nbsp;</span></div>
+  <div class="unit ph"><em>06</em><b class="w">פנטהאוז</b><span>&nbsp;</span></div>
+</div>
+
+<!-- 8 spec -->
+<div class="L txtR" id="s_t" style="top:250px">
+  <span class="bar"></span>
+  <div class="kick">בפנים</div>
+  <div class="h1" style="margin-top:18px">מפרט טכני<br><span class="t">גבוה</span></div>
+  <div class="lead" style="margin-top:34px">תכנון מודרני ומוקפד,<br>מהלובי ועד הפנטהאוז.</div>
+</div>
+
+<!-- 9 credits (on white) -->
+<div class="L center" id="c_t" style="top:0;height:1080px;display:grid;place-content:center">
+  <div class="credits">
+    <div class="credit"><small>ביוזמת</small><img src="img/urban-renewal-co.png" style="height:230px" alt="החברה להתחדשות עירונית"></div>
+    <div class="vr"></div>
+    <div class="credit"><small>הבנק המלווה</small><img src="img/mizrahi-tefahot.png" style="height:300px;margin:-35px 0" alt="מזרחי טפחות"></div>
+  </div>
+</div>
+
+<!-- 10 end (on white) -->
+<div class="L center" id="e_t" style="top:0;height:1080px;display:grid;place-content:center;justify-items:center;gap:34px">
+  <img src="img/neo-logo.png" style="width:640px" alt="NEO בגבעת שמואל">
+  <div class="lead dark" style="font-weight:400">שלב ב' · 3 מגדלים · 202 יחידות דיור · רחוב בן גוריון 10–16</div>
+  <div style="margin-top:10px"><span class="badge">המכירה המוקדמת נפתחה, הירשמו עכשיו</span></div>
+  <div class="lead dark" id="contact" style="font-size:38px;font-weight:500;direction:ltr"></div>
+</div>
+<div class="L fine" id="fine">ההדמיות להמחשה בלבד ואינן מהוות מסמך מחייב. המידע כפוף להיתרים ולהסכם המכר.</div>
+
+<script src="construct.js"></script>
+<script>
+const CONTACT = ''; // phone / site for the end card, e.g. '*1234 · neo.co.il'
+const $ = (id) => document.getElementById(id);
+$('contact').textContent = CONTACT;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const easeIO = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const lin = (x, a, b) => a + (b - a) * x;
+const fade = (t, a, b, c, d) => Math.min(easeIO(span(t, a, b)), c == null ? 1 : 1 - easeIO(span(t, c, d)));
+const set = (el, o, tr) => { el.style.opacity = o.toFixed(3); if (tr != null) el.style.transform = tr; };
+const up = (t, a, b, c, d, px = 40) => [fade(t, a, b, c, d), `translateY(${((1 - ease(span(t, a, b))) * px - ease(span(t, c, d)) * px * 0.6).toFixed(1)}px)`];
+// Ken Burns: visible a..d (crossfades a..b and c..d), origin ox/oy %, scale s0 -> s1 across a..d
+const shot = (id, t, a, b, c, d, ox, oy, s0, s1) => {
+  const el = $(id); const o = fade(t, a, b, c, d); el.style.opacity = o.toFixed(3);
+  if (o > 0) { el.style.transformOrigin = `${ox}% ${oy}%`; el.style.transform = `scale(${lin(span(t, a, d), s0, s1).toFixed(4)})`; }
+};
+const count = (el, t, a, b, n) => { el.textContent = Math.round(n * easeIO(span(t, a, b))); };
+const units = [...document.querySelectorAll('.unit')];
+
+window.TOTAL = 120;
+window.render = (t) => {
+  // ---- photography ----
+  shot('i_dusk', t, -1, 0.01, 8.6, 10, 50, 40, 1.14, 1.0);
+  // aerial runs 9 -> 52: push to phase A, pull back, push to phase B
+  const ae = $('i_aerial'); ae.style.opacity = Math.max(fade(t, 8.6, 10, 21.6, 22.8), fade(t, 40.2, 41.6, 50.6, 52)).toFixed(3);
+  let s, ox, oy;
+  if (t < 31) { ox = 30; oy = 52; s = lin(easeIO(span(t, 9, 22.8)), 1.04, 1.42); }
+  else { ox = 62; oy = 58; s = lin(easeIO(span(t, 40.2, 52)), 1.0, 1.4); }
+  const con = $('con'); const co = fade(t, 21.6, 22.8, 40.2, 41.6); con.style.opacity = co.toFixed(3); if (co > 0) window.drawConstruct(t);
+  ae.style.transformOrigin = `${ox}% ${oy}%`; ae.style.transform = `scale(${s.toFixed(4)})`;
+  shot('i_street', t, 50.6, 52, 66.6, 68, 50, 75, 1.02, 1.16);
+  shot('i_piazza', t, 66.6, 68, 81, 82.4, 72, 70, 1.02, 1.15);
+  shot('i_living1', t, 81, 82.4, 87.6, 88.8, 40, 50, 1.02, 1.12);
+  shot('i_living2', t, 87.6, 88.8, 93, 94.2, 60, 50, 1.12, 1.02);
+  shot('i_penthouse', t, 93, 94.2, 97.4, 98.6, 70, 55, 1.02, 1.1);
+  shot('i_lobby', t, 97.4, 98.6, 102.6, 103.8, 55, 45, 1.02, 1.12);
+  shot('i_garden', t, 102.6, 103.8, 107, 108.2, 40, 60, 1.12, 1.02);
+
+  // ---- overlays ----
+  set($('shade'), Math.max(0.62 * fade(t, -1, 0.01, 8, 9.6), 0.5 * fade(t, 38.4, 39.2, 40.2, 41.6), 0.35 * fade(t, 81, 82.4, 97.4, 98.6), t < 0.01 ? 1 : 0, 1 - span(t, 0, 1.6) > 0 ? 1 - span(t, 0, 1.6) : 0));
+  set($('veilR'), Math.max(fade(t, 9.6, 11, 21.4, 22.4), 0.75 * fade(t, 22.6, 23.6, 26.6, 27.4), 0.75 * fade(t, 30.4, 31.2, 37.8, 38.6), fade(t, 52, 53.2, 81, 82.4), fade(t, 98, 99.2, 107, 108)));
+  set($('veilL'), fade(t, 40.6, 42, 50.6, 52));
+  set($('veilB'), fade(t, 81, 82.4, 97.4, 98.6));
+  set($('paper'), fade(t, 107.4, 108.4));
+  set($('mark'), fade(t, 10.5, 11.5, 106.8, 107.6));
+
+  // 1 opening 0–9
+  set($('o_logo'), fade(t, 1.0, 3.2, 7.8, 8.8), `scale(${(1.06 - 0.06 * ease(span(t, 1.0, 5))).toFixed(4)})`);
+  set($('o_s'), ...up(t, 3.6, 4.6, 7.8, 8.6));
+
+  // 2 phase A 9–25
+  set($('a_t'), ...up(t, 10.4, 11.6, 20.8, 21.6));
+  count($('a_n1'), t, 12, 13.5, 2); count($('a_n2'), t, 12.5, 14.5, 15); count($('a_n3'), t, 13, 16, 144);
+  set($('a_pill'), fade(t, 16.6, 17.4), `scale(${(1.15 - 0.15 * ease(span(t, 16.6, 17.4))).toFixed(3)})`);
+  set($('d_t'), ...up(t, 22.8, 23.6, 26.8, 27.4));
+  set($('k_t'), ...up(t, 30.6, 31.4, 37.6, 38.4));
+  $('k_n').textContent = Math.max(0, Math.min(14, Math.floor((t - 30.2 - 1.5) / 0.4)));
+
+  // 3 now 25–34
+  set($('n_k'), ...up(t, 38.4, 39.2, 40.6, 41.4));
+  set($('n_t'), ...up(t, 38.6, 39.6, 40.6, 41.4, 60));
+  set($('n_b'), fade(t, 39.2, 39.8, 40.6, 41.4), `scale(${(0.8 + 0.2 * ease(span(t, 39.2, 40))).toFixed(4)})`);
+
+  // 4 phase B 34–52
+  set($('b_t'), ...up(t, 41.8, 43, 50.6, 51.4));
+  count($('b_n1'), t, 43.4, 44.6, 3); count($('b_n2'), t, 43.8, 45.4, 14); count($('b_n3'), t, 44.2, 47.6, 202);
+
+  // 5 location 52–68
+  set($('m_t'), ...up(t, 53, 54.2, 66.4, 67.2));
+  // 6 piazza 68–82
+  set($('p_t'), ...up(t, 69, 70.2, 80.6, 81.4));
+  // 7 units 82–98
+  set($('u_t'), ...up(t, 82.6, 83.6, 97, 97.8));
+  units.forEach((u, i) => { const a = 84.2 + i * 1.1; set(u, fade(t, a, a + 0.8, 97 - (5 - i) * 0.08, 97.8 - (5 - i) * 0.08), `translateY(${((1 - ease(span(t, a, a + 0.9))) * 110).toFixed(1)}px)`); });
+  // 8 spec 98–108
+  set($('s_t'), ...up(t, 99, 100.2, 106.6, 107.4));
+  // 9 credits 108–114
+  set($('c_t'), ...up(t, 108.6, 109.8, 113.2, 114));
+  // 10 end 114–120
+  set($('e_t'), fade(t, 114.2, 115.4, 119.4, 120), `scale(${(0.97 + 0.03 * ease(span(t, 114.2, 117))).toFixed(4)})`);
+  set($('fine'), fade(t, 115.4, 116.4, 119.4, 120));
+};
+window.render(0);
+</script>
+</body>
+</html>
