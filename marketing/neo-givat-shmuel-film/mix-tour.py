@@ -1,7 +1,7 @@
 # Mixes the tour film soundtrack: ElevenLabs score + Hebrew voiceover (ducked) + demolition booms and transition whooshes.
 # Writes tour-mix.wav (112 s, 48 kHz stereo, about -14 LUFS).
 import subprocess, numpy as np, wave
-SR, D = 48000, 112.0
+SR, D = 48000, 105.0
 N = int(SR * D)
 def load(p):
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', p, '-ac', '2', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True, check=True).stdout
@@ -11,9 +11,9 @@ db = lambda v: 10 ** (v / 20)
 music = np.zeros((N, 2), np.float32); m = load('src/music/score-b.mp3')[:N]; music[:len(m)] = m
 music *= db(-19) / rms(music[: int(100 * SR)])
 t = np.arange(N) / SR
-music *= np.clip((112 - t) / 3.5, 0, 1)[:, None] * np.clip(t / 1.0, 0, 1)[:, None]
+music *= np.clip((D - t) / 3.5, 0, 1)[:, None] * np.clip(t / 1.0, 0, 1)[:, None]
 # voiceover placements (seconds)
-VO = {1: 1.6, 2: 8.8, 3: 19.6, 4: 30.6, 5: 40.8, 6: 57.6, 7: 65.0, 8: 80.2, 9: 89.4, 10: 98.2, 11: 105.4}
+VO = {1: 1.6, 2: 8.8, 3: 17.8, 4: 23.4, 5: 33.8, 6: 50.6, 7: 58.0, 8: 73.2, 9: 82.4, 10: 91.2, 11: 98.4}
 vo = np.zeros((N, 2), np.float32)
 for k, at in VO.items():
     x = load(f'src/vo/vo{k:02d}.mp3'); x *= db(-16) / rms(x[np.abs(x).max(1) > 0.01])
@@ -29,7 +29,7 @@ mix = music * duck[:, None] + vo
 rng = np.random.default_rng(5)
 def add(at, sig):
     s = int(at * SR); e = min(N, s + len(sig)); mix[s:e] += sig[: e - s, None]
-for b0 in [18.16, 18.67, 19.18]:
+for b0 in []:
     n = int(3 * SR); tt = np.arange(n) / SR
     boom = np.sin(2 * np.pi * (36 + 70 * np.exp(-tt * 12)) * tt) * np.exp(-tt * 2.4) * 0.5
     rum = np.convolve(rng.standard_normal(n), np.ones(260) / 260, 'same') * np.exp(-tt * 1.4) * 2.4
@@ -39,10 +39,10 @@ def whoosh(at, dur=1.4, g=-14):
     noise = rng.standard_normal(n); env = np.sin(np.pi * tt / dur) ** 3
     k = 40; noise = np.convolve(noise, np.ones(k) / k, 'same') * 4
     add(at - dur / 2, (noise * env * db(g)).astype(np.float32))
-for at in [7.2, 16.9, 29.9, 39.8, 97.5, 104.4]: whoosh(at)
+for at in [7.2, 32.8, 90.5, 97.4]: whoosh(at)
 # riser into the Phase B reveal
 n = int(2.6 * SR); tt = np.arange(n) / SR; r = np.convolve(rng.standard_normal(n), np.ones(20) / 20, 'same') * (tt / 2.6) ** 2.5 * db(-12) * 4
-add(27.2, r.astype(np.float32))
+add(20.6, r.astype(np.float32) * 0.6)
 peak = np.abs(mix).max(); mix /= max(1, peak / 0.95)
 with wave.open('src/tour-premix.wav', 'wb') as f:
     f.setnchannels(2); f.setsampwidth(2); f.setframerate(SR); f.writeframes((mix * 32767).astype(np.int16).tobytes())
