@@ -1,7 +1,6 @@
 ---
 name: add-project
 description: "Add a new property project to the homepage projects section, with photos, status, price, and English and French translations. Use when the owner wants to add or list a new project."
-disable-model-invocation: true
 ---
 
 # Add a project
