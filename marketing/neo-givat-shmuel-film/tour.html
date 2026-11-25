@@ -25,7 +25,7 @@
   .h2 { font-family: "Frank Ruhl Libre", serif; font-weight: 400; font-size: 72px; line-height: 1.1; }
   .lead { font-size: 36px; font-weight: 300; line-height: 1.45; color: var(--ink2); }
   .t { color: var(--teal2); }
-  .br { right: 120px; bottom: 110px; width: 1100px; text-align: right; }
+  .br { right: 120px; bottom: 150px; width: 1100px; text-align: right; }
   .bar { display: block; width: 84px; height: 5px; background: var(--teal); margin: 0 0 22px auto; }
   .stats { display: flex; gap: 60px; margin-top: 34px; justify-content: flex-start; }
   .stat { display: grid; gap: 2px; }
@@ -36,7 +36,7 @@
   .badge { display: inline-block; padding: 20px 52px; background: var(--teal); color: #fff; font-weight: 700; font-size: 44px; letter-spacing: 0.02em; }
   .mark { left: 60px; top: 46px; }
   .mark img { height: 66px; display: block; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5)); }
-  .units { left: 0; right: 0; bottom: 96px; display: flex; justify-content: center; gap: 26px; opacity: 1; }
+  .units { left: 0; right: 0; bottom: 150px; display: flex; justify-content: center; gap: 26px; opacity: 1; }
   .unit { position: relative; width: 236px; height: 250px; padding: 26px 24px; display: grid; align-content: end; gap: 2px; text-align: right; opacity: 0;
     background: rgba(8, 20, 23, 0.55); backdrop-filter: blur(16px) saturate(1.2); box-shadow: 0 0 0 1px rgba(180,216,218,0.45) inset, 0 30px 60px -30px rgba(0,0,0,0.6); border-top: 5px solid var(--teal); }
   .unit b { font-weight: 200; font-size: 118px; line-height: 0.9; }
@@ -50,7 +50,10 @@
   .credit small { font-size: 28px; font-weight: 500; color: #6c7d80; letter-spacing: 0.04em; }
   .credit img { display: block; }
   .vr { width: 2px; height: 260px; background: #d6e2e3; }
-  .fine { left: 0; right: 0; bottom: 30px; text-align: center; font-size: 20px; color: #7d8b8d; }
+  #cap { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; opacity: 0; }
+  #cap span { display: inline-block; padding: 8px 26px 11px; border-radius: 14px; background: rgba(6, 14, 16, 0.6); color: #fff;
+    font-size: 44px; font-weight: 500; line-height: 1.3; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+  .fine { left: 0; right: 0; bottom: 120px; text-align: center; font-size: 20px; color: #7d8b8d; }
   #sweep { position: absolute; left: 0; top: 0; width: 760px; height: 100%; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%); mix-blend-mode: overlay; }
 </style>
 </head>
@@ -160,8 +163,10 @@
   <div style="display:flex;align-items:center;gap:18px;margin-top:14px"><span class="lead dark" style="font-size:24px;color:#6c7d80">שיווק:</span><img src="img/msgroup-logo-dark.png" style="height:64px" alt="M.S. Group"></div>
 </div>
 <div class="L fine" id="fine">ההדמיות להמחשה בלבד ואינן מהוות מסמך מחייב. המידע כפוף להיתרים ולהסכם המכר.</div>
+<div id="cap"><span></span></div>
 <div class="ov" id="black"></div>
 
+<script src="captions-tour.js"></script>
 <script>
 const CONTACT = ''; // phone / site for the end card
 const $ = (id) => document.getElementById(id);
@@ -244,6 +249,11 @@ window.render = async (t) => {
   set($('c_t'), ...up(t, 91.4, 92.6, 96.6, 97.3));
   set($('e_t'), fade(t, 97.6, 98.8, 104, 105), `scale(${(0.97 + 0.03 * ease(span(t, 97.6, 101))).toFixed(4)})`);
   set($('fine'), fade(t, 98.8, 99.8, 104, 105));
+  // Hebrew captions of the narration
+  const cue = window.CUES.find((c) => t >= c[0] && t < c[1]);
+  const cap = $('cap'), cs = cap.firstElementChild;
+  if (cue) { if (cs.textContent !== cue[2]) cs.textContent = cue[2]; cap.style.opacity = Math.min(1, (t - cue[0]) / 0.12, (cue[1] - t) / 0.12).toFixed(3); }
+  else cap.style.opacity = '0';
   await Promise.all(pending);
 };
 </script>
