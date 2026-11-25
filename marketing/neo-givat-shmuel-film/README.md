@@ -6,7 +6,7 @@
 - `img/`: project renders and logos supplied by the client.
 - Contact line on the end card: set `CONTACT` at the top of the script in `film.html`.
 
-## Tour film (v3, 1:52) — `neo-givat-shmuel-tour-1080p.mp4` / `neo-givat-shmuel-tour-whatsapp.mp4`
+## Tour film (v4, 1:45, renders only) — `neo-givat-shmuel-tour-1080p.mp4` / `neo-givat-shmuel-tour-whatsapp.mp4`
 - Cinematic shots: ElevenLabs flow "NEO Givat Shmuel – Phase B film", Kling 3 Pro image-to-video from the client renders (`src/clips/`).
 - Voiceover: ElevenLabs v4, voice "Nimrod – Warm & Confident" (`src/vo/`); score: ElevenLabs Music v2.5 (`src/music/score-b.mp3`).
 - Build: extract clip frames (`ffmpeg -i src/clips/X.mp4 -vf fps=30,scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080 <frames>/X/%04d.jpg`),
