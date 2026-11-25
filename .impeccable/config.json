@@ -36,6 +36,33 @@
         ],
         "createdAt": "2026-11-25T18:10:02.752Z",
         "reason": "Claude: 0.06-0.08em tracking is on short on-screen kicker labels in a video, not body text"
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "marketing/neo-givat-shmuel-film/vertical.html"
+        ],
+        "createdAt": "2026-11-25T18:41:34.882Z",
+        "reason": "Claude: vertical twin of tour.html render template; shot <img> src and opacity are set per frame by render(t)"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "marketing/neo-givat-shmuel-film/vertical.html"
+        ],
+        "createdAt": "2026-11-25T18:41:34.892Z",
+        "reason": "Claude: vertical twin of tour.html render template; shot <img> src and opacity are set per frame by render(t)"
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "marketing/neo-givat-shmuel-film/vertical.html"
+        ],
+        "createdAt": "2026-11-25T18:41:34.899Z",
+        "reason": "Claude: vertical twin of tour.html render template; shot <img> src and opacity are set per frame by render(t)"
       }
     ]
   }

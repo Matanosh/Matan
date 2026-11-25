@@ -7,7 +7,7 @@ const path = require('path'); const fs = require('fs'); const { execFileSync } =
   const only = process.argv[4] && process.argv[4] !== '-' ? process.argv[4].split(',').map(Number) : null; const W = +(process.argv[5] || 4);
   fs.mkdirSync(out, { recursive: true });
   const b = await chromium.launch();
-  const open = async () => { const p = await b.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+  const open = async () => { const p = await b.newPage({ viewport: { width: +(process.env.VW || 1920), height: +(process.env.VH || 1080) }, deviceScaleFactor: 1 });
     await p.goto('file://' + path.join(__dirname, process.env.PAGE || 'film.html') + (process.env.QS || ''), { waitUntil: 'networkidle' }); await p.evaluate(() => document.fonts.ready); return p; };
   const first = await open(); const total = await first.evaluate(() => window.TOTAL);
   const times = only || Array.from({ length: Math.round(total * fps) }, (_, i) => i / fps);
