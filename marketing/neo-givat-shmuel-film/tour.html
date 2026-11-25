@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>NEO Givat Shmuel tour film</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* Rendered frame by frame by render-tour.js: every value comes from render(t). Clip frames are read from ?frames=<dir>. */
+  :root { --teal: #6c9fa2; --teal2: #b4d8da; --ink: #fff; --ink2: #e7eeee; --navy: #0a1836; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+  body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); }
+  .shot { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; opacity: 0; will-change: transform, opacity; filter: contrast(1.05) saturate(1.07); }
+  canvas#con { position: absolute; inset: 0; opacity: 0; }
+  .ov { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+  #vig { opacity: 1; background: radial-gradient(120% 95% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.42) 100%); }
+  #low { background: linear-gradient(0deg, rgba(4,12,14,0.78) 0%, rgba(4,12,14,0.35) 32%, rgba(4,12,14,0) 55%); }
+  #side { background: linear-gradient(270deg, rgba(4,12,14,0.7) 0%, rgba(4,12,14,0.3) 35%, rgba(4,12,14,0) 58%); }
+  #dim { background: #000; }
+  #paper { background: #fbfbfa; }
+  #black { background: #000; }
+  .L { position: absolute; opacity: 0; will-change: transform, opacity; }
+  .shadow { text-shadow: 0 2px 30px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.35); }
+  .kick { font-size: 30px; font-weight: 500; letter-spacing: 0.08em; color: var(--teal2); }
+  .h1 { font-family: "Frank Ruhl Libre", serif; font-weight: 400; font-size: 96px; line-height: 1.06; }
+  .h2 { font-family: "Frank Ruhl Libre", serif; font-weight: 400; font-size: 72px; line-height: 1.1; }
+  .lead { font-size: 36px; font-weight: 300; line-height: 1.45; color: var(--ink2); }
+  .t { color: var(--teal2); }
+  .br { right: 120px; bottom: 110px; width: 1100px; text-align: right; }
+  .bar { display: block; width: 84px; height: 5px; background: var(--teal); margin: 0 0 22px auto; }
+  .stats { display: flex; gap: 60px; margin-top: 34px; justify-content: flex-start; }
+  .stat { display: grid; gap: 2px; }
+  .stat b { font-weight: 200; font-size: 112px; line-height: 1; direction: ltr; text-align: right; }
+  .stat span { font-size: 28px; color: var(--teal2); }
+  .vline { width: 1px; background: rgba(255,255,255,0.4); }
+  .pill { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; padding: 12px 28px; border: 1.5px solid rgba(180,216,218,0.9); border-radius: 999px; font-size: 28px; background: rgba(4,12,14,0.35); }
+  .badge { display: inline-block; padding: 20px 52px; background: var(--teal); color: #fff; font-weight: 700; font-size: 44px; letter-spacing: 0.02em; }
+  .mark { left: 60px; top: 46px; }
+  .mark img { height: 66px; display: block; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5)); }
+  .units { left: 0; right: 0; bottom: 96px; display: flex; justify-content: center; gap: 26px; opacity: 1; }
+  .unit { position: relative; width: 236px; height: 250px; padding: 26px 24px; display: grid; align-content: end; gap: 2px; text-align: right; opacity: 0;
+    background: rgba(8, 20, 23, 0.55); backdrop-filter: blur(16px) saturate(1.2); box-shadow: 0 0 0 1px rgba(180,216,218,0.45) inset, 0 30px 60px -30px rgba(0,0,0,0.6); border-top: 5px solid var(--teal); }
+  .unit b { font-weight: 200; font-size: 118px; line-height: 0.9; }
+  .unit b.w { font-family: "Frank Ruhl Libre", serif; font-weight: 400; font-size: 48px; line-height: 1.05; }
+  .unit span { font-size: 30px; color: var(--teal2); }
+  .unit em { position: absolute; top: 20px; right: 24px; font-style: normal; font-size: 20px; color: var(--teal2); }
+  .unit.ph { background: rgba(108,159,162,0.5); }
+  .dark { color: #1d2a2d; }
+  .credits { display: flex; align-items: center; gap: 90px; }
+  .credit { display: grid; gap: 26px; justify-items: center; }
+  .credit small { font-size: 28px; font-weight: 500; color: #6c7d80; letter-spacing: 0.04em; }
+  .credit img { display: block; }
+  .vr { width: 2px; height: 260px; background: #d6e2e3; }
+  .fine { left: 0; right: 0; bottom: 30px; text-align: center; font-size: 20px; color: #7d8b8d; }
+  #sweep { position: absolute; left: 0; top: 0; width: 760px; height: 100%; background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,0.55) 50%, transparent 65%); mix-blend-mode: overlay; }
+</style>
+</head>
+<body>
+<img class="shot" id="s_dusk"><img class="shot" id="s_aerial"><img class="shot" id="s_aerial2"><img class="shot" id="s_street"><img class="shot" id="s_piazza">
+<img class="shot" id="s_lobby"><img class="shot" id="s_living1"><img class="shot" id="s_living2"><img class="shot" id="s_garden"><img class="shot" id="s_penthouse">
+<canvas id="con" width="1920" height="1080"></canvas>
+<div class="ov" id="low"></div><div class="ov" id="side"></div><div class="ov" id="vig"></div><div class="ov" id="dim"></div><div class="ov" id="paper"></div>
+
+<div class="L mark" id="mark"><img src="img/neo-logo-white.png" alt=""></div>
+
+<!-- opening -->
+<div class="L" id="o_logo" style="left:580px;top:300px;width:760px;overflow:hidden"><img src="img/neo-logo-white.png" style="width:760px;display:block;filter:drop-shadow(0 6px 40px rgba(0,0,0,0.5))" alt=""><div id="sweep"></div></div>
+<div class="L shadow lead" id="o_s" style="left:0;right:0;top:700px;text-align:center;color:#fff;font-weight:400;letter-spacing:0.06em">שלב ב' · מכירה מוקדמת</div>
+
+<!-- phase A -->
+<div class="L br shadow" id="a_t">
+  <span class="bar"></span>
+  <div class="kick">שלב א' · נבנה ונמסר</div>
+  <div class="stats">
+    <div class="stat"><b id="a_n1">0</b><span>מגדלים</span></div><div class="vline"></div>
+    <div class="stat"><b id="a_n2">0</b><span>קומות</span></div><div class="vline"></div>
+    <div class="stat"><b id="a_n3">0</b><span>יחידות דיור</span></div>
+  </div>
+  <div class="pill">רחוב בן גוריון 246, גבעת שמואל</div>
+</div>
+
+<!-- renewal -->
+<div class="L shadow" id="r_t" style="right:120px;top:90px;width:900px;text-align:right">
+  <span class="bar"></span>
+  <div class="kick">התחדשות עירונית</div>
+  <div class="h2" style="margin-top:12px">בגובה <span class="t">אחר</span></div>
+</div>
+<div class="L shadow" id="k_t" style="right:120px;top:90px;width:900px;text-align:right">
+  <span class="bar"></span>
+  <div class="kick">שלב אחר שלב</div>
+  <div class="h2" style="margin-top:12px">קומה <b id="k_n" style="font-weight:400;display:inline-block;min-width:1.2em;text-align:center">0</b> מתוך 14</div>
+</div>
+
+<!-- phase B -->
+<div class="L br shadow" id="b_t">
+  <span class="bar"></span>
+  <div class="kick">NEO בגבעת שמואל · שלב ב'</div>
+  <div class="stats">
+    <div class="stat"><b id="b_n1">0</b><span>מגדלים</span></div><div class="vline"></div>
+    <div class="stat"><b style="direction:rtl">ק+<span id="b_n2" style="font:inherit;color:inherit">0</span></b><span>קומות</span></div><div class="vline"></div>
+    <div class="stat"><b id="b_n3">0</b><span>יחידות דיור</span></div>
+  </div>
+  <div style="margin-top:30px"><span class="badge" id="b_badge">מכירה מוקדמת</span></div>
+</div>
+
+<!-- location -->
+<div class="L br shadow" id="m_t">
+  <span class="bar"></span>
+  <div class="kick">המיקום</div>
+  <div class="h1" style="margin-top:12px">רחוב בן גוריון <span class="t">10–16</span></div>
+  <div class="lead" style="margin-top:14px">בכניסה הצפון-מערבית של השכונה</div>
+</div>
+<div class="L br shadow" id="p_t">
+  <span class="bar"></span>
+  <div class="kick">הנוף מהבית</div>
+  <div class="h1" style="margin-top:12px">משקיף על <span class="t">פיאצה יפהפייה</span></div>
+</div>
+<div class="L br shadow" id="l_t">
+  <span class="bar"></span>
+  <div class="kick">ברוכים הבאים</div>
+  <div class="h1" style="margin-top:12px">הלובי</div>
+</div>
+
+<!-- units -->
+<div class="L shadow" id="u_t" style="right:120px;top:90px;width:1100px;text-align:right">
+  <span class="bar"></span>
+  <div class="kick">תמהיל הדירות</div>
+  <div class="h2" style="margin-top:12px">בית לכל שלב בחיים</div>
+</div>
+<div class="L units" id="units">
+  <div class="unit"><em>01</em><b>3</b><span>חדרים</span></div>
+  <div class="unit"><em>02</em><b>4</b><span>חדרים</span></div>
+  <div class="unit"><em>03</em><b>5</b><span>חדרים</span></div>
+  <div class="unit"><em>04</em><b>6</b><span>חדרים</span></div>
+  <div class="unit ph"><em>05</em><b class="w">מיני<br>פנטהאוז</b><span>&nbsp;</span></div>
+  <div class="unit ph"><em>06</em><b class="w">פנטהאוז</b><span>&nbsp;</span></div>
+</div>
+
+<div class="L br shadow" id="s_t">
+  <span class="bar"></span>
+  <div class="kick">תכנון מוקפד</div>
+  <div class="h1" style="margin-top:12px">מפרט טכני <span class="t">גבוה</span></div>
+</div>
+<div class="L br shadow" id="v_t">
+  <span class="bar"></span>
+  <div class="kick">מהפנטהאוז</div>
+  <div class="h1" style="margin-top:12px">נוף שעוצר <span class="t">את הנשימה</span></div>
+</div>
+
+<!-- credits (white) -->
+<div class="L" id="c_t" style="left:0;right:0;top:0;height:1080px;display:grid;place-content:center">
+  <div class="credits">
+    <div class="credit"><small>ביוזמת</small><img src="img/urban-renewal-co.png" style="height:200px" alt="החברה להתחדשות עירונית"></div>
+    <div class="vr"></div>
+    <div class="credit"><small>הבנק המלווה</small><img src="img/mizrahi-tefahot.png" style="height:270px;margin:-30px 0" alt="מזרחי טפחות"></div>
+    <div class="vr"></div>
+    <div class="credit"><small>שיווק</small><img src="img/msgroup-logo-dark.png" style="height:150px;margin:25px 0" alt="M.S. Group"></div>
+  </div>
+</div>
+
+<!-- end (white) -->
+<div class="L" id="e_t" style="left:0;right:0;top:0;height:1080px;display:grid;place-content:center;justify-items:center;gap:30px;text-align:center">
+  <img src="img/neo-logo.png" style="width:600px" alt="NEO בגבעת שמואל">
+  <div class="lead dark" style="font-weight:400">שלב ב' · 3 מגדלים · 202 יחידות דיור · רחוב בן גוריון 10–16</div>
+  <div style="margin-top:6px"><span class="badge">המכירה המוקדמת נפתחה, הירשמו עכשיו</span></div>
+  <div class="lead dark" id="contact" style="font-size:36px;font-weight:500;direction:ltr"></div>
+  <div style="display:flex;align-items:center;gap:18px;margin-top:14px"><span class="lead dark" style="font-size:24px;color:#6c7d80">שיווק:</span><img src="img/msgroup-logo-dark.png" style="height:64px" alt="M.S. Group"></div>
+</div>
+<div class="L fine" id="fine">ההדמיות להמחשה בלבד ואינן מהוות מסמך מחייב. המידע כפוף להיתרים ולהסכם המכר.</div>
+<div class="ov" id="black"></div>
+
+<script src="construct.js"></script>
+<script>
+const CONTACT = ''; // phone / site for the end card
+const $ = (id) => document.getElementById(id);
+$('contact').textContent = CONTACT;
+const FR = new URLSearchParams(location.search).get('frames') || 'frames';
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const easeIO = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const lin = (x, a, b) => a + (b - a) * x;
+const fade = (t, a, b, c, d) => Math.min(easeIO(span(t, a, b)), c == null ? 1 : 1 - easeIO(span(t, c, d)));
+const set = (el, o, tr) => { el.style.opacity = o.toFixed(3); if (tr != null) el.style.transform = tr; };
+const up = (t, a, b, c, d, px = 30) => [fade(t, a, b, c, d), `translateY(${((1 - ease(span(t, a, b))) * px - ease(span(t, c, d)) * px * 0.5).toFixed(1)}px)`];
+const XF = 0.8;
+// id, clip dir, start, end (incl. crossfade), frames, playback: rate (1 = real time), reverse, Ken Burns scale from/to, origin
+const SHOTS = [
+  ['s_dusk', '02-dusk', 0, 7.6, 241, { s0: 1.06, s1: 1.0 }],
+  ['s_aerial', '01-aerial', 6.8, 17.6, 301, { s0: 1.0, s1: 1.06, ox: 35, oy: 50 }],
+  ['s_aerial2', '01-aerial', 29.6, 40.2, 301, { rev: true, rate: 0.95, s0: 1.32, s1: 1.18, ox: 62, oy: 56 }],
+  ['s_street', '03-street', 39.4, 47.6, 241, { s0: 1.0, s1: 1.03 }],
+  ['s_piazza', '04-piazza', 46.8, 57.4, 301, { s0: 1.0, s1: 1.04 }],
+  ['s_lobby', '05-lobby', 56.6, 64.8, 241, { s0: 1.0, s1: 1.03 }],
+  ['s_living1', '06-living1', 64.0, 72.2, 241, { s0: 1.0, s1: 1.03 }],
+  ['s_living2', '07-living2', 71.4, 79.6, 241, { s0: 1.0, s1: 1.03 }],
+  ['s_garden', '08-garden', 78.8, 87.4, 241, { s0: 1.0, s1: 1.04 }],
+  ['s_penthouse', '09-penthouse', 86.6, 98.0, 301, { rate: 0.92, s0: 1.0, s1: 1.05 }],
+].map(([id, dir, a, b, n, o]) => ({ el: $(id), dir, a, b, n, rate: 1, rev: false, ox: 50, oy: 50, ...o }));
+const units = [...document.querySelectorAll('.unit')];
+const count = (el, t, a, b, n) => { el.textContent = Math.round(n * easeIO(span(t, a, b))); };
+const pending = [];
+
+window.TOTAL = 112;
+window.render = async (t) => {
+  pending.length = 0;
+  for (const s of SHOTS) {
+    const o = Math.min(s.a <= 0 ? 1 : easeIO(span(t, s.a, s.a + XF)), 1 - easeIO(span(t, s.b - XF, s.b)));
+    s.el.style.opacity = o.toFixed(3);
+    if (o <= 0) continue;
+    let k = Math.floor((t - s.a) * 30 * s.rate); k = Math.max(0, Math.min(s.n - 1, k)); if (s.rev) k = s.n - 1 - k;
+    const src = `${FR}/${s.dir}/${String(k + 1).padStart(4, '0')}.jpg`;
+    if (s.el.getAttribute('src') !== src) { s.el.setAttribute('src', src); pending.push(s.el.decode().catch(() => {})); }
+    s.el.style.transformOrigin = `${s.ox}% ${s.oy}%`;
+    s.el.style.transform = `scale(${lin(span(t, s.a, s.b), s.s0, s.s1).toFixed(4)})`;
+  }
+  // construction sequence 16.8–30.4 mapped onto construct.js time 21.6–41.6
+  const co = fade(t, 16.8, 17.8, 29.6, 30.6); $('con').style.opacity = co.toFixed(3);
+  if (co > 0) window.drawConstruct(21.6 + (t - 16.8) * (20 / 13.6));
+
+  // overlays
+  set($('low'), Math.max(fade(t, 8.4, 9.4, 16.4, 17.2), fade(t, 30.6, 31.6, 39.2, 40.2), fade(t, 40.4, 41.4, 46.4, 47.2), fade(t, 48, 49, 56, 56.8), fade(t, 57.6, 58.6, 63.8, 64.6), 0.9 * fade(t, 65, 66, 78.6, 79.4), fade(t, 80, 81, 86.4, 87.2), fade(t, 89, 90, 96.4, 97.2)));
+  set($('side'), Math.max(0.6 * fade(t, 17.6, 18.6, 29.4, 30.2), 0.7 * fade(t, 65, 66, 78.6, 79.4)));
+  set($('dim'), Math.max(0.45 * fade(t, -1, 0, 6.6, 7.6), 0.25 * fade(t, 30, 30.6, 39, 40)));
+  set($('paper'), fade(t, 97.2, 98.2));
+  set($('vig'), 1 - $('paper').style.opacity);
+  set($('black'), Math.max(1 - span(t, 0, 1.2), span(t, 111.2, 112)));
+  set($('mark'), Math.min(fade(t, 9, 10, 16.6, 17.4) + fade(t, 30.6, 31.6, 96.6, 97.4), 1));
+
+  // opening
+  set($('o_logo'), fade(t, 1.6, 3.4, 6.4, 7.4), `scale(${(1.08 - 0.08 * ease(span(t, 1.6, 6))).toFixed(4)})`);
+  $('sweep').style.transform = `translateX(${(-800 + 1700 * easeIO(span(t, 2.8, 5.4))).toFixed(0)}px)`;
+  set($('o_s'), ...up(t, 3.8, 4.8, 6.4, 7.2));
+  // phase A
+  set($('a_t'), ...up(t, 9.4, 10.6, 16.2, 17));
+  count($('a_n1'), t, 10.6, 11.8, 2); count($('a_n2'), t, 10.9, 12.6, 15); count($('a_n3'), t, 11.2, 14, 144);
+  // renewal captions
+  set($('r_t'), ...up(t, 19.4, 20.4, 23.6, 24.3));
+  set($('k_t'), ...up(t, 24.6, 25.3, 29.2, 29.9));
+  const ct = 21.6 + (t - 16.8) * (20 / 13.6); $('k_n').textContent = Math.max(0, Math.min(14, Math.floor((ct - 30.2 - 1.5) / 0.4)));
+  // phase B
+  set($('b_t'), ...up(t, 31, 32.2, 39, 39.8));
+  count($('b_n1'), t, 32.4, 33.6, 3); count($('b_n2'), t, 32.7, 34.4, 14); count($('b_n3'), t, 33, 36.2, 202);
+  set($('b_badge'), fade(t, 36.6, 37.3), `scale(${(0.85 + 0.15 * ease(span(t, 36.6, 37.4))).toFixed(3)})`);
+  // tour
+  set($('m_t'), ...up(t, 41, 42.2, 46.4, 47.1));
+  set($('p_t'), ...up(t, 48.6, 49.8, 56, 56.7));
+  set($('l_t'), ...up(t, 58.2, 59.4, 63.8, 64.5));
+  set($('u_t'), ...up(t, 65.4, 66.4, 78.4, 79.2));
+  units.forEach((u, i) => { const a = 66.4 + i * 0.95; set(u, fade(t, a, a + 0.7, 78.2 - (5 - i) * 0.07, 79 - (5 - i) * 0.07), `translateY(${((1 - ease(span(t, a, a + 0.8))) * 90).toFixed(1)}px)`); });
+  set($('s_t'), ...up(t, 80.6, 81.8, 86.4, 87.1));
+  set($('v_t'), ...up(t, 89.6, 90.8, 96.2, 96.9));
+  // credits + end on white
+  set($('c_t'), ...up(t, 98.4, 99.6, 103.6, 104.3));
+  set($('e_t'), fade(t, 104.6, 105.8, 111, 112), `scale(${(0.97 + 0.03 * ease(span(t, 104.6, 108))).toFixed(4)})`);
+  set($('fine'), fade(t, 105.8, 106.8, 111, 112));
+  await Promise.all(pending);
+};
+</script>
+</body>
+</html>

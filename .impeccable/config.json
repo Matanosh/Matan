@@ -5,5 +5,20 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "marketing/neo-givat-shmuel-film/tour.html"
+        ],
+        "createdAt": "2026-11-25T17:55:24.514Z",
+        "reason": "Claude: offline render template; shot <img> src is set per frame by render(t) before every screenshot"
+      }
+    ]
   }
 }
