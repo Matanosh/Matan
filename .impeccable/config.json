@@ -18,6 +18,24 @@
         ],
         "createdAt": "2026-11-25T17:55:24.514Z",
         "reason": "Claude: offline render template; shot <img> src is set per frame by render(t) before every screenshot"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "marketing/neo-givat-shmuel-film/tour.html"
+        ],
+        "createdAt": "2026-11-25T18:10:02.745Z",
+        "reason": "Claude: video render template; shot images start at opacity 0 and render(t) fades them to 1 per frame"
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "marketing/neo-givat-shmuel-film/tour.html"
+        ],
+        "createdAt": "2026-11-25T18:10:02.752Z",
+        "reason": "Claude: 0.06-0.08em tracking is on short on-screen kicker labels in a video, not body text"
       }
     ]
   }
