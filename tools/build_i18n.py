@@ -9,6 +9,7 @@ Run from the project root:  python3 tools/build_i18n.py
 import re, sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from i18n_home import T, HEAD, STATEMENT_EM, NB, NN
+import social_meta
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HE_RE = re.compile('[֐-׿]')
@@ -84,9 +85,7 @@ def build(lang, he):
     s = s.replace('<html lang="he" dir="rtl">', f'<html lang="{lang}" dir="ltr">', 1)
     s = re.sub(r'<title>[^<]*</title>', f'<title>{h["title"]}</title>', s, count=1)
     s = re.sub(r'(<meta name="description" content=")[^"]*', lambda m: m.group(1) + h['desc'], s, count=1)
-    s = re.sub(r'(<meta property="og:locale" content=")[^"]*', lambda m: m.group(1) + h['locale'], s, count=1)
-    s = re.sub(r'(<meta property="og:title" content=")[^"]*', lambda m: m.group(1) + h['og_title'], s, count=1)
-    s = re.sub(r'(<meta property="og:description" content=")[^"]*', lambda m: m.group(1) + h['og_desc'], s, count=1)
+    s = social_meta.apply(s, lang, 'index.html', h['og_title'], h['og_desc'])
     s = s.replace('<p class="statement__text" data-words>', f'<p class="statement__text" data-words data-em="{STATEMENT_EM[lang]}">', 1)
     s = re.sub(r'(?<=["\s,])assets/', '../assets/', s)
     s = add_chrome(s, lang)
@@ -106,6 +105,8 @@ he_path = ROOT / 'index.html'
 he = he_path.read_text(encoding='utf-8')
 he = he.replace('(<bdi>Galt &amp</bdi>; <bdi>Taggart</bdi>)', '(<bdi>Galt &amp; Taggart</bdi>)')
 he = add_chrome(he, 'he')
+he = social_meta.apply(he, 'he', 'index.html',
+                       social_meta.read(he, 'og:title'), social_meta.read(he, 'og:description'))
 he_path.write_text(he, encoding='utf-8')
 print('he: index.html switcher and alternates in place')
 for lang in ('en', 'fr'):

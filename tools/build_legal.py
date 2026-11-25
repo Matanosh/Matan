@@ -3,7 +3,9 @@ switcher to all three languages.  Run from the project root:
     python3 tools/build_legal.py
 The Hebrew pages remain the binding version; the translations say so.
 """
-import re, pathlib
+import re, sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import social_meta
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 NB, NN = ' ', ' '
 PAGES = ['privacy', 'accessibility', 'terms']
@@ -206,6 +208,26 @@ def french_typography(t):
         parts[i] = p
     return ''.join(parts)
 
+# Share-preview and search description of each legal page (Open Graph, Twitter, meta description).
+DESC = {
+ ('he', 'privacy'): 'איזה מידע אישי נאסף באתר MS Group Global, למה הוא משמש ומהן זכויותיכם לפי חוק הגנת הפרטיות.',
+ ('en', 'privacy'): 'What personal information the MS Group Global website collects, what it is used for, and your rights under Israel’s Privacy Protection Law.',
+ ('fr', 'privacy'): 'Les informations personnelles recueillies par le site MS Group Global, leur utilisation et vos droits selon la loi israélienne sur la protection de la vie privée.',
+ ('he', 'accessibility'): 'הצהרת הנגישות של אתר MS Group Global: התאמות הנגישות באתר, הבדיקות שבוצעו ודרכי פנייה בנושא נגישות.',
+ ('en', 'accessibility'): 'Accessibility statement of the MS Group Global website: the accessibility features, the tests carried out, and how to contact us about accessibility.',
+ ('fr', 'accessibility'): 'Déclaration d’accessibilité du site MS Group Global : les aménagements, les tests effectués et comment nous contacter au sujet de l’accessibilité.',
+ ('he', 'terms'): 'תנאי השימוש באתר MS Group Global. המידע באתר הוא מידע כללי ואינו ייעוץ השקעות.',
+ ('en', 'terms'): 'Terms of use of the MS Group Global website. The information on the site is general information, not investment advice.',
+ ('fr', 'terms'): 'Conditions d’utilisation du site MS Group Global. Les informations du site sont générales et ne constituent pas un conseil en investissement.',
+}
+
+def head_tags(s, lang, name, title):
+    """Meta description plus Open Graph / Twitter / canonical tags for a legal page."""
+    d = DESC[(lang, name)]
+    s = re.sub(r'\n[ \t]*<meta name="description" content="[^"]*">', '', s)
+    s = social_meta.apply(s, lang, f'{name}.html', f'{title} | MS Group Global', d)
+    return s.replace('<meta name="theme-color"', f'<meta name="description" content="{d}">\n  <meta name="theme-color"', 1)
+
 def page(lang, name):
     title, body = BODY[(lang, name)]
     u = UI[lang]
@@ -258,6 +280,7 @@ def page(lang, name):
 </body>
 </html>
 '''
+    html = head_tags(html, lang, name, title)
     if lang == 'fr':
         html = french_typography(html)
     (ROOT / lang / file).write_text(html, encoding='utf-8')
@@ -279,5 +302,7 @@ for name in PAGES:
     s = s.replace('      <a class="btn btn--small" href="index.html#contact">',
                   '      ' + switcher('he', f'{name}.html') + '\n      <a class="btn btn--small" href="index.html#contact">', 1)
     s = s.replace('  <link rel="icon"', '  ' + alternates('he', f'{name}.html') + '\n  <link rel="icon"', 1)
+    he_title = re.search(r'<title>([^<|]*?)\s*\|', s).group(1)
+    s = head_tags(s, 'he', name, he_title)
     p.write_text(s, encoding='utf-8')
     print(f'{name}.html (he) updated')

@@ -7,3 +7,4 @@
 - The sandbox cannot reach onrender.com directly (proxy 403); the owner declined adding it to the allowlist on 2026-11-14.
 
 Related: [open-items](open-items.md).
+- 2026-11-25: Open Graph, Twitter card and canonical tags on all 12 pages now point at https://global.msgp.co.il (set once in tools/social_meta.py). Share previews only show the image once that domain is live.
