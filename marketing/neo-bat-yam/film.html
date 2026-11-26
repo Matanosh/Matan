@@ -63,13 +63,32 @@
   #endaddr { position: absolute; left: 0; right: 0; top: 1170px; text-align: center; color: var(--blue2); font-size: 40px; font-weight: 500; }
   #endcta { position: absolute; left: 50%; top: 1290px; transform: translateX(-50%); padding: 30px 74px; border-radius: 90px; background: var(--coral); color: #fff; font-size: 48px; font-weight: 800; white-space: nowrap; box-shadow: 0 24px 50px -24px rgba(6, 34, 58, 0.55); }
   #endfine { position: absolute; left: 60px; right: 60px; bottom: 90px; text-align: center; color: rgba(6, 34, 58, 0.75); font-size: 26px; line-height: 1.5; }
-  #wave { position: absolute; left: 0; right: 0; bottom: 0; height: 520px; }
+  #wave { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 520px; }
+  /* landscape (?land=1): 16:9 frame; #ov keeps the 1920-high design space, scaled by 1080/1920 */
+  #ov { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  html.land, html.land body { width: 1920px; height: 1080px; }
+  html.land #ov { width: 3414px; transform: scale(0.5625); transform-origin: 0 0; }
+  html.land .h1 { font-size: 180px; } html.land .h2 { font-size: 104px; } html.land .h3 { font-size: 74px; }
+  html.land .num { font-size: 440px; } html.land .numlbl { font-size: 84px; } html.land .chip { font-size: 68px; padding: 28px 52px; }
+  html.land #st1 { right: 1000px; } html.land #st2 { left: 1000px; } html.land .stat { width: 700px; }
+  html.land #dist svg { width: 1800px; height: 1267px; } html.land #dist { top: 420px; }
+  html.land .room { width: 300px; height: 300px; font-size: 190px; }
+  html.land #cap { font-size: 88px; bottom: 150px; left: 400px; right: 400px; }
+  html.land #bug { width: 360px; top: 80px; right: 110px; } html.land #ai { font-size: 40px; top: 110px; left: 110px; }
+  html.land #lt { right: 200px; bottom: 560px; } html.land #lt .n { font-size: 110px; } html.land #lt .r { font-size: 64px; }
+  html.land #endlogo { left: 1107px; width: 1200px; top: 330px; }
+  html.land #endline { top: 1080px; font-size: 96px; } html.land #endaddr { top: 1220px; font-size: 64px; }
+  html.land #endcta { top: 1380px; font-size: 76px; padding: 40px 110px; } html.land #endfine { font-size: 40px; }
+  html.land #intro img { width: 1300px !important; } html.land #intro { top: 440px !important; } html.land #introsub { top: 1430px !important; }
+  html.land #close img { width: 640px !important; } html.land #close { top: 1300px !important; }
 </style>
 </head>
 <body>
+<script>const LAND = /[?&]land=1/.test(location.search); if (LAND) document.documentElement.classList.add("land");</script>
 <div id="shots"></div>
 <div class="fx" id="grade"></div>
 <div class="fx" id="vignette"></div>
+<div id="ov">
 
 <!-- intro -->
 <div class="layer" id="intro" style="top:620px"><img src="src/neo-logo-white.png" style="width:760px; filter: drop-shadow(0 10px 40px rgba(0,0,0,0.45))"></div>
@@ -129,6 +148,7 @@
   <div id="endcta">השאירו פרטים עכשיו</div>
   <div id="endfine">ההדמיות להמחשה בלבד · הסרטון נוצר בעזרת AI</div>
 </div>
+</div>
 <canvas id="grain" width="540" height="960"></canvas>
 
 <script>
@@ -162,7 +182,8 @@ const FPS = 30;
 /* ---------- shots (film clock, seconds) ----------
    img: a still moved by a camera path [scale, x, y] from -> to (x, y in px on the 1080x1920 frame)
    seq: frames of a generated clip; `at` maps film time to clip time. Without the clip, the still is used. */
-const PRES = 'src/presenter2-916.jpg';
+const PRES = LAND ? 'src/presenter2-169.jpg' : 'src/presenter2-916.jpg';
+const FW = LAND ? 1920 : 1080, FH = LAND ? 1080 : 1920, FDIR = LAND ? 'frames-land' : 'frames';
 const SHOTS = [
   { id: 'intro', a: 0.0, b: 6.15, still: 'src/aerial-sea.jpg', cam: [[1.25, -40, -80], [1.05, -40, 40]] },
   { id: 'p1a', a: 6.0, b: 12.15, seq: 'presenter', at: () => PT('v1'), still: PRES, cam: [[1.0, 0, 0], [1.03, 0, 10]] },
@@ -187,7 +208,7 @@ const SHOTS = [
   { id: 'hqpan', a: 109.7, b: 114.0, still: 'src/apt-living-hq.jpg', cam: [[1.6, 1500, 150], [1.6, -420, 150]] },
   { id: 'kitchen', a: 113.9, b: 117.5, still: 'src/apt-living2.jpg', cam: [[1.35, 1050, 60], [1.42, 880, 60]] },
   { id: 'dining', a: 117.4, b: 122.6, still: 'src/apt-living3.jpg', cam: [[1.3, 1050, 80], [1.4, 860, 80]] },
-  { id: 'balc', a: 122.5, b: 130.5, seq: 'balcony', at: (t) => t - 122.5, still: 'src/k-balcony.jpg', cam: [[1.0, 0, 0], [1.35, 40, 0]] },
+  { id: 'balc', a: 122.5, b: 130.5, seq: 'balcony', at: (t) => (t - 122.5) * (LAND ? 1.2 : 1), still: 'src/k-balcony.jpg', cam: [[1.0, 0, 0], [1.35, 40, 0]] },
   { id: 'sea', a: 130.4, b: 134.1, still: 'src/apt-living-hq.jpg', cam: [[2.6, 2050, -230], [2.9, 2050, -300]] },
   { id: 'p3a', a: 134.0, b: 138.05, seq: 'presenter', at: () => PT('v10'), still: PRES, cam: [[1.0, 0, 0], [1.03, 0, 10]] },
   { id: 'p3b', a: 138.0, b: 144.6, seq: 'presenter', at: () => PT('v10'), still: PRES, cam: [[1.15, 0, 90], [1.2, 0, 100]] },
@@ -233,7 +254,8 @@ const TEXTS = [
   ['כל בוקר.', 'h2', 1230, 130.4, 133.9],
 ];
 const host = $('texts');
-const TEL = TEXTS.map(([html, cls, top]) => { const d = document.createElement('div'); d.className = 'layer ' + cls; d.style.top = top + 'px'; d.innerHTML = html; host.appendChild(d); return d; });
+// landscape: lines placed low in the portrait frame move further down, clear of the centre graphics
+const TEL = TEXTS.map(([html, cls, top]) => { const d = document.createElement('div'); d.className = 'layer ' + cls; d.style.top = (LAND && top >= 1200 ? top + 220 : top) + 'px'; d.innerHTML = html; host.appendChild(d); return d; });
 
 const shotsEl = $('shots');
 for (const s of SHOTS) {
@@ -243,12 +265,12 @@ for (const s of SHOTS) {
   if (s.hasSeq) s.cam = s.seq === 'presenter' ? s.cam : [[1, 0, 0], [1.04, 0, 0]];
 }
 function place(s, k, extra) {
-  const img = s.img, W = img.naturalWidth || 1080, H = img.naturalHeight || 1920;
-  const base = Math.max(1080 / W, 1920 / H);
+  const img = s.img, W = img.naturalWidth || FW, H = img.naturalHeight || FH;
+  const base = Math.max(FW / W, FH / H);
   const [s0, x0, y0] = s.cam[0], [s1, x1, y1] = s.cam[1], e = easeIO(k) * 0.35 + k * 0.65;
   const sc = base * lerp(s0, s1, e) * (extra.scale || 1);
   // keep the frame covered: clamp the offset to what the scaled image allows
-  const mx = Math.max(0, (W * sc - 1080) / 2), my = Math.max(0, (H * sc - 1920) / 2);
+  const mx = Math.max(0, (W * sc - FW) / 2), my = Math.max(0, (H * sc - FH) / 2);
   const x = clamp(lerp(x0, x1, e), -mx, mx) + (extra.x || 0), y = clamp(lerp(y0, y1, e), -my, my);
   img.style.width = W + 'px'; img.style.height = H + 'px';
   img.style.transform = `translate(-50%, -50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${sc.toFixed(4)})`;
@@ -290,7 +312,7 @@ window.render = (tn) => {
     if (next && t > next.a && XF[next.id]) { const to = span(t, next.a, s.b); extra.scale = (extra.scale || 1) * (1 + ease(to) * 0.18); blur = Math.max(blur, ease(to) * 14); }
     if (s.hasSeq) {
       const idx = clamp(Math.floor(s.at(t) * FPS), 0, M[s.seq] - 1);
-      const src = `frames/${s.seq}/${String(idx + 1).padStart(4, '0')}.jpg`;
+      const src = `${FDIR}/${s.seq}/${String(idx + 1).padStart(4, '0')}.jpg`;
       if (s.img.getAttribute('src') !== src) s.img.src = src;
     }
     place(s, k, extra);

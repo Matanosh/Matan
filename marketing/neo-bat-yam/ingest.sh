@@ -4,8 +4,10 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 name=$1; url=$2
-mkdir -p clips "frames/$name"
-curl -sSfL -o "clips/$name.mp4" "$url"
-rm -f "frames/$name"/*.jpg
-ffmpeg -loglevel error -y -i "clips/$name.mp4" -vf "fps=30,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920" -q:v 2 "frames/$name/%04d.jpg"
-echo "$name: $(ls "frames/$name" | wc -l) frames, $(ffprobe -v error -show_entries format=duration -of csv=p=0 "clips/$name.mp4")s"
+# LAND=1 extracts a landscape clip to frames-land/<name> at 1920x1080
+if [ "${LAND:-0}" = 1 ]; then FD=frames-land; SZ=1920:1080; CL=clips-land; else FD=frames; SZ=1080:1920; CL=clips; fi
+mkdir -p "$CL" "$FD/$name"
+curl -sSfL -o "$CL/$name.mp4" "$url"
+rm -f "$FD/$name"/*.jpg
+ffmpeg -loglevel error -y -i "$CL/$name.mp4" -vf "fps=30,scale=$SZ:force_original_aspect_ratio=increase,crop=$SZ" -q:v 2 "$FD/$name/%04d.jpg"
+echo "$name: $(ls "$FD/$name" | wc -l) frames, $(ffprobe -v error -show_entries format=duration -of csv=p=0 "$CL/$name.mp4")s"

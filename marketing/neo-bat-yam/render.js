@@ -9,13 +9,14 @@ const path = require('path'); const fs = require('fs'); const { execFileSync } =
   fs.mkdirSync(out, { recursive: true });
   // frame sequences of the generated clips, and the voiceover word timings for captions
   const media = {};
-  const fdir = path.join(__dirname, 'frames');
+  const fdir = path.join(__dirname, process.env.LAND === '1' ? 'frames-land' : 'frames');
   if (fs.existsSync(fdir)) for (const d of fs.readdirSync(fdir)) media[d] = fs.readdirSync(path.join(fdir, d)).filter((f) => f.endsWith('.jpg')).length;
   const words = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/words-long.json'), 'utf8')).words.filter((w) => !w.type || w.type === 'word');
-  const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
+  const land = process.env.LAND === '1';
+  const b = await chromium.launch(); const p = await b.newPage({ viewport: land ? { width: 1920, height: 1080 } : { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   const timeline = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/timeline.json'), 'utf8'));
   await p.addInitScript(([m, w, tl]) => { window.MEDIA = m; window.WORDS = w; window.TIMELINE = tl; }, [media, words, timeline]);
-  await p.goto('file://' + path.join(__dirname, 'film.html'), { waitUntil: 'networkidle' });
+  await p.goto('file://' + path.join(__dirname, 'film.html') + (land ? '?land=1' : ''), { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   const total = await p.evaluate(() => window.TOTAL);
   const times = only || Array.from({ length: Math.round(total * fps) }, (_, i) => i / fps);
