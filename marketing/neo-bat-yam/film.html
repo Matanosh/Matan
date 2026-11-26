@@ -162,7 +162,7 @@ const FPS = 30;
 /* ---------- shots (film clock, seconds) ----------
    img: a still moved by a camera path [scale, x, y] from -> to (x, y in px on the 1080x1920 frame)
    seq: frames of a generated clip; `at` maps film time to clip time. Without the clip, the still is used. */
-const PRES = 'src/presenter-916.jpg';
+const PRES = 'src/presenter2-916.jpg';
 const SHOTS = [
   { id: 'intro', a: 0.0, b: 6.15, still: 'src/aerial-sea.jpg', cam: [[1.25, -40, -80], [1.05, -40, 40]] },
   { id: 'p1a', a: 6.0, b: 12.15, seq: 'presenter', at: () => PT('v1'), still: PRES, cam: [[1.0, 0, 0], [1.03, 0, 10]] },
