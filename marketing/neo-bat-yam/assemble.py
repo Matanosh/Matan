@@ -9,20 +9,37 @@ import subprocess
 from pathlib import Path
 
 SRC = Path(__file__).parent / "src"
-# (id, source file, words file, start, end in the source, where it starts in the film, on camera)
-SEGMENTS = [
-    ("v1", "vo2-a.mp3", "words2-a.json", 0.00, 10.87, 6.0, True),      # hello, Neo Bat Yam
-    ("v2", "vo2-a.mp3", "words2-a.json", 11.17, 28.73, 18.1, False),   # location, light rail
-    ("v3", "vo2-a.mp3", "words2-a.json", 29.13, 41.37, 37.2, False),   # two towers
-    ("v4", "vo2-a.mp3", "words2-a.json", 41.63, 56.77, 51.2, False),   # lobby
-    ("v5", "vo2-a.mp3", "words2-a.json", 57.33, 73.67, 68.0, False),   # elevators, 4 per floor
-    ("v6", "vo2-a.mp3", "words2-a.json", 74.05, 76.61, 85.4, True),    # and now, the apartments
-    ("v7", "vo2-a.mp3", "words2-a.json", 76.93, 89.76, 88.8, False),   # apartment mix
-    ("v8", "vo2-p2.mp3", "words2-p2.json", 0.00, 18.12, 103.2, False), # living room
-    ("v9", "vo2-p2.mp3", "words2-p2.json", 18.61, 27.50, 122.5, False),# vitrine, balcony
-    ("v10", "vo2-p2.mp3", "words2-p2.json", 28.05, 37.92, 134.0, True),# closing
+# Sections of the narration (Nimrod voice, two parts). Each keeps the pause that preceded it in the
+# original 2:33 cut, so the edit is re-timed by a piecewise-linear map from the old film clock.
+# (id, source, words, start, end in the source, on camera)
+SOURCES = [
+    ("v1", "nim-intro.mp3", "words-nim-intro.json", 0.00, 7.68, True),
+    ("v2", "nim-p1.mp3", "words-nim-p1.json", 9.03, 24.69, False),
+    ("v3", "nim-p1.mp3", "words-nim-p1.json", 25.07, 35.43, False),
+    ("v4", "nim-p1.mp3", "words-nim-p1.json", 35.43, 48.93, False),
+    ("v5", "nim-p1.mp3", "words-nim-p1.json", 49.43, 62.55, False),
+    ("v6", "nim-p1.mp3", "words-nim-p1.json", 62.99, 64.91, True),
+    ("v7", "nim-p1.mp3", "words-nim-p1.json", 64.95, 75.28, False),
+    ("v8", "nim-p2.mp3", "words-nim-p2.json", 0.00, 15.46, False),
+    ("v9", "nim-p2.mp3", "words-nim-p2.json", 15.46, 22.94, False),
+    ("v10", "nim-p2.mp3", "words-nim-p2.json", 22.94, 31.12, True),
 ]
-TOTAL = 153.0
+# where each section sat in the original 2:33 cut (start, end), and that cut's length
+OLD = [(6.0, 16.87), (18.1, 35.66), (37.2, 49.44), (51.2, 66.34), (68.0, 84.34), (85.4, 87.96),
+       (88.8, 101.63), (103.2, 121.32), (122.5, 131.39), (134.0, 143.87)]
+OLD_TOTAL = 153.0
+FIXES = {"ופפו.": "יפו.", "עור": "אור"}  # transcription slips, for captions only
+SEGMENTS, WARP = [], [(0.0, 0.0)]
+t = OLD[0][0]
+for i, (sid, f, wf, a, b, cam) in enumerate(SOURCES):
+    if i:
+        prev = SEGMENTS[-1]
+        t = prev[5] + (prev[4] - prev[3]) + (OLD[i][0] - OLD[i - 1][1])
+    SEGMENTS.append((sid, f, wf, a, b, round(t, 3), cam))
+    WARP += [(OLD[i][0], round(t, 3)), (OLD[i][1], round(t + b - a, 3))]
+TOTAL = round(WARP[-1][1] + OLD_TOTAL - OLD[-1][1], 3)
+WARP.append((OLD_TOTAL, TOTAL))
+
 GAP = 0.5  # silence between on-camera lines in the presenter clip
 
 
@@ -43,7 +60,7 @@ def main():
         parts.append(f"[{k}:a]atrim={a}:{b},asetpts=N/SR/TB,{fade},aformat=sample_rates=48000:channel_layouts=mono,adelay={int(at * 1000)}[s{i}]")
         for w in json.load(open(SRC / wf))["words"]:
             if w["type"] == "word" and a <= w["start"] < b:
-                words.append({"text": w["text"], "start": round(w["start"] - a + at, 3), "end": round(w["end"] - a + at, 3)})
+                words.append({"text": FIXES.get(w["text"], w["text"]), "start": round(w["start"] - a + at, 3), "end": round(w["end"] - a + at, 3)})
         entry = {"id": sid, "start": at, "end": round(at + b - a, 3), "camera": cam}
         if cam:
             entry["clip_start"] = round(clip_t, 3)  # where this line starts inside the presenter clip
@@ -55,7 +72,7 @@ def main():
     pres = ";".join(pres_parts) + ";" + "".join(f"[p{i}]" for i in range(len(pres_parts))) + f"concat=n={len(pres_parts)}:v=0:a=1[out]"
     run([*inputs, "-filter_complex", pres, "-map", "[out]", "-b:a", "192k", str(SRC / "presenter-audio2.mp3")])
     json.dump({"words": words}, open(SRC / "words-long.json", "w"), ensure_ascii=False)
-    json.dump({"total": TOTAL, "presenter_clip_length": round(clip_t, 3), "segments": timeline}, open(SRC / "timeline.json", "w"), indent=1)
+    json.dump({"total": TOTAL, "presenter_clip_length": round(clip_t, 3), "segments": timeline, "warp": WARP}, open(SRC / "timeline.json", "w"), indent=1)
     print(json.dumps(timeline, indent=1))
     print("presenter clip", round(clip_t, 2), "s; words", len(words))
 

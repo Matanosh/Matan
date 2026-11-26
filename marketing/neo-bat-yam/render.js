@@ -13,7 +13,8 @@ const path = require('path'); const fs = require('fs'); const { execFileSync } =
   if (fs.existsSync(fdir)) for (const d of fs.readdirSync(fdir)) media[d] = fs.readdirSync(path.join(fdir, d)).filter((f) => f.endsWith('.jpg')).length;
   const words = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/words-long.json'), 'utf8')).words.filter((w) => !w.type || w.type === 'word');
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-  await p.addInitScript(([m, w]) => { window.MEDIA = m; window.WORDS = w; }, [media, words]);
+  const timeline = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/timeline.json'), 'utf8'));
+  await p.addInitScript(([m, w, tl]) => { window.MEDIA = m; window.WORDS = w; window.TIMELINE = tl; }, [media, words, timeline]);
   await p.goto('file://' + path.join(__dirname, 'film.html'), { waitUntil: 'networkidle' });
   await p.evaluate(() => document.fonts.ready);
   const total = await p.evaluate(() => window.TOTAL);
