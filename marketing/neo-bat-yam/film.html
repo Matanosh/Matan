@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>NEO Bat Yam film</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* Rendered frame by frame by render.js: every value comes from render(t); nothing animates on its own. */
+  :root { --blue: #1b91df; --blue2: #0d5f99; --coral: #ff5a5a; --ink: #ffffff; --deep: #06223a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  body { position: relative; font-family: Heebo, sans-serif; color: var(--ink); }
+  #shots { position: absolute; inset: 0; z-index: 0; }
+  .shot { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+  .shot img { position: absolute; left: 50%; top: 50%; transform-origin: 50% 50%; will-change: transform; }
+  .fx { position: absolute; inset: 0; pointer-events: none; }
+  #grade { background: linear-gradient(180deg, rgba(4, 22, 40, 0.55) 0%, rgba(4, 22, 40, 0) 22%, rgba(4, 22, 40, 0) 58%, rgba(4, 22, 40, 0.78) 100%); }
+  #vignette { background: radial-gradient(120% 80% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%); }
+  #leak { mix-blend-mode: screen; }
+  #flash { background: #fff; mix-blend-mode: overlay; }
+  canvas#grain { position: absolute; inset: 0; opacity: 0.07; mix-blend-mode: overlay; }
+  /* brand bug */
+  #bug { position: absolute; top: 96px; right: 70px; width: 210px; filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.35)); }
+  #bug img { width: 100%; display: block; }
+  #ai { position: absolute; top: 112px; left: 70px; font-size: 22px; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.75); background: rgba(0, 0, 0, 0.28); padding: 6px 14px; border-radius: 30px; }
+  /* typography */
+  .layer { position: absolute; left: 0; right: 0; text-align: center; will-change: transform, opacity; opacity: 0; }
+  .kick { font-size: 30px; font-weight: 700; letter-spacing: 0.32em; color: var(--coral); direction: ltr; }
+  .h1 { font-size: 118px; font-weight: 800; line-height: 1; letter-spacing: -0.01em; text-shadow: 0 8px 40px rgba(0, 0, 0, 0.45); }
+  .h2 { font-size: 64px; font-weight: 700; line-height: 1.12; text-shadow: 0 6px 30px rgba(0, 0, 0, 0.5); }
+  .h3 { font-size: 44px; font-weight: 400; line-height: 1.25; text-shadow: 0 4px 24px rgba(0, 0, 0, 0.55); }
+  .c { color: var(--coral); }
+  .b { color: #6cc4ff; }
+  .chip { display: inline-flex; align-items: center; gap: 18px; padding: 20px 36px; border-radius: 80px; background: rgba(255, 255, 255, 0.94); color: var(--deep); font-size: 44px; font-weight: 700; box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.6); }
+  .chip i { width: 22px; height: 22px; border-radius: 50%; background: var(--coral); border: 5px solid #fff; outline: 3px solid var(--coral); }
+  .chip.dark { background: rgba(6, 34, 58, 0.82); color: #fff; backdrop-filter: blur(8px); }
+  /* big numbers */
+  .num { font-size: 300px; font-weight: 900; line-height: 0.9; letter-spacing: -0.04em; text-shadow: 0 20px 80px rgba(0, 0, 0, 0.5); }
+  .numlbl { font-size: 54px; font-weight: 700; margin-top: 6px; text-shadow: 0 6px 30px rgba(0, 0, 0, 0.6); }
+  .stat { position: absolute; width: 540px; text-align: center; opacity: 0; }
+  /* distance graphic */
+  #dist { top: 560px; height: 760px; }
+  #dist svg { width: 1080px; height: 760px; overflow: visible; }
+  /* lower third */
+  #lt { position: absolute; right: 70px; bottom: 470px; text-align: right; opacity: 0; }
+  #lt .bar { height: 8px; width: 120px; background: var(--coral); border-radius: 8px; margin-bottom: 18px; margin-right: 0; margin-left: auto; transform-origin: right; }
+  #lt .n { font-size: 66px; font-weight: 800; text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6); }
+  #lt .r { font-size: 36px; font-weight: 400; opacity: 0.9; text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6); }
+  /* rooms */
+  .rooms { display: flex; justify-content: center; gap: 34px; direction: rtl; }
+  .room { width: 210px; height: 210px; border-radius: 36px; background: rgba(255, 255, 255, 0.95); color: var(--deep); display: grid; place-items: center; font-size: 130px; font-weight: 900; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.7); opacity: 0; }
+  .room:nth-child(2) { background: var(--blue); color: #fff; }
+  .room:nth-child(3) { background: var(--coral); color: #fff; }
+  /* captions */
+  #cap { position: absolute; left: 70px; right: 70px; bottom: 250px; text-align: center; font-size: 52px; font-weight: 700; line-height: 1.25; }
+  #cap span { display: inline-block; margin: 0 7px; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55), 0 6px 26px rgba(0, 0, 0, 0.7); transition: none; }
+  #cap span.on { color: #ffd166; }
+  /* end card */
+  #end { position: absolute; inset: 0; opacity: 0; background: radial-gradient(90% 60% at 50% 38%, #ffffff 0%, #eef6fd 60%, #d9ebf8 100%); }
+  #endlogo { position: absolute; left: 140px; width: 800px; top: 520px; }
+  #endlogo img { width: 100%; display: block; }
+  #endline { position: absolute; left: 0; right: 0; top: 1080px; text-align: center; color: var(--deep); font-size: 58px; font-weight: 800; }
+  #endaddr { position: absolute; left: 0; right: 0; top: 1170px; text-align: center; color: var(--blue2); font-size: 40px; font-weight: 500; }
+  #endcta { position: absolute; left: 50%; top: 1290px; transform: translateX(-50%); padding: 30px 74px; border-radius: 90px; background: var(--coral); color: #fff; font-size: 48px; font-weight: 800; white-space: nowrap; box-shadow: 0 24px 50px -24px rgba(6, 34, 58, 0.55); }
+  #endfine { position: absolute; left: 60px; right: 60px; bottom: 90px; text-align: center; color: rgba(6, 34, 58, 0.55); font-size: 24px; line-height: 1.5; }
+  #wave { position: absolute; left: 0; right: 0; bottom: 0; height: 520px; }
+</style>
+</head>
+<body>
+<div id="shots"></div>
+<div class="fx" id="grade"></div>
+<div class="fx" id="vignette"></div>
+
+<!-- S1 hook -->
+<div class="layer" id="lt" style="left:auto"><div class="bar" id="ltbar"></div><div class="n">מתן שטרית</div><div class="r">נֵאוֹ בַּת יָם</div></div>
+
+<!-- S2 location -->
+<div class="layer" id="loc1" style="top:330px"><span class="chip"><i></i>חנה סנש פינת בלפור</span></div>
+<div class="layer h3" id="loc2" style="top:460px">צפון־מערב בת ים</div>
+<div class="layer" id="loc3" style="top:330px"><span class="chip dark">צמוד לגבול <b style="color:#6cc4ff">תל אביב־יפו</b></span></div>
+<div class="layer" id="dist">
+  <svg viewBox="0 0 1080 760">
+    <defs>
+      <linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#ff5a5a"/><stop offset="1" stop-color="#1b91df"/></linearGradient>
+    </defs>
+    <path id="dline" d="M 820 380 L 260 380" stroke="url(#lg)" stroke-width="10" stroke-linecap="round" fill="none" pathLength="1" stroke-dasharray="0.02 0.03"/>
+    <path id="dsolid" d="M 820 380 L 260 380" stroke="url(#lg)" stroke-width="10" stroke-linecap="round" fill="none" pathLength="1"/>
+    <g id="pinA" transform="translate(820 380)">
+      <circle id="ringA" r="40" fill="none" stroke="#ff5a5a" stroke-width="6"/>
+      <circle r="62" fill="#fff"/>
+      <path d="M0 -30 C 17 -30 28 -18 28 -3 C 28 14 0 36 0 36 C 0 36 -28 14 -28 -3 C -28 -18 -17 -30 0 -30 Z" fill="#ff5a5a"/>
+      <circle cy="-4" r="10" fill="#fff"/>
+    </g>
+    <g id="pinB" transform="translate(260 380)">
+      <circle r="62" fill="#1b91df"/>
+      <g fill="#fff" transform="translate(-26 -32)">
+        <rect x="4" y="0" width="44" height="50" rx="12"/>
+        <rect x="11" y="9" width="30" height="16" rx="4" fill="#1b91df"/>
+        <circle cx="15" cy="37" r="5" fill="#1b91df"/><circle cx="37" cy="37" r="5" fill="#1b91df"/>
+        <path d="M10 52 L2 64 M42 52 L50 64" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+      </g>
+    </g>
+    <text id="dnum" x="540" y="300" text-anchor="middle" font-family="Heebo" font-weight="900" font-size="170" fill="#fff" style="direction:ltr">120</text>
+    <text id="dunit" x="540" y="350" text-anchor="middle" font-family="Heebo" font-weight="700" font-size="44" fill="#ffd166">מטר בלבד</text>
+    <text id="dA" x="820" y="510" text-anchor="middle" font-family="Heebo" font-weight="700" font-size="40" fill="#fff">נֵאוֹ בַּת יָם</text>
+    <text id="dB" x="260" y="510" text-anchor="middle" font-family="Heebo" font-weight="700" font-size="40" fill="#fff">תחנת רוטשילד</text>
+    <text id="dB2" x="260" y="560" text-anchor="middle" font-family="Heebo" font-weight="400" font-size="34" fill="#cfe9ff">הרכבת הקלה</text>
+  </svg>
+</div>
+
+<!-- S3 towers -->
+<div class="stat" id="st1" style="top:380px; right:0"><div class="num"><span id="n1">0</span></div><div class="numlbl">מגדלים</div></div>
+<div class="stat" id="st2" style="top:380px; left:0"><div class="num"><span id="n2">0</span></div><div class="numlbl">קומות</div></div>
+<div class="layer h2" id="sea" style="top:820px">נוף <span class="b">מרהיב</span> לים</div>
+
+<!-- S4 lobby -->
+<div class="layer h1" id="enter" style="top:330px">בואו נִכָּנֵס</div>
+<div class="layer h2" id="arch1" style="top:330px">תכנון אדריכלי <span class="c">מעוצב</span></div>
+<div class="layer h3" id="arch2" style="top:420px">ירידה לפרטים הקטנים ביותר</div>
+
+<!-- S5 floor -->
+<div class="layer" id="four" style="top:330px"><div class="num">4</div><div class="numlbl">דירות בלבד בכל קומה</div></div>
+
+<!-- S6 apartments -->
+<div class="layer" id="rooms" style="top:330px"><div class="rooms"><div class="room" id="r3">3</div><div class="room" id="r4">4</div><div class="room" id="r5">5</div></div><div class="numlbl" id="roomsl" style="margin-top:26px; opacity:0">חדרים</div></div>
+<div class="layer h2" id="ph1" style="top:330px">מיני פנטהאוזים</div>
+<div class="layer h1" id="ph2" style="top:430px"><span class="c">פנטהאוזים</span></div>
+<div class="layer h2" id="spec" style="top:330px">מפרט טכני<br><span class="b">גבוה ביותר</span></div>
+
+<!-- S7 balcony -->
+<div class="layer h2" id="v1" style="top:330px">פותחים את הוויטרינה</div>
+<div class="layer h1" id="v2" style="top:700px">וזה הנוף<br><span style="color:#ffd166">שלכם</span></div>
+
+<!-- S8 close -->
+<div class="layer" id="close" style="top:1190px"><img src="src/neo-logo-white.png" style="width:420px; filter: drop-shadow(0 6px 24px rgba(0,0,0,0.5))"></div>
+
+<div class="fx" id="leak"></div>
+<div class="fx" id="flash" style="opacity:0"></div>
+<div id="cap"></div>
+<div id="bug"><img src="src/neo-logo-white.png"></div>
+<div id="ai">נוצר בעזרת AI</div>
+
+<!-- end card -->
+<div id="end">
+  <svg id="wave" viewBox="0 0 1080 520" preserveAspectRatio="none"><path id="wpath" fill="#1b91df" opacity="0.12"/><path id="wpath2" fill="#1b91df" opacity="0.18"/></svg>
+  <div id="endlogo"><img src="src/neo-logo.png"></div>
+  <div id="endline">2 מגדלים · 25 קומות · נוף לים</div>
+  <div id="endaddr">חנה סנש פינת בלפור, בת ים</div>
+  <div id="endcta">השאירו פרטים עכשיו</div>
+  <div id="endfine">ההדמיות להמחשה בלבד · הסרטון נוצר בעזרת AI</div>
+</div>
+<canvas id="grain" width="540" height="960"></canvas>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const easeIO = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const back = (x) => { x = clamp(x); const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const span = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+// in/out envelope: rises over [a,a+d], falls over [b-d,b]
+const env = (t, a, b, d = 0.35) => Math.min(ease(span(t, a, a + d)), 1 - ease(span(t, b - d, b)));
+const rise = (t, a, d = 0.45) => (1 - ease(span(t, a, a + d)));
+const show = (id, t, a, b, dy = 50, blur = true) => {
+  const el = $(id), o = env(t, a, b), k = rise(t, a), out = ease(span(t, b - 0.35, b));
+  el.style.opacity = o.toFixed(3);
+  el.style.transform = `translateY(${(k * dy - out * 30).toFixed(1)}px) scale(${(1 + k * 0.06).toFixed(3)})`;
+  el.style.filter = blur ? `blur(${((k + out) * 14).toFixed(1)}px)` : '';
+};
+
+const M = window.MEDIA || {}; // frame-sequence manifest written by build.sh: { name: frameCount }
+const FPS = 30;
+
+/* ---------- shots ----------
+   kind img: a still, moved by a camera path (scale, x, y offsets in px, from -> to)
+   kind seq: a frame sequence extracted from a generated clip; `at` maps film time to clip time
+   Every shot falls back to its still with a camera move when its clip is not there yet. */
+const P = (t) => t; // presenter clip time is set per shot below
+const SHOTS = [
+  { id: 'p1', a: 0.0, b: 5.25, seq: 'presenter', at: (t) => t, still: 'src/presenter-916.jpg', cam: [[1.08, 0, 30], [1.0, 0, 0]] },
+  { id: 'drone', a: 5.2, b: 9.4, seq: 'drone', at: (t) => t - 5.2, still: 'src/k-aerial.jpg', cam: [[1.0, 0, 0], [1.18, 0, 60]] },
+  { id: 'tlv', a: 9.3, b: 16.0, still: 'src/aerial-tlv.jpg', fit: 'h', cam: [[1.05, 380, 0], [1.22, 120, -20]] },
+  { id: 'p2', a: 15.9, b: 18.0, seq: 'presenter', at: (t) => t - 11.15, still: 'src/presenter-916.jpg', cam: [[1.16, 0, 60], [1.2, 0, 70]] },
+  { id: 'towers', a: 17.9, b: 22.5, still: 'src/aerial-sea.jpg', fit: 'h', cam: [[1.0, -60, 0], [1.16, -120, 80]] },
+  { id: 'lobby', a: 22.4, b: 28.8, seq: 'lobby', at: (t) => t - 22.4, still: 'src/k-lobby.jpg', cam: [[1.0, 0, 0], [1.2, 30, 0]] },
+  { id: 'elev', a: 28.7, b: 30.2, still: 'src/elevators.jpg', fit: 'h', cam: [[1.08, 120, 0], [1.22, 160, 0]] },
+  { id: 'corr', a: 30.1, b: 31.5, still: 'src/corridor.jpg', fit: 'h', cam: [[1.05, 40, 0], [1.22, 40, -20]] },
+  { id: 'apt2', a: 31.4, b: 34.1, still: 'src/apt-living2.jpg', fit: 'h', cam: [[1.05, 520, 0], [1.1, 180, 0]] },
+  { id: 'apt3', a: 34.0, b: 36.9, still: 'src/apt-living3.jpg', fit: 'h', cam: [[1.05, -200, 0], [1.1, 220, 0]] },
+  { id: 'hq', a: 36.8, b: 39.5, still: 'src/apt-living-hq.jpg', fit: 'h', cam: [[1.0, -560, 0], [1.06, 380, 0]] },
+  { id: 'balc', a: 39.4, b: 46.3, seq: 'balcony', at: (t) => t - 39.4, still: 'src/k-balcony.jpg', cam: [[1.0, 0, 0], [1.35, 40, 0]] },
+  { id: 'p3', a: 46.2, b: 50.0, seq: 'presenter', at: (t) => t - 35.2, still: 'src/presenter-916.jpg', cam: [[1.0, 0, 0], [1.06, 0, 20]] },
+];
+// transitions at the seams: kind of move for the incoming shot
+const XF = { drone: 'zoom', tlv: 'whip', p2: 'zoom', towers: 'whip', lobby: 'zoom', elev: 'whip', corr: 'whip', apt2: 'zoom', apt3: 'whip', hq: 'whip', balc: 'zoom', p3: 'zoom' };
+
+const host = $('shots');
+for (const s of SHOTS) {
+  const d = document.createElement('div'); d.className = 'shot'; d.id = 's_' + s.id;
+  const img = document.createElement('img'); d.appendChild(img); host.appendChild(d);
+  s.el = d; s.img = img; s.hasSeq = !!(s.seq && M[s.seq]);
+  img.src = s.still;
+}
+const natural = {};
+function place(s, k, extra) {
+  const img = s.img, W = img.naturalWidth || 1080, H = img.naturalHeight || 1920;
+  // cover 1080x1920
+  const base = Math.max(1080 / W, 1920 / H);
+  const [s0, x0, y0] = s.cam[0], [s1, x1, y1] = s.cam[1], e = easeIO(k) * 0.35 + k * 0.65;
+  const sc = base * lerp(s0, s1, e) * (extra.scale || 1);
+  img.style.width = W + 'px'; img.style.height = H + 'px';
+  img.style.transform = `translate(-50%, -50%) translate(${(lerp(x0, x1, e) + (extra.x || 0)).toFixed(1)}px, ${lerp(y0, y1, e).toFixed(1)}px) scale(${sc.toFixed(4)})`;
+}
+
+// grain, seeded
+let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const g = $('grain').getContext('2d'), gi = g.createImageData(540, 960);
+function grain(f) { seed = 11 + (f % 24) * 977; for (let i = 0; i < gi.data.length; i += 4) { const v = rnd() * 255; gi.data[i] = gi.data[i + 1] = gi.data[i + 2] = v; gi.data[i + 3] = 255; } g.putImageData(gi, 0, 0); }
+
+// captions: word timings from the voiceover transcript, grouped into short lines
+const WORDS = window.WORDS || [];
+const LINES = [];
+{
+  let cur = [];
+  for (const w of WORDS) {
+    cur.push(w);
+    const end = /[.,]$/.test(w.text) || cur.length >= 4;
+    if (end) { LINES.push(cur); cur = []; }
+  }
+  if (cur.length) LINES.push(cur);
+}
+const cap = $('cap');
+function captions(t) {
+  const line = LINES.find((l, i) => t >= l[0].start - 0.08 && t < (LINES[i + 1] ? Math.min(LINES[i + 1][0].start - 0.08, l[l.length - 1].end + 0.6) : l[l.length - 1].end + 0.6));
+  if (!line || t > 49.8) { cap.innerHTML = ''; return; }
+  cap.innerHTML = line.map((w) => `<span class="${t >= w.start - 0.03 ? 'on' : ''}">${w.text.replace(/[.,]$/, '')}</span>`).join('');
+  const st = line[0].start, k = ease(span(t, st - 0.08, st + 0.16));
+  cap.style.opacity = k.toFixed(3); cap.style.transform = `translateY(${((1 - k) * 18).toFixed(1)}px)`;
+}
+
+const leak = $('leak');
+window.TOTAL = 55.5;
+window.render = (t) => {
+  const f = Math.round(t * FPS);
+  // --- shots and seams ---
+  for (const s of SHOTS) {
+    const on = t >= s.a && t < s.b;
+    if (!on) { s.el.style.opacity = 0; continue; }
+    const k = span(t, s.a, s.b);
+    const xin = XF[s.id], tin = span(t, s.a, s.a + 0.45);
+    let extra = {}, op = 1, blur = 0;
+    if (xin && tin < 1) {
+      op = ease(tin);
+      if (xin === 'zoom') { extra.scale = 1 + (1 - ease(tin)) * 0.25; blur = (1 - ease(tin)) * 18; }
+      if (xin === 'whip') { extra.x = (1 - easeIO(tin)) * -520; blur = (1 - ease(tin)) * 26; }
+    }
+    // outgoing shot pushes forward under the next one
+    const next = SHOTS[SHOTS.indexOf(s) + 1];
+    if (next && t > next.a) { const to = span(t, next.a, s.b); extra.scale = (extra.scale || 1) * (1 + ease(to) * 0.18); blur = Math.max(blur, ease(to) * 14); }
+    if (s.hasSeq) {
+      const n = M[s.seq], idx = clamp(Math.floor(s.at(t) * FPS), 0, n - 1);
+      const src = `frames/${s.seq}/${String(idx + 1).padStart(4, '0')}.jpg`;
+      if (s.img.getAttribute('src') !== src) s.img.src = src;
+      s.cam = s.camSeq || [[1, 0, 0], [1.04, 0, 0]];
+    }
+    place(s, k, extra);
+    s.el.style.opacity = op.toFixed(3);
+    s.el.style.filter = blur > 0.2 ? `blur(${blur.toFixed(1)}px)` : '';
+    s.el.style.zIndex = SHOTS.indexOf(s);
+  }
+  // light leak + flash at seams
+  let lk = 0, fl = 0;
+  for (const s of SHOTS.slice(1)) { const d = t - s.a; if (d > -0.25 && d < 0.6) lk = Math.max(lk, Math.sin(clamp((d + 0.25) / 0.85) * Math.PI)); if (d > -0.05 && d < 0.25) fl = Math.max(fl, 1 - d / 0.25); }
+  leak.style.background = `radial-gradient(60% 45% at ${(30 + 40 * Math.sin(t * 0.7)).toFixed(1)}% ${(35 + 20 * Math.cos(t * 0.5)).toFixed(1)}%, rgba(255,90,90,${(0.55 * lk).toFixed(3)}), transparent 70%), radial-gradient(55% 40% at 80% 70%, rgba(27,145,223,${(0.5 * lk).toFixed(3)}), transparent 70%)`;
+  $('flash').style.opacity = (0.35 * fl).toFixed(3);
+
+  // --- S1 hook (0-5.2) ---
+  const lto = env(t, 1.4, 5.0);
+  $('lt').style.opacity = lto.toFixed(3);
+  $('lt').style.transform = `translateX(${(rise(t, 1.4, 0.6) * 60).toFixed(1)}px)`;
+  $('ltbar').style.transform = `scaleX(${ease(span(t, 1.4, 2.1)).toFixed(3)})`;
+
+  // --- S2 location (5.2-16) ---
+  show('loc1', t, 5.8, 9.3, 60);
+  show('loc2', t, 7.6, 9.3, 40);
+  show('loc3', t, 9.4, 11.55, 60);
+  const dOn = env(t, 11.55, 15.95, 0.4);
+  const dist = $('dist'); dist.style.opacity = dOn.toFixed(3); dist.style.transform = `translateY(${(rise(t, 11.55, 0.5) * 60).toFixed(1)}px)`;
+  const draw = easeIO(span(t, 12.0, 13.4));
+  $('dsolid').style.strokeDasharray = `${draw} 1`;
+  $('dline').style.opacity = (1 - draw).toFixed(3);
+  $('dnum').textContent = Math.round(120 * ease(span(t, 12.0, 13.4)));
+  $('dnum').style.opacity = ease(span(t, 11.9, 12.2)).toFixed(3); $('dunit').style.opacity = ease(span(t, 12.8, 13.2)).toFixed(3);
+  const bpop = back(span(t, 13.4, 13.9));
+  $('pinB').setAttribute('transform', `translate(260 380) scale(${bpop.toFixed(3)})`);
+  $('pinA').setAttribute('transform', `translate(820 380) scale(${back(span(t, 11.6, 12.1)).toFixed(3)})`);
+  const rp = (t * 0.9) % 1; $('ringA').setAttribute('r', (62 + rp * 50).toFixed(1)); $('ringA').style.opacity = (1 - rp).toFixed(3);
+  $('dB').style.opacity = $('dB2').style.opacity = ease(span(t, 13.5, 13.9)).toFixed(3);
+  $('dA').style.opacity = ease(span(t, 11.8, 12.2)).toFixed(3);
+
+  // --- S3 towers (17.9-22.4) ---
+  for (const [id, a, n, nid] of [['st1', 17.8, 2, 'n1'], ['st2', 18.8, 25, 'n2']]) {
+    const o = env(t, a, 22.3, 0.35); $(id).style.opacity = o.toFixed(3);
+    $(id).style.transform = `translateY(${(rise(t, a, 0.5) * 80).toFixed(1)}px) scale(${(0.9 + 0.1 * back(span(t, a, a + 0.5))).toFixed(3)})`;
+    $(nid).textContent = Math.round(n * ease(span(t, a, a + 0.9)));
+  }
+  show('sea', t, 20.7, 22.3, 50);
+
+  // --- S4 lobby (22.4-28.7) ---
+  show('enter', t, 22.6, 23.7, 70);
+  show('arch1', t, 23.75, 28.6, 50);
+  show('arch2', t, 25.9, 28.6, 40);
+
+  // --- S5 floor (28.7-31.4) ---
+  show('four', t, 28.85, 31.3, 80);
+
+  // --- S6 apartments (31.4-39.4) ---
+  $('rooms').style.opacity = env(t, 31.3, 34.0).toFixed(3); $('rooms').style.transform = 'none';
+  for (const [id, a] of [['r3', 31.42], ['r4', 32.08], ['r5', 32.4]]) { const k = back(span(t, a, a + 0.45)); $(id).style.opacity = ease(span(t, a, a + 0.2)).toFixed(3); $(id).style.transform = `scale(${k.toFixed(3)}) rotate(${((1 - ease(span(t, a, a + 0.45))) * -12).toFixed(1)}deg)`; }
+  $('roomsl').style.opacity = ease(span(t, 33.38, 33.7)).toFixed(3);
+  show('ph1', t, 34.1, 36.75, 50);
+  show('ph2', t, 35.1, 36.75, 70);
+  show('spec', t, 36.85, 39.3, 60);
+
+  // --- S7 balcony (39.4-46.2) ---
+  show('v1', t, 40.8, 43.6, 50);
+  const v2 = $('v2'), vo = env(t, 44.15, 46.15, 0.5); v2.style.opacity = vo.toFixed(3);
+  v2.style.letterSpacing = `${(rise(t, 44.15, 1.2) * 0.25).toFixed(3)}em`;
+  v2.style.filter = `blur(${(rise(t, 44.15, 0.8) * 20).toFixed(1)}px)`;
+
+  // --- S8 close (46.2-49.7) ---
+  show('close', t, 46.45, 49.75, 40);
+
+  // brand bug and AI label hide on the end card
+  const endk = ease(span(t, 49.6, 50.3));
+  $('bug').style.opacity = (env(t, 0.6, 49.8, 0.5) * (1 - env(t, 46.3, 49.8))).toFixed(3);
+  $('ai').style.opacity = (1 - endk).toFixed(3);
+
+  // --- end card ---
+  const end = $('end'); end.style.opacity = endk.toFixed(3);
+  const lg = $('endlogo'); lg.style.opacity = ease(span(t, 50.0, 50.8)).toFixed(3);
+  lg.style.transform = `scale(${(0.86 + 0.14 * back(span(t, 50.0, 50.9))).toFixed(3)})`;
+  lg.style.filter = `blur(${(rise(t, 50.0, 0.7) * 16).toFixed(1)}px)`;
+  for (const [id, a] of [['endline', 50.9], ['endaddr', 51.2], ['endcta', 51.6], ['endfine', 52.0]]) {
+    const el = $(id); el.style.opacity = ease(span(t, a, a + 0.5)).toFixed(3);
+    el.style.transform = (id === 'endcta' ? 'translateX(-50%) ' : '') + `translateY(${(rise(t, a, 0.5) * 40).toFixed(1)}px)` + (id === 'endcta' ? ` scale(${(1 + 0.03 * Math.sin(Math.max(0, t - 52.2) * 5)).toFixed(3)})` : '');
+  }
+  const wv = (ph, amp, base) => { let d = `M0 ${base}`; for (let x = 0; x <= 1080; x += 30) d += ` L${x} ${(base + Math.sin(x / 140 + t * 1.4 + ph) * amp).toFixed(1)}`; return d + ' L1080 520 L0 520 Z'; };
+  $('wpath').setAttribute('d', wv(0, 22, 300)); $('wpath2').setAttribute('d', wv(2, 18, 380));
+
+  captions(t);
+  grain(f);
+};
+</script>
+</body>
+</html>

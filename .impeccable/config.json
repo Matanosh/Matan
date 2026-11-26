@@ -5,5 +5,20 @@
       "maxFindings": 5,
       "maxChars": 8000
     }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "marketing/neo-bat-yam/film.html"
+        ],
+        "createdAt": "2026-11-26T19:53:04.208Z",
+        "reason": "Claude: remaining shadows are neutral black legibility shadows under captions/titles over video footage (video frame compositor, not a UI)"
+      }
+    ]
   }
 }
