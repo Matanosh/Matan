@@ -224,7 +224,6 @@ const TEXTS = [
   ['בסיס מושלם <span class="c">לבית שלכם</span>', 'h3', 420, 117.9, 122.3],
   ['פותחים את הוויטרינה', 'h2', 330, 125.3, 128.5],
   ['כל בוקר.', 'h2', 1230, 130.4, 133.9],
-  ['מיקום · תכנון · נוף לים', 'h3', 1290, 135.2, 137.9],
 ];
 const host = $('texts');
 const TEL = TEXTS.map(([html, cls, top]) => { const d = document.createElement('div'); d.className = 'layer ' + cls; d.style.top = top + 'px'; d.innerHTML = html; host.appendChild(d); return d; });
