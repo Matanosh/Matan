@@ -255,7 +255,7 @@ const TEXTS = [
 ];
 const host = $('texts');
 // landscape: lines placed low in the portrait frame move further down, clear of the centre graphics
-const TEL = TEXTS.map(([html, cls, top]) => { const d = document.createElement('div'); d.className = 'layer ' + cls; d.style.top = (LAND && top >= 1200 ? top + 220 : top) + 'px'; d.innerHTML = html; host.appendChild(d); return d; });
+const TEL = TEXTS.map(([html, cls, top]) => { const d = document.createElement('div'); d.className = 'layer ' + cls; d.style.top = (LAND ? (top >= 1200 ? top + 220 : 330 + (top - 330) * 1.45) : top) + 'px'; d.innerHTML = html; host.appendChild(d); return d; });
 
 const shotsEl = $('shots');
 for (const s of SHOTS) {
