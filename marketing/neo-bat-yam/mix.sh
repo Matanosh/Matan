@@ -3,11 +3,11 @@
 # Usage: ./mix.sh src/music.mp3
 set -euo pipefail
 cd "$(dirname "$0")/src"
-MUSIC=$(basename "${1:-music.mp3}")
-TOTAL=55.5
+MUSIC=$(basename "${1:-music-long.wav}")
+TOTAL=153
 # cut times (seconds), the same seams as SHOTS in film.html
-CUTS=(5.2 9.3 15.9 17.9 22.4 28.7 30.1 31.4 34.0 36.8 39.4 46.2 49.7)
-inputs=(-i vo-a.wav -i "$MUSIC")
+CUTS=(6.0 17.3 22.9 29.3 36.8 42.9 50.5 57.3 60.1 63.9 68.0 71.9 78.9 85.2 88.5 94.3 98.1 103.0 109.7 113.9 117.4 122.5 130.4 134.0 144.4)
+inputs=(-i vo-long.wav -i "$MUSIC")
 filters=""
 labels=""
 i=2

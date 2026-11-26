@@ -1,0 +1,69 @@
+{
+ "total": 153.0,
+ "presenter_clip_length": 24.8,
+ "segments": [
+  {
+   "id": "v1",
+   "start": 6.0,
+   "end": 16.87,
+   "camera": true,
+   "clip_start": 0.0
+  },
+  {
+   "id": "v2",
+   "start": 18.1,
+   "end": 35.66,
+   "camera": false
+  },
+  {
+   "id": "v3",
+   "start": 37.2,
+   "end": 49.44,
+   "camera": false
+  },
+  {
+   "id": "v4",
+   "start": 51.2,
+   "end": 66.34,
+   "camera": false
+  },
+  {
+   "id": "v5",
+   "start": 68.0,
+   "end": 84.34,
+   "camera": false
+  },
+  {
+   "id": "v6",
+   "start": 85.4,
+   "end": 87.96,
+   "camera": true,
+   "clip_start": 11.37
+  },
+  {
+   "id": "v7",
+   "start": 88.8,
+   "end": 101.63,
+   "camera": false
+  },
+  {
+   "id": "v8",
+   "start": 103.2,
+   "end": 121.32,
+   "camera": false
+  },
+  {
+   "id": "v9",
+   "start": 122.5,
+   "end": 131.39,
+   "camera": false
+  },
+  {
+   "id": "v10",
+   "start": 134.0,
+   "end": 143.87,
+   "camera": true,
+   "clip_start": 14.43
+  }
+ ]
+}

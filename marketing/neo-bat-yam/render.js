@@ -11,7 +11,7 @@ const path = require('path'); const fs = require('fs'); const { execFileSync } =
   const media = {};
   const fdir = path.join(__dirname, 'frames');
   if (fs.existsSync(fdir)) for (const d of fs.readdirSync(fdir)) media[d] = fs.readdirSync(path.join(fdir, d)).filter((f) => f.endsWith('.jpg')).length;
-  const words = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/words-a.json'), 'utf8')).words.filter((w) => w.type === 'word');
+  const words = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/words-long.json'), 'utf8')).words.filter((w) => !w.type || w.type === 'word');
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   await p.addInitScript(([m, w]) => { window.MEDIA = m; window.WORDS = w; }, [media, words]);
   await p.goto('file://' + path.join(__dirname, 'film.html'), { waitUntil: 'networkidle' });
@@ -29,7 +29,7 @@ const path = require('path'); const fs = require('fs'); const { execFileSync } =
   await b.close();
   if (!only && shards === 1) {
     const mix = path.join(__dirname, 'src/mix.wav');
-    const audio = fs.existsSync(mix) ? mix : path.join(__dirname, 'src/vo-a.wav');
+    const audio = fs.existsSync(mix) ? mix : path.join(__dirname, 'src/vo-long.wav');
     execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-framerate', String(fps), '-i', path.join(out, 'f%05d.jpg'), '-i', audio,
       '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'slow', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', path.join(out, 'film.mp4')]);
   }

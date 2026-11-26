@@ -62,7 +62,7 @@
   #endline { position: absolute; left: 0; right: 0; top: 1080px; text-align: center; color: var(--deep); font-size: 58px; font-weight: 800; }
   #endaddr { position: absolute; left: 0; right: 0; top: 1170px; text-align: center; color: var(--blue2); font-size: 40px; font-weight: 500; }
   #endcta { position: absolute; left: 50%; top: 1290px; transform: translateX(-50%); padding: 30px 74px; border-radius: 90px; background: var(--coral); color: #fff; font-size: 48px; font-weight: 800; white-space: nowrap; box-shadow: 0 24px 50px -24px rgba(6, 34, 58, 0.55); }
-  #endfine { position: absolute; left: 60px; right: 60px; bottom: 90px; text-align: center; color: rgba(6, 34, 58, 0.55); font-size: 24px; line-height: 1.5; }
+  #endfine { position: absolute; left: 60px; right: 60px; bottom: 90px; text-align: center; color: rgba(6, 34, 58, 0.75); font-size: 26px; line-height: 1.5; }
   #wave { position: absolute; left: 0; right: 0; bottom: 0; height: 520px; }
 </style>
 </head>
@@ -71,13 +71,13 @@
 <div class="fx" id="grade"></div>
 <div class="fx" id="vignette"></div>
 
-<!-- S1 hook -->
-<div class="layer" id="lt" style="left:auto"><div class="bar" id="ltbar"></div><div class="n">מתן שטרית</div><div class="r">נֵאוֹ בַּת יָם</div></div>
+<!-- intro -->
+<div class="layer" id="intro" style="top:620px"><img src="src/neo-logo-white.png" style="width:760px; filter: drop-shadow(0 10px 40px rgba(0,0,0,0.45))"></div>
+<div class="layer h3" id="introsub" style="top:1150px">שני מגדלים · עשרים וחמש קומות · מול הים</div>
 
-<!-- S2 location -->
-<div class="layer" id="loc1" style="top:330px"><span class="chip"><i></i>חנה סנש פינת בלפור</span></div>
-<div class="layer h3" id="loc2" style="top:460px">צפון־מערב בת ים</div>
-<div class="layer" id="loc3" style="top:330px"><span class="chip dark">צמוד לגבול <b style="color:#6cc4ff">תל אביב־יפו</b></span></div>
+<div class="layer" id="lt" style="left:auto"><div class="bar" id="ltbar"></div><div class="n">מתן שטרית</div><div class="r">נֵאוֹ בַּת יָם</div></div>
+<div id="texts"></div>
+
 <div class="layer" id="dist">
   <svg viewBox="0 0 1080 760">
     <defs>
@@ -108,30 +108,11 @@
   </svg>
 </div>
 
-<!-- S3 towers -->
 <div class="stat" id="st1" style="top:380px; right:0"><div class="num"><span id="n1">0</span></div><div class="numlbl">מגדלים</div></div>
 <div class="stat" id="st2" style="top:380px; left:0"><div class="num"><span id="n2">0</span></div><div class="numlbl">קומות</div></div>
-<div class="layer h2" id="sea" style="top:820px">נוף <span class="b">מרהיב</span> לים</div>
-
-<!-- S4 lobby -->
-<div class="layer h1" id="enter" style="top:330px">בואו נִכָּנֵס</div>
-<div class="layer h2" id="arch1" style="top:330px">תכנון אדריכלי <span class="c">מעוצב</span></div>
-<div class="layer h3" id="arch2" style="top:420px">ירידה לפרטים הקטנים ביותר</div>
-
-<!-- S5 floor -->
 <div class="layer" id="four" style="top:330px"><div class="num">4</div><div class="numlbl">דירות בלבד בכל קומה</div></div>
-
-<!-- S6 apartments -->
 <div class="layer" id="rooms" style="top:330px"><div class="rooms"><div class="room" id="r3">3</div><div class="room" id="r4">4</div><div class="room" id="r5">5</div></div><div class="numlbl" id="roomsl" style="margin-top:26px; opacity:0">חדרים</div></div>
-<div class="layer h2" id="ph1" style="top:330px">מיני פנטהאוזים</div>
-<div class="layer h1" id="ph2" style="top:430px"><span class="c">פנטהאוזים</span></div>
-<div class="layer h2" id="spec" style="top:330px">מפרט טכני<br><span class="b">גבוה ביותר</span></div>
-
-<!-- S7 balcony -->
-<div class="layer h2" id="v1" style="top:330px">פותחים את הוויטרינה</div>
 <div class="layer h1" id="v2" style="top:700px">וזה הנוף<br><span style="color:#ffd166">שלכם</span></div>
-
-<!-- S8 close -->
 <div class="layer" id="close" style="top:1190px"><img src="src/neo-logo-white.png" style="width:420px; filter: drop-shadow(0 6px 24px rgba(0,0,0,0.5))"></div>
 
 <div class="fx" id="leak"></div>
@@ -140,7 +121,6 @@
 <div id="bug"><img src="src/neo-logo-white.png"></div>
 <div id="ai">נוצר בעזרת AI</div>
 
-<!-- end card -->
 <div id="end">
   <svg id="wave" viewBox="0 0 1080 520" preserveAspectRatio="none"><path id="wpath" fill="#1b91df" opacity="0.12"/><path id="wpath2" fill="#1b91df" opacity="0.18"/></svg>
   <div id="endlogo"><img src="src/neo-logo.png"></div>
@@ -159,196 +139,224 @@ const easeIO = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.
 const back = (x) => { x = clamp(x); const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
 const span = (t, a, b) => clamp((t - a) / (b - a));
 const lerp = (a, b, k) => a + (b - a) * k;
-// in/out envelope: rises over [a,a+d], falls over [b-d,b]
 const env = (t, a, b, d = 0.35) => Math.min(ease(span(t, a, a + d)), 1 - ease(span(t, b - d, b)));
 const rise = (t, a, d = 0.45) => (1 - ease(span(t, a, a + d)));
-const show = (id, t, a, b, dy = 50, blur = true) => {
-  const el = $(id), o = env(t, a, b), k = rise(t, a), out = ease(span(t, b - 0.35, b));
+const show = (el, t, a, b, dy = 50, blur = true) => {
+  if (typeof el === 'string') el = $(el);
+  const o = env(t, a, b), k = rise(t, a), out = ease(span(t, b - 0.35, b));
   el.style.opacity = o.toFixed(3);
   el.style.transform = `translateY(${(k * dy - out * 30).toFixed(1)}px) scale(${(1 + k * 0.06).toFixed(3)})`;
-  el.style.filter = blur ? `blur(${((k + out) * 14).toFixed(1)}px)` : '';
+  el.style.filter = blur && o < 0.999 ? `blur(${((k + out) * 14).toFixed(1)}px)` : '';
 };
 
-const M = window.MEDIA || {}; // frame-sequence manifest written by build.sh: { name: frameCount }
+const M = window.MEDIA || {}; // frame counts of the generated clips, written by render.js
 const FPS = 30;
 
-/* ---------- shots ----------
-   kind img: a still, moved by a camera path (scale, x, y offsets in px, from -> to)
-   kind seq: a frame sequence extracted from a generated clip; `at` maps film time to clip time
-   Every shot falls back to its still with a camera move when its clip is not there yet. */
-const P = (t) => t; // presenter clip time is set per shot below
+/* ---------- shots (film clock, seconds) ----------
+   img: a still moved by a camera path [scale, x, y] from -> to (x, y in px on the 1080x1920 frame)
+   seq: frames of a generated clip; `at` maps film time to clip time. Without the clip, the still is used. */
+const PRES = 'src/presenter-916.jpg';
 const SHOTS = [
-  { id: 'p1', a: 0.0, b: 5.25, seq: 'presenter', at: (t) => t, still: 'src/presenter-916.jpg', cam: [[1.08, 0, 30], [1.0, 0, 0]] },
-  { id: 'drone', a: 5.2, b: 9.4, seq: 'drone', at: (t) => t - 5.2, still: 'src/k-aerial.jpg', cam: [[1.0, 0, 0], [1.18, 0, 60]] },
-  { id: 'tlv', a: 9.3, b: 16.0, still: 'src/aerial-tlv.jpg', fit: 'h', cam: [[1.05, 380, 0], [1.22, 120, -20]] },
-  { id: 'p2', a: 15.9, b: 18.0, seq: 'presenter', at: (t) => t - 11.15, still: 'src/presenter-916.jpg', cam: [[1.16, 0, 60], [1.2, 0, 70]] },
-  { id: 'towers', a: 17.9, b: 22.5, still: 'src/aerial-sea.jpg', fit: 'h', cam: [[1.0, -60, 0], [1.16, -120, 80]] },
-  { id: 'lobby', a: 22.4, b: 28.8, seq: 'lobby', at: (t) => t - 22.4, still: 'src/k-lobby.jpg', cam: [[1.0, 0, 0], [1.2, 30, 0]] },
-  { id: 'elev', a: 28.7, b: 30.2, still: 'src/elevators.jpg', fit: 'h', cam: [[1.08, 120, 0], [1.22, 160, 0]] },
-  { id: 'corr', a: 30.1, b: 31.5, still: 'src/corridor.jpg', fit: 'h', cam: [[1.05, 40, 0], [1.22, 40, -20]] },
-  { id: 'apt2', a: 31.4, b: 34.1, still: 'src/apt-living2.jpg', fit: 'h', cam: [[1.05, 520, 0], [1.1, 180, 0]] },
-  { id: 'apt3', a: 34.0, b: 36.9, still: 'src/apt-living3.jpg', fit: 'h', cam: [[1.05, -200, 0], [1.1, 220, 0]] },
-  { id: 'hq', a: 36.8, b: 39.5, still: 'src/apt-living-hq.jpg', fit: 'h', cam: [[1.0, -560, 0], [1.06, 380, 0]] },
-  { id: 'balc', a: 39.4, b: 46.3, seq: 'balcony', at: (t) => t - 39.4, still: 'src/k-balcony.jpg', cam: [[1.0, 0, 0], [1.35, 40, 0]] },
-  { id: 'p3', a: 46.2, b: 50.0, seq: 'presenter', at: (t) => t - 35.2, still: 'src/presenter-916.jpg', cam: [[1.0, 0, 0], [1.06, 0, 20]] },
+  { id: 'intro', a: 0.0, b: 6.15, still: 'src/aerial-sea.jpg', cam: [[1.25, -40, -80], [1.05, -40, 40]] },
+  { id: 'p1a', a: 6.0, b: 12.15, seq: 'presenter', at: (t) => t - 6.0, still: PRES, cam: [[1.0, 0, 0], [1.03, 0, 10]] },
+  { id: 'p1b', a: 12.1, b: 17.4, seq: 'presenter', at: (t) => t - 6.0, still: PRES, cam: [[1.16, 0, 90], [1.19, 0, 95]] },
+  { id: 'drone', a: 17.3, b: 23.0, seq: 'drone', at: (t) => t - 17.3, still: 'src/k-aerial.jpg', cam: [[1.0, 0, 0], [1.18, 0, 60]] },
+  { id: 'tlv', a: 22.9, b: 29.35, still: 'src/aerial-tlv.jpg', cam: [[1.05, 380, 0], [1.2, 160, -20]] },
+  { id: 'tlv2', a: 29.3, b: 36.9, still: 'src/aerial-tlv.jpg', cam: [[1.6, -120, 120], [1.75, -180, 150]] },
+  { id: 'towers', a: 36.8, b: 43.0, still: 'src/aerial-sea.jpg', cam: [[1.0, -60, 0], [1.14, -120, 70]] },
+  { id: 'tdetail', a: 42.9, b: 50.6, still: 'src/k-aerial.jpg', cam: [[2.0, 120, 120], [2.2, 120, 420]] },
+  { id: 'lobby', a: 50.5, b: 57.4, seq: 'lobby', at: (t) => t - 50.5, still: 'src/k-lobby.jpg', cam: [[1.0, 0, 0], [1.2, 30, 0]] },
+  { id: 'ldetail', a: 57.3, b: 60.15, still: 'src/lobby.jpg', cam: [[2.1, -170, 260], [2.3, -230, 260]] },
+  { id: 'lwide', a: 60.1, b: 63.95, still: 'src/lobby.jpg', cam: [[1.05, 420, 0], [1.1, -300, 0]] },
+  { id: 'wall', a: 63.9, b: 68.1, still: 'src/elevators.jpg', cam: [[1.25, 520, 40], [1.35, 380, 40]] },
+  { id: 'elev', a: 68.0, b: 72.0, still: 'src/elevators.jpg', cam: [[1.1, -320, 0], [1.28, -380, 0]] },
+  { id: 'corr', a: 71.9, b: 79.0, still: 'src/corridor.jpg', cam: [[1.0, 0, 0], [1.3, -20, -40]] },
+  { id: 'cdetail', a: 78.9, b: 85.3, still: 'src/corridor.jpg', cam: [[1.9, 420, 200], [2.05, 300, 200]] },
+  { id: 'p2', a: 85.2, b: 88.6, seq: 'presenter', at: (t) => t - 85.4 + 11.37, still: PRES, cam: [[1.1, 0, 50], [1.14, 0, 60]] },
+  { id: 'apt2', a: 88.5, b: 94.4, still: 'src/apt-living2.jpg', cam: [[1.05, 520, 0], [1.1, 120, 0]] },
+  { id: 'apt3', a: 94.3, b: 98.2, still: 'src/apt-living3.jpg', cam: [[1.05, -200, 0], [1.1, 220, 0]] },
+  { id: 'hqlamp', a: 98.1, b: 103.1, still: 'src/apt-living-hq.jpg', cam: [[2.4, -480, 560], [2.55, -480, 620]] },
+  { id: 'hq', a: 103.0, b: 109.8, still: 'src/apt-living-hq.jpg', cam: [[1.0, -560, 0], [1.06, 380, 0]] },
+  { id: 'hqpan', a: 109.7, b: 114.0, still: 'src/apt-living-hq.jpg', cam: [[1.6, 1500, 150], [1.6, -420, 150]] },
+  { id: 'kitchen', a: 113.9, b: 117.5, still: 'src/apt-living2.jpg', cam: [[1.35, 1050, 60], [1.42, 880, 60]] },
+  { id: 'dining', a: 117.4, b: 122.6, still: 'src/apt-living3.jpg', cam: [[1.3, 1050, 80], [1.4, 860, 80]] },
+  { id: 'balc', a: 122.5, b: 130.5, seq: 'balcony', at: (t) => t - 122.5, still: 'src/k-balcony.jpg', cam: [[1.0, 0, 0], [1.35, 40, 0]] },
+  { id: 'sea', a: 130.4, b: 134.1, still: 'src/apt-living-hq.jpg', cam: [[2.6, 2050, -230], [2.9, 2050, -300]] },
+  { id: 'p3a', a: 134.0, b: 138.05, seq: 'presenter', at: (t) => t - 134.0 + 14.43, still: PRES, cam: [[1.0, 0, 0], [1.03, 0, 10]] },
+  { id: 'p3b', a: 138.0, b: 144.6, seq: 'presenter', at: (t) => t - 134.0 + 14.43, still: PRES, cam: [[1.15, 0, 90], [1.2, 0, 100]] },
 ];
-// transitions at the seams: kind of move for the incoming shot
-const XF = { drone: 'zoom', tlv: 'whip', p2: 'zoom', towers: 'whip', lobby: 'zoom', elev: 'whip', corr: 'whip', apt2: 'zoom', apt3: 'whip', hq: 'whip', balc: 'zoom', p3: 'zoom' };
+// transition for the incoming shot; a cut within the same camera setup has none
+const XF = { p1a: 'zoom', drone: 'zoom', tlv: 'whip', tlv2: 'zoom', towers: 'whip', tdetail: 'zoom', lobby: 'zoom', ldetail: 'zoom', lwide: 'whip', wall: 'whip', elev: 'whip',
+  corr: 'zoom', cdetail: 'zoom', p2: 'zoom', apt2: 'zoom', apt3: 'whip', hqlamp: 'zoom', hq: 'zoom', hqpan: 'whip', kitchen: 'whip', dining: 'whip', balc: 'zoom', sea: 'zoom', p3a: 'zoom' };
+const CUTS = SHOTS.slice(1).filter((s) => XF[s.id]).map((s) => s.a);
+window.CUTS = CUTS;
 
-const host = $('shots');
+/* ---------- words on screen: [html, class, top, start, end] ---------- */
+const TEXTS = [
+  ['<span class="chip"><i></i>חנה סנש פינת בלפור</span>', '', 330, 19.5, 23.0],
+  ['צפון־מערב בת ים', 'h3', 460, 21.2, 23.0],
+  ['<span class="chip dark">צמוד לגבול <b style="color:#6cc4ff">תל אביב־יפו</b></span>', '', 330, 23.0, 25.4],
+  ['ממש <span class="c">מעבר לפינה</span>', 'h2', 1270, 33.4, 36.7],
+  ['קווים רכים · מרפסות מעוגלות', 'h3', 330, 43.1, 47.9],
+  ['נוף <span class="b">מרהיב</span> לים', 'h2', 330, 47.9, 50.4],
+  ['בואו נִכָּנֵס', 'h1', 330, 51.4, 53.4],
+  ['מרגישים את <span class="c">ההבדל</span>', 'h2', 330, 53.5, 55.3],
+  ['תכנון אדריכלי <span class="c">מעוצב</span>', 'h2', 330, 55.35, 59.9],
+  ['ירידה לפרטים הקטנים ביותר', 'h3', 420, 57.6, 59.9],
+  ['עץ חם', 'h2', 330, 60.1, 63.8],
+  ['אור רך', 'h2', 410, 61.1, 63.8],
+  ['קירות מעוגלים', 'h2', 490, 62.2, 63.8],
+  ['כל פרט <span class="c">נבחר בקפידה</span>', 'h2', 330, 64.0, 67.9],
+  ['המעליות לוקחות אתכם לקומה', 'h3', 330, 68.9, 71.8],
+  ['פחות שכנים', 'h2', 330, 79.0, 85.0],
+  ['יותר פרטיות', 'h2', 410, 80.9, 85.0],
+  ['תחושה אמיתית של <span class="c">בית</span>', 'h2', 490, 82.4, 85.0],
+  ['תמהיל דירות מגוון', 'h3', 330, 88.9, 90.9],
+  ['מיני פנטהאוזים', 'h2', 330, 94.5, 98.0],
+  ['<span class="c">פנטהאוזים</span>', 'h1', 430, 96.1, 98.0],
+  ['מפרט טכני<br><span class="b">גבוה ביותר</span>', 'h2', 330, 99.1, 102.9],
+  ['חלונות גדולים', 'h2', 330, 104.9, 109.6],
+  ['הרבה אור טבעי', 'h2', 410, 106.4, 109.6],
+  ['מצד אחד <span class="b">הים</span>', 'h2', 330, 109.8, 113.8],
+  ['מצד שני <span class="c">קו הרקיע של תל אביב</span>', 'h3', 420, 111.0, 113.8],
+  ['מטבח פתוח', 'h2', 330, 114.0, 117.3],
+  ['חללים נדיבים', 'h2', 330, 116.7, 122.3],
+  ['בסיס מושלם <span class="c">לבית שלכם</span>', 'h3', 420, 117.9, 122.3],
+  ['פותחים את הוויטרינה', 'h2', 330, 125.3, 128.5],
+  ['כל בוקר.', 'h2', 1230, 130.4, 133.9],
+  ['מיקום · תכנון · נוף לים', 'h3', 1290, 135.2, 137.9],
+];
+const host = $('texts');
+const TEL = TEXTS.map(([html, cls, top]) => { const d = document.createElement('div'); d.className = 'layer ' + cls; d.style.top = top + 'px'; d.innerHTML = html; host.appendChild(d); return d; });
+
+const shotsEl = $('shots');
 for (const s of SHOTS) {
-  const d = document.createElement('div'); d.className = 'shot'; d.id = 's_' + s.id;
-  const img = document.createElement('img'); d.appendChild(img); host.appendChild(d);
-  s.el = d; s.img = img; s.hasSeq = !!(s.seq && M[s.seq]);
-  img.src = s.still;
+  const d = document.createElement('div'); d.className = 'shot';
+  const img = document.createElement('img'); d.appendChild(img); shotsEl.appendChild(d);
+  s.el = d; s.img = img; s.hasSeq = !!(s.seq && M[s.seq]); img.src = s.still;
+  if (s.hasSeq) s.cam = s.seq === 'presenter' ? s.cam : [[1, 0, 0], [1.04, 0, 0]];
 }
-const natural = {};
 function place(s, k, extra) {
   const img = s.img, W = img.naturalWidth || 1080, H = img.naturalHeight || 1920;
-  // cover 1080x1920
   const base = Math.max(1080 / W, 1920 / H);
   const [s0, x0, y0] = s.cam[0], [s1, x1, y1] = s.cam[1], e = easeIO(k) * 0.35 + k * 0.65;
   const sc = base * lerp(s0, s1, e) * (extra.scale || 1);
+  // keep the frame covered: clamp the offset to what the scaled image allows
+  const mx = Math.max(0, (W * sc - 1080) / 2), my = Math.max(0, (H * sc - 1920) / 2);
+  const x = clamp(lerp(x0, x1, e), -mx, mx) + (extra.x || 0), y = clamp(lerp(y0, y1, e), -my, my);
   img.style.width = W + 'px'; img.style.height = H + 'px';
-  img.style.transform = `translate(-50%, -50%) translate(${(lerp(x0, x1, e) + (extra.x || 0)).toFixed(1)}px, ${lerp(y0, y1, e).toFixed(1)}px) scale(${sc.toFixed(4)})`;
+  img.style.transform = `translate(-50%, -50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${sc.toFixed(4)})`;
 }
 
-// grain, seeded
 let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 const g = $('grain').getContext('2d'), gi = g.createImageData(540, 960);
 function grain(f) { seed = 11 + (f % 24) * 977; for (let i = 0; i < gi.data.length; i += 4) { const v = rnd() * 255; gi.data[i] = gi.data[i + 1] = gi.data[i + 2] = v; gi.data[i + 3] = 255; } g.putImageData(gi, 0, 0); }
 
-// captions: word timings from the voiceover transcript, grouped into short lines
+// captions from the voiceover word timings, in short lines
 const WORDS = window.WORDS || [];
 const LINES = [];
-{
-  let cur = [];
-  for (const w of WORDS) {
-    cur.push(w);
-    const end = /[.,]$/.test(w.text) || cur.length >= 4;
-    if (end) { LINES.push(cur); cur = []; }
-  }
-  if (cur.length) LINES.push(cur);
-}
+{ let cur = []; for (const w of WORDS) { cur.push(w); if (/[.,]$/.test(w.text) || cur.length >= 4) { LINES.push(cur); cur = []; } } if (cur.length) LINES.push(cur); }
 const cap = $('cap');
 function captions(t) {
-  const line = LINES.find((l, i) => t >= l[0].start - 0.08 && t < (LINES[i + 1] ? Math.min(LINES[i + 1][0].start - 0.08, l[l.length - 1].end + 0.6) : l[l.length - 1].end + 0.6));
-  if (!line || t > 49.8) { cap.innerHTML = ''; return; }
+  const i = LINES.findIndex((l, j) => t >= l[0].start - 0.08 && t < (LINES[j + 1] ? Math.min(LINES[j + 1][0].start - 0.08, l[l.length - 1].end + 0.6) : l[l.length - 1].end + 0.6));
+  if (i < 0 || t > 144.3) { cap.innerHTML = ''; return; }
+  const line = LINES[i];
   cap.innerHTML = line.map((w) => `<span class="${t >= w.start - 0.03 ? 'on' : ''}">${w.text.replace(/[.,]$/, '')}</span>`).join('');
-  const st = line[0].start, k = ease(span(t, st - 0.08, st + 0.16));
+  const k = ease(span(t, line[0].start - 0.08, line[0].start + 0.16));
   cap.style.opacity = k.toFixed(3); cap.style.transform = `translateY(${((1 - k) * 18).toFixed(1)}px)`;
 }
 
 const leak = $('leak');
-window.TOTAL = 55.5;
+window.TOTAL = 153;
 window.render = (t) => {
   const f = Math.round(t * FPS);
-  // --- shots and seams ---
-  for (const s of SHOTS) {
-    const on = t >= s.a && t < s.b;
-    if (!on) { s.el.style.opacity = 0; continue; }
-    const k = span(t, s.a, s.b);
-    const xin = XF[s.id], tin = span(t, s.a, s.a + 0.45);
-    let extra = {}, op = 1, blur = 0;
+  SHOTS.forEach((s, n) => {
+    if (!(t >= s.a && t < s.b)) { s.el.style.opacity = 0; return; }
+    const k = span(t, s.a, s.b), xin = XF[s.id], tin = span(t, s.a, s.a + 0.45);
+    const extra = {}; let op = 1, blur = 0;
     if (xin && tin < 1) {
       op = ease(tin);
       if (xin === 'zoom') { extra.scale = 1 + (1 - ease(tin)) * 0.25; blur = (1 - ease(tin)) * 18; }
       if (xin === 'whip') { extra.x = (1 - easeIO(tin)) * -520; blur = (1 - ease(tin)) * 26; }
-    }
-    // outgoing shot pushes forward under the next one
-    const next = SHOTS[SHOTS.indexOf(s) + 1];
-    if (next && t > next.a) { const to = span(t, next.a, s.b); extra.scale = (extra.scale || 1) * (1 + ease(to) * 0.18); blur = Math.max(blur, ease(to) * 14); }
+    } else if (!xin && n > 0) op = 1;
+    const next = SHOTS[n + 1];
+    if (next && t > next.a && XF[next.id]) { const to = span(t, next.a, s.b); extra.scale = (extra.scale || 1) * (1 + ease(to) * 0.18); blur = Math.max(blur, ease(to) * 14); }
     if (s.hasSeq) {
-      const n = M[s.seq], idx = clamp(Math.floor(s.at(t) * FPS), 0, n - 1);
+      const idx = clamp(Math.floor(s.at(t) * FPS), 0, M[s.seq] - 1);
       const src = `frames/${s.seq}/${String(idx + 1).padStart(4, '0')}.jpg`;
       if (s.img.getAttribute('src') !== src) s.img.src = src;
-      s.cam = s.camSeq || [[1, 0, 0], [1.04, 0, 0]];
     }
     place(s, k, extra);
     s.el.style.opacity = op.toFixed(3);
     s.el.style.filter = blur > 0.2 ? `blur(${blur.toFixed(1)}px)` : '';
-    s.el.style.zIndex = SHOTS.indexOf(s);
-  }
-  // light leak + flash at seams
+    s.el.style.zIndex = n;
+  });
   let lk = 0, fl = 0;
-  for (const s of SHOTS.slice(1)) { const d = t - s.a; if (d > -0.25 && d < 0.6) lk = Math.max(lk, Math.sin(clamp((d + 0.25) / 0.85) * Math.PI)); if (d > -0.05 && d < 0.25) fl = Math.max(fl, 1 - d / 0.25); }
+  for (const c of CUTS) { const d = t - c; if (d > -0.25 && d < 0.6) lk = Math.max(lk, Math.sin(clamp((d + 0.25) / 0.85) * Math.PI)); if (d > -0.05 && d < 0.25) fl = Math.max(fl, 1 - d / 0.25); }
   leak.style.background = `radial-gradient(60% 45% at ${(30 + 40 * Math.sin(t * 0.7)).toFixed(1)}% ${(35 + 20 * Math.cos(t * 0.5)).toFixed(1)}%, rgba(255,90,90,${(0.55 * lk).toFixed(3)}), transparent 70%), radial-gradient(55% 40% at 80% 70%, rgba(27,145,223,${(0.5 * lk).toFixed(3)}), transparent 70%)`;
   $('flash').style.opacity = (0.35 * fl).toFixed(3);
 
-  // --- S1 hook (0-5.2) ---
-  const lto = env(t, 1.4, 5.0);
-  $('lt').style.opacity = lto.toFixed(3);
-  $('lt').style.transform = `translateX(${(rise(t, 1.4, 0.6) * 60).toFixed(1)}px)`;
-  $('ltbar').style.transform = `scaleX(${ease(span(t, 1.4, 2.1)).toFixed(3)})`;
+  // intro: fade up from black, logo resolves out of blur, subtitle follows
+  $('shots').style.opacity = ease(span(t, 0, 1.2)).toFixed(3);
+  const il = $('intro'), io = env(t, 0.8, 5.9, 0.6); il.style.opacity = io.toFixed(3);
+  il.style.transform = `scale(${(0.9 + 0.1 * ease(span(t, 0.8, 2.6)) + 0.03 * span(t, 2.6, 5.9)).toFixed(3)})`;
+  il.style.filter = `blur(${(rise(t, 0.8, 1.2) * 24).toFixed(1)}px)`;
+  il.style.letterSpacing = '0';
+  show('introsub', t, 2.4, 5.8, 40);
 
-  // --- S2 location (5.2-16) ---
-  show('loc1', t, 5.8, 9.3, 60);
-  show('loc2', t, 7.6, 9.3, 40);
-  show('loc3', t, 9.4, 11.55, 60);
-  const dOn = env(t, 11.55, 15.95, 0.4);
-  const dist = $('dist'); dist.style.opacity = dOn.toFixed(3); dist.style.transform = `translateY(${(rise(t, 11.55, 0.5) * 60).toFixed(1)}px)`;
-  const draw = easeIO(span(t, 12.0, 13.4));
-  $('dsolid').style.strokeDasharray = `${draw} 1`;
-  $('dline').style.opacity = (1 - draw).toFixed(3);
-  $('dnum').textContent = Math.round(120 * ease(span(t, 12.0, 13.4)));
-  $('dnum').style.opacity = ease(span(t, 11.9, 12.2)).toFixed(3); $('dunit').style.opacity = ease(span(t, 12.8, 13.2)).toFixed(3);
-  const bpop = back(span(t, 13.4, 13.9));
-  $('pinB').setAttribute('transform', `translate(260 380) scale(${bpop.toFixed(3)})`);
-  $('pinA').setAttribute('transform', `translate(820 380) scale(${back(span(t, 11.6, 12.1)).toFixed(3)})`);
+  $('lt').style.opacity = env(t, 7.0, 11.9).toFixed(3);
+  $('lt').style.transform = `translateX(${(rise(t, 7.0, 0.6) * 60).toFixed(1)}px)`;
+  $('ltbar').style.transform = `scaleX(${ease(span(t, 7.0, 7.7)).toFixed(3)})`;
+
+  TEXTS.forEach(([, cls, , a, b], i) => show(TEL[i], t, a, b, cls === 'h1' ? 70 : 50));
+
+  // 120 m to the light rail (25.4-36.7)
+  const dist = $('dist'); dist.style.opacity = env(t, 25.4, 36.7, 0.4).toFixed(3); dist.style.transform = `translateY(${(rise(t, 25.4, 0.5) * 60).toFixed(1)}px)`;
+  const draw = easeIO(span(t, 27.5, 29.4));
+  $('dsolid').style.strokeDasharray = `${draw} 1`; $('dline').style.opacity = (1 - draw).toFixed(3);
+  $('dnum').textContent = Math.round(120 * ease(span(t, 27.5, 28.9)));
+  $('dnum').style.opacity = ease(span(t, 27.4, 27.7)).toFixed(3); $('dunit').style.opacity = ease(span(t, 28.5, 28.9)).toFixed(3);
+  $('pinA').setAttribute('transform', `translate(820 380) scale(${back(span(t, 25.5, 26.0)).toFixed(3)})`);
+  $('pinB').setAttribute('transform', `translate(260 380) scale(${back(span(t, 29.4, 29.9)).toFixed(3)})`);
   const rp = (t * 0.9) % 1; $('ringA').setAttribute('r', (62 + rp * 50).toFixed(1)); $('ringA').style.opacity = (1 - rp).toFixed(3);
-  $('dB').style.opacity = $('dB2').style.opacity = ease(span(t, 13.5, 13.9)).toFixed(3);
-  $('dA').style.opacity = ease(span(t, 11.8, 12.2)).toFixed(3);
+  $('dA').style.opacity = ease(span(t, 25.7, 26.1)).toFixed(3);
+  $('dB').style.opacity = $('dB2').style.opacity = ease(span(t, 29.5, 29.9)).toFixed(3);
 
-  // --- S3 towers (17.9-22.4) ---
-  for (const [id, a, n, nid] of [['st1', 17.8, 2, 'n1'], ['st2', 18.8, 25, 'n2']]) {
-    const o = env(t, a, 22.3, 0.35); $(id).style.opacity = o.toFixed(3);
+  // 2 towers, 25 floors (38.4-42.8)
+  for (const [id, a, n, nid] of [['st1', 38.4, 2, 'n1'], ['st2', 39.7, 25, 'n2']]) {
+    $(id).style.opacity = env(t, a, 42.8, 0.35).toFixed(3);
     $(id).style.transform = `translateY(${(rise(t, a, 0.5) * 80).toFixed(1)}px) scale(${(0.9 + 0.1 * back(span(t, a, a + 0.5))).toFixed(3)})`;
     $(nid).textContent = Math.round(n * ease(span(t, a, a + 0.9)));
   }
-  show('sea', t, 20.7, 22.3, 50);
+  show('four', t, 76.3, 78.8, 80);
 
-  // --- S4 lobby (22.4-28.7) ---
-  show('enter', t, 22.6, 23.7, 70);
-  show('arch1', t, 23.75, 28.6, 50);
-  show('arch2', t, 25.9, 28.6, 40);
+  // 3 / 4 / 5 rooms (90.9-94.2)
+  $('rooms').style.opacity = env(t, 90.8, 94.2).toFixed(3); $('rooms').style.transform = 'none';
+  for (const [id, a] of [['r3', 91.4], ['r4', 92.1], ['r5', 92.5]]) { const k = back(span(t, a, a + 0.45)); $(id).style.opacity = ease(span(t, a, a + 0.2)).toFixed(3); $(id).style.transform = `scale(${k.toFixed(3)}) rotate(${((1 - ease(span(t, a, a + 0.45))) * -12).toFixed(1)}deg)`; }
+  $('roomsl').style.opacity = ease(span(t, 93.4, 93.8)).toFixed(3);
 
-  // --- S5 floor (28.7-31.4) ---
-  show('four', t, 28.85, 31.3, 80);
+  // the view (128.6-130.4)
+  const v2 = $('v2'), vo = env(t, 128.6, 130.35, 0.5); v2.style.opacity = vo.toFixed(3);
+  v2.style.letterSpacing = `${(rise(t, 128.6, 1.2) * 0.25).toFixed(3)}em`;
+  v2.style.filter = `blur(${(rise(t, 128.6, 0.8) * 20).toFixed(1)}px)`;
 
-  // --- S6 apartments (31.4-39.4) ---
-  $('rooms').style.opacity = env(t, 31.3, 34.0).toFixed(3); $('rooms').style.transform = 'none';
-  for (const [id, a] of [['r3', 31.42], ['r4', 32.08], ['r5', 32.4]]) { const k = back(span(t, a, a + 0.45)); $(id).style.opacity = ease(span(t, a, a + 0.2)).toFixed(3); $(id).style.transform = `scale(${k.toFixed(3)}) rotate(${((1 - ease(span(t, a, a + 0.45))) * -12).toFixed(1)}deg)`; }
-  $('roomsl').style.opacity = ease(span(t, 33.38, 33.7)).toFixed(3);
-  show('ph1', t, 34.1, 36.75, 50);
-  show('ph2', t, 35.1, 36.75, 70);
-  show('spec', t, 36.85, 39.3, 60);
+  show('close', t, 142.6, 144.55, 40);
 
-  // --- S7 balcony (39.4-46.2) ---
-  show('v1', t, 40.8, 43.6, 50);
-  const v2 = $('v2'), vo = env(t, 44.15, 46.15, 0.5); v2.style.opacity = vo.toFixed(3);
-  v2.style.letterSpacing = `${(rise(t, 44.15, 1.2) * 0.25).toFixed(3)}em`;
-  v2.style.filter = `blur(${(rise(t, 44.15, 0.8) * 20).toFixed(1)}px)`;
-
-  // --- S8 close (46.2-49.7) ---
-  show('close', t, 46.45, 49.75, 40);
-
-  // brand bug and AI label hide on the end card
-  const endk = ease(span(t, 49.6, 50.3));
-  $('bug').style.opacity = (env(t, 0.6, 49.8, 0.5) * (1 - env(t, 46.3, 49.8))).toFixed(3);
-  $('ai').style.opacity = (1 - endk).toFixed(3);
-
-  // --- end card ---
+  const endk = ease(span(t, 144.4, 145.1));
+  $('bug').style.opacity = (env(t, 6.4, 144.6, 0.5) * (1 - env(t, 134.1, 144.6))).toFixed(3);
+  $('ai').style.opacity = (ease(span(t, 0.5, 1.2)) * (1 - endk)).toFixed(3);
   const end = $('end'); end.style.opacity = endk.toFixed(3);
-  const lg = $('endlogo'); lg.style.opacity = ease(span(t, 50.0, 50.8)).toFixed(3);
-  lg.style.transform = `scale(${(0.86 + 0.14 * back(span(t, 50.0, 50.9))).toFixed(3)})`;
-  lg.style.filter = `blur(${(rise(t, 50.0, 0.7) * 16).toFixed(1)}px)`;
-  for (const [id, a] of [['endline', 50.9], ['endaddr', 51.2], ['endcta', 51.6], ['endfine', 52.0]]) {
+  const lg = $('endlogo'); lg.style.opacity = ease(span(t, 144.8, 145.6)).toFixed(3);
+  lg.style.transform = `scale(${(0.86 + 0.14 * back(span(t, 144.8, 145.7))).toFixed(3)})`;
+  lg.style.filter = `blur(${(rise(t, 144.8, 0.7) * 16).toFixed(1)}px)`;
+  for (const [id, a] of [['endline', 145.7], ['endaddr', 146.0], ['endcta', 146.4], ['endfine', 146.8]]) {
     const el = $(id); el.style.opacity = ease(span(t, a, a + 0.5)).toFixed(3);
-    el.style.transform = (id === 'endcta' ? 'translateX(-50%) ' : '') + `translateY(${(rise(t, a, 0.5) * 40).toFixed(1)}px)` + (id === 'endcta' ? ` scale(${(1 + 0.03 * Math.sin(Math.max(0, t - 52.2) * 5)).toFixed(3)})` : '');
+    el.style.transform = (id === 'endcta' ? 'translateX(-50%) ' : '') + `translateY(${(rise(t, a, 0.5) * 40).toFixed(1)}px)` + (id === 'endcta' ? ` scale(${(1 + 0.03 * Math.sin(Math.max(0, t - 147) * 5)).toFixed(3)})` : '');
   }
   const wv = (ph, amp, base) => { let d = `M0 ${base}`; for (let x = 0; x <= 1080; x += 30) d += ` L${x} ${(base + Math.sin(x / 140 + t * 1.4 + ph) * amp).toFixed(1)}`; return d + ' L1080 520 L0 520 Z'; };
   $('wpath').setAttribute('d', wv(0, 22, 300)); $('wpath2').setAttribute('d', wv(2, 18, 380));
-
+  // fade to white at the very end
+  end.style.filter = '';
   captions(t);
   grain(f);
 };
