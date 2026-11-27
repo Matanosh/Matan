@@ -23,8 +23,10 @@
     ukraine: P('ukraine', [30.72, 46.48], '#project'),
     usa: P('usa', [-80.19, 25.76], '#project'),
   };
-  const order = Object.keys(PLACES);
-  let selected = 'uae';
+  // data-where-only="uae" limits the globe to one destination (used by the project presentation app)
+  const only = PLACES[canvas.dataset.whereOnly] ? canvas.dataset.whereOnly : null;
+  const order = only ? [only] : Object.keys(PLACES);
+  let selected = order[0];
 
   const projection = d3.geoOrthographic().clipAngle(90).precision(0.4);
   const path = d3.geoPath(projection, ctx);
@@ -144,5 +146,5 @@
 
   new ResizeObserver(size).observe(canvas);
   new IntersectionObserver(([e]) => { if (e.isIntersecting) { t0 = performance.now(); start(); } else stop(); }).observe(canvas);
-  size(); select('uae', false); if (reduced.matches) draw();
+  size(); select(selected, false); if (reduced.matches) draw();
 })();

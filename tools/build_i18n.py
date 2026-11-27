@@ -102,11 +102,16 @@ def build(lang, he):
     out.write_text(s, encoding='utf-8')
     print(f'{lang}: {out.relative_to(ROOT)} written')
 
-he_path = ROOT / 'index.html'
-he = he_path.read_text(encoding='utf-8')
-he = he.replace('(<bdi>Galt &amp</bdi>; <bdi>Taggart</bdi>)', '(<bdi>Galt &amp; Taggart</bdi>)')
-he = add_chrome(he, 'he')
-he_path.write_text(he, encoding='utf-8')
-print('he: index.html switcher and alternates in place')
-for lang in ('en', 'fr'):
-    build(lang, he)
+def main():
+    he_path = ROOT / 'index.html'
+    he = he_path.read_text(encoding='utf-8')
+    he = he.replace('(<bdi>Galt &amp</bdi>; <bdi>Taggart</bdi>)', '(<bdi>Galt &amp; Taggart</bdi>)')
+    he = add_chrome(he, 'he')
+    he_path.write_text(he, encoding='utf-8')
+    print('he: index.html switcher and alternates in place')
+    for lang in ('en', 'fr'):
+        build(lang, he)
+
+
+if __name__ == '__main__':
+    main()

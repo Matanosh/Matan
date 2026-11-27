@@ -126,6 +126,53 @@ components:
     height: "{spacing.nav-height}"
 ---
 
+# DESIGN.md · MS Group Global
+
+> Craft brief: read this first. If this file and the code disagree, the code wins until the owner decides; note the conflict under Open questions. The full design system follows below the brief.
+
+## Product
+A marketing site for MS Group Global, the abroad arm of MS Group (msgp.co.il), which markets and initiates real-estate projects in Cyprus, Portugal, Romania, Georgia, Dubai and Ras Al Khaimah, Ukraine, the USA (Miami) and more. Static HTML/CSS/JS, no build step. Visitors arrive from search and from project-specific ads, mostly on phones and also on desktop. Main job: leave a consultation request. Second job: read as a serious, premium operator at first sight, and as one "home" that handles everything from budget to key. Details: `PRODUCT.md`.
+
+## Audience and voice
+Israeli private investors buying property abroad, in two equal groups: first-timers who need the process explained and want their hand held, and experienced investors looking for new markets, numbers and a professional operator. Many are older. Voice: warm and confident, "we are your home abroad", all-inclusive; never talk down to either group. Hebrew, right-to-left, is the source; English (`/en/`) and French (`/fr/`) are generated from it by `tools/build_i18n.py` and `tools/build_legal.py`. Israeli formats (phone 072-2133266).
+
+## Mood
+Words: classic luxury (executed straight, no irony), warm, confident. Never like: a listings portal of price cards; a flashy "get rich" ad with invented returns; a generic real-estate template; a bright white tech page (assumed from the owner's principles and references; the owner had no further preference).
+
+## Brand
+Design system source: `assets/css/site.css` (`:root`: 22 tokens; colours taken from msgp.co.il) and the system documented below. Logo: the MS Group logo `assets/img/msgroup-logo.png`, favicon `assets/img/favicon.png`; no separate MS Group Global logo exists yet. Colours: night navy, champagne gold, ivory (from msgp.co.il). Fonts: Frank Ruhl Libre headings, Heebo body (from msgp.co.il). Dark theme only.
+
+## References
+- Apple product pages: take the scroll-driven effects, the finish and polish, big calm type, one idea per screen; avoid too much scrolling before the contact form, the bright white product-lab look, and too little information (investors need concrete facts and steps, not only slogans).
+- msgp.co.il (the parent brand): take the logo and colours, the track-record numbers (34 projects completed, 28 in marketing, 15 cities), the project showcase with renders, and the family-brand feel so trust carries over; avoid the dated template look, crowded pages, static pages with no motion, and Israel-only framing.
+
+## Constraints
+Web, phone first and desktop; breakpoints at 900px and 700px, pinned stages off under 900px wide or 560px tall. RTL mirrored throughout in Hebrew; LTR in English and French. Body text 17px minimum at 1.65 line height, generous contrast, 44px minimum targets. Dark theme only. Authored line-drawn SVG icons and arrows, no glyphs. Scroll-led, once-only motion on two easings; every piece of content is present with reduced motion. Never invent projects, prices, returns, counts or testimonials: missing facts are visible slots.
+
+## Decisions log
+- 2026-11-14 — Palette, fonts and logo taken from msgp.co.il — the owner asked that the parent brand be used.
+- 2026-11-14 — English and French versions generated from the Hebrew page — one source of truth for copy; run both build tools after any Hebrew change.
+- 2026-11-14 — Classic luxury real estate, executed straight, chosen over a dealt direction — the owner's standing preference.
+- 2026-11-21 — Craft brief added on top of the existing design system, which stays the source of truth for tokens and components — `craft-setup`; references and their take/avoid confirmed by the owner.
+- 2026-11-21 — Brief approved by the owner. Foundations are the existing tokens in `assets/css/site.css`; no design tool is used, so craft builds in HTML from them and nothing is imported — the system already lives in the code.
+- 2026-11-21 — First project landing page, `projects/azure.html` (he/en/fr), for project ads — a visitor from an ad must be able to trust the project and leave a request without the home page. Built only from existing pieces: project panel and gallery, project film, ruled facts list, the home page's "One home" section, the contact section and form. No new components or tokens.
+- 2026-11-21 — Missing project facts (unit types and sizes, handover, payment plan, developer profile) are visible "to be added" slots — nothing invented.
+- 2026-11-21 — The starting price carries "price correct as of 14.11.2026" (the date the owner supplied it) — prices change after ads go live. The budget question stays on the project form (owner's choice).
+- 2026-11-21 — The project form pre-selects the UAE and sends the project name (a "Project" row and the email subject) — the office knows which ad the lead came from.
+- 2026-11-21 — English and French project pages are generated by `tools/build_projects.py`, reusing the home page's translation table for shared parts — the three languages can't drift apart.
+- 2026-11-21 — Project presentation app, one per project (`present/<project>/`, first: `present/azure/`, he/en/fr), modelled on and improving the Gindi Space 360 presenter: nine full-height screens (welcome, surroundings, project, highlights, unit types, payment plan, film, who's with you, next step) for both a presenter (keys, remote, full screen) and a client alone on a phone. No 3D: renders, film, globe and facts only. Components approved on `design/boards/present-components.html`.
+- 2026-11-21 — Screens never vanish when their data is missing: they show the shared "coming soon" state, whose link sends the request (e.g. "payment plan") with the lead — an unanswered question becomes a lead.
+- 2026-11-21 — The app changes screens only on keys, arrows and the menu, never by hijacking scroll — clients scroll freely, presenters step precisely.
+- 2026-11-21 — New token `--glass` / `--glass-edge`: the header's existing glass value given a role name; the phone bar uses it.
+
+## Open questions
+- What the site must never look like: the list under Mood is assumed; confirm or change it.
+- Does MS Group Global get its own logo, or keep the MS Group logo?
+- Does MS Group Global use MS Group's phone, email and Bene Brak address? A WhatsApp number?
+- Where should the consultation form send? (It currently opens a prepared email to the office.)
+- Renders and facts for the projects that have none on disk yet.
+- Conflict in the text below: the brand caveat at the top of the design system and the last Don't still say msgp.co.il has not been seen and the logo is a stand-in, but `PRODUCT.md` and `site.css` show the parent palette, fonts and logo applied on 2026-11-14. The code wins; update that text when the owner confirms.
+
 # Design System: MS Group Global
 
 <!-- Brand caveat: the parent brand msgp.co.il has not been seen and the real logo has not been received. When they are supplied, the logo and its colours override this palette. The "MS" box wordmark in the build is a stand-in, not a system element. -->
@@ -320,6 +367,13 @@ Two easings carry everything: **ease-out** `cubic-bezier(0.23, 1, 0.32, 1)` for 
 - **Once-only line drawings:** country skylines ink over 1800ms (ease-in-out, paths staggered 200ms) when 35% of a panel is visible; due-diligence check marks ink over 700ms (ease-out) staggered 120ms per row; the touch end-key lights once. Each observer disconnects after firing. Content is never hidden behind these; only the drawings wait.
 - **Micro-interactions:** press scale 0.97 at 160ms; link underline 300ms; arrow nudge 200ms; button sheen 900ms; nav glass 300ms.
 - **Reduced motion:** smooth scrolling off; every keyframe animation reduced to an instant single run; the statement shows fully lit; skylines and checks show fully drawn; the globe holds one complete still frame; journey steps cross-fade over 200ms with no blur or travel. Scroll-linked position (the journey path, the gallery track) still follows the user's own scrolling.
+
+### Presentation app (`assets/css/present.css`)
+Approved 2026-11-21 with full states matrices on `design/boards/present-components.html`. Used by `present/<project>/` only.
+- **App navigation:** a 268px rail on the start side (desktop) listing every screen with its number; the current one carries a 2px drawn gold mark and Pale Champagne text (no weight change), a "Soon" tag marks screens without data, and a gold progress rule fills from the start side. Under 900px it becomes a glass bottom bar (back · current screen · next; ends disabled) whose middle button opens a full-screen section sheet (Esc closes and returns focus).
+- **Section frame (`.pslide`):** one idea per screen, at least the window's height, opened by a circled step number and a headline; navies alternate; longer content keeps scrolling. Variants: text, split (text and image), full media.
+- **Unit-type card (`.unit`):** floor plan (monogram slot when missing), name, ruled facts, one arrow link; hover darkens only the border; sold-out swaps the link for a grey tag.
+- **Coming soon (`.soon`):** line-drawn gold hourglass, one sentence on what is missing, the known facts if any, and an arrow link that requests the details.
 
 ## Do's and Don'ts
 

@@ -310,6 +310,7 @@ T = [
 
 ('<p class="project__price">החל מ־<strong>750,000 דירהם</strong></p>', '<p class="project__price">From <strong>AED 750,000</strong></p>', '<p class="project__price">À partir de <strong>750\u202f000\u00a0AED</strong></p>'),
 
+('<a class="link" href="projects/azure.html">לעמוד הפרויקט ', '<a class="link" href="projects/azure.html">Project page ', '<a class="link" href="projects/azure.html">Page du projet '),
 ('<p class="project__price">החל מ־<strong>700,000 דירהם</strong></p>', '<p class="project__price">From <strong>AED 700,000</strong></p>', '<p class="project__price">À partir de <strong>700\u202f000\u00a0AED</strong></p>'),
 
 ('<p class="project__price">החל מ־<strong>649,000 דירהם</strong></p>', '<p class="project__price">From <strong>AED 649,000</strong></p>', '<p class="project__price">À partir de <strong>649\u202f000\u00a0AED</strong></p>'),

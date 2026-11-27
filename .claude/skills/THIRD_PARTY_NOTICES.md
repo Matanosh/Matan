@@ -1,6 +1,6 @@
 # Third-party skills in this project
 
-These skill folders were copied unmodified from their upstream repositories.
+These skill folders were copied unmodified (a LICENSE file added where upstream keeps it only at the repo root) from their upstream repositories.
 Each folder keeps its upstream license file next to its `SKILL.md`.
 
 | Skill folder | Upstream | Path in upstream | Commit | License | Copyright |
@@ -8,6 +8,7 @@ Each folder keeps its upstream license file next to its `SKILL.md`.
 | `emil-design-eng/` | https://github.com/emilkowalski/skills | `skills/emil-design-eng/` | `0f2e23b` | MIT (`emil-design-eng/LICENSE`) | © 2026 Emil Kowalski |
 | `impeccable/` (v4.9.1) | https://github.com/pbakaus/impeccable | `.claude/skills/impeccable/` | `fb46cc6` | Apache-2.0 (`impeccable/LICENSE`, `impeccable/NOTICE.md`) | Paul Bakaus and contributors |
 | `design-taste-frontend/` (tasteskill 2.5.1) | https://github.com/Leonxlnx/taste-skill | `skills/taste-skill/` | `f6b7657` | MIT (`design-taste-frontend/LICENSE`) | © 2026 Leonxlnx |
+| `craft/`, `craft-critique/`, `craft-explore/`, `craft-setup/`, `craft-states/`, `craft-sync/`, `craft-system/`, `using-craft/` | https://github.com/diego3g/craft | `skills/<name>/` | `2b1f0ee` | MIT (`<name>/LICENSE`) | © 2026 Diego Fernandes |
 
 Also copied from Impeccable (same commit and license), because the `impeccable` skill delegates to them:
 `../agents/impeccable-asset-producer.md`, `../agents/impeccable-documenter.md`,

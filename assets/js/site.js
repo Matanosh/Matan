@@ -7,13 +7,13 @@
   const LANG = (root.lang || 'he').slice(0, 2);
   const RTL = getComputedStyle(root).direction === 'rtl';
   const T = {
-    he: { emph: ['בית:', 'אחד,', 'אחת', 'אחת,', 'המפתח'], name: 'שם', phone: 'טלפון', budget: 'תקציב', countries: 'מדינות', none: 'לא צוין', privacyOk: 'אישור מדיניות פרטיות: כן', marketing: 'הסכמה לדיוור שיווקי', yes: 'כן', no: 'לא', subject: 'פנייה מאתר MS Group Global',
+    he: { emph: ['בית:', 'אחד,', 'אחת', 'אחת,', 'המפתח'], project: 'פרויקט', name: 'שם', phone: 'טלפון', budget: 'תקציב', countries: 'מדינות', none: 'לא צוין', privacyOk: 'אישור מדיניות פרטיות: כן', marketing: 'הסכמה לדיוור שיווקי', yes: 'כן', no: 'לא', subject: 'פנייה מאתר MS Group Global',
       mailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, התקשרו 072-2133266 או כתבו ל־office@msgp.co.il.', sending: 'שולחים...', thanks: 'תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.', failed: 'השליחה לא הצליחה. נסו שוב בעוד רגע.', play: 'הפעלת אנימציה', pause: 'עצירת אנימציה', email: 'דוא״ל', vPause: 'עצירת הסרטון', vPlay: 'הפעלת הסרטון', clubSubject: 'הצטרפות למועדון VIP של MS Group Global', clubConsent: 'אישור קבלת עדכונים: כן', clubMailto: 'ניסינו לפתוח הודעת מייל מוכנה עם הפרטים. אם היא לא נפתחה, כתבו ל־office@msgp.co.il ונצרף אתכם למועדון.',
       home: 'תל אביב', places: ['קפריסין', 'פורטוגל', 'רומניה', 'גאורגיה', 'דובאי', 'אוקראינה', '← מיאמי, ארה״ב'], font: 'Heebo' },
-    en: { emph: ['home', 'one', 'company,', 'key.'], name: 'Name', phone: 'Phone', budget: 'Budget', countries: 'Countries', none: 'Not specified', privacyOk: 'Privacy policy accepted: yes', marketing: 'Marketing consent', yes: 'yes', no: 'no', subject: 'Enquiry from the MS Group Global website',
+    en: { emph: ['home', 'one', 'company,', 'key.'], project: 'Project', name: 'Name', phone: 'Phone', budget: 'Budget', countries: 'Countries', none: 'Not specified', privacyOk: 'Privacy policy accepted: yes', marketing: 'Marketing consent', yes: 'yes', no: 'no', subject: 'Enquiry from the MS Group Global website',
       mailto: 'We tried to open a ready-made email with your details. If it did not open, call +972-72-2133266 or write to office@msgp.co.il.', sending: 'Sending…', thanks: 'Thank you! We have your details and will be in touch shortly.', failed: 'Sending failed. Please try again in a moment.', play: 'Play animation', pause: 'Pause animation', email: 'Email', vPause: 'Pause the film', vPlay: 'Play the film', clubSubject: 'Joining the MS Group Global VIP club', clubConsent: 'Consent to receive updates: yes', clubMailto: 'We tried to open a ready-made email with your details. If it did not open, write to office@msgp.co.il and we will add you to the club.',
       home: 'Tel Aviv', places: ['Cyprus', 'Portugal', 'Romania', 'Georgia', 'Dubai', 'Ukraine', '← Miami, USA'], font: 'Heebo' },
-    fr: { emph: ['maison\u00a0:', 'seule', 'seul', 'clé.'], name: 'Nom', phone: 'Téléphone', budget: 'Budget', countries: 'Pays', none: 'Non précisé', privacyOk: 'Politique de confidentialité acceptée\u00a0: oui', marketing: 'Accord pour la prospection commerciale', yes: 'oui', no: 'non', subject: 'Demande depuis le site MS Group Global',
+    fr: { emph: ['maison\u00a0:', 'seule', 'seul', 'clé.'], project: 'Projet', name: 'Nom', phone: 'Téléphone', budget: 'Budget', countries: 'Pays', none: 'Non précisé', privacyOk: 'Politique de confidentialité acceptée\u00a0: oui', marketing: 'Accord pour la prospection commerciale', yes: 'oui', no: 'non', subject: 'Demande depuis le site MS Group Global',
       mailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, appelez le +972 72 213 3266 ou écrivez à office@msgp.co.il.', sending: 'Envoi en cours…', thanks: 'Merci\u202f! Nous avons bien reçu vos coordonnées et revenons vers vous très vite.', failed: 'L’envoi a échoué. Merci de réessayer dans un instant.', play: 'Relancer l’animation', pause: 'Mettre l’animation en pause', email: 'E-mail', vPause: 'Mettre la vidéo en pause', vPlay: 'Lire la vidéo', clubSubject: 'Adhésion au club VIP MS Group Global', clubConsent: 'Accord pour recevoir des actualités\u00a0: oui', clubMailto: 'Nous avons tenté d’ouvrir un e-mail prérempli avec vos coordonnées. S’il ne s’est pas ouvert, écrivez à office@msgp.co.il et nous vous ajouterons au club.',
       home: 'Tel-Aviv', places: ['Chypre', 'Portugal', 'Roumanie', 'Géorgie', 'Dubaï', 'Ukraine', '← Miami, États-Unis'], font: 'Heebo' },
   }[LANG] || null;
@@ -306,6 +306,7 @@
     if (d.get('_honey')) return; // bots fill the hidden field
     const sep = LANG === 'fr' ? '\u00a0: ' : ': ';
     const rows = {
+      ...(d.get('project') ? { [L.project]: d.get('project') } : {}),
       [L.name]: d.get('name'), [L.phone]: d.get('phone'), [L.budget]: d.get('budget') || L.none,
       [L.countries]: d.getAll('country').join(', ') || L.none, [L.marketing]: d.get('marketing') ? L.yes : L.no, Language: LANG,
     };
@@ -313,11 +314,12 @@
     btn.disabled = true;
     status.textContent = L.sending;
     try {
-      await sendForm({ ...rows, ...kv(L.privacyOk) }, L.subject);
+      const subject = d.get('project') ? `${L.subject} · ${d.get('project')}` : L.subject;
+      await sendForm({ ...rows, ...kv(L.privacyOk) }, subject);
       form.reset();
       status.textContent = L.thanks;
     } catch {
-      viaMail(L.subject, [...Object.entries(rows).map(([k, v]) => `${k}${sep}${v}`), L.privacyOk]);
+      viaMail(d.get('project') ? `${L.subject} · ${d.get('project')}` : L.subject, [...Object.entries(rows).map(([k, v]) => `${k}${sep}${v}`), L.privacyOk]);
       status.textContent = L.mailto;
     } finally {
       btn.disabled = false;
